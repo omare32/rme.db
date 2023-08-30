@@ -1,0 +1,13 @@
+1 - go to path
+
+2 - python -m venv v1
+
+3 - go to scripts
+
+4 - activate
+
+D:\OneDrive\OneDrive - Rowad Modern Engineering\x004 Data Science\03.Rme.db\00.repo\rme.db\08.venv\v1\Scripts>activate
+
+5 - pip install auto-py-to-exe
+
+6 - auto-py-to-exe

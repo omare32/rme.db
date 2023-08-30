@@ -1,17 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[8]:
-
-
 import psycopg2
 import pandas as pd
 import tkinter as tk
 from tkinter import simpledialog
 from tkinter import PhotoImage
 
-
-# In[9]:
 
 
 # Database connection parameters
@@ -27,8 +19,6 @@ connection = psycopg2.connect(**db_params)
 cursor = connection.cursor()
 
 
-# In[10]:
-
 
 # Create a Tkinter root window
 root = tk.Tk()
@@ -40,14 +30,9 @@ logo_label = tk.Label(root, image=logo_image)
 logo_label.grid(row=0, column=0, columnspan=2)  # Place logo at row 0, column 0
 
 
-# In[11]:
-
-
 # Prompt the user to enter the project number using a dialog box
 project_no_value = simpledialog.askstring("Project Number", "Please enter the project number:")
 
-
-# In[12]:
 
 
 # SQL query to select data from the table where project_no matches user input
@@ -61,17 +46,11 @@ rows = cursor.fetchall()
 df = pd.DataFrame(rows, columns=[desc[0] for desc in cursor.description])
 
 
-# In[13]:
-
-
 # Export the data to an Excel file
 excel_filename = f"cost_dist_{project_no_value}.xlsx"
 df.to_excel(excel_filename, index=False)
 
 print(f"Data exported to '{excel_filename}' successfully!")
-
-
-# In[14]:
 
 
 # Close the database connection
@@ -81,4 +60,5 @@ print("Database connection closed.")
 
 # Start the Tkinter event loop
 root.mainloop()
+root.destroy()
 
