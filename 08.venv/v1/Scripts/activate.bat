@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\OneDrive\OneDrive - Rowad Modern Engineering\x004 Data Science\03.Rme.db\00.repo\rme.db\08.venv\v1
+set VIRTUAL_ENV=E:\OneDriveEng\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\08.venv\v1
 
 if not defined PROMPT set PROMPT=$P$G
 
