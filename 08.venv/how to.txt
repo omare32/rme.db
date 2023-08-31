@@ -1,7 +1,7 @@
 1 - go to path
 
 
-E:\OneDriveEng\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\08.venv\v1
+changed
 
 2 - python -m venv v1
 
