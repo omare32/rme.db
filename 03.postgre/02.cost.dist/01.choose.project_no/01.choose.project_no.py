@@ -1,15 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import psycopg2
 import pandas as pd
-
-
-# In[2]:
-
 
 connection = psycopg2.connect(
     host="localhost",
@@ -18,10 +8,6 @@ connection = psycopg2.connect(
     password="omar_321"
 )
 cursor = connection.cursor()
-
-
-# In[3]:
-
 
 cursor.execute("""
     SELECT project_name, comment, supplier_name, amount
@@ -34,4 +20,3 @@ df = pd.DataFrame(records, columns=["project_name", "comment", "supplier_name", 
 df.to_excel("cost_dist_152.xlsx", index=False)
 
 connection.close()
-
