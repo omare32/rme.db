@@ -71,7 +71,7 @@ def send_email_with_pdf(pdf_filename):
     # Set up the email content
     email = MIMEMultipart()
     email['From'] = 'omaressamrme@gmail.com'
-    email['To'] = 'yasser.abouzeid0@gmail.com'
+    email['To'] = 'yasser.abouzeid@rowad-rme.com'
     email['Subject'] = 'Site Progress Pictures'
 
     # Add body text (optional)
