@@ -1,0 +1,26 @@
+,no.,our_categorization,general_categorization,report_categorization
+0,1,Supply & Apply,Operation Cash Out,Operation Cash Out
+1,2,Apply Only,Operation Cash Out,Operation Cash Out
+2,3,Supply Only,Operation Cash Out,Operation Cash Out
+3,4,Concrete,Operation Cash Out,Operation Cash Out
+4,5,Steel,Operation Cash Out,Operation Cash Out
+5,6,Scaffolding,Operation Cash Out,Operation Cash Out
+6,7,Wood,Operation Cash Out,Operation Cash Out
+7,8,Pos & Delivery Payments,Operation Cash Out,Operation Cash Out
+8,9,Procurment (AP ),Operation Cash Out,Operation Cash Out
+9,10,Purchasing (Current Accounts),Operation Cash Out,Operation Cash Out
+10,11,Petty Cash,Operation Cash Out,Operation Cash Out
+11,12,Equipment,Operation Cash Out,Operation Cash Out
+12,13,Earthwork,Operation Cash Out,Operation Cash Out
+13,14,Consultancy,Operation Cash Out,Operation Cash Out
+14,15,Salaries,Indirect Operation Cash out,Finance
+15,16,Daily Wages,Indirect Operation Cash out,Finance
+16,17,Subcontractors Daily Wages,Indirect Operation Cash out,Finance
+17,18,Heavy Equipment,Indirect Operation Cash out,Finance
+18,19,Fleet,Indirect Operation Cash out,Finance
+19,20,Guard,Indirect Operation Cash out,Finance
+20,21,Accommodation,Indirect Operation Cash out,Finance
+21,22,Mobile,Indirect Operation Cash out,Finance
+22,23,Overheads,Head office Overheads,Finance
+23,24,(Taxes +Insurance+OH+Profit) 12%,Finance Overheads,Finance
+24,25,Petty Cash,Indirect Operation Cash out,
