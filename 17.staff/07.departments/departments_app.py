@@ -146,9 +146,14 @@ def update_plan(selected_project, selected_department):
     layout = go.Layout(
         title=f"Deployment Plan for {selected_project} ({selected_department})",
         xaxis=dict(title='Months'),
-        yaxis=dict(title='Job Titles'),
+        yaxis=dict(  # Corrected yaxis properties
+            title='Job Titles',
+            automargin=True,
+            showline=True,
+            rangemode='tozero'  # Use rangemode instead of rangeslider
+        )
     )
-
+    
     return fig
 
 # %%
