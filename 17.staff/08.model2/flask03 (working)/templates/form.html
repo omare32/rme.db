@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deployment Plan Generator</title>
+    <title>Deployment Plan Form</title>
+	    <!-- Company logo -->
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Company Logo" style="width: 150px; height: auto;">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,8 +32,8 @@
         label {
             font-weight: bold;
         }
-        input[type="number"] {
-            width: 100px;
+        select, input[type="number"] {
+            width: 100%;
             padding: 8px;
             margin: 8px 0;
             border-radius: 5px;
@@ -39,6 +41,7 @@
             box-sizing: border-box;
         }
         input[type="submit"] {
+            width: 100%;
             padding: 10px 20px;
             background-color: #4CAF50;
             color: #fff;
@@ -50,28 +53,13 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-        .deployment-plan {
-            margin-top: 50px;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Deployment Plan Generator</h1>
+        <h1>Deployment Plan Form</h1>
         <form action="/" method="post">
-            <label for="project_type">Project Type:</label><br>
+            <label for="project_type">Type of Project:</label><br>
             <select id="project_type" name="project_type">
                 <option value="Bridges">Bridges</option>
                 <option value="Commercial">Commercial</option>
@@ -89,17 +77,10 @@
                 <option value="Restoration">Restoration</option>
                 <option value="Tank">Tank</option>
             </select><br><br>
-            <label for="duration">Duration (months):</label><br>
+            <label for="duration">Duration (in months):</label><br>
             <input type="number" id="duration" name="duration" min="1" required><br><br>
-            <input type="submit" value="Generate Plan">
+            <input type="submit" value="Generate Deployment Plan">
         </form>
-        
-        {% if deployment_plan_html %}
-        <div class="deployment-plan">
-            <h2>Deployment Plan</h2>
-            {{ deployment_plan_html|safe }}
-        </div>
-        {% endif %}
     </div>
 </body>
 </html>
