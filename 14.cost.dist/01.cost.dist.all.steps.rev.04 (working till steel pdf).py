@@ -41,7 +41,7 @@ for html_file in html_files:
     df = pd.DataFrame(data_list)
 
     # Save the DataFrame to an Excel file
-    df.to_excel(html_file[:-5] + ".xlsx", engine="xlsxwriter")
+    df.to_excel(html_file[:-5] + " (python).xlsx", engine="xlsxwriter")
 	
 # Delete all HTML files in the current directory
 for file in os.listdir():
