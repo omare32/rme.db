@@ -5,7 +5,7 @@ import os
 # Define a list to store project data (alternative to file system)
 projects = {}
 
-excel_folder = "excel_files"  # Adjust if needed
+excel_folder = "excel_files"
 project_names = []
 
 for filename in os.listdir(excel_folder):
