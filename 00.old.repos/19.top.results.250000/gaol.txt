@@ -1,0 +1,1 @@
+either material movement or cost dist , find all results with amount greater than 250,000

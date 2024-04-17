@@ -1,0 +1,114 @@
+import pandas as pd
+from tkinter import Tk, messagebox, ttk
+from tkinter.filedialog import askopenfilename
+import os
+import xlrd
+import time
+
+def file_prompt(msg):
+    # Prompt user to select Excel file
+    root = Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+    ini_file_path = os.getcwd()
+    excel_file_path = askopenfilename(title=msg, filetypes=[("Excel Files", "*.xls*")], initialdir=ini_file_path)
+    root.destroy()
+    return excel_file_path
+
+def reordering(dataframe, pos, name):
+    column_moved = dataframe[name]
+    dataframe.pop(name)
+    dataframe.insert(pos, name, column_moved)
+
+def excel_to_datetime(excel_date):
+    python_date = xlrd.xldate_as_datetime(excel_date, 0)
+    return pd.to_datetime(python_date)
+
+path = file_prompt('Please choose your dictionary file')
+df_dict = pd.read_excel(path)
+# Load the DataFrame
+path = file_prompt('Choose your Excel file')
+df = pd.read_excel(path)
+
+start_time = time.time()
+try:
+    root = Tk()
+    root.title("Supplier Aging.exe (Rowad Modern Engineering)")
+    label1 = ttk.Label(root, text='Status: Running')
+    label1.grid(row=0, column=0, columnspan=2, sticky='w')
+    progress_bar = ttk.Progressbar(root, orient='horizontal', length=450, mode='determinate')
+    progress_bar.grid(row=1, column=0, columnspan=2, padx=10, pady=15)
+    label2 = ttk.Label(root, text='0 Seconds: ')
+    label2.grid(row=2, column=0, sticky='w')
+    label3 = ttk.Label(root, text='Reading files')
+    label3.grid(row=3, column=0, sticky='w')
+    label4 = ttk.Label(root, text='')
+    label4.grid(row=4, column=0, sticky='w')
+    root.attributes('-topmost', True)
+    root.update()
+    df.columns = df.loc[38]
+    cutoff = df['Project Name'][4] # extract cutoff date
+    cutoff = excel_to_datetime(cutoff)
+    df = df[35:]
+    df = df.reset_index(drop=True)
+    pos_proj_name = df['User INV Type'][0].find(':') + 2
+    proj_name = df['User INV Type'][0][pos_proj_name:]
+    df.loc[0, 'Project Name'] = proj_name
+    pos_s_num = df['User INV Type'][1].find(':') + 2
+    supplier_num = df['User INV Type'][1][pos_s_num:]
+    df.loc[0, 'Supplier Number'] = supplier_num
+    pos_s_name = df['User INV Type'][2].find(':') + 2
+    supplier_name = df['User INV Type'][2][pos_s_name:]
+    df.loc[0, 'Supplier Name'] = supplier_name
+    df['Cutoff Date'] = cutoff
+    total_rows = len(df)
+    for index, row in df.iterrows():
+        inv_type = df.loc[index, 'User INV Type']
+        if isinstance(inv_type, str):
+            if inv_type[:12] == "Project Name":
+                pos_proj_name = inv_type.find(':') + 2
+                proj_name = inv_type[pos_proj_name:]
+                df.loc[index, 'Project Name'] = 'No Name' if proj_name == '' else proj_name
+                supplier_num = df.loc[index + 1, 'User INV Type'][pos_s_num:]
+                df.loc[index, 'Supplier Number'] = supplier_num
+                supplier_name = df.loc[index + 2, 'User INV Type'][pos_s_name:]
+                df.loc[index, 'Supplier Name'] = supplier_name
+            else:
+                df.loc[index, 'Project Name'] = proj_name
+                df.loc[index, 'Supplier Number'] = supplier_num
+                df.loc[index, 'Supplier Name'] = supplier_name
+        else:
+            df.loc[index, 'Project Name'] = proj_name
+            df.loc[index, 'Supplier Number'] = supplier_num
+            df.loc[index, 'Supplier Name'] = supplier_name
+        progress_bar['value'] = (index/total_rows)*100
+        elapsed_time = time.time() - start_time
+        label2.config(text=f"Elapsed time: {elapsed_time:.2f} seconds")
+        label3.config(text=f"Looping through rows {index}")
+        label4.config(text=f"Supplier name: {supplier_name[:50]}")
+        root.update_idletasks()
+    # Removing excess rows
+    df = df[pd.to_numeric(df['User INV Type'], errors='coerce').notna()]
+    df.reset_index(drop=True, inplace=True)
+    label1.config(text="Status: Outputting CSV file")
+    label3.config(text="Done")
+    label4.config(text="")
+    root.update()
+    df_dict.dropna(axis=0, how='all', inplace=True)
+    df_dict.reset_index(drop=True, inplace=True)
+    for i, name in enumerate(df['Project Name']):
+        if df['Project Name'][i] == '':
+            df.loc[i, 'Project Name'] = 'Other'
+        try:
+            df.loc[i, 'Cost Center'] = df_dict[df_dict['Project Oricale2'] == name]['Cost Center'].values[0] # extend used to eliminate list inside lists
+        except:
+            df.loc[i, 'Cost Center'] = 'error'
+    df['Due Dates'] = df['Due Dates'].apply(excel_to_datetime)
+    df['Due Dates'] = pd.to_datetime(df['Due Dates'])
+    reordering(df, 2, 'Supplier Number')
+    reordering(df, 3, 'Supplier Name')
+    reordering(df, 4, 'Cost Center')
+    df.to_csv('SWD Fixed.csv', index=False, encoding='utf-8-sig')
+    messagebox.showinfo("Success", "EXE Ran Successfully\n-- Mohamed Essam Gaballah")
+except Exception as e:
+    messagebox.showerror("Error", f"An error occurred: {e}")
