@@ -1,0 +1,1 @@
+exampe: remove all -ve صرف داخلي in material movement
