@@ -1,0 +1,15 @@
+get number of the students and the subjects they study 
+from the user then create excel file and store the details 
+of each student in a row 
+name,subj1_grade,subj2_grade,subj3_grade,...
+
+get the details of each student from the user
+
+make [Name,subj1,subj3,subj3,...] as names for the columns
+
+output be like :
+
+Name|subj1|subj2|
+_____________________
+mm  | 33  | 44  | 
+........
