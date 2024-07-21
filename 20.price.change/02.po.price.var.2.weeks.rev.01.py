@@ -1,8 +1,8 @@
-
+# %%
 import pandas as pd
 import glob
 
-
+# %%
 # Step 1: Find and read the only xlsx file in the directory
 file_list = glob.glob('*.xlsx')
 if len(file_list) != 1:
@@ -11,22 +11,22 @@ file_path = file_list[0]
 
 df = pd.read_excel(file_path)
 
-
+# %%
 # Step 2: Extract relevant columns including the additional ones
-df = df[['description', 'unit', 'unit_price', 'approved_date', 'project_name', 'vendor', 'qty', 'amount_egp']]
+df = df[['description', 'unit', 'unit_price', 'approved_date', 'project_name', 'vendor', 'qty', 'amount_egp', 'project_no', 'organization_code', 'buyer_dept', 'buyer', 'qty_received']]
 
-
+# %%
 # Step 3: Convert 'approved_date' to datetime and determine the week number
 df['approved_date'] = pd.to_datetime(df['approved_date'])
 df['week'] = df['approved_date'].dt.isocalendar().week
 df['year'] = df['approved_date'].dt.isocalendar().year  # Add year to handle year-end week changes
 
 
-
+# %%
 # Step 4: Group by 'description', 'unit', 'year', and 'week'
 grouped = df.groupby(['description', 'unit', 'year', 'week'])
 
-
+# %%
 # Step 5 & 6: Check for variations in 'unit_price' between consecutive weeks
 results = []
 
@@ -50,14 +50,14 @@ for name, group in grouped:
             results.append(group)
             results.append(next_year_group)
 
-
+# %%
 # Combine all results into a single DataFrame
 if results:
     result_df = pd.concat(results).drop_duplicates()
 else:
     result_df = pd.DataFrame()
 
-
+# %%
 # Output the result
 result_df.to_excel('output.xlsx', index=False)
 
