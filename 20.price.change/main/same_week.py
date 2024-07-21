@@ -17,7 +17,7 @@ def list_now():
     df = pd.read_excel(file_path)
 
     # Step 2: Extract relevant columns including the additional ones
-    df = df[['description', 'unit', 'unit_price', 'approved_date', 'project_name', 'vendor', 'qty', 'amount_egp']]
+    df = df[['description', 'unit', 'unit_price', 'approved_date', 'project_name', 'vendor', 'qty', 'amount_egp', 'project_no', 'organization_code', 'buyer_dept', 'buyer', 'qty_received']]
 
     # Step 3: Convert 'approved_date' to datetime and determine the week number
     df['approved_date'] = pd.to_datetime(df['approved_date'])
