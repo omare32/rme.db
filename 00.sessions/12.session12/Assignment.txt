@@ -1,0 +1,21 @@
+Task 1:
+-----
+
+Scrap all the books in the following website and
+save it in a csv file with the next formating
+['book name','price','rate','category']
+price==> float
+rate==>int
+
+http://books.toscrape.com/index.html
+
+------------------------------------------------------
+Task 2:
+-----
+scrap all data science jobs from wuzzuf and save 
+the results in csv file
+
+- the required fields are
+[job title,job link,Location,skills required,company_name]
+
+https://wuzzuf.net/search/jobs/?a=navbl&q=data%20science%20jobs&start=1
