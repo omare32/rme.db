@@ -1,0 +1,14 @@
+Note: It's better to work on data from your choice not necessary use the following datasets
+
+Regression:
+
+- Used car price in Egypt : https://docs.google.com/document/d/1NxINpqvWl3dkV8pladN1rGFTfnNwvpB6/edit
+- Predict Future Sales : https://docs.google.com/document/d/1msUpIIfWOmZaZHMuwCzpOI0q4IG-ms-j/edit
+- Individual Household Electric Power Consumption : https://docs.google.com/document/d/1G-wnNiSyR_jegifUINeZsd7Ud87BuOsm/edit
+- Air quality prediction : https://docs.google.com/document/d/1WlN2XCAInwNXXU6WlTkKOSdMLv1nPMcr/edit
+
+Classification:
+
+- Starbucks : https://docs.google.com/document/d/1wU1yz1ct_ByC44RKvK62-c9mDlezhKc4/edit
+- Fraud Detection : https://docs.google.com/document/d/16g0jxObBa9nz35dDV7QiBemGLpPzUkGc/edit
+- Adult : https://docs.google.com/document/d/1rz5--ldBzG9zisvY44aUrVci0Xvc4IGg/edit
