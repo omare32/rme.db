@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'omar_warehouse.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',  # Use the django-mssql-backend
+        'ENGINE': 'sql_server.pyodbc',  # Use sql_server.pyodbc instead of mssql
         'NAME': 'omar.rme1',  # Your database name
         'USER': 'yasser',     # Your database username
         'PASSWORD': 'yasser123', # Your database password
-        'HOST': 'localhost',   # Since the database is on the same server
+        'HOST': '10.10.11.241',   # will be 'localhost' when we use at server
         'PORT': '',           # Default SQL Server port (leave blank)
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',  # Adjust if needed
