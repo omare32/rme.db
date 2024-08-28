@@ -76,14 +76,14 @@ WSGI_APPLICATION = 'omar_warehouse.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',  # Use sql_server.pyodbc instead of mssql
-        'NAME': 'omar.rme1',  # Your database name
-        'USER': 'yasser',     # Your database username
-        'PASSWORD': 'yasser123', # Your database password
-        'HOST': '10.10.11.241',   # will be 'localhost' when we use at server
-        'PORT': '',           # Default SQL Server port (leave blank)
+        'ENGINE': 'mssql', # was 'sql_server.pyodbc'
+        'NAME': 'omar.rme1',
+        'USER': 'omar',
+        'PASSWORD': 'omar123',
+        'HOST': '10.10.11.241',
+        'PORT': '',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',  # Adjust if needed
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }

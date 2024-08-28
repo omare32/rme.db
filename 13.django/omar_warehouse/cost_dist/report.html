@@ -1,0 +1,30 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  {# Render the form fields #}
+    <button type="submit">Submit</button>
+  </form>
+  
+  {% if total_amount %}
+      <h2>Total Amount: {{ total_amount }}</h2>
+  {% endif %}
+  
+  {% if results %}
+      <table>
+          <tr>
+              <th>Line Description</th>
+              <th>Unit</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+          </tr>
+          {% for row in results %}
+              <tr>
+                  <td>{{ row.line_desc }}</td> 
+                  <td>{{ row.unit }}</td>
+                  <td>{{ row.qty }}</td>
+                  <td>{{ row.amount }}</td>
+              </tr>
+          {% endfor %}
+      </table>
+  
+      {# Add Excel export functionality here if needed #}
+  {% endif %}

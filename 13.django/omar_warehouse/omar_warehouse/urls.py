@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from cost_dist import views  # Import the views module
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cost_dist_report/', views.cost_dist_report, name='cost_dist_report'),
 ]
