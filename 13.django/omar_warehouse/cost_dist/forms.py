@@ -1,6 +1,5 @@
 from django import forms
-
-from .views import get_distinct_project_names  # Import the function from your views
+from .utils import get_distinct_project_names 
 
 class CostDistForm(forms.Form):
     PROJECT_IDENTIFIER_CHOICES = [
