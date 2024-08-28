@@ -1,6 +1,36 @@
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}  {# Render the form fields #}
+  
+    <div>
+      {{ form.project_identifier_type.label_tag }}
+      {{ form.project_identifier_type }}
+    </div>
+  
+    <div>
+      {{ form.project_identifier.label_tag }}
+      {{ form.project_identifier }}
+    </div>
+  
+    <div>
+      {{ form.project_name.label_tag }}
+      {{ form.project_name }}
+    </div>
+  
+    <div>
+      {{ form.start_date.label_tag }}
+      {{ form.start_date }}
+    </div>
+  
+    <div>
+      {{ form.end_date.label_tag }}
+      {{ form.end_date }}
+    </div>
+  
+    <div>
+      {{ form.show_details }}
+      {{ form.show_details.label_tag }}
+    </div>
+  
     <button type="submit">Submit</button>
   </form>
   
