@@ -3,11 +3,11 @@
 <head>
   <title>Cost Distribution Report</title>
   {% load static %}
-  {#<link rel="stylesheet" href="{% static 'cost_dist/styles.css' %}">#}
+  <link rel="stylesheet" href="{% static 'cost_dist/styles.css' %}">
 </head>
 <body>
 
-<form method="post">  {# Single form element enclosing both buttons #}
+<form method="post">
   {% csrf_token %} 
 
   <div>
