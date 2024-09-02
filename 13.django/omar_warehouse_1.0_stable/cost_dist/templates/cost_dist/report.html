@@ -3,11 +3,11 @@
 <head>
   <title>Cost Distribution Report</title>
   {% load static %}
-  {#<link rel="stylesheet" href="{% static 'cost_dist/styles.css' %}">#}
+  {# <link rel="stylesheet" href="{% static 'cost_dist/styles.css' %}">  # Comment out css mo2akatan #}
 </head>
 <body>
 
-<form method="post">  {# Single form element enclosing both buttons #}
+<form method="post">
   {% csrf_token %} 
 
   <div>
@@ -41,35 +41,32 @@
   </div>
 
   <button type="submit">Submit</button>
-  <button type="submit" name="export_excel">Download Excel</button> 
-  <input type="hidden" name="show_details" value="True">
 </form>
-
-{% if total_amount %}
-    <h2>Total Amount: {{ total_amount }}</h2>
-{% endif %}
-
-{% if results %}
-{#{{ results }}#}
-  <table>
-      <tr>
-          <th>Line Description</th>
-          <th>Unit</th>
-          <th>Quantity</th>
-          <th>Amount</th>
-      </tr>
-      {% for row in results %}
-      <tr> 
-          <td>{{ row.line_desc|default_if_none:"" }}</td> 
-          <td>{{ row.unit|default_if_none:"" }}</td>
-          <td>{{ row.qty|default_if_none:"" }}</td>
-          <td>{{ row.amount|default_if_none:"" }}</td>
-      </tr>
+  
+  {% if total_amount %}
+      <h2>Total Amount: {{ total_amount }}</h2>
+  {% endif %}
+  
+  {% if results %}
+      <table>
+          <tr>
+              <th>Line Description</th>
+              <th>Unit</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+          </tr>
+          {% for row in results %}
+          <tr>
+              <td>{{ row.line_desc|default_if_none:"" }}</td> 
+              <td>{{ row.unit|default_if_none:"" }}</td>
+              <td>{{ row.qty|default_if_none:"" }}</td>
+              <td>{{ row.amount|default_if_none:"" }}</td>
+          </tr>
       {% endfor %}
-  </table>
-
-{% endif %}
-
+      </table>
+  
+      {# Add Excel export functionality here if needed #}
+  {% endif %}
   
   <script>
     // Create and insert the search input field immediately
@@ -132,5 +129,3 @@
         });
     });
     </script>
-    </body>
-    </html>
