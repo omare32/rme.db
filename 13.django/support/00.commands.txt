@@ -2,6 +2,8 @@ python manage.py makemigrations
 python manage.py migrate
 
 python manage.py startapp cost_dist
+python manage.py startapp ap_check
+python manage.py startapp salaries
 
 python manage.py shell
 
@@ -11,3 +13,4 @@ python manage.py inspectdb > cost_dist/models.py
 
 
 python manage.py runserver
+python manage.py runserver 0.0.0.0:8000

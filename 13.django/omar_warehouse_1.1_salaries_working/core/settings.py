@@ -4,17 +4,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@a!crulxbxjt8994eex=e4z0p9zt8jt!jk@1f)54%rpaesaa-o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.10.11.241']
-
+ALLOWED_HOSTS = ['10.10.11.241' , '127.0.0.1']
 
 # Application definition
 
@@ -29,6 +25,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'ap_check',
     'core',
+    'salaries',
 ]
 
 
@@ -42,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'omar_warehouse.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'omar_warehouse.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
