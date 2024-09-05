@@ -15,4 +15,5 @@ urlpatterns = [
     path('indirect_costs_report/salaries/', salaries_views.salaries_report, name='indirect_costs_salaries'),
     # path('indirect_costs_report/wages/', views.indirect_costs_wages, name='indirect_costs_wages'),
     # path('indirect_costs_report/rented_cars/', views.indirect_costs_rented_cars, name='indirect_costs_rented_cars'),
+    path('cost_dist_report/chart/', cost_dist_views.cost_dist_chart, name='cost_dist_chart'),
 ]
