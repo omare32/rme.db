@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'ap_check',
     'core',
     'salaries',
+    'po_followup', 
 ]
 
 
