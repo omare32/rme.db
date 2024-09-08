@@ -10,8 +10,8 @@ def po_followup_report(request):
             description = form.cleaned_data['description']
 
             with connection.cursor() as cursor:
-                # Query for highest and lowest unit prices
-                query = """
+                # Query for highest unit price
+                query_highest = """
                     SELECT TOP 1
                         unit_price, approved_date, vendor, project_name
                     FROM 
@@ -20,7 +20,10 @@ def po_followup_report(request):
                         LOWER(description) = LOWER(%s)
                     ORDER BY 
                         unit_price DESC;
+                """
 
+                # Query for lowest unit price
+                query_lowest = """
                     SELECT TOP 1
                         unit_price, approved_date, vendor, project_name
                     FROM 
@@ -30,12 +33,23 @@ def po_followup_report(request):
                     ORDER BY 
                         unit_price ASC;
                 """
-                params = [description, description]
+                params = [description]
 
                 try:
-                    cursor.execute(query, params)
+                    # Execute queries separately
+                    cursor.execute(query_highest, params)
                     highest_price_result = cursor.fetchone()
+
+                    cursor.execute(query_lowest, params)
                     lowest_price_result = cursor.fetchone()
+
+                    # Print statements for debugging
+                    print("Highest Price Query:", query_highest)
+                    print("Highest Price Params:", params)
+                    print("Highest Price Result:", highest_price_result)
+                    print("Lowest Price Query:", query_lowest)
+                    print("Lowest Price Params:", params)
+                    print("Lowest Price Result:", lowest_price_result)
 
                 except Exception as e:
                     print(f"Error executing query: {e}")
@@ -66,7 +80,7 @@ def get_matching_descriptions(request):
                 FROM po_followup
                 WHERE LOWER(description) LIKE LOWER(%s);
             """
-            params = ['%' + search_term + '%']
+            params = ['%' + search_term + '%']  
 
             try:
                 cursor.execute(query, params)
@@ -77,4 +91,4 @@ def get_matching_descriptions(request):
                 print(f"Error executing query: {e}")
                 descriptions = []
 
-        return JsonResponse(descriptions, safe=False)  # Return only the JsonResponse
+        return JsonResponse(descriptions, safe=False)

@@ -9,8 +9,8 @@
     {% csrf_token %}
     <div class="form-row">  
       {{ form.description.label_tag }}
-      {{ form.description }}
-      <div id="description-suggestions" style="display: none;">  </div> 
+      <input type="text" id="description-search" name="description" required>  {# Modified input field #}
+      <div id="description-suggestions" style="display: none;"></div> 
     </div>
     <button type="submit">Submit</button>
   </form>
@@ -39,44 +39,44 @@
   {% endif %}
 
   <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const descriptionInput = document.getElementById('description-search');
-    const suggestionsDiv = document.getElementById('description-suggestions');
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const descriptionInput = document.getElementById('description-search');
+      const suggestionsDiv = document.getElementById('description-suggestions');
 
-    descriptionInput.addEventListener('input', () => {
-      const searchTerm = descriptionInput.value;
-      if (searchTerm.length > 2) { // Start searching after at least 3 characters
-        fetch(`/po_followup_report/get_matching_descriptions/?term=${searchTerm}`)
-          .then(response => response.json())
-          .then(data => {
-            suggestionsDiv.innerHTML = ''; // Clear previous suggestions
-            if (data.length > 0) {
-              suggestionsDiv.style.display = 'block';
-              data.forEach(description => {
-                const suggestionItem = document.createElement('div');
-                suggestionItem.textContent = description;
-                suggestionItem.addEventListener('click', () => {
-                  descriptionInput.value = description;
-                  suggestionsDiv.style.display = 'none';
+      descriptionInput.addEventListener('input', () => {
+        const searchTerm = descriptionInput.value;
+        if (searchTerm.length > 2) { 
+          fetch(`/po_followup_report/get_matching_descriptions/?term=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+              suggestionsDiv.innerHTML = ''; 
+              if (data.length > 0) {
+                suggestionsDiv.style.display = 'block';
+                data.forEach(description => {
+                  const suggestionItem = document.createElement('div');
+                  suggestionItem.textContent = description;
+                  suggestionItem.addEventListener('click', () => {
+                    descriptionInput.value = description;
+                    suggestionsDiv.style.display = 'none';
+                  });
+                  suggestionsDiv.appendChild(suggestionItem);
                 });
-                suggestionsDiv.appendChild(suggestionItem);
-              });
-            } else {
-              suggestionsDiv.style.display = 'none';
-            }
-          });
-      } else {
-        suggestionsDiv.style.display = 'none';
-      }
-    });
+              } else {
+                suggestionsDiv.style.display = 'none';
+              }
+            });
+        } else {
+          suggestionsDiv.style.display = 'none';
+        }
+      });
 
-    // Hide suggestions when clicking outside
-    document.addEventListener('click', (event) => {
-      if (!suggestionsDiv.contains(event.target) && event.target !== descriptionInput) {
-        suggestionsDiv.style.display = 'none';
-      }
+      // Hide suggestions when clicking outside
+      document.addEventListener('click', (event) => {
+        if (!suggestionsDiv.contains(event.target) && event.target !== descriptionInput) {
+          suggestionsDiv.style.display = 'none';
+        }
+      });
     });
-  });
   </script>
 
 </body>
