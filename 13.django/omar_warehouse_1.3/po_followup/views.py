@@ -77,4 +77,4 @@ def get_matching_descriptions(request):
                 print(f"Error executing query: {e}")
                 descriptions = []
 
-        return JsonResponse(descriptions, safe=False)
+        return JsonResponse(descriptions, safe=False)  # Return only the JsonResponse
