@@ -20,4 +20,5 @@ urlpatterns = [
     path('po_followup_report/', po_followup_views.po_followup_report, name='po_followup_report'),  # Add this line
     path('po_followup_report/get_matching_descriptions/', po_followup_views.get_matching_descriptions, name='get_matching_descriptions'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
 ]
