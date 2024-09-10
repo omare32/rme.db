@@ -14,3 +14,13 @@ python manage.py inspectdb > cost_dist/models.py
 
 python manage.py runserver
 python manage.py runserver 0.0.0.0:8000
+
+
+
+cd D:\virtual_env\.venv\Scripts
+
+activate
+
+cd D:\OneDrive\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db-1\13.django\omar_warehouse_1.3
+
+python manage.py runserver 0.0.0.0:8000
