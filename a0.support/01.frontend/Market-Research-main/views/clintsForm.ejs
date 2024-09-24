@@ -1,0 +1,95 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/clintsForm.css">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+</head>
+<body>
+
+    <%- include('includes/navigation.ejs') %>
+    
+        <!-- there Bootstrap doesn't work -->
+    <div class="bootstrap backimg">
+        <form action="/clints-form" method="POST">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name <span>*</span></label>
+                <input type="text" name="firstName" class="form-control" id="firstName" aria-describedby="nameHelp" placeholder="First Name" required>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name <span>*</span></label>
+                <input type="text" name="lastName" class="form-control" id="lastName" aria-describedby="nameHelp" placeholder="Last Name" required>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+
+            <div class="mb-3">
+                <label for="jobTitle" class="form-label">Job Title <span>*</span></label>
+                <input type="text" name="jobTitle" class="form-control" id="jobTitle" aria-describedby="nameHelp" placeholder="Job Title" required>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+
+            <div class="mb-3">
+                <label for="companyName" class="form-label">Company Name</label>
+                <input type="text" name="companyName" class="form-control" id="companyName" aria-describedby="nameHelp" placeholder="Company Name">
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+
+            <div class="mb-3">
+              <label for="workEmail1" class="form-label">Work Email <span>*</span></label>
+              <input type="email" name="workEmail" class="form-control" id="workEmail1" aria-describedby="emailHelp" placeholder="Work Email" required>
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+
+            <!-- Sector dropdown list -->
+            <div class="mb-3">
+                <div class="system"> 
+
+                    <div class="box-container">
+                        <label for="sector">Sector <span>*</span></label>
+                        <div class="select-box">
+                        
+                            <div class="options-container">
+                                <% for (sector of sect) { %>
+                                <div class="option">
+                                    <input  class="item">
+                                    <label><%= sector.sector%></label>
+                                </div>
+                                <% } %>
+                                
+                            </div>
+            
+                            <div class="selected">
+                                <input type="text" name="sector" id="sector" placeholder="Select Sector" autocomplete="off" value="<%= sectorName %>" required>
+                            </div>
+            
+                            <div class="search-box">
+                                <input type="text" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+              <label for="coverletter" class="form-label">Description</label>
+              <textarea name="description" id="coverletter" placeholder="Write Something..."></textarea>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+              <label class="form-check-label" for="exampleCheck1">I agree for Connected Vision Ltd to save my details 
+                  and send me relevant information.
+              </label> 
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+    
+    <script src="../js/forms/clintsForm.js" type="module"></script>
+    
+<%- include('includes/end.ejs') %>

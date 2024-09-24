@@ -1,0 +1,70 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    
+    <div class="slider">
+        <div class="myslider fade">
+            <div class="txt">
+                <h1>AI</h1>
+                <p><span>Artificial intelligence</span><br>refers to the simulation of human intelligence in 
+                    machines that are programmed to think like <br> humans and mimic their actions.</p>
+            </div>
+            <img alt="" src="./images/AI.jpg">
+        </div>
+
+        <div class="myslider fade">
+            <div class="txt">
+                <h1>GA</h1>
+                <p><span>Genetic Algorithm</span><br>reflects the process of natural selection where the fittest 
+                    individuals are selected <br> for reproduction in order to produce offspring of the 
+                    next generation.</p>
+            </div>
+            <img alt="" src="./images/GA.jpg">
+        </div>
+
+        <div class="myslider fade">
+            <div class="txt">
+                <h1>ANN</h1>
+                <p><span>Artificial Neural Network</span><br>uses the human brain as inspiration for 
+                    creating a complex machine learning system.</p>
+            </div>
+            <img alt="" src="./images/ANN.jpg">
+        </div>
+
+        <div class="dotsbox">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+
+        <a class="prev" onclick="plusSlides(1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(-1)">&#10095;</a>
+        
+    </div>
+
+    <!-- * Body -->
+    <section>
+        <div class="sec-content">
+            <h2>Our Exclusive <br> Service.</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed 
+                diam nonummy nibh euismod tincidunt ut laoreet dolore magna 
+                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis 
+                nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+            </p>
+            <a href="#">
+                Technology will change <br> 
+                the way we live <br>
+                in the future
+            </a>
+        </div>
+        <div class="sec-img">
+            <!-- <img alt="" src="./images/AI.jpg">  -->
+        </div>
+    </section>
+
+    <script src="/js/app.js"></script>
+    
+<%- include('includes/end.ejs') %>

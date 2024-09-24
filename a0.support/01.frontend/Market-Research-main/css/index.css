@@ -1,0 +1,468 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: sportingGrotesque;
+    src: url(../fonts/Sporting-Grotesque-main/fonts/SportingGrotesque-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratRegular;
+    src: url(../fonts/montserrat/Montserrat-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratMedium;
+    src: url(../fonts/montserrat/Montserrat-SemiBold.otf);
+}
+
+@font-face {
+    font-family: montserratBold;
+    src: url(../fonts/montserrat/Montserrat-Bold.otf);
+}
+
+
+
+/* About Us */
+/* Slider */
+
+.slider{
+    position: relative;
+    width: 100%;
+    background: black;
+}
+
+.myslider{
+    position: relative;
+    display: block;
+    height: 650px;
+    width: 100%;
+    display: none;
+    overflow: hidden;
+}
+
+.prev{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 50px;
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.1s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.next{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 50px;
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.1s;
+    user-select: none;
+    -webkit-user-select: none;
+    right: 0;
+}
+
+.prev:hover{
+    color: #ff801a;
+}
+
+.next:hover{
+    color: #ff801a;
+}
+
+
+.dotsbox{
+    left: 50%;
+    height: 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dot{
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 3px solid #fff;
+    /* border-image: linear-gradient(to right, darkblue, darkorchid) 1; */
+    /* border-color: linear-gradient(to right, red, purple); */
+    border-radius: 50%;
+    margin: 0 10px;
+    cursor: pointer;
+    top: -25px;
+}
+
+
+
+.active, .dot:hover{
+    border-color: #ff801a;
+
+/* 
+  border: double 3px transparent;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff); */
+  /* border-image: linear-gradient(to right, darkblue, darkorchid) 1; */
+  /* background-origin: border-box;
+  background-clip: content-box, border-box; */
+}
+
+.fade{
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade{
+    from {opacity: 0.8;}
+    to {opacity: 1;}
+}
+
+@keyframes fade{
+    from {opacity: 0.8;}
+    to {opacity: 1;}
+}
+
+.txt{
+    position: absolute;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 35px;
+    top: 40%;
+    left: 15%;
+    -webkit-animation-name: posi;
+    -webkit-animation-duration: 2s;
+    animation-name: posi;
+    animation-duration: 2s;
+    z-index: 1;
+}
+
+@-webkit-keyframes posi{
+    from{left: 25%;}
+    to{left: 15%;}
+}
+
+@keyframes posi{
+    from{left: 25%;}
+    to{left: 15%;}
+}
+
+.txt h1{
+    color: white;
+    font-family: sportingGrotesque;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.txt span{
+    font-family: montserratMedium;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.txt p{
+    font-weight: bold;
+    font-size: 15px;
+    font-family: montserratRegular;
+}
+
+.slider img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.5, 1.5);
+    -webkit-animation-name: zoomin;
+    -webkit-animation-duration: 40s;
+    animation-name: zoomin;
+    animation-duration: 40s;
+    opacity: 60%;
+}
+
+@-webkit-keyframes zoomin{
+    from {transform: scale(1, 1);}
+    to {transform: scale(1.5, 1.5);}
+}
+
+@keyframes zoomin{
+    from {transform: scale(1, 1);}
+    to {transform: scale(1.5, 1.5);}
+}
+
+@media screen and (max-width: 800px){
+    .myslider{
+        height: 500px;
+    }
+    .txt{
+        line-height: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-animation-name: posi2;
+        -webkit-animation-duration: 2s;
+        animation-name: posi2;
+        animation-duration: 2s;
+    }
+    @-webkit-keyframes posi2 {
+        from {top: 35%;}
+        to {top: 50%;}
+    }
+    @keyframes posi2 {
+        from {top: 35%;}
+        to {top: 50%;}
+    }
+    .txt h1{
+        font-size: 40px;
+    }
+    .txt p{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .txt h1{
+        font-size: 30px;
+    }
+}
+
+/* About Us Page */
+
+.container{
+    display: grid;
+    width: 100%; 
+    grid-auto-flow: column;
+    align-items: center;
+}
+
+
+.about-us, .our-vision{
+    margin-bottom: 50px;
+    padding: 16px 16px;
+    font-size: 20px;
+}
+
+.our-mission{
+    padding: 16px 16px;
+    font-size: 20px;
+}
+
+.about-us-image{
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.about-us-image img{
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    object-fit: cover;
+}
+
+.our-mission ul{
+margin-left: 50px;
+    
+}
+
+.our-mission li{
+    list-style-type: circle;
+    padding: 5px;
+}
+
+.info p{
+    line-height: 1.6;
+}
+
+.contain{
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.strip1{
+    background-color: #fff;
+    width: 33.33333%;
+   
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    padding: 15px;
+
+    justify-content: space-evenly;
+
+}
+
+
+.strip2{
+    /* background-color: #00b01a; */
+    width: 33.33333%;
+    background: linear-gradient(to bottom, #4fc7ff 0%, #2463ff 60%, #1207ae 200%);
+
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    padding: 15px;
+
+    justify-content: flex-end;
+}
+
+.strip3{
+    /* background-color: #b00049; */
+    width: 33.333333%;
+  
+    object-fit: cover;
+}
+
+.contain h1{
+    font-family: sportingGrotesque;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 40px;
+    line-height: 1.1;  
+}
+
+.contain p{
+    font-family: montserratRegular;
+    line-height: 2rem;
+    margin:20px;
+    margin-bottom: 0px;
+    /* text-align: justify; */
+}
+
+.contain b{
+    font-family: sportingGrotesque;
+}
+
+.contain ul{
+    margin: 20px;
+    /* margin-left: 50px; */
+    text-align: justify;
+}
+
+.contain ul span{
+    font-family: montserratMedium;
+}
+
+.strip1 h1 span{
+    font-family:  montserratBold;
+}
+
+.strip2 li{
+    font-family:  montserratRegular;
+    list-style-type: none;
+    line-height: 2rem;   
+}
+
+.strip2 p{
+    color: #fff;
+}
+
+.strip2 p span{
+    opacity: 80%;
+    color: #fff;
+}
+
+.strip2 br, ul{
+    color: #fff;
+    opacity: 80%;
+}
+
+
+.strip3 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* Meet The Team */
+
+/* Three columns side by side */
+.column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  
+  /* Display the columns below each other instead of side by side on small screens */
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+  
+  /* Add some shadows to create a card effect */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Some left and right padding inside the container */
+  .container {
+    padding: 0 16px;
+  }
+  
+  /* Clear floats */
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+section {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    margin: 20px;
+    padding: 50px;
+    justify-content: center;
+
+}
+
+p, a {
+    font-family:  montserratRegular;
+}
+
+.sec-content {
+    display: flex;
+    width: 60%;
+    margin-right: 100px;
+    flex-wrap: wrap;
+}
+
+.sec-content h2{
+    margin-bottom: 20px;
+    font-family: sportingGrotesque;;
+}
+
+.sec-content a{
+    background: linear-gradient(to right, #ff8038 0%, #fc454d 70%, #fc216e 100%);
+    width: 250px;
+    color: white;
+    display: block;
+    text-align: left;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border-radius: 40px;
+    font-family: montserratRegular;
+}
+
+.sec-img{
+    width: 40%;
+    background-image: url('/images/sectors/marcelo-leal-k7ll1hpdhFA-unsplash.jpg');
+    background-size: cover;
+}

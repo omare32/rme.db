@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body, html{
+    height: 100%;
+}
+
+@font-face {
+    font-family: sportingGrotesque;
+    src: url(../fonts/Sporting-Grotesque-main/fonts/SportingGrotesque-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratRegular;
+    src: url(../fonts/montserrat/Montserrat-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratMedium;
+    src: url(../fonts/montserrat/Montserrat-SemiBold.otf);
+}
+
+/* The Team */
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    width: 400px;
+    margin-top: 20px;
+    padding: 15px;
+    margin: 30px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    float: right;
+}
+
+.description h3, p{
+    text-align: center;
+}
+
+.photo{
+    /* position: absolute; */
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    border-radius: 50%;
+
+
+
+}
+.photo img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.dalia{
+    background-image: url('../images/dalia.jpeg');
+}
+
+h3{
+    font-family: sportingGrotesque;
+}
+
+p{
+  font-family: montserratRegular;  
+}
