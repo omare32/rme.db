@@ -1,0 +1,177 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body, html{
+    height: 100%;
+}
+
+/* * Fonts */
+@font-face {
+    font-family: sportingGrotesque;
+    src: url(../fonts/Sporting-Grotesque-main/fonts/SportingGrotesque-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratRegular;
+    src: url(../fonts/montserrat/Montserrat-Regular.otf);
+}
+
+@font-face {
+    font-family: montserratMedium;
+    src: url(../fonts/montserrat/Montserrat-SemiBold.otf);
+}
+
+@font-face {
+    font-family: montserratBold;
+    src: url(../fonts/montserrat/Montserrat-Bold.otf);
+}
+
+
+/* Top image */
+
+.head-page{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: black;
+}
+
+.head-image{
+    position: relative;
+    display: block;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.head-page .txt{
+    position: absolute;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 35px;
+    -webkit-animation-name: posi;
+    -webkit-animation-duration: 1.5s;
+    animation-name: posi;
+    animation-duration: 1.5s;
+    z-index: 1;
+    top: 40%;
+}
+
+@-webkit-keyframes posi{
+    from{top: 60%;}
+    to{top: 40%;}
+}
+
+@keyframes posi{
+    from{top: 60%;}
+    to{top: 40%;}
+}
+
+.head-page .txt h1{
+    color: white;
+    font-weight: bold;
+    margin-left: 60px;
+    font-size: 60px;
+    line-height: 60px;
+    font-family: sportingGrotesque;
+}
+
+.head-page img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    animation-duration: 40s;
+    opacity: 50%;
+}
+
+/*  */
+
+/* container */
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 10px; */
+
+}
+
+.container p{
+    display: flex;
+    width: 85%;
+    margin-top: 15px;
+    padding-left: 20px;
+    font-size: 18px;
+
+    text-align: justify;
+}
+
+
+.container h2{
+    width: 85%;
+    margin-top: 20px;
+}
+
+h2, h3, p {
+    font-family: montserratRegular;
+}
+
+.container h3{
+    width: 85%;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.container p.sub-content{
+    width: 85%;
+    margin-top: 10px;
+    padding-left: 45px;
+
+    text-align: justify;
+}
+
+.container a{
+    background-color: rgba(0, 0, 0, 0.92);
+    width: 20%;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    /* margin-left: 25%; */
+    
+    
+    border-radius: 10px;
+    
+}
+
+button{
+    background-color: rgba(0, 0, 0, 0.92);
+    width: 100%;
+    color: white;
+    font-family: montserratRegular;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: none;
+    
+    
+    border-radius: 10px;  
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+/*  */
