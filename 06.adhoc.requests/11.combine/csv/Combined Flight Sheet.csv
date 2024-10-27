@@ -1,0 +1,1632 @@
+Employee Name,Ticket Number,Airline,Route/Flight ,Class,Request Type ,Departure date,Return Date ,Department ,Agency ,Invoice number,Ticket Cost EGP,ticket issue date,Travel form
+"Mr Mohamed Kolaib
+Mr Mahmoud Ibrahim 
+Mr Mahmoud Abed 
+Mr Mohamed Abdelrehim","071-6692646137
+071-6692646136
+071-6692646135
+071-6692646134",Ethiopian,Cairo / Abidjan  / Cairo,Economy ,First issue ,2024-04-04,2024-04-13,كوت ديفوار,Travco ,2545,130200.0,2024-04-02,
+"Mr Mohamed Abdelfatah 
+Mr Mahmoud Rashwan
+Mr Ahmed Ghazy
+Mr Osama Ahmed
+Mr Mohamed Hassanin ","077-6692646180
+077-6692646184
+077-6692646182
+077-6692646181
+077-6692646183",Egyptair,Cairo / Tripoli  / Cairo,Economy ,First issue ,2024-04-09,2024-03-20,السعودية,Travco ,2558,82500.0,2024-04-02,
+"Mr Mohamed Ali
+Mr Mohamed Moursy
+Mr Mohamed Sharafeldin","077-6692685702
+077-6692685703
+077-6692685704   ",Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-03-25,Rabigh ,Travco ,2698,37800.0,2024-04-07,
+"Mr Mohamed Ahmed
+Mr Yasser Abdelmoghith
+Mr Zeiatar Abdelazeem
+Mr Aly Ali
+Mr Ibrahim Elawadi
+Mr Elsayed Ghoneim
+Mr Ahmed Elsagay
+Mr Saad Farag
+Mr Emad Khamis","077-6692685707
+077-6692685706
+077-6692685705
+077-6692685708
+077-6692685709
+077-6692685712
+077-6692685710
+077-6692685711
+077-6692685713         ",Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-09-25,Rabigh ,Travco ,2699,116100.0,2024-04-07,
+Mr Mohamed Kotb,077-6692685714 ,Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-09-18,Rabigh ,Travco ,2700,12900.0,2024-04-07,
+Mr Fadel Fadl,077-6692685715 ,Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-06-15,Rabigh ,Travco ,2701,13400.0,2024-04-07,
+"Mr Magdy Khalil
+Mr Mohamed Soliman
+Mr Elsayed Boraei
+Mr Sherif Gadelmola
+Mr Ahmed Elsayed
+Mr Mohamed Gaber Mohamed","077-6692654414
+077-6692654416
+077-6692654411
+077-6692654413
+077-6692654412
+077-6692654415      ",Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-09-25,Rabigh ,Travco ,806,79200.0,2024-04-07,
+Mr Saad Mazen ,077-6692654432,Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-12,2024-09-25,Rabigh Driller,Travco ,818,11600.0,2024-04-08,
+Mr Hamda Mazen,077-6692685718,Egyptair,Cairo / Jeddah  / Cairo,Economy ,Reissue ,2024-04-12,2024-09-23,Rabigh Driller,Travco ,2702,2100.0,2024-04-08,
+Mr Yasser Elsaadany,065-6692646117,Saudi Arabia ,Cairo / Riydh  / Cairo,Business,First issue ,2024-04-16,2024-05-01,Commercial / السعودية,Travco ,2522,38875.0,2024-04-01,
+Mr Yasser Elsaadany ,065-6692685612,Saudi Arabia ,Cairo / Riydh  / Cairo,Business,Reissue ,2024-04-17,2024-05-01,Commercial / السعودية,Travco ,2607,7050.0,2024-04-04,
+Mr Ahmed Elshayeb,077-6692685787,Egyptair,Cairo / Jeddah / Cairo,Economy ,First issue ,2024-04-18,2024-04-01,,Travco ,2760,11600.0,2024-04-09,
+Mr Mohamed Mahlab ,065-6692685701,Saudi Arabia ,Cairo / Jeddah - Riyadh / Cairo,Business,Refund,2024-04-20,2024-04-24,,Travco ,2684 / 184,9250.0,2024-04-07,
+Mr Ahmed Abdelwahab ,077-1303801232,Egyptair,Cairo / Jeddah / Cairo,Economy,Refund,2024-04-22,2024-05-03,,Green sea,24071,5300.0,2024-04-22,
+Ms Mariam Abdelwahab ,065-6692685554,Saudi Arabia ,Cairo / Riydh - Jeddah / Cairo,Economy ,First issue ,2024-04-23,2024-05-03,السعودية,Travco ,2595,13000.0,2024-04-03,
+Mr Mohamed Elashry ,381-6692721283,Air Cairo,Cairo / Sharm / Cairo,Economy ,First issue ,2024-04-23,2024-04-24,Radamis Sharm,Travco ,2882,5100.0,2024-04-17,
+Mr Mohamed Elkersh,077-6692721265,Egyptair,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-04-25,2024-05-05,,Travco ,2893,20500.0,2024-04-17,
+Mr Mohamed Abdelfatah,077-6692685774,Egyptair,Cairo / Tripoli / Cairo ,Economy ,Reissue ,2024-04-26,2024-03-20,Ubary,Travco ,2767,5290.0,2024-04-09,
+Mr Mohamed Sarhan,077-6692766300,Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-04-26,2024-04-15,السعودية,Travco ,3010,11900.0,2024-04-21,
+"Mr Farahat Mohamed
+Mr Abdelnaby Ibrahim","071-6692766339
+071-6692766338",Ethiopian,Cairo / Moroni /  Cairo,Economy,First issue ,2024-04-26,2024-10-26,جزر القمر,Travco ,3101,74000.0,2024-04-23,
+Mr Islam Elzenieni,071-6692766335,Ethiopian,Cairo / Moroni /  Cairo,Economy,First issue ,2024-04-26,2024-08-24,جزر القمر,Travco ,3103,37000.0,2024-04-23,
+"Mr Taha Zayed 
+Mr Maged Tawfik","071-6692766337
+071-6692766336",Ethiopian,Cairo / Moroni /  Cairo,Economy,First issue ,2024-04-26,2024-11-21,جزر القمر,Travco ,3102,74000.0,2024-04-23,
+Mr Ahmed Elsayed,065-6692766326,Saudi Arabia ,Cairo / Riydh  / Cairo,Economy / Business,First issue ,2024-04-27,2024-05-02,,Travco ,3047,34000.0,2024-04-22,
+Mr Yasser Zohny,077-6692685790,Egyptair,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-04-28,2024-05-04,,Travco ,2755,20700.0,2024-04-09,recived 
+"Mr Aly Tawfkik Elmerkhaty
+Mr Gamal Taha Selim","077-1303801236
+077-1303801235",Egyptair,Cairo / Abu Dhabi / Cairo,Economy,First issue ,2024-04-29,2024-05-03,ادارة السكة الحديد,Green sea,24070,35416.0,2024-04-18,تاشيرات
+Mr Abdelrehim Waziry ,065-6692813017,Saudi Arabia ,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-30,2024-04-20,,Travco ,3218,13350.0,2024-04-29,
+"Mr Saber Serour
+Mr Kadry Elmezayin
+Mr Adham Foudil","065-6692813015
+065-6692813013
+065-6692813014",Saudi Arabia ,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-30,2024-10-19,,Travco ,3219,40050.0,2024-04-29,
+Mr Amr Dawood,077-6692721227,Egyptair,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-05-01,2024-05-16,,Travco ,2806,17000.0,2024-04-16,
+Mr Mamdouh Moawad,077-6692721228,Egyptair,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-05-01,2024-08-16,,Travco ,2805,17200.0,2024-04-16,
+"Mr Ibrahim Ashmawi
+Mr Mohamed Abdelgawad 
+Mr Tharwat Mohamed","077-6692766342
+077-6692766341
+077-6692766343",Egyptair,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-03,2024-10-15,Ubary,Travco ,3099,49200.0,2024-04-23,
+Mr Mohamed Said,381-6692813051,Air Cairo,Cairo / Jeddah / Cairo,Economy,First issue ,2024-05-04,2024-05-09,السعودية,Travco ,3260,1360.0,2024-04-30,
+Mr Takkeldeen Ali ,065-6692721319,Saudi Arabia ,Cairo / Jeddah - Riydh / Cairo,Economy ,First issue ,2024-05-05,2024-05-13,السعودية,Travco ,2905,14500.0,2024-04-18,
+Mr Mohamed Ragab ,065-6692766273,Saudi Arabia ,Cairo / Jeddah  / Cairo,Business ,First issue ,2024-05-06,2024-05-09,السعودية,Travco ,2998,38200.0,2024-04-21,
+Mr Mohamed Mahlab ,065-6692766354,Saudi Arabia ,Cairo / Riyadh /  Cairo,Business,First issue ,2024-05-11,2024-05-16,السعودية,Travco ,3091,49750.0,2024-04-23,
+Mr Ghanem Abdelgany,077-6692822045,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-11-06,Ubary,Excel ,TIN 2400016992,6905.0,2024-04-30,
+Mr Yahya Salem,077-6692822050,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-11-06,Ubary,Excel ,TIN 2400017002,6905.0,2024-04-30,
+Mr Asaad Mohamed,077-6692822049,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-11-06,Ubary,Excel ,TIN 2400016997,6905.0,2024-04-30,
+Mr Hatem Abdelghaffar,077-6692822051,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-11-06,Ubary,Excel ,TIN 2400017023,6905.0,2024-04-30,
+Mr Taha Elsayed,077-6692822052,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-11-06,Ubary,Excel ,TIN 2400017026,6905.0,2024-04-30,
+Mr Mohamed Youssef,077-6692822053,Egyptair,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-25,2024-09-07,Ubary,Travco ,TIN 2400017024,7162.0,2024-04-30,
+"Mr Hussein Gomaa
+Mr Belal Adam
+Mr Mohamed Nawar
+Mr Samir Mostafa
+Mr Ismail Said
+Mr Fawzi Elsayed
+Mr Elsayed Askar
+Mr Walid Elakhl
+Mr Hamada Ahmed","077-6692813067
+077-6692813062
+077-6692813069
+077-6692813068
+077-6692813070
+077-6692813066
+077-6692813064
+077-6692813065
+077-6692813063   ",Egyptair,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-26,2024-11-06,Ubary,Travco ,3265,135000.0,2024-04-30,
+Mr Mohamed Mahmoud,077-6692758239,Egyptair,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-26,2024-11-06,Ubary,Travco ,995,15600.0,2024-04-30,
+Mr Fadel Fadl,065-6692685716 ,Egyptair,Cairo / Jeddah  / Cairo,Economy ,First issue ,2024-06-24,2024-03-28,Rabigh ,Travco ,2685,12300.0,2024-04-07,
+Abeer Gouda ,065-6677550430,Saudi Arabia ,Jeddah / Cairo,Economy ,Reissue ,,2024-05-03,السعودية,Kanoo,EI9E82,8950.8,2024-04-03,
+Mr Khaled Tawfik,071-1303801213,Ethiopian,Abidjan  / Cairo,Economy ,Reissue ,,2024-05-01,كوت ديفوار,Green sea,24066,8776.0,2024-04-07,
+Mr Karim Elsayed,077-6692688529,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-06-14,Ubary,Excel ,TIN2400014034,1581.0,2024-04-08,
+Mr Mahmoud Hussein,077-6692688528,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-06-14,Ubary,Excel ,TIN2400014031,1581.0,2024-04-08,
+Mr Hamed Abdallah ,077-6692688527,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-05-31,Ubary,Excel ,TIN2400014030,1418.0,2024-04-08,
+Mr Mohab Ali Abdelkader,077-6692688526,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-05-31,Ubary,Excel ,TIN2400014028,1418.0,2024-04-08,
+Mr Mohamed Abdelgawad,077-6692688532 ,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-06-14,Ubary,Excel ,TIN2400014035,1797.0,2024-04-08,
+"Mr Mohamed Sedek 
+Mr Mohamed Ahmed ","077-6073049443
+077-6073049442",Egyptair,Tripoli / Cairo ,Economy ,First issue ,,2024-05-31,Ubary,Travco ,2721,23800.0,2024-04-08,
+Mr Tarek Hareedy,065-6692685752,Saudi Arabia ,Jeddah / Cairo,Economy ,Reissue ,,2024-04-10,,Travco ,2751,3500.0,2024-04-08,
+"Mr Mohamed Abdelrehim
+Mr Mohamed Kolaib
+Mr Mahmoud Abed
+Mr Mahmoud Ibrahim","071-6692721187
+071-6692721190
+071-6692721188  
+071-6692721189 ",Ethiopian,Abidjan  / Cairo,Economy ,Reissue ,,2024-05-01,كوت ديفوار,Travco ,2792,50400.0,2024-04-14,
+Mr Alaa Elsayed,077-2445508811,Egyptair,Moroni /  Cairo ,Economy ,Reissue ,,2024-06-08,,Excel ,,,2024-04-21,
+Mr Fadi Ayoub,077-2445517304,Egyptair,Moroni /  Cairo ,Economy ,Reissue ,,2024-06-08,,Excel ,,,2024-04-21,
+Mr Sameh Awadalla,071-6692802287,Ethiopian,Abidjan  / Cairo,Economy,Reissue ,,2024-05-04,,Excel ,TIN 2400020972,7498.8,2024-04-27,
+Mr Mohamed Ghobara,071-6692766482,Ethiopian,Abidjan  / Cairo,Economy,Reissue ,,2024-05-29,,Travco ,3171,5500.0,28 A pr,
+"Mr Mohamed Abdelrehim
+Mr Mohamed Kolaib
+Mr Mahmoud Abed
+Mr Mahmoud Ibrahim","071-6692813000
+071-6692813001
+071-6692813002
+071-6692813003",Ethiopian,Abidjan  / Cairo,Economy,Reissue ,,2024-05-11,,Travco ,3227,21000.0,2024-04-29,
+Mr Ibrahem Abdelahy,065-6692802388 ,Saudi Arabia ,Jeddah / Cairo,Economy,Reissue ,,2024-06-13,,Excel ,TIN 2400016562,11640.0,29 Ape,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,1482838.6,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Mahmoud Darwish,077-5701423653 ,Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-08-02,2024-08-17,كوديفوار  ,Travco,5457,25108.0,2024-08-01,
+Mr Mohamed Elashry,381-5701423720 ,Air Cairo ,Cairo / Sharm / Cairo,Economy ,First issue ,2024-08-07,2024-08-07,Radamis Sharm  ,Travco,5510,8887.0,2024-08-04,
+Mr Youssef Kamal,381-5701423741 ,Air Cairo ,Cairo / Sharm / Cairo,Economy ,First issue ,2024-08-07,2024-08-07,Radamis Sharm  ,Travco,5534,9539.0,2024-08-05,
+Mr Mahmoud Elgharbawi,077-5701423664 ,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-10,2024-07-06,MOC,Travco,5452,16239.0,2024-08-01,
+"Mr Ahmed Attia
+Mr Akram Soliman","381-5701423674
+381-5701423675",Air Cairo ,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-08-10,2024-03-28,MOC,Travco,5450,12800.0,2024-08-01,
+"Mr Islam Abdelaziz
+Mr Eid Abdelghafar
+Mr Elshahat Abdelrahman
+Mr Amr Darwish
+Mr Ahmed Elmaghraby
+Mr Mohamed Hussein
+Mr Moustafa Mahmoud
+Mr Tamer Mohamed
+Mr Maher Waked","077-5701423665
+077-5701423666
+077-5701423667 
+077-5701423668 
+077-5701423669 
+077-5701423670
+077-5701423671 
+077-5701423672 
+077-5701423673",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-10,2024-07-06,MOC,Travco,5451,146151.0,2024-08-01,
+Mr Mostafa Abouserie,381-5701477527,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-11,2024-07-06,MOC,Travco,5575,16233.0,2024-08-07,
+Mr Yasser Elsaadany,065-5701423646 ,Saudi Arabian ,Cairo / Riyadh / Cairo ,Business,First issue ,2024-08-12,2024-08-22,مكتب السعودية,Travco,5462,40869.0,2024-08-01,
+"Mr Mahmoud Abdelbaky
+Mr Ahmed Saleh","077-5701477513
+077-5701477514  ",Egypt air,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-08-12,2024-01-26,Ubary,Travco,5544,33180.0,2024-08-06,
+Mr Mohamed Mahmoud,077-5701477512 ,Egypt air,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-08-12,2024-01-26,Ubary,Travco,5545,16590.0,2024-08-06,
+Mr Aly Tolba,381-5701423731 ,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-13,2024-07-08,MOC,Travco,5532,14264.0,2024-08-05,
+Mr Shady Elshaer,381-5701477536,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-13,2024-08-28,MOC,Travco,5568,14583.0,2024-08-07,
+"Mr Rabie Abdelhalim
+Mr Ahmed Mohammadi Ahmed
+Mr Hamada Ahmed
+Mr Taha Ahmed
+Mr Raafat Ali
+Mr Bareh Ewida
+Mr Mahmoud Abdelhadi Mahmoud
+Mr Ahmed Mohamed
+Mr Eslam Mohamed","077-5701477607 
+077-5701477608 
+077-5701477609
+077-5701477610 
+077-5701477611
+077-5701477612 
+077-5701477613 
+077-5701477614 
+077-5701477615",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-13,2024-07-11,Rabigh,Travco,5650,172737.0,2024-08-11,
+"Mr Rabie Abdelhalim
+Mr Ahmed Mohammadi Ahmed
+Mr Hamada Ahmed
+Mr Taha Ahmed
+Mr Raafat Ali
+Mr Bareh Ewida
+Mr Mahmoud Abdelhadi Mahmoud
+Mr Ahmed Mohamed
+Mr Eslam Mohamed","077-5701477668 
+077-5701477669 
+077-5701477670
+077-5701477671
+077-5701477672
+077-5701477673 
+077-5701477674 
+077-5701477675 
+077-5701477676",Egypt air,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-08-13,2024-07-11,Rabigh,Travco,5667,17829.0,2024-08-12,
+Mr Moustafa Ahmed,077-5701477617 ,Egypt air,cairo / Dar Es Salaam / Cairo,Economy ,First issue ,2024-08-13,2024-08-16,Commercial,Travco,5653,52904.0,2024-08-11,
+"Mr Mostafa Mohamed
+Mr Mahmoud Ismail","381-5701423650 
+381-5701423649",Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-15,2024-08-30,MOC,Travco,5459,28870.0,2024-08-01,
+Mr Wael Mohamed,325-5701423648,Nile air,Cairo / Riyadh / Cairo ,Economy ,Reissue ,2024-08-15,2024-08-30,MOC,Travco,5460,4550.0,2024-08-01,
+"Mr Abdelrahman Abdelnaby
+Mr Abbdalla Ahmed
+Mr Abdelhamid Elgamal
+Mr Emad Ewida
+Mr Eid Gamaz
+Mr Abdalla Hassan
+Mr Abdelaty Khamis
+Mr Alaa Mohamed
+Mr Essam Mohamed","077-5701477643
+077-5701477644
+077-5701477645 
+077-5701477646 
+077-5701477647 
+077-5701477648 
+077-5701477649 
+077-5701477650 
+077-5701477651",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-15,2024-07-11,Rabigh,Travco,5636,160794.0,2024-08-11,
+"Mr Ragab Abdelmohsen
+Mr Samir Ali
+Mr Ahmed Moawad
+Mr Ramadan Mohamed
+Mr Ahmed Mousa
+Mr Ahmed Saad
+Mr Adel Sadek
+Mr Ahmed Said
+Mr Salama Mohy Salama","077-5701477634
+077-5701477635  
+077-5701477636 
+077-5701477637 
+077-5701477638
+077-5701477639 
+077-5701477640 
+077-5701477641 
+077-5701477642 ",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-15,2024-07-11,Rabigh,Travco,5637,160794.0,2024-08-11,
+"Mr Mahmoud Beltagy
+Mr Moataz Ibrahim
+Mr Farag Mahmoud
+Mr Haitham Mohamed
+Mr Mahmoud Saad
+Mr Mohamed Younes","077-5701477628 
+077-5701477629 
+077-5701477630 
+077-5701477631 
+077-5701477632 
+077-5701477633",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-16,2024-07-12,Rabigh,Travco,5638,107196.0,2024-08-11,
+Mr Atef Ahmed,077-5701477682 ,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-16,2024-07-12,Red Sea,Travco,5682,17866.0,2024-08-12,
+Mr Abdelghany Korani Abdelghany,077-5701477748 ,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-16,2024-07-12,Rabigh,Travco,5743,17879.0,2024-08-14,
+"Mr Moataz Abdelmagied
+Mr Mohamed Ibrahim Mohamed","077-5701524126 
+077-5701524127 ",Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-08-18,2024-02-15,كوديفوار  ,Travco,5727,50936.0,2024-08-14,
+Mrs Jessie Katy Belmo,077-5701423712 ,Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-08-20,2024-03-26,كوديفوار  ,Travco,5500,23474.0,2024-08-04,
+"Ismael Emmanuel Yeo Belmo
+Mr Abdoul Kaadir Yeo
+Perle Yeo Usage Belmo","077-5701423710 
+077-5701423709 
+077-5701423711 ",Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-08-20,2024-03-26,كوديفوار  ,Travco,5499,63058.0,2024-08-04,
+"Mr Shaaban Sayed Shaaban
+Mr Mohamed Mahmoud Abdelshafi Mohamed","077-5701423717
+077-5701423716",Egypt air,Cairo / Moroni / Cairo,Economy ,First issue ,2024-08-22,2024-02-14,جزر القمر,Travco,5503,76868.0,2024-08-04,
+Mr Mohamed Mahmoud,077-5701477549 ,Egypt air,Cairo / Tripoli / Cairo ,Economy ,Reissue ,2024-08-22,2024-01-26,Ubary,Travco,5595,1515.0,2024-08-08,
+Mr Eid Abdelmaksoud,077-5701524224 ,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-24,2024-07-20,Red Sea,Travco,5873,15133.0,2024-08-19,
+Mr Islam Elkholy,077-5701524318,Egypt air,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-24,2024-07-20,MOC,Travco,5891,22893.0,2024-08-20,
+Mr Mahmoud Darwish,381-5701423732 ,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-25,2024-07-08,MOC,Travco,5533,11514.0,2024-08-05,
+Mr Nazih Massoud,077-5701524256,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-25,2024-07-21,Rabigh,Travco,5855,13337.0,2024-08-19,
+"Mr Mohamed Abdelaal
+Mr Mohamed Abdelatty
+Mr Mohamed Ali
+Mr Mahmoud Hassan
+Mr Mostafa Hassan
+Mr Mohamed Ibrahim
+Mr Moustafa Kawasa
+Mr Mohamed Moussa
+Mr Mahmoud Sayed","077-5701524247 
+077-5701524248
+077-5701524249
+077-5701524250 
+077-5701524251 
+077-5701524252 
+077-5701524253
+077-5701524254 
+077-5701524255",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-25,2024-07-21,Rabigh,Travco,5856,114012.0,2024-08-19,
+Mr Islam Elsamny,077-5701524295 ,Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-08-25,2024-11-23,كوديفوار  ,Travco,5846,25369.0,2024-08-19,
+Mr Shaaban Sayed Shaaban,071-5701524348,Ethiopian,cairo / moroni / cairo,Economy ,First issue ,2024-08-25,2024-02-15,جزر القمر,travco,5928,47735.0,2024-08-21,
+Mr Mohamed Mahmoud Abdelshafi Mohamed,071-5701524349,Ethiopian,cairo / moroni / cairo,Economy ,First issue ,2024-08-25,2024-02-15,جزر القمر,travco,5927,44222.0,2024-08-21,
+"Mr Abdelmonsef Abouelazm
+Mr Abdelhamid Aly
+Mr Ahmed Eldawwas
+Mr Shafik Faragalla
+Mr Salah Koutb
+Mr Sayed Mahmoud
+Mr Sayed Sallam
+Mr Shady Sallam
+Mr Taha Talaat Taha","077-5701524266 
+077-5701524267 
+077-5701524268 
+077-5701524269 
+077-5701524270 
+077-5701524271 
+077-5701524272
+077-5701524273
+077-5701524274",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-26,2024-07-18,Rabigh,Travco,5853,114012.0,2024-08-19,
+"Mr Mohamed Abdelhalim
+Mr Amr Ahmed Ali
+Mr Emad Elamir
+Mr Ali Idris
+Mr Ali Khalil
+Mr Fathy Mahmoud
+Mr Mohamed Medra
+Mr Karim Minshawy
+Mr Abdelrazek Zeidan","077-5701524284 
+ 077-5701524285 
+077-5701524286 
+077-5701524287 
+077-5701524288
+077-5701524289
+077-5701524290
+077-5701524291
+077-5701524292",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-26,2024-07-18,Rabigh,Travco,5849,114012.0,2024-08-19,
+"Mr Zain Abdelgaid
+Mr Reda Abdelgawwad
+Mr Khalaf Abdelhay
+Mr Soliman Abdelkader
+Mr Soliman Abdelmoughith
+Mr Haggag Ahmed
+Mr Sayed Ibrahim
+Mr Khairy Mohamed
+Mr Saeed Mohamed","077-5701524275 
+077-5701524276 
+077-5701524277 
+077-5701524278
+077-5701524279
+077-5701524280
+077-5701524281
+077-5701524282 
+077-5701524283",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-26,2024-07-19,Rabigh,Travco,5850,114012.0,2024-08-19,
+"Mr Ahmed Abdelwahed
+Mr Ayman Atyan
+Mr Ayman Faisal
+Mr Ahmed Refaat Ibrahim
+Mr Ahmed Issa
+Mr Hazem Metawie
+Mr Ahmed Ragab Mohamed
+Mr Ossama Mohamed
+Mr Ahmed Zaid","077-5701524257 
+077-5701524258 
+077-5701524259 
+077-5701524260 
+077-5701524261
+077-5701524262 
+077-5701524263 
+077-5701524264 
+077-5701524265",Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-26,2024-07-19,Rabigh,Travco,5854,114012.0,2024-08-19,
+"Mr Mohsen Abdalaty
+Mr Eissa Ali
+Mr Sayed Bekheet
+Mr Ayman Sherif
+Mr Ahmed Soliman","381-5701524301 
+381-5701524302 
+381-5701524303 
+381-5701524304 
+381-5701524305",Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-26,2024-09-09,MOC,Travco,5842,66200.0,2024-08-19,
+Mr Youssef Abdellatif,077-5701524311,Egypt air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-08-26,2024-08-31,Rabigh,Travco,5889,10794.0,2024-08-20,
+Mr Amr Dawood,077-5701524198 ,Egypt air,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-08-27,2024-09-05,مكتب ليبيا,Travco,5808,17426.0,2024-08-18,
+Mr Khaled Raouf,381-5701561046,Air Cairo ,cairo/sharm/cairo,Economy,First issue ,2024-08-28,2024-08-30,Radamis Sharm  ,Travco,6010,7392.0,2024-08-25,
+Mr Khairy Mohamed,077-5701561102 ,Egypt air,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-08-29,2024-07-19,Rabigh ,Travco,6039,2071.0,2024-08-26,
+Mr Ahmed Hashem,077-5701477557,Egypt air,Cairo / Abidjan,Economy ,First issue ,2024-08-30,,كوديفوار  ,Travco,5605,13990.0,2024-08-08,
+Mr Mahmoud Ismail,381-5701477522 ,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,Reissue ,2024-08-31,2024-09-15,MOC,Travco,5537,2267.0,2024-08-06,
+Mr Wael Mohamed,381-5701477520 ,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-08-31,2024-09-15,MOC,Travco,5539,11669.0,2024-08-06,
+"Mrs Nora Elnagdy
+Mr Ahmed Hassan","077-5701607559
+077-5701607560",Egyptair,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-31,2024-09-04,Red Sea,Travco,6154,28410.0,2024-08-29,
+Mr Mostafa Mohamed,381-5701477521 ,Air Cairo ,Cairo / Riyadh / Cairo ,Economy ,Reissue ,2024-09-05,2024-09-20,MOC,Travco,5538,2267.0,2024-08-06,
+"Mr Mohamed Abdelhamid
+Mr Mohamed Aly
+Mr Mohamed Osman
+Mr Mohamed Abdalla Othman","077-5701607567
+077-5701607568
+077-5701607569
+077-5701607570",Egyptair,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-06,2024-08-02,Red Sea,Travco,6157,48976.0,2024-08-29,
+"Mr Hassan Abdelaal
+Mr Abdelmoneim Barakat
+Mr Baz Mohamed
+Mr Sameh Mohamed
+Mr Ahmed Sayed","077-5701607562
+077-5701607563
+077-5701607564
+077-5701607565
+077-5701607566",Egyptair,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-06,2024-08-02,Red Sea,Travco,6156,58085.0,2024-08-29,
+Mr Ramy Botros,077-5701607561,Egyptair,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-06,2024-08-02,Red Sea,Travco,6155,11617.0,2024-08-29,
+Mr Yasser Zohny,077-5701524206 ,Egypt air,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-09-07,2024-09-21,الطريق الدائرى الثالث,Travco,5810,16059.0,2024-08-18,
+"Mr Eslam Farah
+Mr Mohamed Montasser
+Mr Naser Nagy
+Mr Beshir Mansour
+Mr Mahmoud Hassan
+Ms Salma Elshahed","381-5701438246
+381-5701438249
+381-5701592300
+381-5701438248
+381-5701438247
+381-5701438245",air Cairo ,Cairo / Riyadh / Cairo ,Economy,First issue ,2024-09-07,2024-09-21,MOC,African Queen,13511,56400.0,2024-08-27,
+Mr Islam Elzenieni,077-5701477737 ,Egypt air,Cairo / Moroni / Cairo,Economy ,First issue ,2024-09-12,2024-01-10,جزر القمر,Travco,5752,35796.0,2024-08-14,
+Mr Islam Elzenieni,071-5701560952 ,Ethiopian ,Cairo / Moroni / Cairo,Economy ,First issue ,2024-09-12,2024-01-11,جزر القمر,travco,5925,44222.0,2024-08-21,
+Mr Amir Abouomirah,071-5701524245,Ethiopian ,Cairo / Moroni / Cairo,Economy ,First issue ,2024-09-15,2024-12-15,جزر القمر,Travco,5858,44246.0,2024-08-19,
+Mr Amir Abuomirah,071-5701423719 ,Ethiopian ,Moroni / Cairo,Economy ,Reissue ,,2024-08-27,جزر القمر,Travco,5491,5233.0,2024-08-04,
+Mr Amr Taha,071-5701423708,Ethiopian ,Abidjan / Cairo ,Economy ,Reissue ,,2024-09-28,كوديفوار  ,Travco,5490,9122.0,2024-08-04,
+"Mr Mohamed Kolaib
+Mr Mahmoud Abed","071-5701423707
+071-5701423706",Ethiopian ,Abidjan / Cairo ,Economy ,Reissue ,,2024-08-12,كوديفوار  ,Travco,5489,26066.0,2024-08-04,
+Ibrahim Abosoker,157-5701477574 ,Qatar Airways,Abidjan / Cairo ,Economy ,Reissue ,,2024-09-01,كوديفوار  ,Travco,5603,361.0,2024-08-08,
+"Mr Mohamed Kolaib
+Mr Mohamed Abdelrehim
+Mr Mahmoud Abed
+Mr Mahmoud Ibrahim","071-5701423663 
+071-5701423660
+071-5701423661 
+071-5701423662 ",Ethiopian ,Abidjan / Cairo ,Economy ,Reissue ,,2024-08-03,كوديفوار  ,Travco,5453,93400.0,2024-08-01,
+"Mr Emad Khamis
+Mr Elsayed Ghoneim","077-5701524122 
+077-5701524121 ",Egypt air,Jeddah / Cairo ,Economy ,Reissue ,,2024-08-30,Rabigh ,Travco,5729,4052.0,2024-08-14,
+Mr Saad Farag,077-5701524120 ,Egypt air,Jeddah / Cairo ,Economy ,Reissue ,,2024-08-30,Rabigh ,Travco,5730,3449.0,2024-08-14,
+Mr Sameh Ibrahim,325-5701524188 ,Nile air,Riyadh / Cairo ,Economy ,Reissue ,,2024-08-17,MOC,Travco,5797,2525.0,2024-08-17,
+"Mr Ahmed Abdelwahab
+Mr Mohamed Hosny Ahmed","381-5701524193 
+381-5701524194 ",Air Cairo ,Riyadh / Cairo ,Economy ,Reissue ,,2024-08-26,MOC,Travco,5821,3372.0,2024-08-18,
+Mr Ahmed Fedawy,077-5701477703 ,Egypt air,Tripoli / Cairo ,Economy ,Reissue ,,2024-09-01,Ubary,Travco,5671,2095.0,2024-08-12,
+Mr Basem Mohamed,077-5701477704 ,Egypt air,Tripoli / Cairo ,Economy ,Reissue ,,2024-09-01,Ubary,Travco,5672,2095.0,2024-08-12,
+Mr Mohamed Sedek,077-5701477705 ,Egypt air,Tripoli / Cairo ,Economy ,Reissue ,,2024-09-01,Ubary,Travco,5673,2096.0,2024-08-12,
+"Mr Raafat Abdelaal
+Mr Sherif Abdelmoamen
+Mr Ahmed Atta
+Mr Ahmed Elhomosy
+Mr Mohamed Elmorsy
+Mr Abdelfattah Elsisi
+Mr Mohamed Hegazy
+Mr Ahmed Ismail
+Mr Fahd Serour
+Mr Walid Abdelfattah","077-6073903661 
+077-6073903662 
+077-6073903663 
+077-6073903664 
+077-6073903665 
+077-6073903666
+077-6073903667 
+077-6073903668 
+077-6073903669
+077-6073903660",Egypt air,Tripoli / Cairo ,Economy ,First issue ,,2024-08-29,Ubary,Travco,5690,133000.0,2024-08-12,
+"Mr Ahmed Ghazy
+Mr Mohamed Hassanin
+Mr Mahmoud Rashwan","077-5701477717
+077-5701477718
+077-5701477719",Egypt air,Tripoli / Cairo ,Economy ,Reissue ,,2024-09-01,Ubary,Travco,5707,7206.0,2024-08-13,
+Mr Mohamed Abdelhamed,381-5701524228 ,Air Cairo ,Riyadh / Cairo ,Economy ,Reissue ,,2024-06-30,MOC,Travco,5869,3504.0,2024-08-19,
+Mr Mohamed Youssef,077-5701511563,Egypt air,Tripoli / Cairo ,Economy ,Reissue ,,2024-09-01,Ubary ,Excel,TIN2400032462,2050.0,2024-08-12,
+Mr Mohamed Hosny Ahmed,381-5701560988 ,Air Cairo ,Riyadh / Cairo ,Economy ,Reissue ,,2024-06-30,MOC,Travco,5962,2034.0,2024-08-22,
+Mr Youssef Bassily,157-5701561137,Qatar Airways,Abidjan / Cairo ,Economy,Reissue ,,2024-10-02,كوديفوار  ,Travco,6073,361.0,2024-08-27,
+Mr Mahmoud Kamal,071-5701561136,Ethiopian,Abidjan / Cairo ,Economy,Reissue ,,2024-11-05,كوديفوار  ,Travco,6055,8715.0,2024-08-27,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Mr Wael Mohamed,325-5701423648,Nile air,Cairo / Riyadh / Cairo ,,Refund,,,MOC,Travco,375,-6262.0,2024-08-11,
+Mr Aly Tolba,381-5701423731 ,Air Cairo,Cairo / Riyadh / Cairo ,,Refund,,,MOC,Travco,376,-11100.0,2024-08-11,
+Mr Islam Elzenieni,077-5701477737 ,Egypt air,Cairo / Moroni / Cairo,,Refund,,,جزر القمر,Travco,404,-35230.0,,
+Mr Shaaban Sayed Shaaban,077-5701423717,Egypt air,Cairo / Moroni / Cairo,,Refund,,,جزر القمر,Travco,402,-37872.0,,
+Mr Mohamed Mahmoud Abdelshafi Mohamed,077-5701423716,Egypt air,Cairo / Moroni / Cairo,,Refund,,,جزر القمر,Travco,403,-37872.0,,
+                               ,,,,,,,,,,,2722263.0,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Amir Tahoun,065-6677416484,Saudi Arabian Airlines,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-02-07,2024-03-01,السعودية,Excel,TIN2400005147,12063.84,2024-02-05,
+Mr Yasser Elsaadany,065-6677416464,Saudi Arabian Airlines,Cairo / Riyadh / Cairo ,Business,First Issue ,2024-02-25,2024-03-07,السعودية,Excel,TIN2400005411,27431.05,2024-02-04,
+Mr Mohamed Hassanin,065-6677416544,Saudi Arabian Airlines,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-02-11,2024-05-05,السعودية,Excel,TIN2400005096,10106.84,2024-02-05,
+Mrs Laila Abdelrahman,381-6677416582,Air Cairo,Cairo / Sharm / Cairo,Economy ,First Issue ,2024-02-11,2024-02-13,Radamis Sharm,Excel,TIN2400005408,3425.7,2024-02-06,
+Mr Ibrahem Abdelahy,065-6677416586,Saudi Arabian Airlines,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-02-17,2024-05-07,السعودية,Excel,TIN2400005305,10105.84,2024-02-06,
+Mr Ahmed Elfayoumy,077-6677449256,Egypt air ,Cairo / Mitiga,Economy ,First Issue ,2024-02-10,,أوباري,Excel,TIN2400005342,35646.0,2024-02-06,
+Mr Moustafa Selim,077-6677449258,Egypt air ,Cairo / Mitiga,Economy ,First Issue ,2024-02-10,,أوباري,Excel,,,2024-02-06,
+Mr Mohamed Sedek,077-6677449257,Egypt air ,Cairo / Mitiga,Economy ,First Issue ,2024-02-10,,أوباري,Excel,,,2024-02-06,
+Mr Mohamed Ahmed,077-6677449255,Egypt air ,Cairo / Mitiga,Economy ,First Issue ,2024-02-10,,أوباري,Excel,,,2024-02-06,
+Mr Osama Abdalla,077-6677449262,Egypt air ,Cairo / Mitiga,Economy ,First Issue ,2024-02-15,,أوباري,Excel,TIN2400005346,8911.5,2024-02-06,
+Mr Mostafa Mohamed Mohamed,077-6662161072,Egypt air ,Jeddah / Cairo,Economy ,reissue ,,2024-02-15,السعودية,Green Sea,24030,1224.0,2024-02-07,
+Mr Mahmoud Khattab,077-6677467527,Egypt air ,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-02-11,2024-12-08,السعودية,Excel,TIN2400006050,8650.61,2024-02-08,
+Mariam Abdelwahab,065-6677467626,Saudi Arabian Airlines,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-02-17,2024-02-29,السعودية,Excel,TIN2400011785,12398.99,2024-02-08,Received
+Mr Mohamed Elkersh,077-6677467699,Egypt air ,Cairo / Mitiga / Cairo,Economy ,First Issue ,2024-02-14,2024-02-21,RMEG,Excel,TIN2400006112,12208.94,2024-02-11,
+Mr Ayman Attia,077-6677490243,Egypt air ,Cairo / Sharm / Cairo,Economy ,First Issue ,2024-02-13,2024-02-13,Radamis Sharm,Excel,TIN2400006166,4501.0,2024-02-11,
+Mr Mohamed Elgohary,381-6677490267,Air Cairo,Cairo / Sharm / Cairo,Economy ,First Issue ,2024-02-13,2024-02-14,Radamis Sharm,Excel,TIN2400008386,14579.1,2024-02-11,
+Mr Mohamed Elsahry,381-6677490268,Air Cairo,Cairo / Sharm / Cairo,Economy ,First Issue ,2024-02-13,2024-02-14,Radamis Sharm,Excel,,,2024-02-11,
+Mr Ahmed Helmy,381-6677490269 ,Air Cairo,Cairo / Sharm / Cairo,Economy ,First Issue ,2024-02-13,2024-02-14,Radamis Sharm,Excel,,,2024-02-11,
+Mr Mohamed Farghaly,077-6677490343,Egypt air ,Cairo / Riyadh / Cairo ,Economy ,First Issue ,2024-02-25,2024-02-29,السعودية,Excel,TIN2400006351,11017.6,2024-02-12,
+Mr Atef Mahmoud Ahmed ,077-6677490359,Egypt air ,Cairo / Jeddah / Cairo ,Economy ,First Issue ,2024-03-01,2024-05-25,السعودية,Excel,TIN2400011801,11725.15,2024-02-12,
+Mr Mahmoud Ibrahm Mahlab,157-6677490405,Qatar Airways,Cairo / Abidjan / Cairo,Business,First Issue ,2024-02-17,2024-02-25,Cote Divoire ,Excel,TIN2400006432,97360.9,2024-02-13,
+Mr Ahmed Elfayoumy,077-6677518000 ,Egypt air ,Cairo / Mitiga / Cairo,Economy ,reissue ,2024-02-20,2024-08-03,أوباري,Excel,TIN2400006706,5555.0,2024-02-14,
+Mr Mostafa Hedeya,125-6677518042-43 ,British Airways,Cairo / London - Manchester - Belfast /  Cairo,Economy ,First Issue ,2024-03-03,2024-03-09,Tender,Excel,TIN2400006714,54881.88,2024-02-14,
+Mr Mahmoud Ezzat Elrefaey,077-6677518158,Egypt air ,Cairo / Jeddah ,Economy ,First Issue ,2024-02-19,,السعودية,Excel,TIN2400006985,4820.23,2024-02-16,
+Mr Abdelrehim Waziry,065-6662161126,Saudi Arabian Airlines,Jeddah / Cairo ,Economy ,reissue ,,2024-03-10,السعودية,Green Sea,24036,1990.0,2024-02-16,
+Mr Mamdouh Moawad,077-6677551663,Egypt air ,Mitiga / Cairo,Economy ,reissue ,,2024-03-01,أوباري,Excel,TIN2400007587,3929.0,2024-02-19,
+Mr AMR ABDELRAHMAN DAWOOD,077-6662169139,Egypt air ,Cairo / Mitiga / Cairo,Economy ,First Issue ,2024-02-27,2024-03-10,أوباري,Kanoo,552723,17707.0,2024-02-20,
+Mr Yasser Zohny,077-6677574319,Egypt air ,Cairo / Mitiga / Cairo,Economy ,First Issue ,2024-03-03,2024-03-10,طريق الدائرى الثالث ,Excel,TIN2400010511,14067.5,2024-02-20,
+Mr Ahmed Elfayoumy,077-6677574410,Egypt air ,Cairo / Mitiga / Cairo,Economy ,reissue ,2024-02-27,2024-08-10,جزر القمر,Excel,TIN2400011745,2084.0,2024-02-21,
+Mr Mohamed Ibrahim,071-6677574443,Ethiopian Airlines,Moroni / Cairo,Economy ,reissue ,,2024-03-02,جزر القمر,Excel,TIN2400008251,4933.8,2024-02-22,
+Mr Mohamed Towfik,071-6677574444,Ethiopian Airlines,Moroni / Cairo,Economy ,reissue ,,2024-04-04,جزر القمر,Excel,TIN2400008215,3390.8,2024-02-22,
+Mr Mohamed Ibrahim,071-1303763340,Ethiopian Airlines,Cairo /Moroni / Cairo,Economy ,First Issue ,2024-03-22,2024-07-22,جزر القمر,Kanoo,552833,26550.8,2024-02-22,
+Mr Amir Tahoun,065-6692451260,Saudi Arabian Airlines,Jeddah / Cairo ,Economy ,reissue ,,2024-05-01,السعودية,Excel,,0.0,2024-02-27,
+Mr Alaa Elsayed Atta,077-6692451369 ,Egypt air ,Cairo / Mitiga / Cairo,Economy ,First Issue ,2024-03-05,2024-03-19,أوباري,Excel,TIN2400009226,14270.83,2024-02-28,Received
+Mr Mostafa Mohamed Alyeldin,071-6692451415 ,Ethiopian Airlines,Cairo / Kinshasa / Cairo ,Economy ,First Issue ,2024-03-02,2024-03-09,Tendering,Excel,TIN2400009426,40870.2,2024-02-29,Received
+Mr Mostafa Kamal Abdalla, 071-6692451414,Ethiopian Airlines,Cairo / Kinshasa / Cairo ,Economy ,First Issue ,2024-03-02,2024-03-09,Tendering,Excel,,,2024-02-29,Received
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Mr Yasser Zohny,077-6677574319,Egypt air ,,,refund ,,,طريق الدائرى الثالث ,Excel,"CR2400001523
+TIN2400010511",-1485.0,2024-02-27,
+Mr Mohamed Elkersh,077-6677467699,Egypt air ,,,refund ,,,RMEG,Excel,"CR2400001203
+TIN2400008388",-2208.94,2024-02-21,
+Mr Ahmed Helmy,381-6677490269 ,Air Cairo,,,refund ,,,Radamis Sharm,Excel,"CR2400001204
+TIN2400008393",-1011.0,2024-02-12,
+,,,,,,,,,,,471703.16,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Mohamed Ghobara,071-6693079218,Ethiopian,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-07-04,2024-11-04, كوديفوار ,Travco,4803,49000.0,2024-07-01,
+Mr Mohamed Ragab,065-6693079262 ,Saudi Arabian ,Cairo / Riyadh - Jeddah / Cairo ,Business,First issue ,2024-07-06,2024-07-09,,Travco,4846,40901.0,2024-07-03,
+Mr Yasser Elsaadany,065-6693079229 ,Saudi Arabian ,Cairo / Riyadh / Cairo ,Business,First issue ,2024-07-07,2024-07-18,,Travco,4809,43219.0,2024-07-02,
+Mr Mohamed Kotb,065-6693079259,Saudi Arabian ,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-07-07,2024-07-18,MOC,Travco,4849,3400.0,2024-07-03,
+Mr Amr Dawood,077-6693079261 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-09,2024-07-25,,Travco,4847,19068.0,2024-07-03,
+"Mr Ahmed Mohamed Attia Mohamed
+Mr Hossam Nasralla
+Mr Mohamed Refaei","077-6693079282
+077-6693079283
+077-6693079284 ",Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-09,2024-12-23,Ubary,Travco,4831,56202.0,2024-07-03,
+Mr Mohamed Elsaadany,077-6693127635 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-10,2024-05-27,Rabigh,Travco,4959,11523.0,2024-07-08,
+Mr Ahmed Fawzy Mohamed,077-6693127638 ,Egypt air ,Abidjan / Cairo,Economy,First issue ,2024-07-10,2024-01-06, كوديفوار ,Travco,4957,21539.0,2024-07-08,
+Mr Hamed Abdallah,077-6693127600 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-07-12,2024-10-28,Ubary,Travco,4911,5597.0,2024-07-07,
+Mr Mostafa Abdelkader,077-6693127625 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-13,2024-07-18,,Travco,4917,21011.0,2024-07-07,
+Mr Mohamed Mahlab,077-6693079231 ,Egypt air ,Cairo / Abidjan / Cairo,Business,First issue ,2024-07-14,2024-07-17, كوديفوار ,Travco,4780,51917.0,2024-07-02,
+Mr Mahmoud Elnaggar,077-6693127681,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-14,2024-11-11, كوديفوار ,Travco,4977,21953.0,2024-07-09,
+Mr Ramy Atanyos,077-6693127682 ,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-14,2024-11-09, كوديفوار ,Travco,4976,21953.0,2024-07-09,
+Mr Youssef Elalem,077-6693127737,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-14,2024-11-16, كوديفوار ,Travco,5010,22035.0,2024-07-11,
+Mr Ashraf Mokbel,077-6693127741 ,Egypt air ,Cairo / Riyadh / Cairo ,Economy,First issue ,2024-07-14,2024-07-29,MOC,Travco,5011,13922.0,2024-07-11,
+Mr Gamil Sharaf,077-6693127778 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-15,2024-06-07,Rabigh,Travco,5071,11478.0,2024-07-14,
+"Mr Mohamed Abdalla
+Mr Mohamed Gomaa
+Mr Mohamed Fouad Mohamed
+Mr Mohamed Antar Othman","077-6693127774 
+077-6693127775 
+077-6693127776 
+077-6693127777",Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-15,2024-06-07,Rabigh,Travco,5072,52332.0,2024-07-14,
+"Mr Belal Abdelmohdy
+Mr Mohamed Atef Ahmed
+Mr Mohamed Elmasharfa
+Mr Nashaat Hassan
+Mr Eid Ibrahim
+Mr Mohamed Ibrahim
+Mr Arafa Mohamed
+Mr Kareem Mohamed","077-6693127780 
+077-6693127781 
+077-6693127782 
+077-6693127783
+077-6693127784
+077-6693127785 
+077-6693127786
+077-6693127787",Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-15,2024-06-07,Rabigh,Travco,5070,90456.0,2024-07-14,
+Mr Amir Tahoun,077-6693127742,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-17,2024-06-07,Red sea,Travco,5012,11320.0,2024-07-11,
+Mr Remon Shawky,381-6693127833 ,Air Cairo,Cairo / Sharm / Cairo,Economy,First issue ,2024-07-17,17ul, Radamis Sharm ,Travco,5082,8321.0,2024-07-15,
+Mr Mohamed  Salama,077-6693127792,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-18,2024-06-07,Rabigh,Travco,5067,11478.0,2024-07-14,
+Mr Ayman Horish,077-6693127835 ,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-19,2024-07-27, كوديفوار ,Travco,5090,22028.0,2024-07-15,
+Mr Mohamed Shehata Ahmed,077-6693127772 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-20,2024-06-07,Rabigh,Travco,5074,11257.0,2024-07-14,
+Mr Mostafa Bedair,077-5701385682,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-20,2024-08-01,Rabigh,Travco,5127,11687.0,2024-07-16,
+"Mr Ahmed Saad
+Mr Tarek Farag
+Mr Abd Elrahman Ibrahim","381-5701385693 
+381-5701385691 
+381-5701385692 ",Air Cairo,Cairo / Luxor / Cairo ,Economy,First issue ,2024-07-20,2024-07-23,Tender,Travco,5135,23691.0,2024-07-16,
+Ms Lamiaa Saad,381-5701385690 ,Air Cairo,Cairo / Luxor / Cairo ,Economy,First issue ,2024-07-20,2024-07-21,Tender,Travco,5134,7897.0,2024-07-16,
+Mr Mohamed Elseman,077-5701385748,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-07-20,2024-07-25,Rabigh,Travco,5192,14920.0,2024-07-18,
+Mr Ayman Attia,077-6693079349 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-21,2024-11-06,Ubary,Travco,4910,15515.0,2024-07-07,
+Mr Hany Mohamed,077-6693127710,Egypt air ,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-07-21,2024-11-18, كوديفوار ,Travco,4998,21992.0,2024-07-10,
+Mr Alaa Elsayed,071-6693127634 ,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-07-22,2024-11-17,جزر القمر,Travco,4960,43844.0,2024-07-08,
+Ms Dana Elsebaie,077-5701385767 ,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-23,2024-07-31, كوديفوار ,Travco,5180,22008.0,2024-07-18,
+Mrs Nesma Ali,077-5701385787 ,Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-07-23,2024-07-31, كوديفوار ,Travco,5208,22121.0,2024-07-19,
+Mr Youssef Elsaka,077-6693127838 ,Egypt air ,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-07-26,2024-11-23, كوديفوار ,Travco,5091,21978.0,2024-07-15,
+Mr Ahmed Aly,071-6693127745 ,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-07-28,2024-08-03,جزر القمر,Travco,5009,43876.0,2024-07-11,
+Mr Moustafa Abdalla,071-6693127744 ,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-07-28,2024-08-03,جزر القمر,Travco,5008,43876.0,2024-07-11,
+Mr Ahmed Abouata,071-5701385687,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-07-28,2024-11-25,جزر القمر,Travco,5110,43854.0,2024-07-16,
+Mr Remon Shawky,381-5701385873 ,Air Cairo,Cairo / Sharm / Cairo,Economy,First issue ,2024-07-29,2024-07-29, Radamis Sharm ,Travco,5302,7881.0,2024-07-24,
+"Mr Mohamed Abdelhady
+Mr Haggag Abdelhay
+Mr Belal Arafat
+Mr Ahmed Eldorf
+Mr Ramadan Mahmoud
+Mr Mina Nader Mina
+Mr Mohamed Salama","077-5701423525 
+077-5701423526 
+077-5701423527 
+077-5701423528 
+077-5701423529 
+077-5701423530
+077-5701423531",Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-01,2024-06-08,Rabigh,Travco,5329,99491.0,2024-07-27,
+Mr Ahmed Salama,077-6693127773 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-02,2024-06-07,Rabigh,Travco,5073,12895.0,2024-07-14,
+"Mr Ibrahim Ahmed
+Mr Osama Metwally
+Mr Hussein Abdelhalim
+Mr Gamal Abdelmegid
+Mr Mohamed Abdelmeguid
+Mr Mohamed Hassan
+Mr Mohamed Abdelfattah Mohamed","077-5701385772 
+077-5701385774
+077-5701385769 
+077-5701385770
+077-5701385771 
+077-5701385773 
+077-5701385775",Egypt air ,Cairo / Abidjan / Cairo,Economy,First issue ,2024-08-02,2024-11-30, كوديفوار ,Travco,5178,163534.0,2024-07-18,
+"Mr Wael Mohamed
+Mr Sameh Ibrahim","325-5701423553 
+325-5701423554 ",Nile Air,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-08-04,2024-08-19,MOC,Travco,5340,11000.0,2024-07-28,
+Mr Mohamed Ahmed Abdelrahman Mohamed,381-5701423551 ,Air Cairo,Cairo / Riyadh / Cairo ,Economy,First issue ,2024-08-04,2024-08-19,MOC,Travco,5342,15327.0,2024-07-28,
+"Mr Mohamed Abdelhamed
+Mr Ahmed Abdelwahab
+Mr Mohamed Hosny Ahmed
+Mr Hamada Ali
+Mr Ahmed Attia
+Mr Abdelrahman Ibrahim
+Mr Mohamed Nasr
+Mr Akram Soliman","381-5701423543 
+381-5701423544 
+381-5701423545
+381-5701423546 
+381-5701423547 
+381-5701423548 
+381-5701423549 
+381-5701423550 ",Air Cairo,Cairo / Riyadh / Cairo ,Economy,First issue ,2024-08-04,2024-08-19,MOC,Travco,5343,95416.0,2024-07-28,
+Mr Mostafa Elsaka,077-5701385818 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-08-05,2024-10-19,Ubary,Travco,5240,15911.0,2024-07-21,
+Mr Ashraf Mokbel,065-5701423552 ,Saudi Arabian ,Alexandria / Riyadh / Alexandria ,Economy,First issue ,2024-08-05,2024-06-30,MOC,Travco,5341,18747.0,2024-07-28,
+Mr Mahmoud Aboulila,077-5701423534 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-06,2024-06-06,Rabigh,Travco,5326,13300.0,2024-07-27,
+"Mr Ebrahem Afaan
+Mr Abdelrahman Elbahrawy
+Mr Ahmed Khalil","077-5701423582 
+077-5701423583 
+077-5701423584",Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-08-06,2024-01-18,Ubary,Travco,5375,47799.0,2024-07-29,
+Mr Hany Mohamed,077-5701423581 ,Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-08-08,2024-11-22,Ubary,Travco,5376,15933.0,2024-07-29,
+Mr Mohamed Kotb,065-6693127748,Saudi Arabian ,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-08-11,2024-09-04,MOC,Travco,5019,800.0,2024-07-12,
+Mr Mohamed Kotb,065-5701423568 ,Saudi Arabian ,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-08-11,2024-11-14,MOC,Travco,5387,3700.0,2024-07-29,
+"Mr Mamdouh Moawad
+Mr Mahmoud Eltelbani","077-5701423533 
+077-5701423532 ",Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-08-13,2024-11-27,Ubary,Travco,5327,31966.0,2024-07-27,
+Mr Abdelkarim Mohamed,077-6693127743,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-15,2024-06-07,Red sea,Travco,5013,12962.0,2024-07-11,
+Mr Mahmoud Khattab,077-5701423619 ,Egypt air ,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-08-16,2024-07-05,Rabigh,Travco,5435,13245.0,2024-07-31,
+"Mr Mohamed Newigy
+Mr Ahmed Amer","077-5701423590
+077-5701423589",Egypt air ,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-08-20,2024-02-03,Ubary,Travco,5417,31962.0,2024-07-30,
+"Mr Hussein Abdelhalim
+Mr Gamal Abdelmegid","077-5701385795
+077-5701385796",Egypt air ,Cairo / Abidjan / Cairo,Economy,Reissue ,2024-08-25,2024-12-23, كوديفوار ,Travco,5230,2984.0,2024-07-21,
+Mr Mohamed Abdelfattah Mohamed,077-5701385799,Egypt air ,Cairo / Abidjan / Cairo,Economy,Reissue ,2024-08-25,2024-12-23, كوديفوار ,Travco,5228,1492.0,2024-07-21,
+"Mr Mohamed Abdelmeguid
+Mr Mohamed Hassan","077-5701385797
+077-5701385798",Egypt air ,Cairo / Abidjan / Cairo,Economy,Reissue ,2024-08-25,2024-12-23, كوديفوار ,Travco,5229,2984.0,2024-07-21,
+Mr Mohamed Kotb,065-6693079270,Saudi Arabian ,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-09-24,2024-10-03,MOC,Travco,4841,4400.0,2024-07-03,
+Mr Mohamed Mahlab,077-5701423555 ,Egypt air ,Cairo / Paris / Cairo,Business,First issue ,2024-09-28,2024-10-01,Top Management ,Travco,5339,75714.0,2024-07-28,
+Mr Tarek Gouda,077-6693099933,Egypt air ,Tripoli / Cairo ,Economy,Reissue ,,2024-12-26,Ubary,Excel,TIN2400026817,1368.0,2024-07-02,
+Mrs Jessie Katy Belmo,071-6693121735,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-08-03, كوديفوار ,Excel,TIN2400027590,7511.8,2024-07-08,
+Perle Yeo Usage Belmo,071-6693121734,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-08-03, كوديفوار ,Excel,TIN2400027587,7511.8,2024-07-08,
+Mr Abdoulkaadir Yeo,071-6693121733,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-08-03, كوديفوار ,Excel,TIN2400027586,7511.8,2024-07-08,
+Ismael Emmanuel Yeo Belmo,071-6693121736,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-08-03, كوديفوار ,Excel,TIN2400027591,7511.8,2024-07-08,
+Mr Mamdouh Moawad,077-6693127770,Egypt air ,Cairo / Tripoli / Cairo ,Economy,Reissue ,,2024-07-22,Ubary,Travco,5075,3672.0,2024-07-13,
+Mr MOHAMED IBRAHIM,071-6035255853,Ethiopian,Moroni / Cairo ,Economy,Reissue ,,2024-08-11,جزر القمر,Green sea,,4924.0,2024-07-17,
+Mr Mohamed Kotb,065-5701385713,Saudi Arabian ,Riyadh / Cairo ,Economy,Reissue ,,2024-11-27,MOC,Travco,5150,3200.0,2024-07-18,
+Mr Mohamed Kotb,065-5701423540,Saudi Arabian ,Riyadh / Cairo ,Economy,Reissue ,,2024-08-07,MOC,Travco,5345,3150.0,2024-07-28,
+Mr Ahmed Ibrahim Hashem,071-5701423570 ,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-08-14, كوديفوار ,Travco,5385,6653.0,2024-07-29,
+Mr Abdelnaby Ibrahim,071-5701423580,Ethiopian,Moroni / Cairo ,Economy,Reissue ,,2024-08-02,جزر القمر,Travco,5377,5250.0,2024-07-29,
+Mr Mohamed Kotb,381-5701423620,Air Cairo,Jeddah / Cairo v,Economy,Reissue ,,2024-09-20,Rabigh,Travco,5434,2650.0,2024-07-31,
+,,,,,,,,,,,,,
+Mr Mohamed Badran,325-6692893697,Nile Air,,,Refund ,,,,Travco,,,2024-07-30,3662.0
+Mr Ashraf Mokbel,325-6692893703,Nile Air,,,Refund ,,,,Travco,349,-21000.0,2024-07-30,3662.0
+MOHAMED NASSER Mohamed,325-6692893701,Nile Air,,,Refund ,,,,Travco,350,-10500.0,2024-07-30,3662.0
+Mr Mohamed Ahmed Abdelrahman Mohamed,325-6692893700,Nile Air,,,Refund ,,,,Travco,351,-10500.0,2024-07-30,3662.0
+Mr Mohamed Bekhit,325-6692893698,Nile Air,,,Refund ,,,,Travco,352,-10500.0,2024-07-30,3662.0
+Mr Remon Shawky,381-6693127833 ,Air Cairo,,,Refund ,,,,Travco,353,-7420.0,2024-07-30,5082.0
+,,,,,,,,,,,,,
+,,,,,,,,,,,1659606.2000000002,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Abdelsamea Mohamed,381-6692954615,Air Cairo,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-04,2024-12-01,Driller,Travco,4158,11473.0,2024-06-02,
+Mr Mohamed Elashry,381-6692954594,Air Cairo,Cairo / Sharm El Sheikh / Cairo,Economy ,First issue ,2024-06-04,2024-06-05, Radamis Sharm ,Travco,4142,7653.0,2024-06-01,
+Mr Amr Elray,071-6692999093,Ethiopian,Cairo / Abidjan ,Economy ,First issue ,2024-06-08,,كوديفوار,Travco,4266,92248.0,2024-06-05,
+Ibrahim Abosoker,157-6692954672,Qatar Airways,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-10,2024-09-15,كوديفوار,Travco,4247,35805.0,2024-06-04,
+Mr Ahmed Elgazar,065-6692999159,Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-11,2024-05-07,Rabigh ,Travco,4363,13373.0,2024-06-10,
+Mr Ramadan Mohammed,065-6692999160,Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-11,2024-05-07,Rabigh ,Travco,4364,15133.0,2024-06-10,
+Mr Aref Kassem,071-6692954646,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,Reissue ,2024-06-12,2024-12-09,كوديفوار,Travco,4170,14000.0,2024-06-03,
+"Mr ABDELALEEM RASLAN
+Mr ABDELAL YASSIN
+Mr MAAMOUN KARIM","077-5415171452
+077-5415171451
+0775415171450",Egyptair,Cairo / aswan / Cairo,Economy ,First issue ,2024-06-12,2024-06-13,Tender,Green Sea,24106,27195.0,2024-06-09,
+Mr Farouk Abdelmaaboud,077-6692999163 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-13,2024-05-02,Red Sea,Travco,4382,12818.0,2024-06-10,
+Mr Mohamed Mahlab,147-6073383112,Royal Air Maroc,Abidjan / Cairo ,Business,First issue ,2024-06-15,,كوديفوار,Travco,4248,115358.0,2024-06-02,
+Mr Adham Mekhaiel,071-6693041665 ,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-16,2024-06-22,كوديفوار,Travco,4486,52450.0,2024-06-14,
+"Mr Moustafa Abdalla
+Mr Moaain Ibrahim","071-6692999269 
+071-6692999270 ",Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-18,2024-12-14,كوديفوار,Travco,4448,69230.0,2024-06-12,
+Mr Khaled Tawfik,071-6692999100,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-19,2024-10-16,كوديفوار,Travco,4293,29007.0,2024-06-06,
+Mr Mohamed Darwish,071-6693041667,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-19,2024-09-15,كوديفوار,Travco,4488,40000.0,2024-06-19,
+Mr Mohamed Sallam,071-6692999286,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-20,2024-12-11,كوديفوار,Travco,4481,32334.8,2024-06-13,
+Mr Fadel Fadl,065-6692954649,Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-21,2024-03-28,Rabigh ,Travco,4169,7111.0,2024-06-03,
+Mr Fadel Fadl,065-1843012423,Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-21,2024-03-28,Rabigh ,Travco,4201,2525.0,2024-06-04,
+Mr Ahmed Elsayed,077-6692999193 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-21,2024-04-28,Rabigh ,Travco,4391,12596.0,2024-06-10,
+Mr Eid Ibrahim,077-6692999174 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-21,2024-04-28,Rabigh ,Travco,4387,12596.0,2024-06-10,
+"Mr Tarek Abouelrayat
+Mr Abdelmonem Abousetit
+Mr Aly Ghazy
+Mr Mohamed Hussein
+Mr Masoud Issa
+Mr Ramy Mohamed
+Mr Adel Mourad
+Mr Sayed Ramadan
+Mr Ragab Said","077-6692999184 
+077-6692999185 
+077-6692999186
+077-6692999187
+077-6692999188
+077-6692999189 
+077-6692999190 
+077-6692999191 
+077-6692999192",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-21,2024-04-28,Rabigh ,Travco,4390,113364.0,2024-06-10,
+Mr Bishoy Gergis,065-6692999166,Saudi Arabian,Alexandria / Jeddah / Cairo ,Economy ,Reissue ,2024-06-22,2024-05-07,Rabigh ,Travco,4367,10851.0,2024-06-10,
+"Mr Mohamed Elkony
+Mr Mahmoud Helal
+Mr Amr Salama","065-6692999167
+065-6692999168
+065-6692999169",Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-22,2024-05-07,Rabigh ,Travco,4368,22989.0,2024-06-10,
+Mr Mostafa Rezk,065-6693016668,Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-22,2024-05-07,Rabigh ,Travco,1321,7662.0,2024-06-10,
+"Mr Mohamad Ammar
+Mr Mahmoud Elnady
+Mr Mahmoud Elsayed
+Mr Saad Elshafey
+Mr Mohamed Elzeniny
+Mr Ismail Ibrahim
+Mr Mostafa Metwaly
+Mr Raafat Mohamed
+Mr Ahmed Soliman","077-6692999175 
+077-6692999176 
+077-6692999177 
+077-6692999178
+077-6692999179 
+077-6692999180
+077-6692999181 
+077-6692999182 
+077-6692999183",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-22,2024-04-29,Rabigh ,Travco,4388,115362.0,2024-06-10,
+Mr Omar Sadek,077-6692999194 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-23,2024-09-15,Red Sea,Travco,4392,12596.0,2024-06-10,
+"Mr Mohamed Hassan
+Mr Sherif Ismail
+Mr Ahmed Mahmoud
+Mr Abdelrahman Said
+Mr Mohamed Saleh
+Mr Ekramy Shehata","077-6692999196 
+077-6692999197 
+077-6692999198 
+077-6692999199 
+077-6692999200 
+077-6692999201",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-23,2024-05-02,Red Sea,Travco,4395,75576.0,2024-06-10,
+Mr Amir Abuomirah,071-6692999209,Ethiopian,Cairo / Moroni / Cairo ,Economy ,First issue ,2024-06-24,2024-09-23,جزر القمر,Travco,4376,43667.0,2024-06-10,
+"Mr Mostafa Abdellatif
+Mr Hesham Mohamed","071-6692999207 
+071-6692999208 ",Ethiopian,Cairo / Moroni / Cairo ,Economy ,First issue ,2024-06-24,2024-12-24,جزر القمر,Travco,4375,87334.0,2024-06-10,
+"Mr Mohamed Badran
+Mr Mohamed Bekhit
+Mr Gamal Hassan","077-6692999237 
+077-6692999238  
+077-6692999239",Egyptair,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-06-25,2024-05-01,MOC,Travco,4421,43209.0,2024-06-11,
+Mrs Mariam Abdelwahab,077-6692999263,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-25,2024-07-06,Red Sea,Travco,4452,13735.0,2024-06-12,
+Mr Mohamed Darwish,071-6693041724,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-26,2024-09-15,كوديفوار,Travco,4503,6000.0,2024-06-17,
+"Mr Mohamed Elashry
+Mr Mohamed Elgohary
+Mr Yousef Kamal","381-6693041794 
+381-6693041795 
+381-6693041796",Air Cairo,Cairo / Sharm El Sheikh / Cairo,Economy ,First issue ,2024-06-26,2024-06-26, Radamis Sharm ,Travco,4583,21660.0,2024-06-23,
+Mr Mohamed Elkottamy,071-6693041760 ,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-06-27,2024-10-25,كوديفوار,Travco,4538,40170.0,2024-06-21,
+Mr Tarek Abouelrayat,077-6693041670 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-06-28,2024-04-28,Rabigh ,Travco,4498,2363.0,2024-06-15,
+"Mr Ahmed Attia
+Mr Ahmed Elshafey
+Mr Islam Esmail
+Mr Elsayed Kassem
+Mr Ahmed Mahmoud
+Mr Ibrahim Marouh
+Mr Ahmed Mohamed
+Mr Ahmed Mohamed
+Mr Ahmed Mohamed","077-6693041686 
+077-6693041687
+077-6693041688 
+077-6693041689
+077-6693041690 
+077-6693041691
+077-6693041692
+077-6693041693
+077-6693041694",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-28,2024-05-06,Rabigh ,Travco,4494,100800.0,2024-06-15,
+"Mr Hamada Ahmed
+Mr Khaled Ahmed
+Mr Khalaf Ali
+Mr Hassan Elashy
+Mr Hussein Hosni Hussein
+Mr Elsayed Mohamed
+Mr Gomaa Mohamed
+Mr Khaled Mourci
+Mr Hosny Radwan","077-6693041695
+077-6693041696
+077-6693041697 
+077-6693041698
+077-6693041699
+077-6693041700
+077-6693041701
+077-6693041702
+077-6693041703 ",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-28,2024-05-06,Rabigh ,Travco,4493,100800.0,2024-06-15,
+Mr Wael Abdelrady,077-6693041722 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-28,2024-05-07,Rabigh ,Travco,4490,11200.0,2024-06-15,
+"Mr Ahmed Abbas
+Mr Bassem Abdelhamed
+Mr Ahmed Elkhouly
+Mr Moustafa Elshazly
+Mr Ramadan Fars
+Mr Hosam Hamed
+Mr Ahmed Ismail
+Mr Mohamed Mostafa
+Mr Ahmed Youns","077-6693041804 
+077-6693041805 
+077-6693041806 
+077-6693041807
+077-6693041808 
+077-6693041809 
+077-6693041810
+077-6693041811 
+077-6693041812",Egyptair,Cairo / Jeddan / Cairo,Economy ,First issue ,2024-06-28,2024-05-08,Red Sea,Travco,4604,100791.0,2024-06-24,
+Mr Ahmed Elmahdy,077-6693041838 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-28,2024-05-07,MOC,Travco,4612,11199.0,2024-06-24,
+Mr Omar Elmahmoudy,077-6692999240 ,Egyptair,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-06-29,2024-05-01,MOC,Travco,4422,14925.0,2024-06-11,
+"Mr Essam Abdalla
+Mr Saad Aboouf
+Mr Alaa Ahmed
+Mr Abdelnaby Aly
+Mr Sayed Aly
+Mr Desouky Abdelhalim Desouky
+Mr Shaker Elbably
+Mr Seddik Mostafa
+Mr Asem Sayed","077-6693041704 
+077-6693041705 
+077-6693041706 
+077-6693041707
+077-6693041708
+077-6693041709
+077-6693041710
+077-6693041711
+077-6693041712",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-29,2024-05-07,Rabigh ,Travco,4492,100800.0,2024-06-15,
+"Mr Mohamed Akl
+Mr Alaa Aly
+Mr Mohamed Darwish
+Mr Magdy Elmeligy
+Mr Kamal Mahmoud
+Mr Omar Mohamed
+Mr Ali Morsy
+Mr Mohamed Salman
+Mr Mahmoud Shahata","077-6693041713
+077-6693041714
+077-6693041715
+077-6693041716
+077-6693041717
+077-6693041718
+077-6693041719
+077-6693041720
+077-6693041721",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-29,2024-05-07,Rabigh ,Travco,4491,100800.0,2024-06-15,
+"Mr Mohamed Abdellatif
+Mr Mohamed Abdulaziz
+Mr Mahmoud Ahmed
+Mr Mohamed Elboghdadi
+Mr Mohamed Elsaghir
+Mr Mohamed Hussein
+Mr Mohamed Ismaeil
+Mr Mahmoud Kassem
+Mr Mahmoud Rezk","077-6693041672 
+077-6693041673
+077-6693041674 
+077-6693041675 
+077-6693041676
+077-6693041677 
+077-6693041678 
+077-6693041679
+077-6693041680",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-29,2024-05-08,Rabigh ,Travco,4496,100800.0,2024-06-15,
+"Mr Hany Abdelgawad
+Mr Mahmoud Mohamed
+Mr Naem Nada
+Mr Hany Salama
+Mr Medhat Wahba","077-6693041681 
+077-6693041682 
+077-6693041683 
+077-6693041684
+077-6693041685",Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-29,2024-05-08,Rabigh ,Travco,4495,56000.0,2024-06-15,
+Mr Nabil Oraby,077-6693041652 ,Egyptair,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-06-29,2024-05-15,MOC,Travco,4472,14150.0,2024-06-13,
+Mr Takkeldeen Ali,065-6693041772,Saudi Arabian,Cairo / Jeddah - Riyadh / Cairo ,Economy ,First issue ,2024-06-29,2024-07-09,,Travco,4561,15168.0,2024-06-23,
+Mr Fadi Ayoub,071-6693041855 ,Ethiopian,Cairo / Moroni / Cairo ,Economy ,Reissue ,2024-06-29,2024-10-29,جزر القمر,Travco,4602,27436.0,2024-06-24,
+Mr Abdelzaher Gamal Abdelzaher,077-6693079148,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-29,2024-05-07,Rabigh ,Travco,4735,11329.0,2024-06-27,
+Mr Omar Alkabbany,325-6693079111,Nile air,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-06-30,2024-07-04,Jeddah Station,Travco,4713,18680.0,2024-06-26,
+Mr Mohamed Nasser Mohamed,077-6693079156,Egyptair,Cairo / Jeddah - Riyadh / Cairo ,Economy ,First issue ,2024-06-30,2024-05-20,,Travco,4737,11439.0,2024-06-27,
+Mr Aly Maher Aly Mohamed,071-6692999101,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-07-01,2024-10-29,كوديفوار,Travco,4294,30676.0,2024-06-06,
+"Mr Mohamed Gouda
+Mr Belal Mohamed","065-6692999164
+065-6692999165",Saudi Arabian,Cairo / Jeddah / Cairo ,Economy ,Reissue ,2024-07-01,2024-05-07,Rabigh ,Travco,4366,15992.0,2024-06-10,
+Mr Mohamed Sallam,071-6693041773,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,Reissue ,2024-07-03,2024-12-11,كوديفوار,Travco,4562,7566.0,2024-06-23,
+Mr Mohamed Sabbah,071-6693079124,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-07-03,2024-12-30,كوديفوار,Travco,4704,37047.0,2024-06-26,
+Mr Mahmoud Kamal,071-6693079150,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-07-03,2024-09-04,كوديفوار,Travco,4728,36938.0,2024-06-27,
+Mr Hassan Mohamed Hassan,071-6693079161,Ethiopian,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-07-03,2024-12-30,كوديفوار,Travco,4729,42633.0,2024-06-27,
+Mr Mohamed Kotb,065-6692999103,Saudi Arabian,Cairo / Riyadh / Cairo ,Economy ,Reissue ,2024-07-07,2024-07-23,MOC,Travco,4292,3110.0,2024-06-06,
+Mr Mohamed Hassanin,077-6693041815,Egyptair,Cairo / Jeddan / Cairo,Economy ,First issue ,2024-07-12,2024-05-08,Red Sea,Travco,4605,12357.0,2024-06-24,
+Mr Moustafa Adam,077-6692999173 ,Egyptair,Cairo / Jeddah / Cairo ,Economy ,First issue ,2024-07-15,2024-04-29,Rabigh ,Travco,4386,12817.0,2024-06-10,
+Mr Omar Mohamed,077-6693079168,Egyptair,Cairo / Jeddan / Cairo,Economy ,Reissue ,2024-07-15,2024-05-07,Rabigh ,Travco,4741,2128.0,2024-06-27,
+Mr Ashraf Mokllad,381-6692999213,Air Cairo,Cairo / Riyadh / Cairo ,Economy ,First issue ,2024-07-21,2024-08-18,,Travco,4410,10963.0,2024-06-10,
+Mr Mahmoud Eltelbani,077-6693041899,Egyptair,Cairo / Tripoli / Cairo ,Economy ,First issue ,2024-08-12,2024-11-28,Ubary,Travco,4658,15282.0,2024-06-25,
+"Mr Ayman Attia
+Mr Hany Hossny Mohamed","077-6073434375
+077-6073434374",Egyptair,Tripoli / Cairo ,Economy ,First issue ,"06 Jun
+17Jul",,Ubary,Excel,TIN2400022786,25052.0,2024-06-02,
+"Mr Osama Abdalla
+Mr Moustafa Selim","077-6073450107
+077-6073450115",Egyptair,Tripoli / Cairo ,Economy ,First issue ,"8/10/2024
+8/20/2024",,Ubary,Excel,TIN2400023113,25104.0,2024-06-04,
+Mr Fadel Fadl,077-6692954636,Egyptair, Jeddah / Cairo ,Economy ,Reissue ,,2024-06-18,Rabigh ,Travco,4178,12607.0,2024-06-03,
+Mr Abdelrahman Elbahrawy,077-6692982772,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-07-17,Ubary,Excel,TIN2400023119,1580.0,2024-06-04,
+Mr Tarek Gouda,077-6692982771,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-08-20,Ubary,Excel,TIN2400023118,1581.0,2024-06-04,
+Mr Ebrahem Affan,077-6692982768,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-07-17,Ubary,Excel,TIN2400023116,1581.0,2024-06-04,
+Mr Ahmed Khalil,077-6692982769,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-07-17,Ubary,Excel,TIN2400023117,1581.0,2024-06-04,
+Mr Ahmed Amer,077-6692982758,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-08-01,Ubary,Excel,TIN2400023112,1797.0,2024-06-04,
+Mr Mohamed Khaled Mahmoud Mohamed,077-6692982763,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-08-20,Ubary,Excel,TIN2400023114,1581.0,2024-06-04,
+Mr Abdelrahman Abdelhafez,077-6692982764,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-10-23,Ubary,Excel,TIN2400023115,1418.0,2024-06-04,
+Mr Mohammed Aly,147-6692954682,Royal Air Maroc,Abidjan / Cairo ,Economy ,Reissue ,,2024-06-12,كوديفوار,Travco,4246,8071.0,2024-06-04,
+Mr Abdelaziz Othman,077-6692954686,Egyptair,Jeddah / Cairo ,Economy ,Reissue ,,2024-06-06,Driller,Travco,4234,2237.0,2024-06-04,
+Mr Aly Maher Aly Mohamed,071-6692998219,Ethiopian,Abidjan / Cairo ,Economy ,Reissue ,,2024-06-15,كوديفوار,Excel,TIN2400023651,13609.8,2024-06-06,
+Mr Youssef Elsaka,"071-5415171437
+071-5415171453",Ethiopian,Abidjan / Cairo ,Economy ,Reissue ,,2024-06-15,كوديفوار,Green Sea,24105,19301.0,2024-06-06,
+Mr Hany Mohamed,071-6693012599,Ethiopian,Abidjan / Cairo ,Economy ,Reissue ,,2024-07-03,كوديفوار,Excel,TIN2400024052,5063.8,2024-06-10,
+Mr Ahmed Mohamed Salem,077-6693070671,Egyptair,Riyadh / Cairo ,Economy ,Reissue ,,2024-09-22,,Excel,TIN2400025645,1950.0,2024-06-25,
+Mr Mahmoud Eltelbani,077-6693041897,Egyptair,Tripoli / Cairo ,Economy ,Reissue ,,2024-07-30,Ubary,Travco,4677,1450.0,2024-06-25,
+Mr Mohamed Kotb,381-6693079171,Air Cairo,Jeddah / Cairo ,Economy ,Reissue ,,2024-08-03,Rabigh ,Travco,4750,3500.0,2024-06-29,
+,,,,,,,,,,,,,
+Mr Mohamed Mahlab,235-60733830226,Turkish ,Abidjan / Cairo ,,,,,,,CN 281,-234506.0,2024-06-05,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,2137828.3999999994,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Mohamed Kotb,325-1303766995,Nile air,Cairo / Riyadh / Cairo,Economy,First issue ,2024-03-04,2024-03-07,السعودية,Kanoo,553093,20964.8,2024-03-03,
+Mr Mohamed Mahlab ,,Egyptair,Cairo / France - Brussels / Cairo ,Business,Reissue,2024-03-04,2024-03-09,TOP Management,Green sea,24048,1611.0,2024-03-04,
+"Mr Mohamed Elashry
+Mr Adham Edward","077-6692478595 
+077-6692478594",Egyptair,Cairo / Sharm / Cairo,Economy,First issue ,2024-03-05,2024-03-06,Radamis Sharm,Excel,TIN2400009652,9152.0,2024-03-03,
+Mr Mohamed Sultan,077-6692519428,Egyptair,Cairo / Athens /  Cairo,Economy,First issue ,2024-03-07,2024-03-09,Tendering,Excel,TIN2400010178,19764.04,2024-03-06,
+Mr Mohamed Wagih Bakier ,325-1303766998,Nile air,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-09,2024-04-01,السعودية,Kanoo,553099,19770.8,2024-03-03,Received
+Mr Takkeldeen Nasr Ali,065-1303773747,Saudi Arabia ,Cairo / Riydh - Jeddah / Cairo,Business /Economy,First issue ,2024-03-12,2024-03-23,السعودية,Kanoo,553244,23262.8,2024-03-06,
+Mr Mohamed Fawzy Kotb,065-1303773748,Saudi Arabia ,Cairo / Riydh / Cairo,Business /Economy,First issue ,2024-03-12,2024-03-14,السعودية,Kanoo,553245,21380.8,2024-03-06,
+"Mr Abdalla Abdelgalil
+Mr Sameh Sultan","077-6692552507
+077-6692552508",Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-12,2024-03-01,السعودية,Excel,TIN2400010423,42767.04,2024-03-07,
+Mr Ismail Ankely,077-6692552504,Egyptair,Cairo / Riydh / Cairo,Economy,First issue ,2024-03-12,2024-03-01,السعودية,Excel,TIN2400010420,19108.36,2024-03-07,
+Mr Sherif Hawela,077-6692552510,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-12,2024-05-27,السعودية,Excel,TIN2400010426,21383.52,2024-03-07,Received
+Mr Fadel Hussien Fadl ,065-1303773711,Saudi Arabia ,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-13,2024-03-23,السعودية,Kanoo,553135,18238.8,2024-03-04,Received
+Mr Ayman Horish,077-6692478666,Egyptair,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-03-13,2024-03-21,اوبارى,Excel,TIN2400009770,13712.45,2024-03-04,
+"Mr Raafat Abdelaal
+Mr Sayed Abdelaziz
+Mr Walid Abdelfattah
+Mr Sherif Abdelmoamen
+Mr Ahmed Atta
+Mr Ayman Attia
+Mr Abdelfattah Elsisi
+Mr Ahmed Ismail
+Mr Fahd Serour","077-6692552622
+077-6692552623
+077-6692552624
+077-6692552625
+077-6692552626
+077-6692552627
+077-6692552628
+077-6692552629
+077-6692552630",Egyptair,Cairo / Tripoli,Economy,First issue ,2024-03-14,,اوبارى,Excel,TIN2400010679,92372.13,2024-03-11,
+"Mr Ahmed Elhomosy
+Mr Mohamed Hegazy","077-6692439404
+077-6692439405",Egyptair,Cairo / Tripoli,Economy,First issue ,2024-03-14,,اوبارى,Excel,TIN2400010684,21480.38,2024-03-11,
+Mr Ibrahim Elshenawy,477-6692575393,Nesma Airlines,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-17,2024-06-01,السعودية,Excel,TIN2400011318,14785.15,2024-03-13,
+Mr Mina Mikhael,077-6692552656,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-18,2024-09-17,السعودية,Excel,TIN2400010686,16546.36,2024-03-11,
+Mr Moustafa Gadalla,077-6692478652 ,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-19,2025-02-20,السعودية,Excel,TIN2400009771,12716.24,2024-03-04,
+Mr Mina Mikhael,077-6692575390,Egyptair,Cairo / Jeddah / Cairo,Economy,Reissue,2024-03-19,2024-09-17,السعودية,Excel,TIN2400011047,1528.0,2024-03-13,
+Mr Mohamed Mahlab ,077-1303778716,Egyptair,Cairo / Athens /  Cairo,Economy,First issue ,2024-03-19,2024-03-20,TOP Management,Green sea,24055,16905.0,2024-03-19,
+"Mr Fawzy Abdelsadek
+Mr Ali Hassan 
+Mr Mohamed Khalil","077-6692587187
+077-6692587188
+077-6692587189",Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-20,2024-09-16,السعودية,Travco ,2228,42300.0,2024-03-18,
+Mr Nazim Khalil ,077-6692587190,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-20,2024-09-16,السعودية,Travco ,2229,14100.0,2024-03-18,
+"Mr Abdelaziz Othman
+Farahat Mohamed 
+Mr Mohamed Mostafa ","077-6692587193
+077-6692587191
+077-6692587192",Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-20,2024-09-16,السعودية,Travco ,2227,42300.0,2024-03-18,
+Mr Ahmed Hassan,477-6692593973,Nesma Airlines,Cairo / Riydh - Jeddah / Cairo,Economy,First issue ,2024-03-23,2024-04-06,السعودية,Excel,TIN2400011195,15556.36,2024-03-17,Received
+"Mr Ahmed Elsayed
+Mr Yasser Elsaadany","065-6692587268
+065-6692587267 ",Saudi Arabia ,Cairo / Riydh / Cairo,Business,First issue ,2024-03-24,2024-03-28,السعودية,Travco ,2293,84200.0,2024-03-21,
+Mr Youssef Abdellatif,077-6692478696,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-24,2024-03-28,السعودية,Excel,TIN2400009818,13671.54,2024-03-04,
+Mr Ahmed Ahmed Elzayat,077-6692519437,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-24,2024-03-31,السعودية,Excel,TIN2400010406,23325.75,2024-03-06,
+Mr MOSTAFA Allam,077-1303784940,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553639,,2024-03-24,
+Mr MOHAMED Abdelaal,077-1303784941,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553640,895.0,2024-03-24,
+Mr EMAD Hassan,077-1303784942,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553641,895.0,2024-03-24,
+Mr KHALED Elsaman,077-1303784943,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553642,895.0,2024-03-24,
+Mr KHALED Kandel,077-1303784944,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553643,895.0,2024-03-24,
+Mr MOHAMED Rabie,077-1303784945,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553644,895.0,2024-03-24,
+Mr AHMED MAHROUS MOHAMED,077-1303784947,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553646,895.0,2024-03-24,
+Mr MOHAMED ALLOUSH,077-1303784946,Egyptair,Aswan / Cairo ,Economy,Reissue,2024-03-25,,ميناء وادي حلفا,Kanoo,553645,895.0,2024-03-24,
+Mr Mahmoud Mahlab,077-6692587248,Egyptair,Cairo / Abu Dhabi / Cairo,Business,First issue ,2024-03-26,287 Mar,Top management ,Travco ,2284,36825.0,2024-03-20,
+Mr Mohamed Mahlab,176-6692587340,Emirates,Cairo / Dubai / Cairo,Business,First issue ,2024-03-27,2024-03-28,Top management ,Travco ,2366,79907.0,2024-03-25,
+Mr Islam Elsamny,157-6692587301,Qatar airways,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-03-28,2024-07-28,كوت ديفوار,Travco ,2341,30400.0,2024-03-24,
+Mr Ahmed Mahmoud,325-6692587320,Nile air,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-28,2024-09-20,السعودية,Travco ,2367,14500.0,2024-03-25,
+Mr Mohamed Ghanem,325-6692587321 ,Nile air,Cairo / Jeddah / Cairo,Economy,First issue ,2024-03-28,2024-09-20,السعودية,Travco ,2368,13900.0,2024-03-25,
+Mr Mohamed Ibrahim,071-1303784902,Ethiopian,Cairo / COMOROS / Cairo,Economy,Reissue,2024-03-30,2024-03-30,,Kanoo,553547,10223.8,2024-03-20,
+"Mr MOSTAFA Allam
+Mr MOHAMED Abdelaal
+Mr EMAD Hassan
+Mr KHALED Elsaman
+Mr KHALED Kandel
+Mr MOHAMED Rabie
+Mr MOHAMED ALLOUSH
+Mr AHMED MAHROUS MOHAMED","077-1303779830
+077-1303779831
+077-1303779832
+077-1303779833
+077-1303779834
+077-1303779836
+077-1303779837
+077-1303779838",Egyptair,Aswan / Cairo ,Economy,First issue ,2024-03-31,,ميناء وادي حلفا,Kanoo,553437,16888.0,2024-03-14,
+"Mr Ghanem Abdelgany 
+Mr Hatem Abdelghaffar
+Mr Yahya Attia
+Mr Mohamed Elmorsy
+Mr Taha Elsayed
+Mr Hany Mohamed
+Mr Mohamed Youssef","077-6692552631
+077-6692552632
+077-6692552633
+077-6692552634
+077-6692552635
+077-6692552636
+077-6692552637",Egyptair,Cairo / Tripoli,Economy,First issue ,2024-04-02,,اوبارى,Excel,TIN2400010688,71844.99,2024-03-11,
+"Mr Asaad Mohamed
+Mr Yahya Salem","077-6692552673
+077-6692552674",Egyptair,Cairo / Tripoli,Economy,First issue ,2024-04-02,,اوبارى,Excel,TIN2400010704,20527.14,2024-03-11,
+"Mr Mohamed Mahlab
+Mr Moustafa Saad Ahmed","071-1303778729
+071-1303778722",Ethiopian,Cairo / Zanzibar / Cairo,Business ,refund,2024-04-02,2024-04-04,TOP Management,Green sea,24061,31235.0,2024-03-28,
+Mr Tarek Hareedy,065-6692646075,Saudi Arabia ,Cairo /Jeddah / Cairo,Economy,First issue ,2024-04-02,2024-04-16,السعودية,Travco ,2482,21850.0,2024-03-29,
+Mr Hamda Mazen,077-6692646097,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-02,2024-09-23,السعودية,Travco ,2509,13350.0,2024-03-31,
+Mr Mohamed Alsharkawy,077-6692646096,Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-02,2024-09-16,السعودية,Travco ,2508,13350.0,2024-03-31,
+Mr Mohamed Kotb,065-6692646107,Saudi Arabia ,Cairo / Riyadh / Cairo,Economy,First issue ,2024-04-16,2024-05-01,السعودية,Travco ,2506,20050.0,2024-03-31,
+"Mr Alaa Ali
+Mr Salah Badran 
+Mr Mohamed Mostafa
+Mr Abdelmohsen Wazery
+Mr Mohamed Ahmed
+Mr Ahmed Abdelqader","077-6692587209
+077-6692587210
+077-6692587211 
+077-6692587212
+077-6692587208
+077-6692587207",Egyptair,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-17,2024-09-05,السعودية,Travco ,2254,78000.0,2024-03-19,
+Mr Mohamed Ghobara,071-6692646013,Ethiopian,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-04-18,2024-05-01,كوت ديفوار,Travco ,2443,29400.0,2024-03-27,
+Mr Hussein Elbadrawy,071-6692646012,Ethiopian,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-04-18,2024-04-24,كوت ديفوار,Travco ,2444,26450.0,2024-03-27,
+Mr Hussein Fouda,065-6692645981,Saudi Arabia ,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-22,2025-03-01,السعودية,Travco ,2376,12400.0,2024-03-26,
+"Mr Aly Ibrahim
+Mr Tantawy Mahmoud Tantawy","065-6692645982
+065-6692645983",Saudi Arabia ,Cairo / Jeddah / Cairo,Economy,First issue ,2024-04-22,2024-09-10,السعودية,Travco ,2380,24800.0,2024-03-26,
+Mr Mostafa Elsaka,077-6692594030,Egyptair,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-04-27,2024-07-12,اوبارى,Excel,TIN2400011191,17525.45,2024-03-18,
+"Mr Ghanem Abdelgany 
+Mr Hatem Abdelghaffar
+Mr Yahya Attia
+Mr Taha Elsayed
+Mr Hany Mohamed
+Mr Mohamed Youssef","077-6692654649
+077-6692654650
+077-6692654652
+077-6692654653
+077-6692654654
+077-6692654651",Egyptair,Cairo / Tripoli,Economy,Reissue,2024-05-02,,اوبارى,Excel,,10944.0,2024-03-29,
+Mr Islam Elzenieni,071-6692478737,Ethiopian,Tripoli / Cairo ,Economy,Reissue,,2024-03-11,جزر القمر,Excel,TIN2400009935,3390.8,2024-03-05,
+Mr Adham Edward,077-6692519294,Egyptair,Sharm / Cairo,Economy,Reissue,,2024-03-06,Radamis Sharm,Excel,TIN2400009928,914.0,2024-03-05,
+Mr Mohamed Ahmed Abdelrahman Mohamed,077-6692552642,Egyptair,Jeddah / Cairo,Economy,Reissue,,2024-03-15,السعودية,Excel,TIN2400010682,5869.0,2024-03-11,
+Mr Abdelrahman Ahmed Said,077-6692552643,Egyptair,Jeddah / Cairo,Economy,Reissue,,2024-03-15,السعودية,Excel,TIN2400010680,5869.0,2024-03-11,
+Mr Alaa Elsayed Atta,077-6692575488,Egyptair,Tripoli / Cairo ,Economy,Reissue,,2024-03-27,اوبارى,Excel,TIN2400011117,2042.0,2024-03-14,
+Mr Mostafa Elsaka,077-6692594004 ,Egyptair,Tripoli / Cairo ,Economy,Reissue,,2024-04-03,اوبارى,Excel,TIN2400011268,2130.0,2024-03-17,
+Mr Takkeldeen Nasr Ali,065-1303784915,Saudi Arabia , Riydh  / Cairo,Economy,Reissue,,2024-03-27,السعودية,Kanoo,553586,6502.0,2024-03-21,
+Mr Fadel Hussien Fadl ,065-1303784919,Saudi Arabia ,Jeddah / Cairo,Economy,Reissue,,2024-03-23,السعودية,Kanoo,553592,4435.0,2024-03-21,
+Mr Moaain Ibrahim,071-6692636582,Ethiopian,Abidjan / Cairo ,Economy,Reissue,,2024-03-28,,Excel,TIN2400012462,9894.8,2024-03-26,
+Mr Ahmed Ahmed Elzayat,077-6692636628,Egyptair,Riyadh / Cairo,Economy,Reissue,,2024-04-06,السعودية,Excel,,3103.0,2024-03-27,
+Mr Mahmoud Mahlab,077-6692645991,Egyptair,Dubai / Cairo,Business,Reissue,,2024-03-29,Top management ,Travco ,2396,4800.0,2024-03-26,
+Mr Abdelrehim Waziry,065-1303773513,Saudi Arabia ,Jeddah / Cairo,Economy,Reissue,,2024-03-16,السعودية,Green sea,24049,2916.0,2024-03-04,
+AHMED HELMY hassan,477-1303773758,NESMA ,Cairo / Riyadh - Jeddah / Cairo,Economy,First issue ,2024-03-12,2024-03-23,السعودية,Kanoo,553282,15082.8,2024-03-08,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,1310487.1,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Mohamed Said,065-6692813133,Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-02,2024-05-09,السعودية,Travco ,3270,17500.0,2024-05-01,
+Mr Mohamed Ragab ,077-6692813128,Egypt air,Cairo / Jeddah /  Cairo ,Business,First issue ,2024-05-02,2024-05-05,السعودية,Travco ,3273,38900.0,2024-05-01,
+"Mr Ayman Mostafa
+Mr Maged Bebawy","077-6692813161
+077-6692813160 ",Egypt air,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-04,2024-10-21,السعودية,Travco ,3321,29600.0,2024-05-02,
+Mr Mohamed Elseman,065-6692813112,Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-06,2024-05-09,السعودية,Travco ,3285,17400.0,2024-05-01,
+Mr Mohamed Kotb ,381-6692813151,Air Cairo, Jeddah /  Cairo ,Economy,First issue ,2024-05-06,2024-05-25,السعودية,Travco ,3330,15500.0,2024-05-02,
+Mr Ayman Mostafa,077-6692813200,Egypt air,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-07,2024-10-21,السعودية,Travco ,3369,3500.0,2024-05-06,
+Mr Yasser Elsaadany ,065-6692813135,Saudi Arabian,cairo / Riyadh / Cairo ,Business,First issue ,2024-05-11,2024-05-16,السعودية,Travco ,3341,50500.0,2024-05-02,
+Mr Mohamed Elkottamy,071-6692813189,Ethiopian,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-05-11,2024-06-15,كوديفوار,Travco ,3363,35800.0,2024-05-05,
+"Mr Tarek Sadek
+Mr Ahmed Mohamed Ahmed ","157-6692859411-12
+157-6692859409-10",Qatar Airways,Cairo / Dar Es Salaam - Zanzibar / Cairo ,Economy,First issue ,2024-05-11,20 M ay,Tender,Travco ,3463,67400.0,2024-05-08,
+Mr Moustafa Ahmed,157-6692859408,Qatar Airways,Cairo / Dar Es Salaam  / Cairo ,Economy,First issue ,2024-05-11,2024-05-17,Commercial ,Travco ,3464,24750.0,2024-05-08,
+Mr Ashraf Mokllad,477-6692859450 ,Nesma Airlines,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-11,2024-05-18,RABIGH,Travco ,3515,21500.0,2024-05-09,
+Mr Raed Abdelaziz,477-6692859449,Nesma Airlines,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-11,2024-05-18,RABIGH,Travco ,3514,18100.0,2024-05-09,
+Mr Said Kenawy,077-6692813111,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-14,2024-10-25,Ubary,Travco ,3286,15900.0,2024-05-01,
+Mr Said Kenawy ,077-6692859524,Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-16,2024-10-25,Ubary,Travco ,3578,1723.0,2024-05-12,
+"Mr Mohamed Elkony
+Mr Ahmed Debiky
+Mr Belal Mohamed 
+Mr Bishoy Gergis 
+Mr Mohamed Gouda 
+Mr Ramadan Mohammed
+Mr Mahmoud Helal 
+Mr Ahmed Elgazar
+Mr Amr Salama","065-6692859381
+065-6692859379
+065-6692859385
+065-6692859382
+065-6692859383
+065-6692859386
+065-6692859384 
+065-6692859380
+065-6692859387",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-17,2024-05-01,RABIGH ,Travco ,3479,176490.0,2024-05-08,
+"Mr Mostafa Amer
+Mr Mostafa Rezk 
+Mr Ahmed Elsayed
+Mr Ahmed Saleh 
+Mr Ahmed Attia ","065-6692829080
+065-6692829083
+065-6692829082
+065-6692829084
+065-6692829081 ",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,First issue ,2024-05-17,2024-05-01,RABIGH ,Travco ,1051,98050.0,2024-05-08,
+"Mr Mohamed Badran
+Mr Ashraf Mokbel 
+Mr Wael Mohamed
+Mr Mohamed Bekhit
+Mr Mohamed Ahmed Abdelrahman Mohamed
+Mr Mohamed Nasser Mohamed 
+Mr Sameh Ibrahim","325-6692859420
+325-6692859426
+325-6692859425
+325-6692859421
+325-6692859423
+325-6692859424
+325-6692859422",Nile Air,cairo / Riyadh / Cairo ,Economy,First issue ,2024-05-18,2024-10-26,MOC,Travco ,3458,91700.0,2024-05-08,
+Mr Nasser Mahmoud,065-6692893621,Saudi Arabian,cairo / Riyadh / Cairo ,Economy,First issue ,2024-05-18,2025-05-03,MOC,Travco ,3634,14664.0,2024-05-14,
+Mr Aly Elmerkhmaty,477-6692859581,Nesma Airlines,cairo / Riyadh / Cairo ,Economy,First issue ,2024-05-18,2024-06-02,السعودية,Travco ,3614,15885.0,2024-05-14,
+"Mr Ahmed Abdelkhalek
+Mr Ibrahim Dehima
+Mr Ahmed Eldorf
+Mr Ahmed Ibrahim
+Mr Ahmed Mahfouz
+Mr Ahmed Omran Mohamed
+Mr Ashraf Mohamed
+Mr Ahmed Tolba
+Mr Ahmed Yassin","077-6692893652 
+077-6692893653 
+077-6692893654 
+077-6692893655 
+077-6692893656
+077-6692893657 
+077-6692893658 
+077-6692893659
+077-6692893660",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-18,2024-04-06,RABIGH ,Travco ,3674,126000.0,2024-05-15,
+"Mr Saad Khalaf
+Mr Elkhateb Mohamed
+Mr Hussein Mohamed
+Mr Rezk Saleh
+Mr Salah Seifelnasr","077-6692893668 
+077-6692893669 
+077-6692893670 
+077-6692893671
+077-6692893672",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-18,2024-04-06,RABIGH ,Travco ,3670,70000.0,2024-05-15,
+"Mr Khamis Abdelrahim
+Mr Tamer Attwa
+Mr Sherif Hassan
+Mr Elamir Hussein","077-6692893661
+077-6692893662 
+077-6692893663 
+077-6692893664",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-18,2024-04-06,RABIGH ,Travco ,3673,64200.0,2024-05-15,
+Mr Mohamed Towfik,071-6692859532 ,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-05-19,2024-09-19,جزر القمر,Travco ,3574,32064.0,2024-05-12,
+Mr Mohamed Elgohary,065-6692893612,Saudi Arabian,cairo / Riyadh - Jeddah / Cairo ,Economy,First issue ,2024-05-19,2024-05-26,السعودية,Travco ,3557,14712.0,2024-05-14,
+Mr Mohamed Elgohary,065-6692893628,Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-19,2024-05-26,السعودية,Travco ,3686,3080.0,2024-05-15,
+Mr Walid Abdelsamie,077-6692893691,Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-19,2024-04-07,RABIGH ,Travco ,3667,14000.0,2024-05-15,
+"Mr Mohamed Abbas
+Mr Mohamed Abdelbaky
+Mr Mohamed Sayed Ahmed
+Mr Aref Ali
+Mr Mohamed Aly
+Mr Abdelnaby Awwad
+Mr Mohamed Elaraby
+Mr Mohamed Elnokrashy
+Mr Fares Salem","077-6692893673 
+077-6692893674 
+077-6692893675
+077-6692893676 
+077-6692893677 
+077-6692893678 
+077-6692893679 
+077-6692893680 
+077-6692893681",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-19,2024-04-07,RABIGH ,Travco ,3669,117000.0,2024-05-15,
+"Mr Mahmoud Abdalla
+Mr Mohamed Abdelazim
+Mr Mahmoud Abdellatif
+Mr Mohamed Abdelraouf
+Mr Mostafa Amer
+Mr Mahmoud Elgamal
+Mr Mohamed Elshafey
+Mr Mahmoud Ibrahim
+Mr Moustafa Nosir","077-6692893682 
+077-6692893683 
+077-6692893684 
+ 077-6692893685 
+077-6692893686 
+077-6692893687 
+077-6692893688 
+077-6692893689
+077-6692893690",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-19,2024-04-07,RABIGH ,Travco ,3668,126000.0,2024-05-15,
+Mr Ayman Kheralla,065-6692893622,Saudi Arabian,cairo / Riyadh / Cairo ,Economy,First issue ,2024-05-20,2025-05-03,MOC,Travco ,3635,14049.0,2024-05-14,
+Mr Mohamed Elashry,381-6692893646,Air Cairo,Cairo / Sharm / Cairo,Economy,First issue ,2024-05-21,2024-05-23,Radamis Sharm,Travco ,3677,5360.0,2024-05-15,
+Mr Mohamed Aly,077-6692893788,Egypt air,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-22,2024-04-07,Rabigh,Travco ,3718,1665.0,2024-05-16,
+"Mr Emam Abdelgawwad
+Mr Samir Abdelhamid
+Mr Adel Abdelregaal
+Mr Islam Abouelhassan
+Mr Taher Darwesh
+Mr Saad Ibrahim
+Mr Helmy Mosallam
+Mr Shaker Tolba
+Mr Gaber Zian","077-6692917124
+077-6692917125
+077-6692917126
+077-6692917127
+077-6692917128 
+077-6692917129
+077-6692917130
+077-6692917131
+077-6692917132",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-22,2024-04-08,RABIGH ,Travco ,3768,112671.0,2024-05-19,
+"Mr Aly Abdalla
+Mr Abdelbaki Abdelmagid
+Mr Abdalla Ali
+Mr Aly Ibrahim
+Mr Abdelazim Ragab
+Mr Abdelhadi Shakhoun","077-6692917118 
+077-6692917119
+077-6692917120 
+077-6692917121
+077-6692917122
+077-6692917123",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-22,2024-04-06,RABIGH ,Travco ,3767,75114.0,2024-05-19,
+Mr Ahmed Ibrahim Hashem,071-6692893848,Ethiopian,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-05-22,2024-08-03,كوديفوار,Travco ,3761,26305.0,2024-05-19,
+Mr Mohamed Mahlab,057-6692917150,Air France,Cairo / Abidjan / Cairo ,Business,First issue ,2024-05-22,2024-05-25,كوديفوار,Travco ,3757,225102.0,2024-05-19,
+"Mr Mahmoud Eltelbani
+Mr Ahmed Fedawy","077-6692813181
+077-6692813182",Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-23,2024-09-08,Ubary,Travco ,3354,30600.0,2024-05-07,
+"Mr Ismaeil Shawish
+Mr Alaaeldin Abdelhamid","077-6692893624
+077-6692893623",Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-23,2024-11-02,Ubary,Travco ,3646,29658.0,2024-05-14,
+"Mr Mahmoud Abouelalaa
+Mr Mohamed Ahmed
+Mr Fathy Elshafaey
+Mr Mahmoud Hussein
+Mr Mohamed Hussein Mohamed
+Mr Mohamed Shanab
+Mr Mohamed Yassein
+Mr Mohamed Younes
+Mr Mobarak Youssef","077-6692917109 
+077-6692917110
+077-6692917111 
+077-6692917112
+077-6692917113
+077-6692917114 
+077-6692917115 
+077-6692917116 
+077-6692917117",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-23,2024-04-09,RABIGH ,Travco ,3766,112671.0,2024-05-19,
+"Mr Walid Ahmed
+Mr Mahmoud Aly Aly
+Mr Moustafa Ashour
+Mr Mahmoud Fahim
+Mr Asaad Wahman","077-6692917133
+077-6692917134
+077-6692917135
+077-6692917136
+077-6692917137",Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-23,2024-04-09,RABIGH ,Travco ,3769,62595.0,2024-05-19,
+Mr Sameh Awadalla,071-6692917233,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-23,2024-11-18,كوديفوار,Travco ,3869,30350.0,2024-05-21,
+Mr Tarek Abdalla,071-6692917225,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-23,2024-07-24,كوديفوار,Travco ,3877,30300.0,2024-05-21,
+Mr Mohammed Ahmed Ahmed,071-6692917220,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-23,2024-11-18,كوديفوار,Travco ,3880,30300.0,2024-05-21,
+"Mr Mahmoud Deghidy
+Mr Amr Elsayed
+Mr Mohamed Mussa","071-6692917222
+071-6692917223
+071-6692917224",Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-23,2024-11-18,كوديفوار,Travco ,3878,90900.0,2024-05-21,
+Mr Adham Mekhaiel,071-6692917218,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-23,2024-05-31,كوديفوار,Travco ,3882,40300.0,2024-05-21,
+"Mr Bishoy Gergis 
+Mr Mohamed Gouda ","065-6692893809
+065-6692893810",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,3705,3700.0,2024-05-16,
+Mr Ahmed Debiky,065-6692893806  ,Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,3703,1850.0,2024-05-16,
+"Mr Ahmed Elgazar
+Mr Mohamed Elkony","065-6692893807
+065-6692893808",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,3704,3700.0,2024-05-16,
+"Mr Mahmoud Helal 
+Mr Belal Mohamed ","065-6692893811
+065-6692893812",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,3706,3700.0,2024-05-16,
+"Mr Ramadan Mohammed
+Mr Amr Salama","065-6692893813 
+065-6692893814 ",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,3707,3700.0,2024-05-16,
+"Mr Mostafa Rezk 
+Mr Ahmed Elsayed
+Mr Ahmed Saleh 
+Mr Ahmed Attia ","065-6692829197
+065-6692829196 
+065-6692829198 
+065-6692829195 ",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,,7400.0,2024-05-16,
+"Mr Mostafa Rezk
+Mr Ahmed Saleh
+Mr Ahmed Elsayed
+Mr Ahmed Attia","065-6692829197 
+065-6692829198 
+065-6692829196 
+065-6692829195 ",Saudi Arabian,Cairo / Jeddah /  Cairo ,Economy,Reissue ,2024-05-24,2024-05-01,RABIGH ,Travco ,1124,7400.0,2024-05-16,
+Mr Mohamed Fawzy  Kotb,065-6692893626,Saudi Arabian,cairo / Riyadh / Cairo ,Economy,Reissue ,2024-05-26,2024-05-30,MOC,Travco ,3688,4510.0,2024-05-15,
+Mr Diaa Elasfar,077-6692893817,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-05-26,2024-01-10,Ubary,Travco ,3744,15680.0,2024-05-18,
+Mr Ismail Said,077-6692917159,Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-27,2024-11-06,Ubary,Travco ,3776,2100.0,2024-05-19,
+"Mr Belal Adam
+Mr Hamada Ahmed","077-6692917151 
+077-6692917152 ",Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-27,2024-11-06,Ubary,Travco ,3773,4200.0,2024-05-19,
+"Mr Hussein Gomaa
+Mr Samir Mostafa
+Mr Mohamed Nawar","077-6692917156
+077-6692917157
+077-6692917158",Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-27,2024-11-06,Ubary,Travco ,3775,6300.0,2024-05-19,
+"Mr Elsayed Askar
+Mr Walid Elakhl
+Mr Fawzi Elsayed","077-6692917153 
+077-6692917154
+077-6692917155",Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-27,2024-11-06,Ubary,Travco ,3774,6300.0,2024-05-19,
+Mr Mohamed Mahmoud,077-6692829214,Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-27,2024-11-06,Ubary,Travco ,1137,1450.0,2024-05-19,
+Mr Sayed Barakat,071-6692917221,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-27,2024-11-21,كوديفوار,Travco ,3879,27400.0,2024-05-21,
+"Mr Mohamed Barakat
+Mr Aref Kassem","071-6692917251
+071-6692917252",Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-27,2024-11-21,كوديفوار,Travco ,3899,60700.0,2024-05-22,
+Mr Mohamed Shanab,077-6692917328,Egypt air,Cairo / Jeddah /  Cairo,Economy,Reissue ,2024-05-27,2024-04-13,RABIGH ,Travco ,3963,2110.0,2024-05-26,
+"Mr Mohamed Badran
+Mr Ashraf Mokbel 
+Mr Wael Mohamed
+Mr Mohamed Bekhit
+Mr Mohamed Ahmed Abdelrahman Mohamed
+Mr Mohamed Nasser Mohamed 
+Mr Sameh Ibrahim","325-6692893701
+325-6692893702
+325-6692893703
+325-6692893700
+325-6692893698
+325-6692893699
+325-6692893697",Nile Air,Cairo / Riyadh / Cairo ,Economy,Reissue ,2024-05-28,2024-10-26,MOC,Travco ,3662,40775.0,2024-05-16,
+"Mr Mahmoud Eltelbani
+Mr Ahmed Fedawy","077-6692917295
+077-6692917296",Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-05-29,2024-09-08,Ubary,Travco ,3931,5440.0,2024-05-23,
+Mr Mostafa Amer,077-6692917327,Egypt air,Cairo / Jeddah /  Cairo,Economy,Reissue ,2024-05-30,2024-04-25,RABIGH ,Travco ,3962,2071.0,2024-05-26,
+"Ms Sara Elaskary
+Ms Reda Wafi","147-6692954458
+147-6692954459 ",Royal Air Maroc,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-30,2024-06-08,كوديفوار,Travco ,3976,65560.0,2024-05-26,
+Mr Mohammed Aly,147-6692954467 ,Royal Air Maroc,Cairo / Abidjan / Cairo,Economy,First issue ,2024-05-30,2024-06-06,كوديفوار,Travco ,3998,29098.0,2024-05-27,
+Mr Ahmed Saleh,065-6692933493,Saudi Arabian,Cairo / Jeddah /  Cairo,Economy,Reissue ,2024-05-31,2024-04-27,RABIGH ,Travco ,1233,7468.0,2024-05-28,
+Mr Ahmed Debiky,065-6692954507,Saudi Arabian,Cairo / Jeddah /  Cairo,Economy,Reissue ,2024-05-31,2024-04-27,RABIGH ,Travco ,4027,7468.0,2024-05-28,
+Mr Fetouh Badawy,065-6692954504,Saudi Arabian,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-05-31,2024-04-27,RABIGH ,Travco ,4026,13107.0,2024-05-28,
+Mr Amr Taha,071-6692917293,Ethiopian,Cairo / Abidjan / Cairo,Economy,First issue ,2024-06-01,2024-07-31,كوديفوار,Travco ,3919,30350.0,2024-05-23,
+Mr Mohamed Fawzy  Kotb,065-6692893625,Saudi Arabian,cairo / Riyadh / Cairo ,Economy,Reissue ,2024-06-02,2024-07-04,MOC,Travco ,3689,6690.0,2024-05-15,
+Mr Yasser Elsaadany,077-6692893845,Egypt air,Cairo / Riyadh / Cairo ,Business,First issue ,2024-06-02,2024-06-12,السعودية,Travco ,3791,45572.0,2024-05-19,
+Mr Youssef Bassily,157-6692954562,Qatar Airways,Cairo / Abidjan / Cairo,Economy,First issue ,2024-06-02,2024-08-28,كوديفوار,Travco ,4119,36672.0,2024-05-30,
+"Mr Said Salem
+Mr Mohamed Abdelhalim",077-6692893715 077-6692893714 ,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-04,2024-11-16,Ubary,Travco ,3659,30074.0,2024-05-15,
+Mr Ayman Ibrahim,077-6692893716 ,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-04,2024-09-17,Ubary,Travco ,3658,15037.0,2024-05-15,
+Mr Saad Aly,077-6692813213,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-05,2024-09-20,Ubary,Travco ,3416,15600.0,2024-05-07,
+Mr Atef Galbat,157-6692954572,Qatar Airways,Cairo / Abidjan / Cairo,Economy,First issue ,2024-06-09,2024-12-04,كوديفوار,Travco ,4120,31107.0,2024-05-30,
+Mr Mohab Elkony,077-6692813214,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-21,2024-09-09,Ubary,Travco ,3415,15300.0,2024-05-07,
+Mr Ibrahem Abdelahy,077-6692954457,Egypt air,Cairo / Jeddah /  Cairo,Economy,First issue ,2024-06-21,2024-09-15,RABIGH ,Travco ,3972,13982.0,2024-05-26,
+Mr Hamed Abdallah,077-6692813215,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-22,2024-09-24,Ubary,Travco ,3414,15600.0,2024-05-07,
+"Mr Mohamed Sedek
+Mr Mohamed Ahmed ","077-6692813217
+077-6692813216",Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-22,2024-10-04,Ubary,Travco ,3413,31200.0,2024-05-07,
+Mr Basem Mohamed,077-6692813218,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-06-23,2024-10-08,Ubary,Travco ,3411,16200.0,2024-05-07,
+Mr Fadi Ayoub,071-6692954576,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-06-26,2024-10-26,جزر القمر,Travco ,4110,43657.0,2024-05-30,
+Mr Saad Aly,077-6692859570,Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-06-29,2024-10-15,Ubary,Travco ,3619,1413.0,2024-05-13,
+Mr Mohamed Abdelgawad ,077-6692813178,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-07,2024-09-26,Ubary,Travco ,3357,16000.0,2024-05-07,
+Mr Mahmoud Hussein,077-6692813179 ,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-07,2024-09-24,Ubary,Travco ,3356,16200.0,2024-05-07,
+Mr Karim Elsayed,077-6692813180,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-07-07,2024-09-26,Ubary,Travco ,3355,16200.0,2024-05-07,
+Mr Basem Mohamed,077-6692917297,Egypt air,Cairo / Tripoli / Cairo ,Economy,Reissue ,2024-07-07,2024-10-08,Ubary,Travco ,3932,1413.0,2024-05-23,
+Mr Mohamed Ragab ,077-6692813166,Egypt air,Jeddah /  Cairo ,Business,Reissue ,,2024-05-04,السعودية,Travco ,3318,3200.0,2024-05-02,
+Mr Sherif Hawela,077-6692863708 ,Egypt air,Jeddah /  Cairo,Economy,Reissue ,,2024-06-03,السعودية,Excel,TIN2400019952,2931.0,2024-05-08,
+Mr Roumany Wasef,077-6692878878,Egypt air,Moroni / Cairo,Economy,Reissue ,,2024-01-03,جزر القمر,Excel,TIN2400018613,1358.0,2024-05-12,
+Mr Saad Zaki Aly,077-6692879023,Egypt air,Tripoli / Cairo ,Economy,Reissue ,,2024-06-08,Ubary,Excel,TIN2400019033,1796.0,2024-05-13,
+Mr Hany Mohamed,071-6692878989,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-06-15,كوديفوار,Excel,TIN2400019055,5056.0,2024-05-13,
+Mr Amr Dawood,077-6692893602,Egypt air,Tripoli / Cairo ,Economy,Reissue ,,2024-05-23,Ubary,Travco ,3639,2565.0,2024-05-14,
+Mr Ahmed Ibrahim Hashem,071-6692892144,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-05-15,كوديفوار,Excel,TIN2400019302,21857.8,2024-05-14,
+Mr Moustafa Ahmed,157-6692893627,Qatar Airways,Dar Es Salaam / Cairo,Economy,Reissue ,,2024-05-18,Commercial ,Travco ,3687,365.0,2024-05-15,
+Mr Amr Dawood,077-6692917242,Egypt air,Tripoli / Cairo ,Economy,Reissue ,,2024-05-28,Ubary,Travco ,3908,1420.0,2024-05-22,
+Mr Mohamed Ghobara,071-6692917243,Ethiopian,Abidjan / Cairo,Economy,Reissue ,,2024-06-15,كوديفوار,Travco ,3907,7210.0,2024-05-23,
+Mr Ibrahim Elshenawy,477-6692929874,Nesma Airlines,Jeddah /  Cairo,Economy,Reissue ,,2024-09-10,RABIGH ,Excel,TIN 2400020865,2616.8,2024-05-22,
+Mr Basem Mohamed,077-6692930089,Egypt air,Tripoli / Cairo ,Economy,Reissue ,,2024-06-15,Ubary,Travco ,TIN 2400021121,1796.0,2024-05-23,
+Mr Aly Elmerkhmaty,477-6692954568,Nesma Airlines,Riyadh / Cairo ,Economy,Reissue ,,2024-06-01,السعودية,Travco ,4132,2466.0,2024-05-30,
+Mr Mohamed Mahlab,"235-6073383025
+235-6073383026  ",Turkish Airlines,Munich / Abidjan / Cairo,Business,First issue ,2024-06-11,2024-06-16,كوديفوار,Travco ,4091,237500.0,2024-05-29,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Mr Mohamed Said,381-6692813051,Air Cairo ,,,,,,,,240,-10200.0,,
+Mr Mohamed Ragab,065-6692766273,Saudi Arabian,,,,,,,,239,-28700.0,,
+Mr Mostafa Amer,065-6692829080 ,Saudi Arabian,,,,,,,,55,-14000.0,,
+Mr Mohamed Mahlab ,065-6692766354,Saudi Arabian,,,,,,,,264,-13104.0,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,3197445.6,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
+Mr Tarek Hareedy,077-5701607651 ,Egypt air,Cairo / Dubai / Cairo ,Economy,First issue ,2024-09-03,2024-09-08,RME-G,Travco,6205,21516.0,2024-09-01,
+Mr Mohamed Sedky,077-5701607615,Egypt air,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-06,2024-08-02,Red Sea,Travco,6193,15086.0,2024-09-01,
+Mr Mohamed Essa,381-5701607664 ,Air Cairo,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-07,2024-09-10,Rabigh,Travco,6253,9779.0,2024-09-02,
+Mr Moustafa Ahmed,077-5701607689 ,Egypt air,Cairo / Baghdad / Cairo ,Economy  / Business ,First issue ,2024-09-08,2024-09-10,Commercial,Travco,6400,28245.0,2024-09-02,
+Mr Yasser Elsaadany,077-5701607691 ,Egypt air,Cairo / Baghdad / Cairo ,Economy  / Business ,First issue ,2024-09-08,2024-09-10,Commercial,Travco,6248,28245.0,2024-09-02,
+Mr Hussein Elbadrawy,077-5701607690 ,Egypt air,Cairo / Baghdad / Cairo ,Economy  / Business ,First issue ,2024-09-08,2024-09-10,طرق و كبارى,Travco,6401,28245.0,2024-09-02,
+Mr Mohamed Mahlab,077-5701607685 ,Egypt air,Cairo / Baghdad / Cairo ,Business ,First issue ,2024-09-08,2024-09-10,Top Management ,Travco,6247,34860.0,2024-09-02,
+Mr Moustafa Ahmed,077-5701607708 ,Egypt air,Cairo / Baghdad / Cairo ,Economy  / Business ,Rissue ,2024-09-08,2024-10-01,Commercial,Travco,6284,2013.0,2024-09-03,
+"Mr Ahmed Abdelazim
+Mr Ayman Abdelhakim
+Mr Khamis Abdelwanis
+Mr Ahmed Aboutaleb
+Mr Ahmed Marey Ahmed
+Mr Ahmed Mokhtar Ahmed
+Mr Ahmed Elhashash
+Mr Emad Hamdy Elhashash
+Mr Mohamed Moursy","077-5701607749
+077-5701607750 
+077-5701607751 
+077-5701607752 
+077-5701607753 
+077-5701607754 
+077-5701607755 
+077-5701607756
+077-5701607757",Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-09-08,2024-12-07,كوديفوار  ,Travco,6332,219609.0,2024-09-04,
+Mr Mahmoud Hassan,381-5701607792,Air Cairo,Cairo / Riyadh / Cairo,Economy ,First issue ,2024-09-08,2024-09-22,MOC,Travco,6369,14191.0,2024-09-05,
+"Mr Ahmed Mohamed Ahmed
+Mr Mahmoud Adel Ahmed
+Mr Hassan Saleh","077-5701607758
+077-5701607759 
+077-5701607760 ",Egypt air,Cairo / Abidjan / Cairo ,Economy ,First issue ,2024-09-10,2024-12-09,كوديفوار  ,Travco,6331,73203.0,2024-09-04,
+Mr Mohamed Osman,077-5701648850,Egypt air,Cairo / Jeddah / Cairo ,Economy,Rissue ,2024-09-12,2024-08-02,Rabigh,Travco,6426,2740.0,2024-09-08,
+Mr Mohamed Ouda,381-5701649011,Air Cairo,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-14,2024-10-13,Rabigh,Travco,6512,10200.0,2024-09-11,
+Ms Mostafa Bedair,381-5701648964 ,Air Cairo,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-14,2024-09-19,Rabigh,Travco,6470,12505.0,2024-09-10,
+Mr Walaa Mohamed,077-5701692974 ,Egypt air,Cairo / Abidjan / Cairo ,Economy,First issue ,2024-09-15,2024-01-13,كوديفوار  ,Travco,6605,34283.0,2024-09-13,
+"Mr Mahmoud Abdelkarim
+Mr Mohamed Samir Mohamed","077-5701648995
+077-5701648996",Egypt air,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-17,2024-08-13,Rabigh,Travco,6524,20554.0,2024-09-12,
+Mr Medhat Khalifa,077-5701648994,Egypt air,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-20,2024-08-13,Rabigh,Travco,6525,10277.0,2024-09-12,
+Mr Loai Salman,077-5701692998 ,Egypt air,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-21,2024-08-18,Rabigh,Travco,6623,10287.0,2024-09-15,
+Mr Mohamed Ahmed,077-5701693076 ,Egypt air,Cairo / Jeddah / Cairo ,Economy,First issue ,2024-09-21,2024-08-17,Rabigh,Travco,6741,10287.0,2024-09-17,
+Mr Ashraf Mokllad,077-5701648992,Egypt air,Cairo / Riydh  / Cairo,Economy,First issue ,2024-09-22,2024-10-18,Troy ,Travco,6527,11801.0,2024-09-12,
+Mr Ahmed Elsayed,077-5701693060 ,Egypt air,Cairo / Abidjan / Cairo ,Business ,First issue ,2024-09-22,2024-09-25,كوديفوار  ,Travco,6732,52204.0,2024-09-17,
+"Mr Aly Elmerkhmaty
+Mr Yasser Elsaadany","257-5701693108
+257-5701693109 ",Austrian Airlines,Cairo / Berlin / Cairo ,Economy,First issue ,2024-09-23,2024-09-26,Commercial,Travco,6777,57724.0,2024-09-18,
+Mr Aly Elmerkhmaty,257-5701693131 ,Austrian Airlines,Cairo / Berlin / Cairo ,Economy,Rissue ,2024-09-23,2024-09-27,Commercial,Travco,6834,6166.0,2024-09-19,
+Mr Yasser Elsaadany,257-5701693132 ,Austrian Airlines,Cairo / Berlin / Cairo ,Economy,Rissue ,2024-09-23,2024-09-27,Commercial,Travco,,6166.0,2024-09-19,
+Mr Ahmed Fedawy,077-5701649022,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-24,2024-01-10,Ubary,Travco,6570,15939.0,2024-09-12,
+Mr Ahmed Atta,077-5701649026,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-24,2024-03-10,Ubary,Travco,6574,15939.0,2024-09-12,
+Mr Mohammed Aly,077-5701692924 ,Egypt air,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-09-24,2024-10-02,Rabigh,Travco,6584,11054.0,2024-09-12,
+Mr Mohamed Mahlab,077-5701693095 ,Egypt air,Cairo / Berlin - Paris / Cairo ,Business ,Rissue ,2024-09-24,2024-10-01,Top Management ,Travco,6767,3884.0,2024-09-18,
+Mr Walid Abdelfattah,077-5701693033 ,Egypt air,Cairo / Tripoli / Cairo,Economy,First issue ,2024-09-24,2024-03-10,Ubary,Travco,6643,16569.0,2024-09-17,
+Mr Mohamed Mahlab,077-5701730959 ,Egypt air,Cairo / Berlin - Paris / Cairo ,Business ,Rissue ,2024-09-24,2024-09-30,Top Management ,Travco,6866,,2024-09-22,
+Mr Basem Mohamed,077-5701649019,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-25,2024-01-11,Ubary,Travco,6567,15939.0,2024-09-12,
+Mr Mohamed Hassanin,077-5701649021,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-26,2024-03-12,Ubary,Travco,6569,15272.0,2024-09-12,
+Mr Mahmoud Abdelgawwad,071-5701693090 ,Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-09-26,2024-03-26,جزر القمر,Travco,6765,45652.0,2024-09-17,
+"Mr Ayman Morsy
+Mr Omar Arafa","071-5701693056
+071-5701693055",Ethiopian,Cairo / Moroni / Cairo ,Economy,First issue ,2024-09-26,2024-03-26,جزر القمر,Travco,6730,91382.0,2024-09-17,
+Mr Ahmed Elhomosy,077-5701649023,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-27,2024-03-13,Ubary,Travco,6571,15272.0,2024-09-12,
+Mr Fahd Serour,077-5701649025,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-27,2024-03-13,Ubary,Travco,6573,15272.0,2024-09-12,
+Mr Sherif Abdelmoamen,077-5701649024,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-27,2024-03-13,Ubary,Travco,6572,15272.0,2024-09-12,
+Mr Takkeldeen Ali,065-5701648978 ,Saudi Arabian ,Cairo / Riyadh - Jeddah / Cairo ,Economy,First issue ,2024-09-28,2024-10-04,Riyadh Head Office ,Travco,6540,18385.0,2024-09-11,
+Mr Mohamed Kotb,065-5701693135,Saudi Arabian,Cairo / Riyadh / Cairo,Economy,Rissue ,2024-09-29,2024-10-03,MOC,Travco,6795,2850.0,2024-09-19,
+Mr Mohamed Ragab,077-5701731072 ,Egypt air,Cairo / Abidjan / Cairo ,Business ,First issue ,2024-09-29,2024-10-02,كوديفوار  ,Travco,6943,52279.0,2024-09-24,
+Mr Ahmed Abdelaziz,381-5701731068 ,Air Cairo,Cairo / Riyadh - Jeddah / Cairo ,Economy,First issue ,2024-09-29,2024-10-20,Riyadh Head Office ,Travco,6946,10746.0,2024-09-24,
+Mr Ahmed Mohamed,381-5701731069 ,Air Cairo,Cairo / Riyadh - Jeddah / Cairo ,Economy,First issue ,2024-09-29,2024-10-20,Riyadh Head Office ,Travco,,10746.0,2024-09-24,
+Mr Osama Abdalla,077-5701649027,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-09-30,2024-03-16,Ubary,Travco,6575,16504.0,2024-09-12,
+Mr Mohamed Sedek,077-5701649020,Egypt air,Cairo / Tripoli / Cairo ,Economy,First issue ,2024-10-01,2024-01-17,Ubary,Travco,6568,15272.0,2024-09-12,
+Mr Mohamed Elashry,077-5701777316 ,Egypt air,Cairo / Sharm / Cairo,Economy / Business,First issue ,2024-10-01,2024-10-03,Radamis Sharm,Travco,7191,,2024-09-30,
+"Mr Allam Mahmoud Allam
+Mr Ahmed Khalf","077-5701693105
+077-5701693106  ",Egypt air,Cairo / Jeddah  / Cairo,Economy,First issue ,2024-10-02,2024-08-28,Red Sea,Travco,6775,18652.0,2024-09-18,
+"Mr Mohamed Saber Mohamed
+Mr Mostafa Mohamed
+Mr Nagy Nada","381-5701777209
+381-5701777210
+381-5701777211",Air Cairo,Cairo / Riyadh / Cairo,Economy,First issue ,2024-10-05,2024-09-01,MOC,Travco,7150,29928.0,2024-09-29,
+"Mr Hussein Abouelfadl
+Mr Tarek Ahmed
+Mr Hossam Eldibsy
+Mr Antoun Ewida
+Mr Samwail Gadelsayed
+Mr Ayman Sherif","381-5701777212
+381-5701777213
+381-5701777214
+381-5701777215
+381-5701777216
+381-5701777217",Air Cairo,Cairo / Riyadh / Cairo,Economy,First issue ,2024-10-05,2024-09-01,MOC,Travco,7151,58356.0,2024-09-29,
+"Mr Mohamed Abdelaal
+Mr Mostafa Abdelwahab
+Mr Mohamed Abuelmagd
+Mr Khaled Ahmed
+Mr Mohamed Alloush
+Mr Ahmed Mahrous
+Mr Mohamed Sayed
+Mr Khaled Soliman
+Mr Emad Elshahat","077-5701777283
+077-5701777284
+077-5701777285
+077-5701777286
+077-5701777287
+077-5701777288
+077-5701777289
+077-5701777290
+077-5701777291",Egypt air,Cairo / Awasn,Economy,First issue ,2024-10-05,,ميناء وادي حلفا,Travco,7200,17392.0,2024-09-30,
+Mr Yasser Elsaadany,065-5701777292 ,Saudi Arabian,Cairo / Riyadh / Cairo,Business ,First issue ,2024-10-07,2024-10-17,Saudi head office ,Travco,7199,,2024-09-30,
+Mr Mohamed Mahlab,077-5701730976 ,Egypt air,Cairo / Nairobi / Cairo ,Business ,First issue ,2024-10-08,2024-10-13,Top Management ,Travco,6869,62244.0,2024-09-22,
+Mr Amr Dawood,077-5701731009 ,Egypt air,Cairo / Tripoli /  Cairo ,Economy,First issue ,2024-10-15,2024-10-25,Libya Head Office ,Travco,6923,15306.0,2024-09-23,
+Mr Mohamed Mahlab,077-5701693057 ,Egypt air,Cairo / Paris / Cairo ,Business ,First issue ,2024-10-18,2024-10-22,Top Management ,Travco,6731,83998.0,2024-09-17,
+Mr Fawzi Elsayed,077-6073981769,Egypt air,Tripoli / Cairo ,Economy ,First issue ,,2024-09-06,Ubary,Travco,6271,16300.0,2024-09-01,
+"Mr Ahmed Abdelqader
+Mr Mohamed Ahmed
+Mr Alaa Ali","077-5701607709
+077-5701607710
+077-5701607711  ",Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-10-10,Red Sea,Travco,6285,4830.0,2024-09-03,
+Mr Tantawy Mahmoud Tantawy,065-5701607713,Saudi Arabian,Jeddah / Cairo ,Economy,Rissue ,,2024-10-10,Red Sea,Travco,6277,3600.0,2024-09-03,
+Mr Khaled Mohamed Ahmed,065-5701607890,Saudi Arabian,Jeddah / Cairo ,Economy ,Rissue ,,2024-09-04,Power Planet ,Kanoo,,9500.0,2024-09-03,
+Mr Ibrahem Abdelahy,077-5701648884,Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-11-20,Rabigh,Travco,6409,1665.0,2024-09-08,
+Mr Ayman Ibrahim,077-5701648852,Egypt air,Tripoli / Cairo ,Economy,Rissue ,,2024-10-09,Ubary,Travco,6424,1413.0,2024-09-08,
+Mr Karim Elsayed,077-5701648851,Egypt air,Tripoli / Cairo ,Economy,Rissue ,,2024-10-25,Ubary,Travco,6425,1413.0,2024-09-08,
+Mr Mohsen Abdalaty,381-5701648809,Air Cairo,Riyadh / Cairo,Economy,Rissue ,,2024-09-06,MOC,Travco,6374,2963.0,2024-09-05,
+Mr Abdelsamea Mohamed,381-5701648898,Air Cairo,Jeddah / Cairo ,Economy,Rissue ,,2024-09-10,Driller,Travco,6448,2546.0,2024-09-09,
+Mr Mohamed Elkottamy                  ,071-5701648938,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-10-30,كوديفوار  ,Travco,6489,9655.0,2024-09-10,
+Mr Atef Galbat,157-5701648939,Qatar Airways,Abidjan / Cairo ,Economy,Rissue ,,2024-09-30,كوديفوار  ,Travco,6488,361.0,2024-09-10,
+Mr Wael Mohamed,381-5701648937,Air Cairo,Riyadh / Cairo,Economy,Rissue ,,2024-09-10,MOC,Travco,6490,2023.0,2024-09-10,
+Mr Mahmoud Ismail,381-5701648936,Air Cairo,Riyadh / Cairo,Economy,Rissue ,,2024-09-10,MOC,Travco,6491,2023.0,2024-09-10,
+Mr Sameh Awadalla ,071-5701648943,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-10-23,كوديفوار  ,Travco,6484,6700.0,2024-09-10,
+Mr Mohamed Darwish,071-5701648944,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-10-12,كوديفوار  ,Travco,6483,5250.0,2024-09-10,
+Mr Amr Taha,071-5701648945,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-10-19,كوديفوار  ,Travco,6482,8850.0,2024-09-10,
+Mr Tarek Abdalla,071-5701648946,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-09-28,كوديفوار  ,Travco,6481,9100.0,2024-09-10,
+Mr Omar Sadek,077-5701693021 ,Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-12-15,Red Sea,Travco,6640,2399.0,2024-09-16,
+Mr Ismaeil Shawish,077-5701692985,Egypt air,Tripoli / Cairo,Economy,Rissue ,,2024-10-01,Ubary,Travco,6614,3427.0,2024-09-14,
+Mr Mohamed Alsharkawy,077-5701692979,Egypt air,Jeddah  / Cairo,Economy,Rissue ,,2024-09-28,Rabigh,Travco,6609,2234.0,2024-09-14,
+Mr Hamda Mazen,077-5701692978,Egypt air,Jeddah  / Cairo,Economy,Rissue ,,2024-10-08,Rabigh,Travco,6608,2015.0,2024-09-14,
+Mr Saad Mazen,077-5701649184,Egypt air,Jeddah  / Cairo,Economy,Rissue ,,2024-10-08,Rabigh,Travco,1965,1700.0,2024-09-14,
+Mr Aly Ibrahim,065-6692645982,Saudi Arabian ,Jeddah  / Cairo,Economy,Rissue ,,2024-09-10,Red Sea,Travco,,3600.0,2024-09-10,
+Mr Mina Mikhael,077-5701712214,Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-01-03,Rabigh,Travco,TIN2400037754,4090.0,2024-09-17,
+Mr Mohamed Kotb,077-5701693073 ,Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-10-08,Rabigh,Travco,6740,2594.0,2024-09-17,
+"Mr Zeiatar Abdelazeem
+Mr Yasser Abdelmoghith
+Mr Mohamed Ahmed
+Mr Aly Ali
+Mr Ibrahim Elawadi
+Mr Ahmed Elsagay","077-5701693067
+077-5701693068 
+077-5701693069
+077-5701693070
+077-5701693071
+077-5701693072",Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-10-08,Rabigh,Travco,6737,15582.0,2024-09-17,
+"Mr Elsayed Boraei
+Mr Ahmed Elsayed
+Mr Sherif Gadelmola
+Mr Magdy Khalil
+Mr Mohamed Gaber Mohamed
+Mr Mohamed Soliman","077-5701649228
+077-5701649229 
+077-5701649230 
+077-5701649231 
+077-5701649232 
+077-5701649233 ",Egypt air,Jeddah / Cairo ,Economy,Rissue ,,2024-10-08,Rabigh,Travco,1990,10500.0,2024-09-17,
+Mr Hamada Ahmed,077-5701693127 ,Egypt air,Tripoli / Cairo,Economy,Rissue ,,2024-09-20,Ubary,Travco,6806,5890.0,2024-09-19,
+Mr Mostafa Mohamed,381-5701730908 ,Air Cairo,Riyadh / Cairo,Economy,Rissue ,,2024-09-24,Red Sea ,Travco,6836,2023.0,2024-09-19,
+Mr Mostafa Mohamed,381-5701730912,Air Cairo,Jeddah / Cairo ,Economy,Rissue ,,2024-09-24,Red Sea ,Travco,6837,,2024-09-19,
+Mr Ahmed Mahmoud,325-5701730917,Nile Air,Jeddah / Cairo ,Economy,Rissue ,,2024-03-28,Rabigh,Travco,6835,4400.0,2024-09-19,
+Mr Mahmoud Abed,071-5701777147,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-09-29,كوديفوار  ,Travco,7007,500.0,2024-09-28,
+Mr Mohamed Kolaib,071-5701777148,Ethiopian,Abidjan / Cairo ,Economy,Rissue ,,2024-09-29,كوديفوار  ,Travco,,500.0,2024-09-28,
+,,,,,,,,,,,,,
+Mr Yasser Elsaadany,077-5701607691,Egypt air,Cairo / Baghdad / Cairo ,,Refund,,,Commercial,Travco,,-25833.0,2024-09-10,
+,,,,,,,,,,,,,
+                               ,,,,,,,,,,,1534103.0,,
+,,,,,,,,,,,,,
+,,,,refunded ticket,,,,,,,,,
+,,,,not receive the invoice yet.,,,,,,,,,
