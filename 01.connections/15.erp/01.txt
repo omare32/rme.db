@@ -1,0 +1,8 @@
+RMEDB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.0.11.59)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = dedicated)
+      (SERVICE_NAME = RMEDB)
+    )
+  )
