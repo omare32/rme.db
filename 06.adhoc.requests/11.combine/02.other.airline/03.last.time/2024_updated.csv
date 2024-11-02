@@ -1,0 +1,226 @@
+Ar Name,Ticket Date,Airline ShortName,Ticket Number,Ticket Status,Airline FullName,Pax,Class Codes,Class Names,Travel Date,Return Date,Spend,Route,Ticket Exchange Number,Employee Name,Department
+ Rowad,2024-01-02,ET,6677061202,Sale,Ethiopian Airlines,Hashem Ahmed Ibrahim ,"K, K",,2024-05-25,2024-05-26,4933,ABJ / ADD / ADD / CAI,9353900775.0,Ahmed Hashem,Cote Divoire 
+ Rowad,2024-01-02,MS,6677061199,Sale,Egypt Air,Wasef Roumany ,"L, L","Economy,Economy",2024-01-18,2024-07-12,23774,CAI / HAH / HAH / CAI,,Roumany Wasef,Comors
+ Rowad,2024-01-03,ET,6677102013,Sale,Ethiopian Airlines,Ibrahim Moaain ,"V, V, K, K","Economy,Economy",2024-01-14,2024-07-11,28484,CAI / ADD / ABJ / ADD / ADD / ABJ / ADD / CAI,,Moaain Ibrahim,Cote Divoire 
+ Rowad,2024-01-03,EK,6677102042,Sale,Emirates,Mahlab Mohamed ,"O, O","Business,Business",2024-01-08,2024-01-10,46679,CAI / DXB / DXB / CAI,,Mohamed Mahlab,0
+ Rowad,2024-01-04,ET,6677102113,Sale,Ethiopian Airlines,Mohamed Hany ,"V, V, K, K","Economy,Economy",2024-01-14,2024-07-14,28130,CAI / ADD / ABJ / ADD / ADD / ABJ / ADD / CAI,,Mohamed hany,0
+ Rowad,2024-01-04,MS,6677102133,Sale,Egypt Air,Khalil Mohamed ,"W, T",Economy,2024-01-10,2024-04-10,9984,CAI / MJI / MJI / CAI,,Mohamed Khalil,libya
+ Rowad,2024-01-04,MS,6677102074,Sale,Egypt Air,Elsaka Mostafa ,"W, T",Economy,2024-01-09,2024-02-10,9983,CAI / MJI / MJI / CAI,,Mostafa Elsaka,Operations
+ Rowad,2024-01-08,ET,6677131593,Sale,Ethiopian Airlines,Elzenieni Islam ,"L, L",,2024-04-04,2024-04-05,3390,HAH / ADD / ADD / CAI,1208000627.0,Islam Elzenieni,0
+ Rowad,2024-01-08,SM,6677131607,Sale,Air Cairo,Elashry Mohamed ,"M, G",,2024-01-10,2024-01-11,4309,CAI / SSH / SSH / CAI,,Mohamed Elashry,Operation
+ Rowad,2024-01-08,MS,6677131606,Sale,Egypt Air,Zohny Yasser ,"W, S",Economy,2024-01-13,2024-01-22,10369,CAI / MJI / MJI / CAI,,Yasser Zohny,Operation
+ Rowad,2024-01-09,MS,6677131689,Sale,Egypt Air,Elsaka Mostafa ,"W, T",Economy,2024-01-13,2024-02-10,308,CAI / MJI / MJI / CAI,6677102074.0,,
+ Rowad,2024-01-09,MS,6677162768,Sale,Egypt Air,Khalil Mohamed ,"K, T","Economy,Economy",2024-01-14,2024-04-10,1389,CAI / MJI / MJI / CAI,6677102133.0,Mohamed Khalil,0
+ Rowad,2024-01-09,MS,1806483374,Sale,Egypt Air,Elsaka Mostafa ,,,2024-01-13,2024-02-10,10,,6677131689.0,,
+ Rowad,2024-01-09,MS,1806483752,Sale,Egypt Air,Khalil Mohamed ,,,2024-01-14,2024-04-10,10,,6677162768.0,,
+ Rowad,2024-01-09,MS,1806483373,Sale,Egypt Air,Elsaka Mostafa ,,,2024-01-13,2024-02-10,1510,,6677131689.0,,
+ Rowad,2024-01-09,MS,1806483751,Sale,Egypt Air,Khalil Mohamed ,,,2024-01-14,2024-04-10,1510,,6677162768.0,,
+ Rowad,2024-01-11,ET,6677162925,Sale,Ethiopian Airlines,Elsamny Islam Nader ,"L, L",,2024-03-01,2024-03-02,4919,ABJ / ADD / ADD / CAI,9354012769.0,Islam Nader ,0
+ Rowad,2024-01-11,SV,6677162959,Sale,Saudi arabian airline,Fouda Hussein Hassan ,"M, N",Economy,2024-01-16,2024-02-29,11746,CAI / JED / JED / CAI,,Hussein Fouda,Technical Office Manager
+ Rowad,2024-01-11,SV,6677162958,Sale,Saudi arabian airline,Ali Takkeldeen Nasr ,"M, L","Economy,Economy",2024-01-16,2024-01-25,12786,CAI / JED / JED / CAI,,Takkeldeen Ali,Technical Office Operation 1
+ Rowad,2024-01-11,SV,6677162895,Sale,Saudi arabian airline,Elsaadany Yasser ,"I, I","Business,Business",2024-01-15,2024-01-24,20741,CAI / RUH / RUH / CAI,,Yasser Elsaadany,Commercial
+ Rowad,2024-01-11,MS,6677162929,Sale,Egypt Air,Dawood Amr Abdelrahman ,"M, E",Economy,2024-01-18,2024-01-25,12871,CAI / MJI / MJI / CAI,,Amr dawood,Cost Control
+ Rowad,2024-01-15,MS,6677202721,Sale,Egypt Air,Abdelkader Mohab Ali ,"Y, T","Economy,Economy",2024-01-18,2024-05-04,13140,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-15,MS,6677202722,Sale,Egypt Air,Eissa Ahmed Ali ,"Y, T","Economy,Economy",2024-01-18,2024-05-04,13140,CAI / MJI / MJI / CAI,,Ahmed Ali Eissa,libya
+ Rowad,2024-01-15,MS,6677202720,Sale,Egypt Air,Mahmoud Mahmoud El Sayed ,"Y, T","Economy,Economy",2024-01-18,2024-05-04,13104,CAI / MJI / MJI / CAI,,Mahmoud elsayed,libya
+ Rowad,2024-01-15,MS,6677202719,Sale,Egypt Air,Newigy Mohamed Farahat Aly ,"Y, T","Economy,Economy",2024-01-18,2024-07-20,13104,CAI / MJI / MJI / CAI,,Mohamed farahat,libya
+ Rowad,2024-01-16,ET,6677238311,Sale,Ethiopian Airlines,Mohamed Aly Maher Aly ,"H, H, V, V","Economy,Economy",2024-01-22,2024-07-20,23262,CAI / ADD / ABJ / ADD / ADD / ABJ / ADD / CAI,,Mohamed Ali Maher,Cote Divoire 
+ Rowad,2024-01-16,SV,6677202803,Sale,Saudi arabian airline,Fouda Hussein Hassan ,"B, N",Economy,2024-01-19,2024-02-29,1764,CAI / JED / JED / CAI,6677162959.0,,
+ Rowad,2024-01-16,MS,6677202828,Sale,Egypt Air,Ayoub Fadi ,"K, E",Economy,2024-01-25,2024-05-24,25395,CAI / HAH / HAH / CAI,,Fadi ayoub,Comors
+ Rowad,2024-01-16,MS,6677238341,Sale,Egypt Air,Elasfar Diaa Mohamed ,"Y, T","Economy,Economy",2024-01-23,2024-05-01,14201,CAI / MJI / MJI / CAI,,Diaa Mohamed Elasfar,libya
+ Rowad,2024-01-16,SV,1806486814,Sale,Saudi arabian airline,Fouda Hussein Hassan ,,,2024-01-19,2024-02-29,1657,,6677202803.0,,
+ Rowad,2024-01-19,SV,6677262701,Sale,Saudi arabian airline,Fouda Hussein Hassan ,"B, N",Economy,2024-01-21,2024-02-29,437,CAI / JED / JED / CAI,6677162959.0,Hussein Fouda,Saudi arabia
+ Rowad,2024-01-19,SV,1806488499,Sale,Saudi arabian airline,Fouda Hussein Hassan ,,,2024-01-21,2024-02-29,834,,6677262701.0,,
+ Rowad,2024-01-21,MS,6677262827,Sale,Egypt Air,Elsayed Alaa ,"Q, L","Economy,Economy",2024-01-25,2024-05-24,26545,CAI / HAH / HAH / CAI,,Alaa Elsayed,0
+ Rowad,2024-01-21,SM,6677262820,Sale,Air Cairo,Elashry Mohamed ,"M, L",,2024-01-23,2024-01-24,4424,CAI / SSH / SSH / CAI,,Mohamed ElAshry,operation
+ Rowad,2024-01-28,MS,6677352192,Sale,Egypt Air,Hussein Mahmoud ,"M, T","Economy,Economy",2024-02-02,2024-05-18,12295,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352191,Sale,Egypt Air,Abdallah Hamed ,"M, T","Economy,Economy",2024-02-02,2024-05-18,12295,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352195,Sale,Egypt Air,Mohamed Basem ,"W, T",Economy,2024-02-15,2024-06-01,9982,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352189,Sale,Egypt Air,Amer Ahmed ,"M, T","Economy,Economy",2024-02-02,2024-06-14,12328,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352188,Sale,Egypt Air,Abdelhafez Abdelrahman ,"M, T","Economy,Economy",2024-02-02,2024-06-14,12328,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352190,Sale,Egypt Air,Mohamed Mohamed Khaled Mahmoud ,"M, T","Economy,Economy",2024-02-02,2024-06-14,12328,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352237,Sale,Egypt Air,Elbahrawy Abdelrahman ,"B, T","Economy,Economy",2024-02-02,2024-06-14,12678,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352193,Sale,Egypt Air,Affan Ebrahem ,"M, T","Economy,Economy",2024-02-02,2024-06-14,12295,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352194,Sale,Egypt Air,Khalil Ahmed ,"M, T","Economy,Economy",2024-02-02,2024-06-14,12295,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-01-28,MS,6677352199,Sale,Egypt Air,Aly Saad Zaki ,"B, T","Economy,Economy",2024-02-02,2024-05-18,12678,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-02-01,MS,6677390377,Sale,Egypt Air,Elkhouly Ahmed ,"Q, S","Economy,Economy",2024-02-04,2024-05-02,11726,CAI / JED / JED / CAI,,,
+ Rowad,2024-02-01,MS,6677390435,Sale,Egypt Air,Gouda Tarek ,"M, T","Economy,Economy",2024-02-06,2024-07-20,12261,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-02-01,MS,6677390434,Sale,Egypt Air,Elsayed Karim ,"M, T","Economy,Economy",2024-02-06,2024-05-20,12261,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-02-01,MS,6677390436,Sale,Egypt Air,Abdelgawad Mohamed ,"M, T","Economy,Economy",2024-02-06,2024-05-20,12261,CAI / MJI / MJI / CAI,,,
+ Rowad,2024-02-03,ET,6677416375,Sale,Ethiopian Airlines,Mohamed Farahat Sayed ,"L, L",,2024-04-01,2024-04-02,3390,HAH / ADD / ADD / CAI,9353976769.0,,
+ Rowad,2024-02-04,SV,6677416464,Sale,Saudi arabian airline,Elsaadany Yasser ,"I, D","Business,Business",2024-02-25,2024-03-07,27430,CAI / RUH / RUH / CAI,,Mr Yasser Elsaadany,السعودية
+ Rowad,2024-02-05,SV,6677416544,Sale,Saudi arabian airline,Hassanin Mohamed ,"L, V","Economy,Economy",2024-02-11,2024-05-05,10104,CAI / JED / JED / CAI,,Mr Mohamed Hassanin,السعودية
+ Rowad,2024-02-05,SV,6677416484,Sale,Saudi arabian airline,Tahoun Amir ,"K, T","Economy,Economy",2024-02-07,2024-03-01,12062,CAI / JED / JED / CAI,,Mr Amir Tahoun,السعودية
+ Rowad,2024-02-06,SV,6677416586,Sale,Saudi arabian airline,Abdelahy Ibrahem ,"L, V","Economy,Economy",2024-02-17,2024-05-07,10104,CAI / JED / JED / CAI,,Mr Ibrahem Abdelahy,السعودية
+ Rowad,2024-02-06,SM,6677416582,Sale,Air Cairo,Abdelrahman Laila ,"Q, W",,2024-02-11,2024-02-13,3425,CAI / SSH / SSH / CAI,,Mrs Laila Abdelrahman,Radamis Sharm
+ Rowad,2024-02-06,MS,6677449258,Sale,Egypt Air,Selim Moustafa ,M,Economy,2024-02-10,2024-02-10,8985,CAI / MJI,,Mr Moustafa Selim,أوباري
+ Rowad,2024-02-06,MS,6677449255,Sale,Egypt Air,Ahmed Mohamed ,M,Economy,2024-02-10,2024-02-10,8985,CAI / MJI,,Mr Mohamed Ahmed,أوباري
+ Rowad,2024-02-06,MS,6677449257,Sale,Egypt Air,Sedek Mohamed ,M,Economy,2024-02-10,2024-02-10,8985,CAI / MJI,,Mr Mohamed Sedek,أوباري
+ Rowad,2024-02-06,MS,6677449262,Sale,Egypt Air,Abdalla Osama ,M,Economy,2024-02-15,2024-02-15,8911,CAI / MJI,,Mr Osama Abdalla,أوباري
+ Rowad,2024-02-06,MS,6677449256,Sale,Egypt Air,Elfayoumy Ahmed ,M,Economy,2024-02-10,2024-02-10,8985,CAI / MJI,,Mr Ahmed Elfayoumy,أوباري
+ Rowad,2024-02-08,MS,6677467527,Sale,Egypt Air,Khattab Mahmoud ,"S, W",Economy,2024-02-11,2024-12-08,8649,CAI / JED / JED / CAI,,Mr Mahmoud Khattab,السعودية
+ Rowad,2024-02-08,SV,6677467626,Sale,Saudi arabian airline,Abdelwahab Mariam,"K, Q",Economy,2024-02-17,2024-02-29,12397,CAI / JED / JED / CAI,,Mariam Abdelwahab,السعودية
+ Rowad,2024-02-11,SM,6677490269,Refund,Air Cairo,Helmy Ahmed ,"B, V",,2024-02-13,2024-02-14,-4674,CAI / SSH / SSH / CAI,,Mr Ahmed Helmy,Radamis Sharm
+ Rowad,2024-02-11,SM,6677490267,Sale,Air Cairo,Elgohary Mohamed ,"B, V",,2024-02-13,2024-02-14,4901,CAI / SSH / SSH / CAI,,Mr Mohamed Elgohary,Radamis Sharm
+ Rowad,2024-02-11,SM,6677490268,Sale,Air Cairo,Elsahry Mohamed ,"B, V",,2024-02-13,2024-02-14,4901,CAI / SSH / SSH / CAI,,Mr Mohamed Elsahry,Radamis Sharm
+ Rowad,2024-02-11,SM,6677490269,Sale,Air Cairo,Helmy Ahmed ,"B, V",,2024-02-13,2024-02-14,4901,CAI / SSH / SSH / CAI,,Mr Ahmed Helmy,Radamis Sharm
+ Rowad,2024-02-11,MS,6677490243,Sale,Egypt Air,Attia Ayman ,"M, M","Economy,Economy",2024-02-13,2024-02-13,4501,CAI / SSH / SSH / CAI,,Mr Ayman Attia,Radamis Sharm
+ Rowad,2024-02-11,MS,6677467699,Sale,Egypt Air,Elkersh Mohamed ,"H, S","Economy,Economy",2024-02-14,2024-02-21,12208,CAI / MJI / MJI / CAI,,Mr Mohamed Elkersh,RMEG
+ Rowad,2024-02-11,MS,6677467699,Refund,Egypt Air,Elkersh Mohamed ,"H, S","Economy,Economy",2024-02-14,2024-02-21,-11785,CAI / MJI / MJI / CAI,,Mr Mohamed Elkersh,RMEG
+ Rowad,2024-02-12,MS,6677490359,Sale,Egypt Air,Ahmed Atef Mahmoud ,"Q, S","Economy,Economy",2024-03-01,2024-05-25,11725,CAI / JED / JED / CAI,,Mr Atef Mahmoud Ahmed ,السعودية
+ Rowad,2024-02-12,MS,6677490343,Sale,Egypt Air,Farghaly Mohamed ,"E, K",Economy,2024-02-25,2024-02-29,11017,CAI / RUH / RUH / CAI,,Mr Mohamed Farghaly,السعودية
+ Rowad,2024-02-13,QR,6677490405,Sale,Qatar Airways,Mahlab Mahmoud Ibrahm ,"F, C, I, A","First,Business,First",2024-02-17,2024-02-26,97359,CAI / DOH / ABJ / DOH / DOH / ABJ / DOH / CAI,,Mr Mahmoud Ibrahm Mahlab,Cote Divoire 
+ Rowad,2024-02-14,BA,6677518042,Sale,British Airways,Hedeya Mostafa ,"Y, G, S, O","Economy,Economy",2024-03-03,2024-03-09,54881,CAI / MAN / BHD / LHR / LHR / BHD / LHR / CAI,,,
+ Rowad,2024-02-14,MS,6677518000,Sale,Egypt Air,Elfayoumy Ahmed ,"B, W",Economy,2024-02-20,2024-08-03,4155,CAI / MJI / MJI / CAI,6677449256.0,Mr Ahmed Elfayoumy,أوباري
+ Rowad,2024-02-14,MS,1806503149,Sale,Egypt Air,Elfayoumy Ahmed ,,,2024-02-20,2024-08-03,1410,,6677518000.0,,
+ Rowad,2024-02-16,MS,6677518158,Sale,Egypt Air,Elrefaey Mahmoud Ezzat ,W,,2024-02-19,2024-02-20,4820,CAI / JED,,Mr Mahmoud Ezzat Elrefaey,السعودية
+ Rowad,2024-02-19,MS,6677551663,Sale,Egypt Air,Moawad Mamdouh ,H,Economy,2024-03-01,2024-03-01,2269,MJI / CAI,1208548187.0,Mr Mamdouh Moawad,أوباري
+ Rowad,2024-02-19,MS,1806506160,Sale,Egypt Air,Moawad Mamdouh ,,,2024-03-01,2024-03-01,1660,,6677551663.0,,
+ Rowad,2024-02-20,MS,6677574319,Sale,Egypt Air,Zohny Yasser ,"V, Y","Economy,Economy",2024-03-03,2024-03-10,14067,CAI / MJI / MJI / CAI,,Mr Yasser Zohny,Ø·Ø±ÙŠÙ‚ Ø§Ù„Ø¯Ø§Ø¦Ø±Ù‰ Ø§Ù„Ø«Ø§Ù„Ø« 
+ Rowad,2024-02-20,MS,6677574319,Refund,Egypt Air,Zohny Yasser ,"V, Y","Economy,Economy",2024-03-03,2024-03-10,-13602,CAI / MJI / MJI / CAI,,Mr Yasser Zohny,Ø·Ø±ÙŠÙ‚ Ø§Ù„Ø¯Ø§Ø¦Ø±Ù‰ Ø§Ù„Ø«Ø§Ù„Ø« 
+ Rowad,2024-02-21,MS,6677574410,Sale,Egypt Air,Elfayoumy Ahmed ,"Y, W",Economy,2024-03-22,2024-08-10,724,CAI / MJI / MJI / CAI,6677449256.0,Mr Ahmed Elfayoumy,Ø¬Ø²Ø± Ø§Ù„Ù‚Ù…Ø±
+ Rowad,2024-02-21,MS,1806507531,Sale,Egypt Air,Elfayoumy Ahmed ,,,2024-03-22,2024-08-10,1360,,6677574410.0,,
+ Rowad,2024-02-21,MS,1806507532,Sale,Egypt Air,Elfayoumy Ahmed ,,,2024-03-22,2024-08-10,10,,6677574410.0,,
+ Rowad,2024-02-22,ET,6677574444,Sale,Ethiopian Airlines,Towfik Mohamed ,"L, L",,2024-04-04,2024-04-05,3390,HAH / ADD / ADD / CAI,1208547967.0,Mr Mohamed Towfik,Ø¬Ø²Ø± Ø§Ù„Ù‚Ù…Ø±
+ Rowad,2024-02-22,ET,6677574443,Sale,Ethiopian Airlines,Ibrahim Mohamed ,"L, L",,2024-03-02,2024-03-03,4933,HAH / ADD / ADD / CAI,1208176769.0,Mr Mohamed Ibrahim,Ø¬Ø²Ø± Ø§Ù„Ù‚Ù…Ø±
+ Rowad,2024-02-28,MS,6692451369,Sale,Egypt Air,Atta Alaa Elsayed ,"H, M","Economy,Economy",2024-03-05,2024-03-19,14270,CAI / MJI / MJI / CAI,,Mr Alaa Elsayed Atta,أوباري
+ Rowad,2024-02-29,ET,6692451415,Sale,Ethiopian Airlines,Alyeldin Mostafa Mohamed ,"V, V, U, U","Economy,Economy",2024-03-02,2024-03-10,20489,CAI / ADD / FIH / ADD / ADD / FIH / ADD / CAI,,Mr Mostafa Mohamed Alyeldin,Tendering
+ Rowad,2024-02-29,ET,6692451414,Sale,Ethiopian Airlines,Abdalla Mostafa Kamal ,"V, V, U, U","Economy,Economy",2024-03-02,2024-03-10,20489,CAI / ADD / FIH / ADD / ADD / FIH / ADD / CAI,,,
+ Rowad,2024-03-03,MS,6692478594,Sale,Egypt Air,Edward Adham ,"H, B","Economy,Economy",2024-03-05,2024-03-06,4597,CAI / SSH / SSH / CAI,,Mr Adham Edward,Radamis Sharm
+ Rowad,2024-03-03,MS,6692478595,Sale,Egypt Air,Elashry Mohamed ,"H, B","Economy,Economy",2024-03-05,2024-03-06,4597,CAI / SSH / SSH / CAI,,Mr Mohamed Elashry,Radamis Sharm
+ Rowad,2024-03-04,MS,6692478696,Sale,Egypt Air,Abdellatif Youssef ,"K, Q","Economy,Economy",2024-03-24,2024-03-28,13671,CAI / JED / JED / CAI,,Mr Youssef Abdellatif,السعودية
+ Rowad,2024-03-04,MS,6692478652,Sale,Egypt Air,Gadalla Moustafa ,"H, W",Economy,2024-03-19,2025-02-20,12715,CAI / JED / JED / CAI,,Mr Moustafa Gadalla,السعودية
+ Rowad,2024-03-04,MS,6692478666,Sale,Egypt Air,Horish Ayman ,"E, Y",Economy,2024-03-13,2024-03-21,13711,CAI / MJI / MJI / CAI,,Mr Ayman Horish,اوبارى
+ Rowad,2024-03-05,MS,6692519294,Sale,Egypt Air,Edward Adham ,Y,Economy,2024-03-06,2024-03-06,554,SSH / CAI,6692478594.0,Mr Adham Edward,Radamis Sharm
+ Rowad,2024-03-05,ET,6692478737,Sale,Ethiopian Airlines,Elzenieni Islam ,"L, L",,2024-03-11,2024-03-12,3390,HAH / ADD / ADD / CAI,1208000627.0,Mr Islam Elzenieni,Ø¬Ø²Ø± Ø§Ù„Ù‚Ù…Ø±
+ Rowad,2024-03-05,MS,1842973721,Sale,Egypt Air,Edward Adham ,,,2024-03-06,2024-03-06,360,,6692519294.0,,
+ Rowad,2024-03-06,MS,6692519428,Sale,Egypt Air,Sultan Mohamed ,"Y, K","Economy,Economy",2024-03-07,2024-03-09,19764,CAI / ATH / ATH / CAI,,Mr Mohamed Sultan,Tendering
+ Rowad,2024-03-06,MS,6692519437,Sale,Egypt Air,Elzayat Ahmed Ahmed ,"Q, K","Economy,Economy",2024-03-24,2024-03-31,23324,CAI / JED / JED / CAI,,Mr Ahmed Ahmed Elzayat,السعودية
+ Rowad,2024-03-07,MS,6692552510,Sale,Egypt Air,Hawela Sherif ,"M, W",Economy,2024-03-12,2024-05-27,21383,CAI / JED / JED / CAI,,Mr Sherif Hawela,السعودية
+ Rowad,2024-03-07,MS,6692552508,Sale,Egypt Air,Sultan Sameh ,"M, W",Economy,2024-03-12,2024-03-01,21442,CAI / JED / JED / CAI,,Mr Sameh Sultan,السعودية
+ Rowad,2024-03-07,MS,6692552507,Sale,Egypt Air,Abdelgalil Abdalla ,"M, W",Economy,2024-03-12,2024-03-01,21442,CAI / JED / JED / CAI,,Mr Abdalla Abdelgalil,السعودية
+ Rowad,2024-03-07,MS,6692552504,Sale,Egypt Air,Ankely Ismail ,"H, W",Economy,2024-03-12,2024-03-01,19108,CAI / RUH / RUH / CAI,,Mr Ismail Ankely,السعودية
+ Rowad,2024-03-11,MS,6692552643,Sale,Egypt Air,Said Abdelrahman Ahmed ,H,Economy,2024-03-15,2024-03-15,4359,JED / CAI,1208060106.0,Mr Abdelrahman Ahmed Said,السعودية
+ Rowad,2024-03-11,MS,6692552642,Sale,Egypt Air,Mohamed Mohamed Ahmed Abdelrahman ,H,Economy,2024-03-15,2024-03-15,4359,JED / CAI,1208060105.0,Mr Mohamed Ahmed Abdelrahman Mohamed,السعودية
+ Rowad,2024-03-11,MS,6692552656,Sale,Egypt Air,Mikhael Mina ,"K, W",Economy,2024-03-18,2024-09-17,16546,CAI / JED / JED / CAI,,Mr Mina Mikhael,السعودية
+ Rowad,2024-03-11,MS,6692552629,Sale,Egypt Air,Ismail Ahmed ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Ahmed Ismail,اوبارى
+ Rowad,2024-03-11,MS,6692439405,Sale,Egypt Air,Hegazy Mohamed ,V,Economy,2024-03-14,2024-03-14,10768,CAI / MJI,,Mr Mohamed Hegazy,اوبارى
+ Rowad,2024-03-11,MS,6692439404,Sale,Egypt Air,Elhomosy Ahmed ,V,Economy,2024-03-14,2024-03-14,10768,CAI / MJI,,Mr Ahmed Elhomosy,اوبارى
+ Rowad,2024-03-11,MS,6692552636,Sale,Egypt Air,Mohamed Hany ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Hany Mohamed,اوبارى
+ Rowad,2024-03-11,MS,6692552631,Sale,Egypt Air,Abdelgany Ghanem ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Ghanem Abdelgany ,اوبارى
+ Rowad,2024-03-11,MS,6692552637,Sale,Egypt Air,Youssef Mohamed ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Mohamed Youssef,اوبارى
+ Rowad,2024-03-11,MS,6692552635,Sale,Egypt Air,Elsayed Taha ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Taha Elsayed,اوبارى
+ Rowad,2024-03-11,MS,6692552634,Sale,Egypt Air,Elmorsy Mohamed ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Mohamed Elmorsy,اوبارى
+ Rowad,2024-03-11,MS,6692552633,Sale,Egypt Air,Attia Yahya ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Yahya Attia,اوبارى
+ Rowad,2024-03-11,MS,6692552632,Sale,Egypt Air,Abdelghaffar Hatem ,L,Economy,2024-04-02,2024-04-02,10431,CAI / MJI,,Mr Hatem Abdelghaffar,اوبارى
+ Rowad,2024-03-11,MS,6692552673,Sale,Egypt Air,Mohamed Asaad ,L,Economy,2024-04-02,2024-04-02,10291,CAI / MJI,,Mr Asaad Mohamed,اوبارى
+ Rowad,2024-03-11,MS,6692552674,Sale,Egypt Air,Salem Yahya ,L,Economy,2024-04-02,2024-04-02,10291,CAI / MJI,,Mr Yahya Salem,اوبارى
+ Rowad,2024-03-11,MS,6692552626,Sale,Egypt Air,Atta Ahmed ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Ahmed Atta,اوبارى
+ Rowad,2024-03-11,MS,6692552627,Sale,Egypt Air,Attia Ayman ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Ayman Attia,اوبارى
+ Rowad,2024-03-11,MS,6692552628,Sale,Egypt Air,Elsisi Abdelfattah ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Abdelfattah Elsisi,اوبارى
+ Rowad,2024-03-11,MS,6692552630,Sale,Egypt Air,Serour Fahd ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Fahd Serour,اوبارى
+ Rowad,2024-03-11,MS,6692552623,Sale,Egypt Air,Abdelaziz Sayed ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Sayed Abdelaziz,اوبارى
+ Rowad,2024-03-11,MS,6692552624,Sale,Egypt Air,Abdelfattah Walid ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Walid Abdelfattah,اوبارى
+ Rowad,2024-03-11,MS,6692552622,Sale,Egypt Air,Abdelaal Raafat ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Raafat Abdelaal,اوبارى
+ Rowad,2024-03-11,MS,6692552625,Sale,Egypt Air,Abdelmoamen Sherif ,L,Economy,2024-03-14,2024-03-14,10487,CAI / MJI,,Mr Sherif Abdelmoamen,اوبارى
+ Rowad,2024-03-11,MS,1842975673,Sale,Egypt Air,Said Abdelrahman Ahmed ,,,2024-03-15,2024-03-15,1510,,6692552643.0,,
+ Rowad,2024-03-11,MS,1842975672,Sale,Egypt Air,Mohamed Mohamed Ahmed Abdelrahman ,,,2024-03-15,2024-03-15,1510,,6692552642.0,,
+ Rowad,2024-03-13,MS,6692575390,Sale,Egypt Air,Mikhael Mina ,"K, W",Economy,2024-03-19,2024-09-17,518,CAI / JED / JED / CAI,6692552656.0,Mr Mina Mikhael,السعودية
+ Rowad,2024-03-13,NE,6692575393,Sale,Nesma Airlines,Elshenawy Ibrahim ,"Q, O",,2024-03-17,2024-06-01,14783,CAI / JED / JED / CAI,,Mr Ibrahim Elshenawy,السعودية
+ Rowad,2024-03-13,MS,1842976376,Sale,Egypt Air,Mikhael Mina ,,,2024-03-19,2024-09-17,1010,,6692575390.0,,
+ Rowad,2024-03-13,MS,1842976377,Sale,Egypt Air,Mikhael Mina ,,,2024-03-19,2024-09-17,10,,6692575390.0,,
+ Rowad,2024-03-14,MS,6692575488,Sale,Egypt Air,Atta Alaa Elsayed ,Y,Economy,2024-03-27,2024-03-27,1132,MJI / CAI,6692451369.0,Mr Alaa Elsayed Atta,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-14,MS,1842976852,Sale,Egypt Air,Atta Alaa Elsayed ,,,2024-03-27,2024-03-27,910,,6692575488.0,,
+ Rowad,2024-03-17,MS,6692594004,Sale,Egypt Air,Elsaka Mostafa ,W,,2024-04-03,2024-04-03,470,MJI / CAI,6677102074.0,Mr Mostafa Elsaka,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-17,NE,6692593973,Sale,Nesma Airlines,Hassan Ahmed ,"R, H",,2024-03-23,2024-04-06,15555,CAI / JED / RUH / CAI,,Mr Ahmed Hassan,السعودية
+ Rowad,2024-03-17,MS,6692594030,Sale,Egypt Air,Elsaka Mostafa ,"Q, W",Economy,2024-04-27,2024-07-12,17524,CAI / MJI / MJI / CAI,,Mr Mostafa Elsaka,اوبارى
+ Rowad,2024-03-17,MS,1842977867,Sale,Egypt Air,Elsaka Mostafa ,,,2024-04-03,2024-04-03,1660,,6692594004.0,,
+ Rowad,2024-03-26,ET,6692636582,Sale,Ethiopian Airlines,Ibrahim Moaain ,"B, B","Economy,Economy",2024-03-28,2024-03-29,9894,ABJ / ADD / ADD / CAI,6677102013.0,Mr Moaain Ibrahim,0
+ Rowad,2024-03-27,MS,6692636628,Sale,Egypt Air,Elzayat Ahmed Ahmed ,Q,Economy,2024-04-06,2024-04-06,2093,RUH / CAI,6692519437.0,Mr Ahmed Ahmed Elzayat,السعودية
+ Rowad,2024-03-27,MS,1842981882,Sale,Egypt Air,Elzayat Ahmed Ahmed ,,,2024-04-06,2024-04-06,1010,,6692636628.0,,
+ Rowad,2024-03-28,MS,6692654652,Sale,Egypt Air,Abdelghaffar Hatem ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552632.0,Mr Yahya Attia,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,6692654654,Sale,Egypt Air,Youssef Mohamed ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552637.0,Mr Hany Mohamed,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,6692654651,Sale,Egypt Air,Abdelgany Ghanem ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552631.0,Mr Mohamed Youssef,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,6692654653,Sale,Egypt Air,Elsayed Taha ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552635.0,Mr Taha Elsayed,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,6692654649,Sale,Egypt Air,Mohamed Asaad ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552673.0,Mr Ghanem Abdelgany ,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,6692654650,Sale,Egypt Air,Salem Yahya ,V,Economy,2024-05-02,2024-05-02,774,CAI / MJI,6692552674.0,Mr Hatem Abdelghaffar,Ø§ÙˆØ¨Ø§Ø±Ù‰
+ Rowad,2024-03-28,MS,1842982543,Sale,Egypt Air,Youssef Mohamed ,,,2024-05-02,2024-05-02,1060,,6692654654.0,,
+ Rowad,2024-03-28,MS,1842982544,Sale,Egypt Air,Youssef Mohamed ,,,2024-05-02,2024-05-02,10,,6692654654.0,,
+ Rowad,2024-03-28,MS,1842982531,Sale,Egypt Air,Mohamed Asaad ,,,2024-05-02,2024-05-02,1060,,6692654649.0,,
+ Rowad,2024-03-28,MS,1842982538,Sale,Egypt Air,Abdelgany Ghanem ,,,2024-05-02,2024-05-02,10,,6692654651.0,,
+ Rowad,2024-03-28,MS,1842982541,Sale,Egypt Air,Elsayed Taha ,,,2024-05-02,2024-05-02,1060,,6692654653.0,,
+ Rowad,2024-03-28,MS,1842982542,Sale,Egypt Air,Elsayed Taha ,,,2024-05-02,2024-05-02,10,,6692654653.0,,
+ Rowad,2024-03-28,MS,1842982539,Sale,Egypt Air,Abdelghaffar Hatem ,,,2024-05-02,2024-05-02,1060,,6692654652.0,,
+ Rowad,2024-03-28,MS,1842982540,Sale,Egypt Air,Abdelghaffar Hatem ,,,2024-05-02,2024-05-02,10,,6692654652.0,,
+ Rowad,2024-03-28,MS,1842982532,Sale,Egypt Air,Mohamed Asaad ,,,2024-05-02,2024-05-02,10,,6692654649.0,,
+ Rowad,2024-03-28,MS,1842982533,Sale,Egypt Air,Salem Yahya ,,,2024-05-02,2024-05-02,1060,,6692654650.0,,
+ Rowad,2024-03-28,MS,1842982534,Sale,Egypt Air,Salem Yahya ,,,2024-05-02,2024-05-02,10,,6692654650.0,,
+ Rowad,2024-03-28,MS,1842982537,Sale,Egypt Air,Abdelgany Ghanem ,,,2024-05-02,2024-05-02,1060,,6692654651.0,,
+ Rowad,2024-04-08,MS,6692688526,Sale,Egypt Air,Abdelkader Mohab Ali ,T,Economy,2024-05-31,2024-05-31,308,MJI / CAI,6677202721.0,Mr Mohab Ali Abdelkader,Ubary
+ Rowad,2024-04-08,MS,6692688532,Sale,Egypt Air,Abdelgawad Mohamed ,S,Economy,2024-06-14,2024-06-14,687,MJI / CAI,6677390436.0,Mr Mohamed Abdelgawad,Ubary
+ Rowad,2024-04-08,MS,6692688528,Sale,Egypt Air,Hussein Mahmoud ,W,,2024-06-14,2024-06-14,471,MJI / CAI,6677352192.0,Mr Mahmoud Hussein,Ubary
+ Rowad,2024-04-08,MS,6692688529,Sale,Egypt Air,Elsayed Karim ,W,,2024-06-14,2024-06-14,471,MJI / CAI,6677390434.0,Mr Karim Elsayed,Ubary
+ Rowad,2024-04-08,MS,6692688527,Sale,Egypt Air,Abdallah Hamed ,T,Economy,2024-05-31,2024-05-31,308,MJI / CAI,6677352191.0,Mr Hamed Abdallah ,Ubary
+ Rowad,2024-04-08,MS,1842986422,Sale,Egypt Air,Abdelkader Mohab Ali ,,,2024-05-31,2024-05-31,1110,,6692688526.0,,
+ Rowad,2024-04-08,MS,1842986428,Sale,Egypt Air,Elsayed Karim ,,,2024-06-14,2024-06-14,1110,,6692688529.0,,
+ Rowad,2024-04-08,MS,1842986423,Sale,Egypt Air,Abdallah Hamed ,,,2024-05-31,2024-05-31,1110,,6692688527.0,,
+ Rowad,2024-04-08,MS,1842986427,Sale,Egypt Air,Hussein Mahmoud ,,,2024-06-14,2024-06-14,1110,,6692688528.0,,
+ Rowad,2024-04-08,MS,1842986435,Sale,Egypt Air,Abdelgawad Mohamed ,,,2024-06-14,2024-06-14,1110,,6692688532.0,,
+ Rowad,2024-04-27,ET,6692802287,Sale,Ethiopian Airlines,Awadalla Sameh ,"L, L",,2024-05-04,2024-05-05,7498,ABJ / ADD / ADD / CAI,1208316088.0,Mr Sameh Awadalla,0
+ Rowad,2024-04-29,SV,6692802388,Sale,Saudi arabian airline,Abdelahy Ibrahem ,E,,2024-06-13,2024-06-13,9068,JED / CAI,6677416586.0,Mr Ibrahem Abdelahy,0
+ Rowad,2024-04-29,SV,1842994995,Sale,Saudi arabian airline,Abdelahy Ibrahem ,,,2024-06-13,2024-06-13,2569,,6692802388.0,,
+ Rowad,2024-04-30,MS,6692822045,Sale,Egypt Air,Abdelgany Ghanem ,"V, T","Economy,Economy",2024-05-25,2024-11-06,5845,CAI / MJI / MJI / CAI,6692552631.0,Mr Ghanem Abdelgany,Ubary
+ Rowad,2024-04-30,MS,6692822052,Sale,Egypt Air,Elsayed Taha ,"V, T","Economy,Economy",2024-05-25,2024-11-06,5845,CAI / MJI / MJI / CAI,6692552635.0,Mr Taha Elsayed,Ubary
+ Rowad,2024-04-30,MS,6692822049,Sale,Egypt Air,Mohamed Asaad ,"V, T","Economy,Economy",2024-05-25,2024-11-06,5845,CAI / MJI / MJI / CAI,6692552673.0,Mr Asaad Mohamed,Ubary
+ Rowad,2024-04-30,MS,6692822050,Sale,Egypt Air,Salem Yahya ,"V, T","Economy,Economy",2024-05-25,2024-11-06,5845,CAI / MJI / MJI / CAI,6692552674.0,Mr Yahya Salem,Ubary
+ Rowad,2024-04-30,MS,6692822051,Sale,Egypt Air,Abdelghaffar Hatem ,"V, T","Economy,Economy",2024-05-25,2024-11-06,5845,CAI / MJI / MJI / CAI,6692552632.0,Mr Hatem Abdelghaffar,Ubary
+ Rowad,2024-04-30,MS,6692822053,Sale,Egypt Air,Youssef Mohamed ,"V, W",Economy,2024-05-25,2024-09-07,6102,CAI / MJI / MJI / CAI,6692552637.0,Mr Mohamed Youssef,Ubary
+ Rowad,2024-04-30,MS,1842995939,Sale,Egypt Air,Salem Yahya ,,,2024-05-25,2024-11-06,1060,,6692822050.0,,
+ Rowad,2024-04-30,MS,1842995942,Sale,Egypt Air,Elsayed Taha ,,,2024-05-25,2024-11-06,1060,,6692822052.0,,
+ Rowad,2024-04-30,MS,1842995938,Sale,Egypt Air,Mohamed Asaad ,,,2024-05-25,2024-11-06,1060,,6692822049.0,,
+ Rowad,2024-04-30,MS,1842995933,Sale,Egypt Air,Abdelgany Ghanem ,,,2024-05-25,2024-11-06,1060,,6692822045.0,,
+ Rowad,2024-04-30,MS,1842995941,Sale,Egypt Air,Abdelghaffar Hatem ,,,2024-05-25,2024-11-06,1060,,6692822051.0,,
+ Rowad,2024-04-30,MS,1842995947,Sale,Egypt Air,Youssef Mohamed ,,,2024-05-25,2024-09-07,1060,,6692822053.0,,
+ Rowad,2024-05-08,MS,6692863708,Sale,Egypt Air,Hawela Sherif ,L,Economy,2024-06-03,2024-06-03,1821,JED / CAI,6692552510.0,Mr Sherif Hawela,السعودية
+ Rowad,2024-05-08,MS,1842999907,Sale,Egypt Air,Hawela Sherif ,,,2024-06-03,2024-06-03,1110,,6692863708.0,,
+ Rowad,2024-05-12,MS,6692878878,Sale,Egypt Air,Wasef Roumany ,L,Economy,2025-01-03,2025-01-03,308,HAH / CAI,6677061199.0,Mr Roumany Wasef,Ø¬Ø²Ø± Ø§Ù„Ù‚Ù…Ø±
+ Rowad,2024-05-12,MS,1843001331,Sale,Egypt Air,Wasef Roumany ,,,2025-01-03,2025-01-03,1060,,6692878878.0,,
+ Rowad,2024-05-13,MS,6692879023,Sale,Egypt Air,Aly Saad Zaki ,S,Economy,2024-06-08,2024-06-08,686,MJI / CAI,6677352199.0,Mr Saad Zaki Aly,Ubary
+ Rowad,2024-05-13,ET,6692878989,Sale,Ethiopian Airlines,Mohamed Hany ,"K, K",,2024-06-15,2024-06-16,5055,ABJ / ADD / ADD / CAI,6677102113.0,Mr Hany Mohamed,ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø±
+ Rowad,2024-05-13,MS,1843002114,Sale,Egypt Air,Aly Saad Zaki ,,,2024-06-08,2024-06-08,1110,,6692879023.0,,
+ Rowad,2024-05-14,ET,6692892144,Sale,Ethiopian Airlines,Hashem Ahmed Ibrahim ,"Y, Y","Economy,Economy",2024-05-15,2024-05-16,21857,ABJ / ADD / ADD / CAI,9353900775.0,Mr Ahmed Ibrahim Hashem,ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø±
+ Rowad,2024-05-22,NE,6692929874,Sale,Nesma Airlines,Elshenawy Ibrahim ,O,,2024-09-10,2024-09-10,2616,JED / CAI,6692575393.0,Mr Ibrahim Elshenawy,RABIGH 
+ Rowad,2024-05-23,MS,6692930089,Sale,Egypt Air,Mohamed Basem ,S,Economy,2024-06-15,2024-06-15,686,MJI / CAI,6677352195.0,Mr Basem Mohamed,Ubary
+ Rowad,2024-05-23,MS,1843007753,Sale,Egypt Air,Mohamed Basem ,,,2024-06-15,2024-06-15,1110,,6692930089.0,,
+ Rowad,2024-06-02,MS,6073434375,Sale,Egypt Air,AYMAN ATTIA,Y ,,2024-07-17,2024-06-03,12524,MJI / CAI,0.0,Mr Ayman Attia,Ubary
+ Rowad,2024-06-02,MS,6073434374,Sale,Egypt Air,Hany  MOHAMED,Y ,,2024-07-17,2024-06-03,12524,MJI / CAI,,Mr Hany Hossny Mohamed,Ubary
+ Rowad,2024-06-04,MS,6692982769,Sale,Egypt Air,Khalil Ahmed ,W,,2024-07-17,2024-07-17,471,MJI / CAI,6677352194.0,Mr Ahmed Khalil,Ubary
+ Rowad,2024-06-04,MS,6692982772,Sale,Egypt Air,Elbahrawy Abdelrahman ,W,,2024-07-17,2024-07-17,470,MJI / CAI,6677352237.0,Mr Abdelrahman Elbahrawy,Ubary
+ Rowad,2024-06-04,MS,6692982763,Sale,Egypt Air,Mohamed Mohamed Khaled Mahmoud ,W,,2024-08-20,2024-08-20,471,MJI / CAI,6677352190.0,Mr Mohamed Khaled Mahmoud Mohamed,Ubary
+ Rowad,2024-06-04,MS,6692982768,Sale,Egypt Air,Affan Ebrahem ,W,,2024-07-17,2024-07-17,471,MJI / CAI,6677352193.0,Mr Ebrahem Affan,Ubary
+ Rowad,2024-06-04,MS,6073450115,Sale,Egypt Air,MOUSTAFA SELIM,Y ,,2024-08-10,2024-06-04,12551,MJI / CAI,0.0,Mr Moustafa Selim,Ubary
+ Rowad,2024-06-04,MS,6692982771,Sale,Egypt Air,Gouda Tarek ,W,,2024-08-20,2024-08-20,471,MJI / CAI,6677390435.0,Mr Tarek Gouda,Ubary
+ Rowad,2024-06-04,MS,6692982758,Sale,Egypt Air,Amer Ahmed ,S,Economy,2024-08-01,2024-08-01,687,MJI / CAI,6677352189.0,Mr Ahmed Amer,Ubary
+ Rowad,2024-06-04,MS,6692982764,Sale,Egypt Air,Abdelhafez Abdelrahman ,T,Economy,2024-10-23,2024-10-23,308,MJI / CAI,6677352188.0,Mr Abdelrahman Abdelhafez,Ubary
+ Rowad,2024-06-04,MS,1843012817,Sale,Egypt Air,Gouda Tarek ,,,2024-08-20,2024-08-20,1110,,6692982771.0,,
+ Rowad,2024-06-04,MS,1843012816,Sale,Egypt Air,Khalil Ahmed ,,,2024-07-17,2024-07-17,1110,,6692982769.0,,
+ Rowad,2024-06-04,MS,1843012818,Sale,Egypt Air,Elbahrawy Abdelrahman ,,,2024-07-17,2024-07-17,1110,,6692982772.0,,
+ Rowad,2024-06-04,MS,1843012811,Sale,Egypt Air,Mohamed Mohamed Khaled Mahmoud ,,,2024-08-20,2024-08-20,1110,,6692982763.0,,
+ Rowad,2024-06-04,MS,1843012815,Sale,Egypt Air,Affan Ebrahem ,,,2024-07-17,2024-07-17,1110,,6692982768.0,,
+ Rowad,2024-06-04,MS,1843012799,Sale,Egypt Air,Amer Ahmed ,,,2024-08-01,2024-08-01,1110,,6692982758.0,,
+ Rowad,2024-06-04,MS,1843012814,Sale,Egypt Air,Abdelhafez Abdelrahman ,,,2024-10-23,2024-10-23,1110,,6692982764.0,,
+ Rowad,2024-06-06,ET,6692998219,Sale,Ethiopian Airlines,Mohamed Aly Maher Aly ,"B, B","Economy,Economy",2024-06-15,2024-06-16,13609,ABJ / ADD / ADD / CAI,6677238311.0,Mr Aly Maher Aly Mohamed,ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø±
+ Rowad,2024-06-10,ET,6693012599,Sale,Ethiopian Airlines,Mohamed Hany ,"K, K",,2024-07-03,2024-07-04,5063,ABJ / ADD / ADD / CAI,6677102113.0,Mr Hany Mohamed,ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø±
+ Rowad,2024-06-25,MS,6693070671,Sale,Egypt Air,Salem Ahmed Mohamed ,W,,2024-09-22,2024-09-22,440,RUH / CAI,1208060102.0,Mr Ahmed Mohamed Salem,0
+ Rowad,2024-06-25,MS,1843020807,Sale,Egypt Air,Salem Ahmed Mohamed ,,,2024-09-22,2024-09-22,1510,,6693070671.0,,
+ Rowad,2024-07-02,MS,6693099933,Sale,Egypt Air,Gouda Tarek ,W,,2024-12-26,2024-12-26,308,MJI / CAI,6677390435.0,Mr Tarek Gouda,Ubary
+ Rowad,2024-07-02,MS,1812748875,Sale,Egypt Air,Gouda Tarek ,,,2024-12-26,2024-12-26,1060,,6693099933.0,,
+ Rowad,2024-07-08,ET,6693121736,Sale,Ethiopian Airlines,Yeo Belmo Ismael Emmanuel,"L, L",,2024-08-03,2024-08-04,8065,ABJ / ADD / ADD / CAI,9353938149.0,Ismael Emmanuel Yeo Belmo, ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø± 
+ Rowad,2024-07-08,ET,6693121734,Sale,Ethiopian Airlines,Yeo Usage Belmo Perle,"L, L",,2024-08-03,2024-08-04,8065,ABJ / ADD / ADD / CAI,9353951250.0,Perle Yeo Usage Belmo, ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø± 
+ Rowad,2024-07-08,ET,6693121735,Sale,Ethiopian Airlines,Belmo Jessie Katy ,"L, L",,2024-08-03,2024-08-04,8065,ABJ / ADD / ADD / CAI,9353938147.0,Mrs Jessie Katy Belmo, ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø± 
+ Rowad,2024-07-08,ET,6693121733,Sale,Ethiopian Airlines,Yeo Abdoulkaadir ,"L, L",,2024-08-03,2024-08-04,8065,ABJ / ADD / ADD / CAI,9353938148.0,Mr Abdoulkaadir Yeo, ÙƒÙˆØ¯ÙŠÙÙˆØ§Ø± 
+ Rowad,2024-08-12,MS,5701511563,Sale,Egypt Air,Youssef Mohamed ,E,,2024-09-01,2024-09-01,990,MJI / CAI,6692552637.0,Mr Mohamed Youssef,Ubary 
+ Rowad,2024-08-12,MS,1812763246,Sale,Egypt Air,Youssef Mohamed ,,,2024-09-01,2024-09-01,1060,,5701511563.0,,
+ Rowad,2024-09-17,MS,5701712214,Sale,Egypt Air,Mikhael Mina ,V,Economy,2025-01-03,2025-01-03,2580,JED / CAI,6692552656.0,Mr Mina Mikhael,Rabigh
+ Rowad,2024-09-17,MS,1812778840,Sale,Egypt Air,Mikhael Mina ,,,2025-01-03,2025-01-03,1510,,5701712214.0,,
+ Rowad,2024-10-08,MS,6073450107,Sale,Egypt Air,Osama Abdalla,Y ,,2024-08-10,2024-06-04,12551,MJI / CAI,,Mr Osama Abdalla,Ubary
