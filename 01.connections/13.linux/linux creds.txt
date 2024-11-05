@@ -1,0 +1,12 @@
+MySQL
+ip: 10.10.11.242
+port: 3306
+
+databases (no name needed)
+RME_DH
+RME_TEST
+
+
+
+omarrme
+omarrme_321
