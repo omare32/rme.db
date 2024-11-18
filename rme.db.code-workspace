@@ -4,5 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"workbench.editorAssociations": {
+			"file:/**/*.xlsx": "jupyter-data-wrangler"
+		}
+	}
 }
