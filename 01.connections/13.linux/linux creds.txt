@@ -2,16 +2,12 @@ MySQL
 ip: 10.10.11.242
 port: 3306
 
+user : omaressam
+password : Omar@1234$
+
 databases (no name needed)
 RME_DH
 RME_TEST
 
 
 
-<<<<<<< HEAD
-omaressam
-Omar@1234$
-=======
-omarrme
-omarrme_321
->>>>>>> 71aec8b1d6185d1b7c49818e267c9d8acc1c0426
