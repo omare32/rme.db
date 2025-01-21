@@ -10,4 +10,8 @@ RME_DH
 RME_TEST
 
 
+library needed
+
+pip install mysql-connector-python
+
 
