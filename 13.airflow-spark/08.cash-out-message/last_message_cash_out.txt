@@ -1,5 +1,5 @@
 New Cash-Out Transaction:
-🏗 Project: HSR
-📦 Supplier: تيراكو ايجيبت للصناعات الكيماويه
-📅 Check Date: 2025-02-04
-💰 Amount: 96,389.00 EGP
+🏗 Project: Rabigh CCPP-Civil
+📦 Supplier: Miscellaneous supplier
+📅 Check Date: 2025-02-01
+💰 Amount: 55.20 EGP
