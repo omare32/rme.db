@@ -1,5 +1,12 @@
 New Cash-Out Transaction:
+<<<<<<< HEAD
 🏗 Project: Playa Seashell Project
 📦 Supplier: ايستار ايجيبت للصناعة
 📅 Check Date: 2025-02-02
 💰 Amount: 6,000,000.00 EGP
+=======
+🏗 Project: Koumassi Flyover
+📦 Supplier: KOUADIO KOUASSI HONORE
+📅 Check Date: 2025-02-06
+💰 Amount: 689,500.00 EGP
+>>>>>>> 5f797d6acdbaae38ae74fb425f91c7bf3626a82b
