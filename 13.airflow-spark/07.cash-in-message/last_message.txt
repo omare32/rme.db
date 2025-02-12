@@ -3,5 +3,8 @@ New Cash-In Transaction:
 💰 Amount: 262,696 EGP
 📝 Comment: playa c-766 IPC 2
 playa c-139 IPC2
+<<<<<<< HEAD
 
 🇪🇬 Total Cash-In for 2025-02: 152,245,155.00 EGP
+=======
+>>>>>>> 8d4e101422922e571f54f1dd9af2f0558f77f465
