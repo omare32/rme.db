@@ -1,6 +1,6 @@
 New Cash-In Transaction:
-📅 Date: 2025-02-11
-💰 Amount: 12,586,250 EGP
-📝 Comment: مشروع فندق راداميس rooms fitout - دفعة تحت الحساب 250,000$
+📅 Date: 2025-02-12
+💰 Amount: 262,696 EGP
+📝 Comment: No comment provided
 
-📊 Total Cash-In for 2025-02: 151,982,459.00 EGP
+🇪🇬 Total Cash-In for 2025-02: 152,245,157.00 EGP
