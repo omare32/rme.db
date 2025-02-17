@@ -1,6 +1,5 @@
 New Cash-In Transaction:
-🏗️ Project: Faculty of Medicine
-📅 Date: 2025-02-16
-💰 Amount: 7,010,192 EGP
-📝 Comment: جزء من م 28 تشطيبات جامعة المنصورة
-🇪🇬 Total Cash-In for 2025-02: 174,642,562.00 EGP
+📅 Date: 2025-02-17
+💰 Amount: 302,168 EGP
+📝 Comment: egyptian takauf
+🇪🇬 Total Cash-In for 2025-02: 175,169,607.00 EGP
