@@ -1,5 +1,7 @@
 New Cash-In Transaction:
-📅 Date: 2025-02-17
-💰 Amount: 302,168 EGP
-📝 Comment: egypt takaful
-🇪🇬 Total Cash-In for 2025-02: 175,581,638.00 EGP
+🏗️ Project: GOV2 - Infra
+📅 Date: 2025-02-18
+💰 Amount: 4,203,944 EGP
+📝 Comment:  (GOV2) 29 م
+
+🇪🇬 Total Cash-In for 2025-02: 179,785,582.00 EGP
