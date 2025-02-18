@@ -1,5 +1,5 @@
 New Cash-Out Transaction:
-🏗 Project: Qasr Rashwan Lot A
-📦 Supplier: شركة مياه الشرب و الصرف الصحى بالفيوم
-📅 Check Date: 2025-02-17
-💰 Amount: 932,522.00 EGP
+🏗 Project: Rabigh CCPP-Civil
+📦 Supplier: شركة هدب الفندقية
+📅 Check Date: 2025-02-11
+💰 Amount: 129,249.89 EGP
