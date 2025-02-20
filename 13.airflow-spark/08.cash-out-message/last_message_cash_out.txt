@@ -1,12 +1,5 @@
 New Cash-Out Transaction:
-<<<<<<< HEAD
-🏗 Project: Rabigh CCPP-Civil
-📦 Supplier: الشركة العربية للمختبرات و التربة
-📅 Check Date: 2025-02-16
-💰 Amount: 22,712.50 EGP
-=======
-🏗 Project: ORA ZED-Ph 2-Pkgs A&D
-📦 Supplier: مؤسسة الزهراء للمقاولات العموميه
-📅 Check Date: 2025-02-17
-💰 Amount: 48,272.75 EGP
->>>>>>> 11ca0aa756e95e6674bb2f03a1aec63a5735d6a8
+🏗 Project: Ministries Buildings
+📦 Supplier: مكتب الاخلاص للمقاولات العموميه-محمود محمد محمود محمد عيسي بديوي
+📅 Check Date: 2025-02-19
+💰 Amount: 19,158.76 EGP
