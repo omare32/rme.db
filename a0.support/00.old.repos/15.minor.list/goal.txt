@@ -1,1 +1,0 @@
-example: take anything less than 100,000 in material movement except molds or concrete

@@ -1,1 +1,0 @@
-after removing duplicates, sumif on list from whole list in first tab

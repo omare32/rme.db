@@ -1,5 +1,0 @@
-- You will use the same website to create the database and implement the queries.
-- you must send the following:
-	- Creation 
-	- Insertion 
-	- Questions 

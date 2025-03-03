@@ -1,7 +1,0 @@
-# Replace column 1 with column B
-for row in range(1, sheet2.max_row + 1):
-    sheet2.cell(row=row, column=1).value = sheet2.cell(row=row, column=columnB).value
-
-# Replace column 2 with column U
-for row in range(1, sheet2.max_row + 1):
-    sheet2.cell(row=row, column=2).value = sheet2.cell(row=row, column=columnU).value
