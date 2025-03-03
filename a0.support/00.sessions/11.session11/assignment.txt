@@ -1,0 +1,31 @@
+Task 1
+--------------
+get the details of all the users from 
+this api https://gorest.co.in/public-api/users 
+from all the pages and ssave it to a csv file.
+(name,email,gender,status(0,1))
+then get the number of the active females.
+
+----------------------------------------------------------
+Task 2
+---------
+Use this web service 
+https://jsonplaceholder.typicode.com/users
+and make a program that get all users data including
+name, username, email, street, suite, city, zip code, geo_lat & geo_long 
+and then save them in a CSV file.
+
+-----------------------------------------------------
+Task 3
+-------
+Use this web service
+https://api.frankfurter.app/latest?amount=1&from=USD&to=EUR 
+and then use it to make a software that takes amount of USD Dollars from the user and calculate how much will it cost in EUR.
+hint: take a look on the url of the service can you guess how I can modify it to calculate the 10$ for EUR for example ?!
+
+____________________________________________________________________________________
+
+Study HTML & CSS from this playlist
+		https://www.youtube.com/playlist?list=PLgGbWId6zgaWZkPFI4Sc9QXDmmOWa1v5F 
+		and then you can check this link to extend your knowledge
+		https://www.w3schools.com/ 

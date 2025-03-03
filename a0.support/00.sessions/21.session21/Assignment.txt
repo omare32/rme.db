@@ -1,0 +1,5 @@
+Use 'coffee_dataset.csv' in AB_ testing
+----------
+- test the average height for the people who drinks coffee and the people who not 
+- compare the two average and get the alternative hypothesis 
+- test the hypothesis using z_test and t_test and get the concolusion

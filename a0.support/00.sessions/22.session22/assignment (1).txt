@@ -1,0 +1,54 @@
+Task 1
+------------
+Apply data analysis on 'Salaries.csv' dataset.
+
+What is the average BasePay ?
+
+What is the highest amount of OvertimePay in the dataset ?
+
+What is the job title of JOSEPH DRISCOLL ? 
+Note: Use all caps, otherwise you may get an answer that doesn't match up (there is also a lowercase Joseph Driscoll).
+
+How much does JOSEPH DRISCOLL make (including benefits)?
+
+What is the name of highest paid person (including benefits)?
+
+What is the name of lowest paid person (including benefits)? 
+
+What was the average (mean) BasePay of all employees per year? (2011-2014) ?
+
+How many unique job titles are there?
+
+What are the top 5 most common jobs?
+
+How many Job Titles were represented by only one person in 2013? (e.g. Job Titles with only one occurence in 2013?)
+
+How many people have the word Chief in their job title? (This is pretty tricky)
+
+Bonus: Is there a correlation between length of the Job Title string and Salary?
+
+
+Task 2
+----------
+
+
+Apply data analysis on 'bikes.csv' dataset.
+here is some questions to think about 
+1. Make Profit Feature.
+    - Each registerd user rent bike for 5 USD/hour.
+    - Casual user rent bike for 20 USD/hour.
+    - Taxes 0.14%.
+    - Maintance 1500/year.
+2. Distribution rental_bikes_count & profit.
+3. Profit for each day.
+4. Which season that has more registeration & profit.
+5. Which weather condition that has more registeration & profit.
+6. Correlation between profit & bikes count with all features.
+7. Rentals during rush hours (7-9 am & 3-5 pm).
+7. Rentals during workday & holiday.
+8. Registered or casual is more.
+9. What is the average of bikes would be registered during the week.
+10. Schools (9-12) & (2-6) profit.
+11. Profit in 2011 & saturdays & season fall
+
+
