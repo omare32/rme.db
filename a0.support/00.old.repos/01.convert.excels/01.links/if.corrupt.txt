@@ -1,1 +1,0 @@
-https://medium.com/geekculture/convert-multiple-corrupt-xls-files-to-xlsx-python-in-finance-5-1da1dc1cf89d

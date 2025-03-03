@@ -1,2 +1,0 @@
-ERP_username='RME_DEV'
-ERP_password='PASS21RME'

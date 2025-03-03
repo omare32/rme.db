@@ -1,2 +1,0 @@
-- you can choose some of these questions not all of them to be the assignment
-- You must only send the JSON file and the text with the questions.
