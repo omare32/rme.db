@@ -5,6 +5,10 @@
 		},
 		{
 			"path": "C:/nextjs-rowad-app"
+		},
+		{
+			"name": "airflow-docker",
+			"path": "../../../../../../sama/airflow-docker"
 		}
 	],
 	"settings": {}
