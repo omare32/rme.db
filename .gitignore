@@ -377,3 +377,8 @@ licenses/LICENSES-ui.txt
 # airflow-build-dockerfile and correconding ignore file
 airflow-build-dockerfile*
 rme.db/rme.db.code-workspace
+
+# Sensitive files - Do not track
+16.email/01.summarize/02.rev.02/client.txt
+16.email/01.summarize/01.rev.01/sql-mail.py
+16.email/01.summarize/02.rev.02/01.extract.and.summarize.rev.04.ipynb
