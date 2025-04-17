@@ -13,6 +13,7 @@ from datetime import datetime
 import traceback
 from google.auth.transport.requests import Request
 import sys
+import subprocess
 
 # Disable SSL verification
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -128,18 +129,125 @@ def get_all_video_files(folder_path: str) -> List[Tuple[str, str]]:
     # Sort by full path to maintain consistent order
     return sorted(video_files)
 
+def collect_and_prepare_videos(folder_path: str) -> List[Tuple[str, str]]:
+    """
+    Collect all videos from subfolders, rename them with simple numeric prefixes, and move to course folder.
+    Returns list of (full_path, relative_path) tuples.
+    """
+    try:
+        # Get all subfolders sorted by their numeric prefix
+        subfolders = []
+        for item in os.listdir(folder_path):
+            if os.path.isdir(os.path.join(folder_path, item)):
+                # Extract numeric prefix if exists
+                prefix = ''.join(filter(str.isdigit, item.split('.')[0]))
+                subfolders.append((prefix, item))
+        
+        # Sort subfolders by numeric prefix
+        subfolders.sort(key=lambda x: (int(x[0]) if x[0] else float('inf'), x[1]))
+        
+        # Collect and rename videos
+        video_files = []
+        video_counter = 1
+        
+        for _, subfolder in subfolders:
+            subfolder_path = os.path.join(folder_path, subfolder)
+            
+            # Get videos in current subfolder
+            for ext in ('*.mp4', '*.avi', '*.mkv'):
+                for file_path in glob.glob(os.path.join(subfolder_path, "**", ext), recursive=True):
+                    # Create new name with just sequence number
+                    new_name = f"{video_counter:03d}.mp4"
+                    new_path = os.path.join(folder_path, new_name)
+                    
+                    # Copy video to course folder with new name
+                    try:
+                        shutil.copy2(file_path, new_path)
+                        # Store both the full path and the simple relative path
+                        rel_path = os.path.join(subfolder, os.path.basename(file_path))
+                        video_files.append((new_path, rel_path))
+                        video_counter += 1
+                        logging.info(f"Copied and renamed: {os.path.basename(file_path)} -> {new_name}")
+                    except Exception as e:
+                        logging.error(f"Error copying {file_path}: {str(e)}")
+        
+        return video_files
+        
+    except Exception as e:
+        logging.error(f"Error collecting videos: {str(e)}")
+        return []
+
+def is_course_folder(folder_path: str) -> bool:
+    """Check if folder is a course folder (contains numbered subfolders)."""
+    try:
+        items = os.listdir(folder_path)
+        # Check if any subfolder starts with a number followed by dot
+        return any(os.path.isdir(os.path.join(folder_path, item)) and 
+                  any(c.isdigit() for c in item.split('.')[0])
+                  for item in items)
+    except Exception as e:
+        logging.error(f"Error checking course folder: {str(e)}")
+        return False
+
 def get_structured_title(input_path: str) -> str:
-    """Generate a structured title from the last 4 folder names."""
-    parts = Path(input_path).parts
-    # Get last 4 folder names
-    last_4_folders = parts[-4:]
-    return " - ".join(last_4_folders)
+    """Generate a structured title from the folder path."""
+    try:
+        # Convert path to Path object and get parts
+        path = Path(input_path)
+        parts = list(path.parts)
+        
+        # Find the indices of key folders
+        try:
+            google_idx = [i for i, part in enumerate(parts) if part.lower() == 'google'][0]
+            sheets_idx = [i for i, part in enumerate(parts) if part.lower() == 'sheets'][0]
+            lynda_idx = [i for i, part in enumerate(parts) if part.lower() == 'lynda'][0]
+            
+            # Get the course name (parent folder of numbered subfolders)
+            if is_course_folder(input_path):
+                course_name = path.name
+            else:
+                course_name = path.parent.name
+            
+            # Format: "Google - Sheets - Lynda - {Course Name}"
+            return f"Google - Sheets - Lynda - {course_name}"
+        except (IndexError, ValueError) as e:
+            logging.error(f"Error parsing path structure: {str(e)}")
+            return path.name
+            
+    except Exception as e:
+        logging.error(f"Error in get_structured_title: {str(e)}")
+        return os.path.basename(input_path)
+
+def find_course_folder(folder_path: str) -> str:
+    """Find the actual course folder that contains the videos."""
+    try:
+        path = Path(folder_path)
+        
+        # Check if current folder has videos
+        video_files = []
+        for ext in ('*.mp4', '*.avi', '*.mkv'):
+            video_files.extend(glob.glob(os.path.join(folder_path, "**", ext), recursive=True))
+            
+        if not video_files:
+            return folder_path
+            
+        # Get the parent folder of the first video
+        first_video = Path(video_files[0])
+        return str(first_video.parent)
+        
+    except Exception as e:
+        logging.error(f"Error finding course folder: {str(e)}")
+        return folder_path
 
 def cleanup_and_save_link(folder_path: str, video_id: str, title: str):
     """Clean up original files and save YouTube link."""
     try:
-        # Create youtube lin.txt
-        link_file = os.path.join(folder_path, "youtube lin.txt")
+        # Find the actual course folder
+        course_folder = find_course_folder(folder_path)
+        logging.info(f"Found course folder: {course_folder}")
+        
+        # Create youtube link.txt in the course folder
+        link_file = os.path.join(course_folder, "youtube link.txt")
         with open(link_file, 'w') as f:
             f.write(f"Title: {title}\n")
             f.write(f"URL: https://www.youtube.com/watch?v={video_id}\n")
@@ -147,28 +255,36 @@ def cleanup_and_save_link(folder_path: str, video_id: str, title: str):
         
         logging.info(f"Created link file: {link_file}")
         
-        # Delete original video files and folders
-        for root, dirs, files in os.walk(folder_path, topdown=False):
-            # Delete video files
-            for file in files:
-                if file.lower().endswith(('.mp4', '.avi', '.mkv')):
-                    try:
-                        os.remove(os.path.join(root, file))
-                        logging.info(f"Deleted file: {file}")
-                    except Exception as e:
-                        logging.error(f"Failed to delete {file}: {str(e)}")
-            
-            # Delete empty folders
-            for dir in dirs:
-                try:
-                    dir_path = os.path.join(root, dir)
-                    if not os.listdir(dir_path):  # If directory is empty
-                        os.rmdir(dir_path)
-                        logging.info(f"Deleted empty folder: {dir}")
-                except Exception as e:
-                    logging.error(f"Failed to delete folder {dir}: {str(e)}")
+        # Delete converted_videos folder if it exists
+        converted_videos_dir = os.path.join(course_folder, "converted_videos")
+        if os.path.exists(converted_videos_dir):
+            try:
+                shutil.rmtree(converted_videos_dir)
+                logging.info(f"Cleaned up converted_videos folder: {converted_videos_dir}")
+            except Exception as e:
+                logging.error(f"Failed to delete converted_videos folder: {str(e)}")
         
-        logging.info(f"Cleanup completed for {folder_path}")
+        # Delete merged video if it exists
+        merged_video = os.path.join(course_folder, f"{os.path.basename(course_folder)}_merged.mp4")
+        if os.path.exists(merged_video):
+            try:
+                os.remove(merged_video)
+                logging.info(f"Deleted merged video: {merged_video}")
+            except Exception as e:
+                logging.error(f"Failed to delete merged video: {str(e)}")
+        
+        # Delete original video folders
+        for root, dirs, files in os.walk(course_folder, topdown=False):
+            for dir in dirs:
+                if any(dir.startswith(str(i)) for i in range(10)):  # Folders starting with numbers
+                    dir_path = os.path.join(root, dir)
+                    try:
+                        shutil.rmtree(dir_path)
+                        logging.info(f"Deleted folder: {dir}")
+                    except Exception as e:
+                        logging.error(f"Failed to delete folder {dir}: {str(e)}")
+        
+        logging.info(f"Cleanup completed for {course_folder}")
     except Exception as e:
         logging.error(f"Error during cleanup: {str(e)}")
 
@@ -203,7 +319,7 @@ class VideoProcessor:
                 raise
 
     def convert_video(self, input_path: str, output_path: str) -> bool:
-        """Convert video to 720p 30fps format."""
+        """Convert video to 720p 30fps format with improved error handling and quality control."""
         try:
             # Get input video size
             input_size = os.path.getsize(input_path)
@@ -213,30 +329,57 @@ class VideoProcessor:
             # Get input video information
             probe = ffmpeg.probe(input_path)
             video_info = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
+            audio_info = next((stream for stream in probe['streams'] if stream['codec_type'] == 'audio'), None)
             
-            if video_info:
-                input_width = int(video_info.get('width', 0))
-                input_height = int(video_info.get('height', 0))
-                logging.info(f"Input video resolution: {input_width}x{input_height}")
+            if not video_info:
+                logging.error("No video stream found in input file")
+                return False
             
-            # Calculate target bitrate (higher of 2000k or original bitrate)
-            target_video_bitrate = '2000k'
-            if video_info and 'bit_rate' in video_info:
-                original_bitrate = int(video_info['bit_rate'])
-                target_bitrate = max(2000000, original_bitrate)  # At least 2000k
-                target_video_bitrate = f"{target_bitrate // 1000}k"
+            input_width = int(video_info.get('width', 0))
+            input_height = int(video_info.get('height', 0))
+            logging.info(f"Input video resolution: {input_width}x{input_height}")
             
+            # Calculate target bitrate based on resolution and framerate
+            pixels = 1280 * 720  # Target resolution
+            target_video_bitrate = max(2000000, min(6000000, int(pixels * 30 * 0.1)))  # 0.1 bits per pixel
+            target_video_bitrate_str = f"{target_video_bitrate // 1000}k"
+            
+            # Prepare audio parameters
+            audio_params = {}
+            if audio_info:
+                # Keep original audio bitrate if it's reasonable, otherwise use 192k
+                original_audio_bitrate = int(audio_info.get('bit_rate', 192000))
+                audio_params = {
+                    'audio_bitrate': f"{min(384000, max(128000, original_audio_bitrate)) // 1000}k",
+                    'acodec': 'aac',
+                    'ar': '48000'  # Standard audio sample rate
+                }
+            
+            # Build the ffmpeg command with improved parameters
             stream = ffmpeg.input(input_path)
-            stream = ffmpeg.output(stream, output_path,
-                                 vf='scale=-2:720',  # Keep aspect ratio
-                                 r=30,
-                                 video_bitrate=target_video_bitrate,
-                                 audio_bitrate='192k',
-                                 acodec='aac',
-                                 vcodec='libx264',
-                                 preset='medium')  # Balance between quality and speed
+            stream = ffmpeg.output(
+                stream, 
+                output_path,
+                vf='scale=-2:720:flags=lanczos',  # High-quality scaling
+                r=30,
+                video_bitrate=target_video_bitrate_str,
+                vcodec='libx264',
+                preset='medium',
+                g=60,  # GOP size = 2 seconds at 30fps
+                pix_fmt='yuv420p',  # Widely compatible pixel format
+                movflags='+faststart',  # Enable streaming
+                **audio_params
+            )
             
-            ffmpeg.run(stream, overwrite_output=True, capture_stdout=True, capture_stderr=True)
+            # Run the conversion with progress monitoring
+            process = ffmpeg.run_async(stream, pipe_stdout=True, pipe_stderr=True)
+            stdout, stderr = process.communicate()
+            
+            if process.returncode != 0:
+                logging.error(f"FFmpeg conversion failed with return code {process.returncode}")
+                if stderr:
+                    logging.error(f"FFmpeg error output: {stderr.decode()}")
+                return False
             
             # Verify output
             if os.path.exists(output_path):
@@ -244,19 +387,33 @@ class VideoProcessor:
                 output_mb = output_size / (1024 * 1024)
                 logging.info(f"Conversion complete - Output size: {output_mb:.2f} MB")
                 
-                # Check if output is too small compared to input
-                if output_size < input_size * 0.5:  # Allow for compression, but not too much
-                    logging.error(f"Output file ({output_mb:.2f} MB) is much smaller than input ({input_mb:.2f} MB)")
-                    logging.error("The conversion may have failed or produced low quality output")
+                # Verify the output video
+                try:
+                    output_probe = ffmpeg.probe(output_path)
+                    output_video = next((s for s in output_probe['streams'] if s['codec_type'] == 'video'), None)
+                    
+                    if not output_video:
+                        logging.error("Output file has no video stream")
+                        return False
+                    
+                    # Check if duration is within 1% of original
+                    orig_duration = float(probe['format']['duration'])
+                    out_duration = float(output_probe['format']['duration'])
+                    if abs(orig_duration - out_duration) > orig_duration * 0.01:
+                        logging.error(f"Output duration ({out_duration:.2f}s) differs significantly from input ({orig_duration:.2f}s)")
+                        return False
+                    
+                    return True
+                    
+                except Exception as e:
+                    logging.error(f"Error verifying output video: {str(e)}")
                     return False
-                
-                return True
             else:
                 logging.error("Conversion completed but output file not found")
                 return False
                 
         except ffmpeg.Error as e:
-            logging.error(f"FFmpeg error during conversion:")
+            logging.error("FFmpeg error during conversion:")
             if e.stdout:
                 logging.error(f"FFmpeg stdout: {e.stdout.decode()}")
             if e.stderr:
@@ -350,7 +507,7 @@ class VideoProcessor:
         return '\n'.join(timestamps)
 
     def merge_videos(self, video_files: List[Tuple[str, str]], output_path: str) -> bool:
-        """Merge multiple videos into a single file."""
+        """Merge multiple videos into a single file using direct stream copy."""
         file_list_path = 'file_list.txt'
         process = None
         try:
@@ -383,13 +540,47 @@ class VideoProcessor:
             
             logging.info(f"Merging videos to: {output_path}")
             try:
-                # Use concat demuxer for more reliable merging
-                stream = ffmpeg.input(file_list_path, f='concat', safe=0)\
-                              .output(output_path, c='copy', loglevel='info')\
-                              .overwrite_output()
+                # Build complex filter for concatenation
+                inputs = []
+                for i, (full_path, _) in enumerate(video_files):
+                    inputs.extend(['-i', full_path])
                 
-                # Run ffmpeg with proper process cleanup
-                process = ffmpeg.run_async(stream, pipe_stdout=True, pipe_stderr=True)
+                filter_complex = ''
+                for i in range(len(video_files)):
+                    filter_complex += f'[{i}:v:0][{i}:a:0]'
+                filter_complex += f'concat=n={len(video_files)}:v=1:a=1[outv][outa]'
+                
+                # Use ffmpeg-python to construct the command
+                stream = (
+                    ffmpeg
+                    .input('dummy')
+                    .output(
+                        output_path,
+                        acodec='copy',
+                        vcodec='copy',
+                        **{'filter_complex': filter_complex}
+                    )
+                    .overwrite_output()
+                )
+                
+                # Get the ffmpeg command
+                cmd = ['ffmpeg'] + inputs + [
+                    '-filter_complex', filter_complex,
+                    '-map', '[outv]',
+                    '-map', '[outa]',
+                    '-c:v', 'copy',
+                    '-c:a', 'copy',
+                    output_path,
+                    '-y'
+                ]
+                
+                # Run ffmpeg command
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                
                 out, err = process.communicate()
                 
                 if process.returncode != 0:
@@ -404,7 +595,7 @@ class VideoProcessor:
                     logging.info(f"Merge completed - Output size: {output_mb:.2f} MB")
                     
                     # Validate output size
-                    if output_size < total_input_size * 0.9:  # Allow for some compression, but not too much
+                    if output_size < total_input_size * 0.5:  # Allow for more compression
                         logging.error(f"Output file size ({output_mb:.2f} MB) is significantly smaller than input size ({total_input_mb:.2f} MB)")
                         logging.error("The merge process may have failed or produced an incomplete file")
                         
@@ -530,22 +721,20 @@ class VideoProcessor:
     def process_tutorial_folder(self, folder_path: str):
         """Process all videos in a tutorial folder and its subfolders."""
         try:
-            folder_path = str(folder_path)  # Ensure string path
+            folder_path = str(folder_path)
             
-            # Check if the folder contains course subfolders
-            subfolders = [d for d in os.listdir(folder_path) 
-                         if os.path.isdir(os.path.join(folder_path, d)) and 
-                         d != 'converted_videos']  # Exclude converted_videos folder
-            
-            if not subfolders:
-                # Process this folder directly if it contains videos
+            # Check if this is a course folder
+            if is_course_folder(folder_path):
+                logging.info(f"Found course folder: {folder_path}")
                 self._process_single_course(folder_path)
             else:
-                # Process each course subfolder
-                for subfolder in subfolders:
-                    subfolder_path = os.path.join(folder_path, subfolder)
-                    logging.info(f"\nProcessing course folder: {subfolder}")
-                    self._process_single_course(subfolder_path)
+                # Check subfolders for courses
+                for item in os.listdir(folder_path):
+                    subfolder_path = os.path.join(folder_path, item)
+                    if os.path.isdir(subfolder_path) and is_course_folder(subfolder_path):
+                        logging.info(f"Found course folder: {subfolder_path}")
+                        self._process_single_course(subfolder_path)
+                    
         except Exception as e:
             logging.error(f"Error scanning folder structure: {str(e)}")
             logging.error(traceback.format_exc())
@@ -553,78 +742,65 @@ class VideoProcessor:
     def _process_single_course(self, folder_path: str):
         """Process a single course folder."""
         try:
-            folder_path = str(folder_path)  # Ensure string path
+            folder_path = str(folder_path)
             course_name = get_structured_title(folder_path)
             
             if course_name in self.processed_courses:
                 logging.info(f"Course '{course_name}' already processed - skipping")
                 return
 
-            logging.info(f"\n[1/6] 🎯 Starting process for: {course_name}")
+            logging.info(f"\n[1/4] 🎯 Starting process for: {course_name}")
             logging.info(f"Processing folder: {folder_path}")
             
-            # Create converted_videos folder inside this specific course folder
-            converted_videos_dir = os.path.join(folder_path, "converted_videos")
-            if os.path.exists(converted_videos_dir):
-                logging.info(f"Cleaning up existing converted_videos folder: {converted_videos_dir}")
-                try:
-                    shutil.rmtree(converted_videos_dir)
-                except Exception as e:
-                    logging.error(f"Failed to delete existing converted_videos folder: {str(e)}")
-                    return
-            
-            os.makedirs(converted_videos_dir, exist_ok=True)
-            logging.info(f"Created converted_videos directory at: {converted_videos_dir}")
-            
-            # Get all video files with their relative paths
-            video_files = get_all_video_files(folder_path)
+            # Collect and prepare all videos
+            video_files = collect_and_prepare_videos(folder_path)
             
             if not video_files:
                 logging.warning(f"No video files found in {folder_path}")
                 return
             
-            logging.info(f"[2/6] 📁 Found {len(video_files)} videos to process")
-            for idx, (full_path, rel_path) in enumerate(video_files, 1):
+            logging.info(f"[2/4] 📁 Found {len(video_files)} videos to process")
+            for idx, (_, rel_path) in enumerate(video_files, 1):
                 logging.info(f"  Video {idx}: {rel_path}")
             
-            # Calculate total duration of original videos
+            # Calculate total duration
             total_duration = self.get_total_duration(video_files)
             if total_duration == 0:
                 logging.error("Failed to calculate total duration of videos")
                 return
-            
-            # Try merging the original videos first
-            logging.info("[3/6] 🔄 Merging videos...")
-            merged_video_path = os.path.join(converted_videos_dir, f"{course_name}_merged.mp4")
-            original_files = [(full_path, rel_path) for full_path, rel_path in video_files]
+
+            # Try merging the videos directly
+            logging.info("[3/4] 🔄 Attempting direct merge without conversion...")
+            merged_video_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged.mp4")
             
             merge_success = False
             try:
-                if self.merge_videos(original_files, str(merged_video_path)):
-                    # Validate merged video duration
+                if self.merge_videos(video_files, str(merged_video_path)):
                     if self.validate_merged_video(merged_video_path, total_duration):
                         logging.info("✅ Direct merge successful and validated")
                         merge_success = True
                     else:
-                        logging.info("⚠️ Direct merge failed validation - will try converting...")
+                        logging.warning("⚠️ Direct merge failed validation - will try converting...")
                         try:
                             os.remove(merged_video_path)
-                            logging.info("Removed invalid merged video")
                         except Exception as e:
                             logging.error(f"Failed to remove invalid merged video: {str(e)}")
                 else:
-                    logging.info("⚠️ Direct merge failed - converting videos first...")
+                    logging.warning("⚠️ Direct merge failed - will try converting...")
             except Exception as e:
                 logging.error(f"Error during direct merge: {str(e)}")
                 logging.info("Proceeding with conversion...")
             
             if not merge_success:
                 # Convert videos only if direct merge fails
+                converted_videos_dir = os.path.join(folder_path, "converted_videos")
+                os.makedirs(converted_videos_dir, exist_ok=True)
+                
                 converted_files = []
                 total_files = len(video_files)
                 
                 for idx, (full_path, rel_path) in enumerate(video_files, 1):
-                    output_file = os.path.join(converted_videos_dir, f"{os.path.splitext(os.path.basename(full_path))[0]}_converted.mp4")
+                    output_file = os.path.join(converted_videos_dir, f"{os.path.splitext(rel_path)[0]}_converted.mp4")
                     logging.info(f"Converting [{idx}/{total_files}]: {rel_path}")
                     try:
                         if self.convert_video(full_path, str(output_file)):
@@ -648,28 +824,27 @@ class VideoProcessor:
             if not os.path.exists(merged_video_path):
                 logging.error(f"❌ Merged video file not found at: {merged_video_path}")
                 return
-                
+            
             file_size_mb = os.path.getsize(merged_video_path) / (1024 * 1024)
             logging.info(f"Merged video size: {file_size_mb:.2f} MB")
             
             # Generate timestamps
-            logging.info("[4/6] 📝 Generating video timestamps...")
+            logging.info("[4/4] 📝 Generating video timestamps...")
             timestamps = self.generate_timestamps(video_files, folder_path)
             
-            # Clean up the description to ensure it's valid for YouTube
+            # Clean up the description
             description = "Tutorial Contents:\n\n"
             for line in timestamps.split('\n'):
-                # Remove any non-ASCII characters and replace with safe alternatives
                 cleaned_line = ''.join(char if ord(char) < 128 else '-' for char in line)
                 description += cleaned_line + '\n'
             description += "\nAutomatically processed and uploaded."
             
             # Upload to YouTube
-            logging.info("[5/6] 📤 Uploading to YouTube...")
+            logging.info("📤 Uploading to YouTube...")
             video_id = self.upload_to_youtube(str(merged_video_path), course_name, description)
             
             if video_id:
-                logging.info("[6/6] 🧹 Cleaning up files...")
+                logging.info("🧹 Cleaning up files...")
                 # Clean up and save link
                 cleanup_and_save_link(folder_path, video_id, course_name)
                 
@@ -681,12 +856,39 @@ class VideoProcessor:
                 }
                 self._save_processed_courses()
                 
-                # Clean up converted files
+                # Clean up all files
                 try:
-                    shutil.rmtree(converted_videos_dir)
-                    logging.info(f"🗑️ Cleaned up converted_videos folder")
+                    # Delete collected videos
+                    for full_path, _ in video_files:
+                        try:
+                            os.remove(full_path)
+                            logging.info(f"🗑️ Deleted collected video: {full_path}")
+                        except Exception as e:
+                            logging.error(f"Failed to delete collected video: {str(e)}")
+                    
+                    # Delete merged video
+                    if os.path.exists(merged_video_path):
+                        os.remove(merged_video_path)
+                        logging.info(f"🗑️ Deleted merged video")
+                    
+                    # Delete converted_videos folder if it exists
+                    if os.path.exists(converted_videos_dir):
+                        shutil.rmtree(converted_videos_dir)
+                        logging.info(f"🗑️ Cleaned up converted_videos folder")
+                    
+                    # Delete original video folders
+                    for root, dirs, files in os.walk(folder_path, topdown=False):
+                        for dir in dirs:
+                            if any(dir.startswith(str(i)) for i in range(10)):
+                                dir_path = os.path.join(root, dir)
+                                try:
+                                    shutil.rmtree(dir_path)
+                                    logging.info(f"🗑️ Deleted folder: {dir}")
+                                except Exception as e:
+                                    logging.error(f"Failed to delete folder {dir}: {str(e)}")
+                
                 except Exception as e:
-                    logging.error(f"Failed to delete converted_videos folder: {str(e)}")
+                    logging.error(f"Error during cleanup: {str(e)}")
                 
                 logging.info(f"✅ Successfully completed processing: {course_name}")
                 logging.info(f"🔗 Video URL: https://www.youtube.com/watch?v={video_id}")
@@ -707,11 +909,15 @@ class VideoProcessor:
 def main():
     import tkinter as tk
     from tkinter import simpledialog, messagebox
-
+    
+    # Configure logging to handle Unicode characters
+    import sys
+    sys.stdout.reconfigure(encoding='utf-8')  # For Python 3.7+
+    
     # Create GUI root window (will be hidden)
     root = tk.Tk()
     root.withdraw()  # Hide the main window
-
+    
     try:
         # First, try to authenticate with YouTube
         client_secrets_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "client_secret.json")
@@ -727,7 +933,7 @@ def main():
         try:
             processor = VideoProcessor("", client_secrets_file)  # Empty path for now
             processor._authenticate_youtube()  # Force authentication first
-            logging.info("✅ YouTube authentication successful")
+            logging.info("YouTube authentication successful")
         except Exception as e:
             error_msg = f"Failed to authenticate with YouTube: {str(e)}"
             logging.error(error_msg)
@@ -736,15 +942,17 @@ def main():
             return
 
         # Now show input dialog for folder selection
+        default_path = r"H:\Projects Control (PC)\10 Backup\05 Tutorials\Google\Maps\Udemy\Google Maps Seo - The 4 Pillars To Rank Your Website Page 1"
         input_path = simpledialog.askstring(
             "Input Path", 
-            "Enter the tutorial folder path:"
+            "Enter the tutorial folder path:",
+            initialvalue=default_path
         )
-
+        
         if input_path:  # If user didn't cancel
             input_path = input_path.strip()
             input_path = input_path.replace('\\', '/')  # Convert backslashes to forward slashes
-            logging.info(f"\n📂 Selected path: {input_path}")
+            logging.info(f"Selected path: {input_path}")
 
             try:
                 # Try to normalize the network path
@@ -753,8 +961,9 @@ def main():
                     
                 # Test directory access
                 try:
-                    os.listdir(input_path)
-                    logging.info("✅ Successfully accessed directory")
+                    contents = os.listdir(input_path)
+                    logging.info("Successfully accessed directory")
+                    logging.info(f"Found {len(contents)} items in directory")
                 except Exception as e:
                     error_msg = f"Cannot access directory: {str(e)}"
                     logging.error(error_msg)
@@ -768,16 +977,29 @@ def main():
                     messagebox.showerror("Error", error_msg)
                     return
 
-                logging.info("\n🎬 Starting video processing...")
-                logging.info(f"📁 Directory contents:")
+                logging.info("Starting video processing...")
+                logging.info(f"Directory contents:")
                 
                 try:
+                    video_count = 0
+                    total_size = 0
                     for item in os.listdir(input_path):
                         item_path = os.path.join(input_path, item)
-                        if os.path.isdir(item_path):
-                            logging.info(f"  📂 {item}")
-                        else:
-                            logging.info(f"  📄 {item}")
+                        try:
+                            if os.path.isdir(item_path):
+                                logging.info(f"  DIR: {item}")
+                            else:
+                                size_mb = os.path.getsize(item_path) / (1024 * 1024)
+                                if item.lower().endswith(('.mp4', '.avi', '.mkv')):
+                                    video_count += 1
+                                    total_size += size_mb
+                                    logging.info(f"  VIDEO: {item} ({size_mb:.2f} MB)")
+                                else:
+                                    logging.info(f"  FILE: {item} ({size_mb:.2f} MB)")
+                        except Exception as e:
+                            logging.error(f"Error accessing {item}: {str(e)}")
+                            
+                    logging.info(f"\nFound {video_count} videos, total size: {total_size:.2f} MB")
                 except Exception as e:
                     error_msg = f"Error listing directory contents: {str(e)}"
                     logging.error(error_msg)
@@ -788,7 +1010,7 @@ def main():
                 # Process the folder
                 processor.process_tutorial_folder(input_path)
                 
-                logging.info("\n✅ Processing complete!")
+                logging.info("Processing complete!")
                 messagebox.showinfo("Complete", "Processing complete!")
             
             except Exception as e:
@@ -798,7 +1020,7 @@ def main():
                 messagebox.showerror("Error", error_msg)
 
         else:
-            logging.info("❌ No path selected. Exiting...")
+            logging.info("No path selected. Exiting...")
     except Exception as e:
         error_msg = f"Error processing directory: {str(e)}\n{traceback.format_exc()}"
         logging.error(error_msg)
