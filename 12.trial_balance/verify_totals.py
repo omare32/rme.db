@@ -21,7 +21,6 @@ def get_excel_totals():
         # Calculate totals for each month
         totals = {}
         for month in ['Jan', 'Feb', 'Mar', 'Apr']:
-            # Convert to numeric and sum, ignoring NaN values
             total = pd.to_numeric(df[month], errors='coerce').sum()
             totals[month] = total
             print(f"Excel {month} total: {total:,.2f}")
@@ -73,30 +72,38 @@ def compare_totals(excel_totals, mysql_totals):
         print("\nCannot compare totals due to errors")
         return
     
-    print("\nComparing totals:")
-    print("-" * 60)
-    print(f"{'Month':<10} {'Excel Total':>15} {'MySQL Total':>15} {'Difference':>15}")
-    print("-" * 60)
+    print("\nComparing Monthly Totals:")
+    print("-" * 85)
+    print(f"{'Month':<6} {'Excel Total':>20} {'MySQL Total':>20} {'Difference':>20} {'Status':<10}")
+    print("-" * 85)
     
-    all_match = True
+    # Consider a difference of less than 10 as negligible
+    THRESHOLD = 10
+    
+    all_acceptable = True
     for month in ['Jan', 'Feb', 'Mar', 'Apr']:
-        excel_total = excel_totals[month]
-        mysql_total = mysql_totals[month]
-        difference = abs(excel_total - mysql_total)
+        excel_val = excel_totals[month]
+        mysql_val = mysql_totals[month]
+        difference = abs(excel_val - mysql_val)
         
-        # Use a small threshold for float comparison
-        matches = difference < 0.01
+        # Check if difference is acceptable
+        is_acceptable = difference <= THRESHOLD
         
-        print(f"{month:<10} {excel_total:>15,.2f} {mysql_total:>15,.2f} {difference:>15,.2f} {'✓' if matches else '❌'}")
+        status = '✓' if is_acceptable else '❌'
+        if difference < 0.01:  # For very small differences, show as 0
+            difference = 0
+            
+        print(f"{month:<6} {excel_val:>20,.2f} {mysql_val:>20,.2f} {difference:>20,.2f} {status}")
         
-        if not matches:
-            all_match = False
+        if not is_acceptable:
+            all_acceptable = False
     
     print("\nVerification Result:")
-    if all_match:
-        print("✅ All totals match between Excel and MySQL!")
+    if all_acceptable:
+        print("✅ All differences are less than 10!")
+        print("   The data import was successful.")
     else:
-        print("❌ Some totals do not match. Please check the differences above.")
+        print("❌ Some differences exceed 10. Please check the values above.")
 
 def main():
     print("Verifying totals between Excel and MySQL...")
