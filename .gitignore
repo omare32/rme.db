@@ -387,3 +387,5 @@ rme.db/rme.db.code-workspace
 16.email/01.summarize/01.rev.01/summarize_emails.py
 16.email/01.summarize/01.rev.01/email_replies.txt
 16.email/01.summarize/01.rev.01/Email-ETL.py
+token.json
+16.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).ipynb

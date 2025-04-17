@@ -13,8 +13,5 @@
         "10.10.11.242": "Linux"
     },
     "explorer.confirmDragAndDrop": false,
-    "git.path": "C:/Program Files/Git/cmd/git.exe",
-    "workbench.activityBar.orientation": "vertical",
-    "workbench.activityBar.location": "side",
-    "workbench.sideBar.location": "left"
+    "git.path": "C:/Program Files/Git/cmd/git.exe"
 } 
