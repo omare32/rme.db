@@ -14,6 +14,10 @@ import traceback
 from google.auth.transport.requests import Request
 import sys
 import subprocess
+import tkinter as tk
+from tkinter import simpledialog, messagebox
+import threading
+import queue
 
 # Disable SSL verification
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -64,55 +68,141 @@ logging.info("Video processing script started")
 TOKEN_FILE = "token.json"
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
+class LogWindow:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Video Processing Status")
+        self.root.geometry("800x600")
+        
+        # Create main frame
+        main_frame = ttk.Frame(self.root, padding="5")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        
+        # Status label
+        self.status_var = tk.StringVar(value="Status: Initializing...")
+        status_label = ttk.Label(main_frame, textvariable=self.status_var, font=('Arial', 10, 'bold'))
+        status_label.grid(row=0, column=0, sticky=tk.W, pady=5)
+        
+        # Log text area
+        self.log_text = scrolledtext.ScrolledText(main_frame, wrap=tk.WORD, width=90, height=30)
+        self.log_text.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
+        
+        # Configure grid
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
+        main_frame.columnconfigure(0, weight=1)
+        main_frame.rowconfigure(1, weight=1)
+        
+        # Message queue for thread-safe updates
+        self.queue = queue.Queue()
+        self.last_error_time = 0
+        self.error_cooldown = 5  # seconds between error notifications
+        
+        # Start queue processing
+        self.process_queue()
+    
+    def process_queue(self):
+        """Process messages from the queue"""
+        try:
+            while True:
+                msg = self.queue.get_nowait()
+                if isinstance(msg, tuple):
+                    msg_type, text = msg
+                    if msg_type == 'status':
+                        self.status_var.set(f"Status: {text}")
+                    elif msg_type == 'error':
+                        self.log_text.insert(tk.END, f"ERROR: {text}\n")
+                        self.log_text.see(tk.END)
+                        # Show error popup if enough time has passed
+                        current_time = time.time()
+                        if current_time - self.last_error_time > self.error_cooldown:
+                            self.last_error_time = current_time
+                            messagebox.showerror("Error", text)
+                else:
+                    self.log_text.insert(tk.END, f"{msg}\n")
+                    self.log_text.see(tk.END)
+        except queue.Empty:
+            pass
+        finally:
+            self.root.after(100, self.process_queue)
+    
+    def update_status(self, status):
+        """Update the status text"""
+        self.queue.put(('status', status))
+    
+    def log(self, message):
+        """Add a message to the log"""
+        self.queue.put(message)
+    
+    def error(self, message):
+        """Log an error and show notification"""
+        self.queue.put(('error', message))
+
+# Create global log window instance
+log_window = None
+
+class CustomHandler(logging.Handler):
+    def __init__(self, log_window):
+        super().__init__()
+        self.log_window = log_window
+    
+    def emit(self, record):
+        msg = self.format(record)
+        if record.levelno >= logging.ERROR:
+            self.log_window.error(msg)
+        else:
+            self.log_window.log(msg)
+
 def get_authenticated_service(client_secrets_file: str):
     """Get authenticated YouTube service, reusing token if available."""
     creds = None
 
-    # Load existing token
-    if os.path.exists(TOKEN_FILE):
-        try:
-        creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
-            logging.info("📄 Loaded existing token")
-        except Exception as e:
-            logging.error(f"❌ Error loading token: {str(e)}")
-            creds = None
-
-    # If token doesn't exist or is invalid
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
+    try:
+        # Load existing token
+        if os.path.exists(TOKEN_FILE):
             try:
-                logging.info("🔄 Token expired, refreshing...")
-                creds.refresh(Request())
-                logging.info("✅ Token refreshed successfully")
+                creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+                logging.info("Loaded existing token")
             except Exception as e:
-                logging.error(f"❌ Error refreshing token: {str(e)}")
+                logging.error(f"Error loading token: {str(e)}")
                 creds = None
 
-        # If still no valid credentials, need to authenticate
-        if not creds:
+        # If token doesn't exist or is invalid
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                try:
+                    logging.info("Token expired, refreshing...")
+                    creds.refresh(Request())
+                    logging.info("Token refreshed successfully")
+                except Exception as e:
+                    logging.error(f"Error refreshing token: {str(e)}")
+                    creds = None
+
+            # If still no valid credentials, need to authenticate
+            if not creds:
+                try:
+                    logging.info("Opening browser for authentication...")
+                    flow = InstalledAppFlow.from_client_secrets_file(client_secrets_file, SCOPES)
+                    creds = flow.run_local_server(port=0)
+                    logging.info("Authentication successful")
+                except Exception as e:
+                    logging.error(f"Authentication failed: {str(e)}")
+                    raise
+
+            # Save the credentials for future use
             try:
-                logging.info("🌐 Opening browser for authentication...")
-                flow = InstalledAppFlow.from_client_secrets_file(client_secrets_file, SCOPES)
-                creds = flow.run_local_server(port=0)
-                logging.info("✅ Authentication successful")
+                with open(TOKEN_FILE, 'w') as token:
+                    token.write(creds.to_json())
+                logging.info("Token saved successfully")
             except Exception as e:
-                logging.error(f"❌ Authentication failed: {str(e)}")
-                raise
+                logging.error(f"Error saving token: {str(e)}")
 
-        # Save the credentials for future use
-        try:
-            with open(TOKEN_FILE, 'w') as token:
-                token.write(creds.to_json())
-            logging.info("💾 Token saved successfully")
-        except Exception as e:
-            logging.error(f"❌ Error saving token: {str(e)}")
-
-    try:
         service = build('youtube', 'v3', credentials=creds, cache_discovery=False)
-        logging.info("✅ YouTube service created successfully")
+        logging.info("YouTube service created successfully")
         return service
+        
     except Exception as e:
-        logging.error(f"❌ Error creating YouTube service: {str(e)}")
+        logging.error(f"Error creating YouTube service: {str(e)}")
         raise
 
 def get_all_video_files(folder_path: str) -> List[Tuple[str, str]]:
@@ -205,7 +295,7 @@ def get_structured_title(input_path: str) -> str:
             # Get the course name (parent folder of numbered subfolders)
             if is_course_folder(input_path):
                 course_name = path.name
-    else:
+            else:
                 course_name = path.parent.name
             
             # Format: "Google - Sheets - Lynda - {Course Name}"
@@ -907,18 +997,17 @@ class VideoProcessor:
             self.process_tutorial_folder(str(course_folder))
 
 def main():
-    import tkinter as tk
-    from tkinter import simpledialog, messagebox
+    """Main function to handle video processing and GUI."""
+    global log_window
     
-    # Configure logging to handle Unicode characters
-    import sys
-    sys.stdout.reconfigure(encoding='utf-8')  # For Python 3.7+
-        
-        # Create GUI root window (will be hidden)
-        root = tk.Tk()
-        root.withdraw()  # Hide the main window
-        
     try:
+        # Create and configure log window
+        log_window = LogWindow()
+        
+        # Configure logging to use our custom handler
+        logger = logging.getLogger()
+        logger.addHandler(CustomHandler(log_window))
+        
         # First, try to authenticate with YouTube
         client_secrets_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "client_secret.json")
         logging.info(f"Using client secrets file: {client_secrets_file}")
@@ -926,19 +1015,17 @@ def main():
         if not os.path.exists(client_secrets_file):
             error_msg = f"Client secrets file not found: {client_secrets_file}"
             logging.error(error_msg)
-            messagebox.showerror("Error", error_msg)
             return
 
         # Create processor and authenticate
         try:
-            processor = VideoProcessor("", client_secrets_file)  # Empty path for now
-            processor._authenticate_youtube()  # Force authentication first
+            processor = VideoProcessor("", client_secrets_file)
+            processor._authenticate_youtube()
             logging.info("YouTube authentication successful")
         except Exception as e:
             error_msg = f"Failed to authenticate with YouTube: {str(e)}"
             logging.error(error_msg)
             logging.error(traceback.format_exc())
-            messagebox.showerror("Error", error_msg)
             return
 
         # Now show input dialog for folder selection
@@ -949,84 +1036,44 @@ def main():
             initialvalue=default_path
         )
         
-        if input_path:  # If user didn't cancel
-            input_path = input_path.strip()
-            input_path = input_path.replace('\\', '/')  # Convert backslashes to forward slashes
-            logging.info(f"Selected path: {input_path}")
-
-            try:
-                # Try to normalize the network path
-                if input_path.startswith('//'):
-                    logging.info("Network path detected, attempting to access...")
-                    
-                # Test directory access
-                try:
-                    contents = os.listdir(input_path)
-                    logging.info("Successfully accessed directory")
-                    logging.info(f"Found {len(contents)} items in directory")
-                except Exception as e:
-                    error_msg = f"Cannot access directory: {str(e)}"
-                    logging.error(error_msg)
-                    logging.error(traceback.format_exc())
-                    messagebox.showerror("Error", error_msg)
-                    return
-
-                if not os.path.exists(input_path):
-                    error_msg = f"Path does not exist: {input_path}"
-                    logging.error(error_msg)
-                    messagebox.showerror("Error", error_msg)
-                    return
-
-                logging.info("Starting video processing...")
-                logging.info(f"Directory contents:")
-                
-                try:
-                    video_count = 0
-                    total_size = 0
-                    for item in os.listdir(input_path):
-                        item_path = os.path.join(input_path, item)
-                        try:
-                            if os.path.isdir(item_path):
-                                logging.info(f"  DIR: {item}")
-            else:
-                                size_mb = os.path.getsize(item_path) / (1024 * 1024)
-                                if item.lower().endswith(('.mp4', '.avi', '.mkv')):
-                                    video_count += 1
-                                    total_size += size_mb
-                                    logging.info(f"  VIDEO: {item} ({size_mb:.2f} MB)")
-                    else:
-                                    logging.info(f"  FILE: {item} ({size_mb:.2f} MB)")
-                        except Exception as e:
-                            logging.error(f"Error accessing {item}: {str(e)}")
-                            
-                    logging.info(f"\nFound {video_count} videos, total size: {total_size:.2f} MB")
-                except Exception as e:
-                    error_msg = f"Error listing directory contents: {str(e)}"
-                    logging.error(error_msg)
-                    logging.error(traceback.format_exc())
-                    messagebox.showerror("Error", error_msg)
-                    return
-
-                # Process the folder
-                processor.process_tutorial_folder(input_path)
-                
-                logging.info("Processing complete!")
-                messagebox.showinfo("Complete", "Processing complete!")
+        if not input_path:
+            logging.info("No path selected. Exiting...")
+            return
             
+        input_path = input_path.strip()
+        input_path = input_path.replace('\\', '/')
+        logging.info(f"Selected path: {input_path}")
+        log_window.update_status("Processing videos...")
+
+        if not os.path.exists(input_path):
+            error_msg = f"Path does not exist: {input_path}"
+            logging.error(error_msg)
+            return
+
+        # Process the folder in a separate thread
+        def process_folder():
+            try:
+                processor.process_tutorial_folder(input_path)
+                log_window.update_status("Processing complete!")
+                messagebox.showinfo("Complete", "Video processing and upload complete!")
             except Exception as e:
                 error_msg = f"Error during video processing: {str(e)}"
                 logging.error(error_msg)
                 logging.error(traceback.format_exc())
-                messagebox.showerror("Error", error_msg)
-
-        else:
-            logging.info("No path selected. Exiting...")
+        
+        thread = threading.Thread(target=process_folder)
+        thread.daemon = True
+        thread.start()
+        
+        # Start the main window loop
+        log_window.root.mainloop()
+        
     except Exception as e:
-        error_msg = f"Error processing directory: {str(e)}\n{traceback.format_exc()}"
+        error_msg = f"Error in main process: {str(e)}\n{traceback.format_exc()}"
         logging.error(error_msg)
-        messagebox.showerror("Error", error_msg)
     finally:
-            root.destroy()
+        if log_window and log_window.root:
+            log_window.root.destroy()
 
 if __name__ == "__main__":
     main()
