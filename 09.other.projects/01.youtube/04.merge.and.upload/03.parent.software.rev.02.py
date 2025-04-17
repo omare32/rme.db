@@ -50,22 +50,10 @@ def get_authenticated_service(client_secrets_file: str):
     return build('youtube', 'v3', credentials=creds)
 
 def get_structured_title(input_path: str) -> str:
-    """Generate a structured title from the folder path."""
+    """Generate a structured title from the last 3 folders of the path."""
     try:
-        # Convert path to Path object
         path = Path(input_path)
-        parts = []
-        
-        # Walk up the path until we hit 'tutorials' or 'backup'
-        current = path
-        while current.name.lower() not in ['tutorials', 'backup']:
-            if current.name:  # Skip empty parts
-                parts.insert(0, current.name)
-            if current.parent == current:  # Root reached
-                break
-            current = current.parent
-        
-        # Join all parts with ' - '
+        parts = list(path.parts)[-3:]  # Take last 3 folders
         return ' - '.join(parts)
     except Exception as e:
         logging.error(f"Error in get_structured_title: {str(e)}")
@@ -186,7 +174,7 @@ def process_folder(folder_path: str, client_secrets_file: str):
         logging.info(f"Found {len(video_files)} videos")
         
         # Get title
-        title = get_structured_title(folder_path)
+        title = get_structured_title(folder_path, levels=3)
         logging.info(f"Generated title: {title}")
         
         # Merge videos
