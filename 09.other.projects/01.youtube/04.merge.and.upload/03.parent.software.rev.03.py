@@ -35,9 +35,6 @@ logging.basicConfig(
 TOKEN_FILE = "token.json"
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
-# Disable SSL verification globally
-ssl._create_default_https_context = ssl._create_unverified_context
-
 def get_folder_path_gui() -> str:
     """Create a Tkinter window to get the folder path."""
     try:
@@ -87,14 +84,13 @@ def get_folder_path_gui() -> str:
         return input("Enter folder path (GUI failed): ")
 
 def get_authenticated_service(client_secrets_file: str):
-    """Get authenticated YouTube service with proper token handling."""
+    """Get authenticated YouTube service."""
     creds = None
 
     # Check if token file exists
     if os.path.exists(TOKEN_FILE):
         try:
             creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
-            logging.info("Loaded existing token")
         except Exception as e:
             logging.warning(f"Error loading token file: {e}")
             creds = None
@@ -103,24 +99,24 @@ def get_authenticated_service(client_secrets_file: str):
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             try:
-                logging.info("Token expired. Attempting to refresh...")
                 creds.refresh(Request())
-                logging.info("Token refreshed successfully!")
             except Exception as e:
                 logging.warning(f"Token refresh failed: {e}")
                 creds = None
 
         if not creds:
-            logging.info("Opening browser for authentication...")
             flow = InstalledAppFlow.from_client_secrets_file(client_secrets_file, SCOPES)
             creds = flow.run_local_server(port=0)
 
-        # Save the new token
-        with open(TOKEN_FILE, "w") as token:
-            token.write(creds.to_json())
-            logging.info("Saved new token")
+            # Save the new token
+            with open(TOKEN_FILE, "w") as token:
+                token.write(creds.to_json())
 
-    return build("youtube", "v3", credentials=creds)
+    # Create HTTP object with SSL verification disabled
+    http = httplib2.Http()
+    
+    # Build and return the YouTube service
+    return build("youtube", "v3", credentials=creds, http=http)
 
 def get_structured_title(path: str) -> str:
     """Generate a structured title from the path levels after '05 Tutorials'."""
@@ -217,7 +213,7 @@ def generate_timestamps(video_files: List[Tuple[str, str]]) -> str:
     return '\n'.join(timestamps)
 
 def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
-    """Merge videos using ffmpeg with proper format settings."""
+    """Merge videos using ffmpeg with proper format settings and detailed progress logging."""
     try:
         # Create file list
         list_path = os.path.join(os.path.dirname(output_path), "file_list.txt")
@@ -226,12 +222,19 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
                 f.write(f"file '{full_path}'\n")
         
         # Calculate expected duration
-        expected_duration = sum(get_video_duration(full_path) or 0 for full_path, _ in video_files)
-        if expected_duration == 0:
+        total_duration = 0
+        logging.info(f"\nAnalyzing {len(video_files)} videos for merge:")
+        for i, (full_path, rel_path) in enumerate(video_files, 1):
+            duration = get_video_duration(full_path) or 0
+            total_duration += duration
+            logging.info(f"Video {i}/{len(video_files)}: {rel_path} (Duration: {duration:.2f}s)")
+
+        if total_duration == 0:
             logging.error("Could not calculate total duration of videos")
             return False
             
-        logging.info(f"Expected duration: {expected_duration:.2f} seconds")
+        logging.info(f"\nTotal expected duration: {total_duration:.2f} seconds")
+        logging.info("\n=== Starting video merge process ===")
         
         # Merge videos with specific format settings
         cmd = [
@@ -245,19 +248,48 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             "-c:a", "aac",         # AAC audio codec
             "-b:a", "128k",        # Audio bitrate
             "-movflags", "+faststart",  # Web playback optimization
+            "-stats",              # Print encoding progress
+            "-loglevel", "info",   # Show informative messages
             output_path,
-            "-y"  # Overwrite output file
+            "-y"                   # Overwrite output file
         ]
         
-        # Run ffmpeg
-        process = subprocess.run(
+        logging.info("Executing ffmpeg command...")
+        
+        # Run ffmpeg with progress monitoring
+        process = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True,
-            check=True
+            universal_newlines=True,
+            bufsize=1
         )
+
+        start_time = time.time()
+        last_progress_time = start_time
+
+        # Monitor the encoding progress through stderr (where ffmpeg writes progress)
+        while True:
+            stderr_line = process.stderr.readline()
+            if not stderr_line and process.poll() is not None:
+                break
+                
+            # Log any ffmpeg output that contains progress information
+            if "time=" in stderr_line or "frame=" in stderr_line:
+                current_time = time.time()
+                if current_time - last_progress_time >= 5:
+                    elapsed = current_time - start_time
+                    logging.info(f"Merge in progress - Elapsed time: {elapsed:.0f}s - {stderr_line.strip()}")
+                    last_progress_time = current_time
+
+        # Get the final status
+        return_code = process.wait()
         
+        if return_code != 0:
+            error_output = process.stderr.read()
+            logging.error(f"FFmpeg error: {error_output}")
+            return False
+            
         # Verify output duration
         output_duration = get_video_duration(output_path)
         if output_duration is None:
@@ -265,11 +297,11 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             return False
             
         # Allow 5 second tolerance
-        if abs(output_duration - expected_duration) > 5:
-            logging.error(f"Output duration ({output_duration:.2f}s) doesn't match expected ({expected_duration:.2f}s)")
+        if abs(output_duration - total_duration) > 5:
+            logging.error(f"Output duration ({output_duration:.2f}s) doesn't match expected ({total_duration:.2f}s)")
             return False
             
-        logging.info(f"Merged video duration: {output_duration:.2f} seconds")
+        logging.info(f"Merge completed successfully! Final video duration: {output_duration:.2f} seconds")
         return True
         
     except subprocess.CalledProcessError as e:
@@ -282,8 +314,8 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         if os.path.exists(list_path):
             os.remove(list_path)
 
-def upload_to_youtube(youtube, video_path: str, title: str, description: str) -> Optional[str]:
-    """Upload video to YouTube with improved error handling."""
+def upload_to_youtube(youtube, video_path: str, title: str, description: str) -> Optional[Dict]:
+    """Upload video to YouTube with improved error handling. Returns full response if successful."""
     try:
         logging.info(f"Starting upload: {title}")
         
@@ -305,7 +337,7 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str) ->
             body=body,
             media_body=MediaFileUpload(
                 video_path, 
-                chunksize=-1,  # Use default chunk size
+                chunksize=-1,
                 resumable=True
             )
         )
@@ -317,7 +349,7 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str) ->
                 _, response = insert_request.next_chunk()
                 if response:
                     logging.info("Upload completed successfully")
-                    return response["id"]
+                    return response  # Return full response object
             except Exception as e:
                 retries -= 1
                 if retries == 0:
@@ -384,7 +416,7 @@ def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
         for _, rel_path in video_files:
             logging.info(f"  - {rel_path}")
         
-        # Get title (will be "Google - Slides - Lynda - Google Slides Essential Training")
+        # Get title
         title = get_structured_title(tutorial_path)
         logging.info(f"Generated title: {title}")
         
@@ -403,7 +435,7 @@ def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
         timestamps = generate_timestamps(video_files)
         description = "Tutorial Contents:\n\n" + timestamps
         
-        # Get authenticated service (with proper token handling)
+        # Get authenticated service
         try:
             youtube = get_authenticated_service(client_secrets_file)
             logging.info("YouTube authentication successful")
@@ -413,13 +445,13 @@ def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
             
         # Upload with retries
         max_upload_attempts = 3
-        video_id = None
+        upload_response = None
         
         for attempt in range(max_upload_attempts):
             try:
                 logging.info(f"Upload attempt {attempt + 1}/{max_upload_attempts}")
-                video_id = upload_to_youtube(youtube, merged_path, title, description)
-                if video_id:
+                upload_response = upload_to_youtube(youtube, merged_path, title, description)
+                if upload_response:
                     break
                 time.sleep(5)  # Wait between attempts
             except Exception as e:
@@ -428,26 +460,33 @@ def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
                     time.sleep(10)  # Longer wait before next attempt
                 continue
         
-        if video_id:
+        if upload_response and upload_response.get('id'):
+            video_id = upload_response['id']
             logging.info(f"Upload successful! Video ID: {video_id}")
+            
             # Save link file in the tutorial folder
             cleanup_and_save_link(tutorial_path, video_id, title)
             logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
             
-            # Clean up merged video file after successful upload
-            try:
-                os.remove(merged_path)
-                logging.info(f"Cleaned up merged video file: {merged_path}")
-            except Exception as e:
-                logging.warning(f"Could not clean up merged video: {str(e)}")
+            # Only proceed with cleanup if we have a valid video ID and link file
+            link_file = os.path.join(tutorial_path, "youtube link.txt")
+            if os.path.exists(link_file):
+                # Clean up merged video file
+                try:
+                    os.remove(merged_path)
+                    logging.info(f"Cleaned up merged video file: {merged_path}")
+                except Exception as e:
+                    logging.warning(f"Could not clean up merged video: {str(e)}")
                 
-            # Delete all folders containing videos
-            if delete_video_folders(tutorial_path):
-                logging.info("Successfully deleted all video folders")
+                # Delete all folders containing videos
+                if delete_video_folders(tutorial_path):
+                    logging.info("Successfully deleted all video folders")
+                else:
+                    logging.error("Failed to delete some video folders")
             else:
-                logging.error("Failed to delete some video folders")
+                logging.warning("Link file not created. Skipping cleanup to be safe.")
         else:
-            logging.error("Upload failed after all attempts")
+            logging.error("Upload failed after all attempts. Keeping files for retry.")
             
     except Exception as e:
         logging.error(f"Error processing tutorial folder: {str(e)}")
