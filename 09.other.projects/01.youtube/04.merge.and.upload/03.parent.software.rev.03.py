@@ -337,6 +337,33 @@ def cleanup_and_save_link(folder_path: str, video_id: str, title: str):
         f.write(f"URL: https://www.youtube.com/watch?v={video_id}\n")
         f.write(f"Uploaded: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
+def delete_video_folders(tutorial_path: str) -> bool:
+    """Delete all subfolders containing videos after successful upload."""
+    try:
+        deleted_folders = 0
+        # Walk through all subfolders
+        for root, dirs, files in os.walk(tutorial_path, topdown=False):
+            # Skip the tutorial root folder itself
+            if root == tutorial_path:
+                continue
+                
+            # Check if this is a folder containing videos
+            has_videos = any(f.lower().endswith(('.mp4', '.avi', '.mkv')) for f in files)
+            if has_videos:
+                try:
+                    shutil.rmtree(root)
+                    deleted_folders += 1
+                    logging.info(f"Deleted folder: {root}")
+                except Exception as e:
+                    logging.error(f"Failed to delete folder {root}: {str(e)}")
+                    return False
+        
+        logging.info(f"Deleted {deleted_folders} folders containing videos")
+        return True
+    except Exception as e:
+        logging.error(f"Error deleting video folders: {str(e)}")
+        return False
+
 def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
     """Process a single tutorial folder containing videos."""
     try:
@@ -413,6 +440,12 @@ def process_tutorial_folder(tutorial_path: str, client_secrets_file: str):
                 logging.info(f"Cleaned up merged video file: {merged_path}")
             except Exception as e:
                 logging.warning(f"Could not clean up merged video: {str(e)}")
+                
+            # Delete all folders containing videos
+            if delete_video_folders(tutorial_path):
+                logging.info("Successfully deleted all video folders")
+            else:
+                logging.error("Failed to delete some video folders")
         else:
             logging.error("Upload failed after all attempts")
             
