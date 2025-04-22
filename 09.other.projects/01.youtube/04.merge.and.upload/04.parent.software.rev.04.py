@@ -244,71 +244,74 @@ def get_structured_title(path: str) -> str:
         # Find the index of "05 Tutorials"
         for i, part in enumerate(parts):
             if part == "05 Tutorials":
-                # Take exactly 4 parts after "05 Tutorials"
-                relevant_parts = parts[i+1:i+5]  # This will get: Google, Slides, Lynda, Google Slides Essential Training
+                # Take all parts after "05 Tutorials"
+                relevant_parts = parts[i+1:]
+                # Filter out empty parts but keep "Lynda"
+                title_parts = []
+                for part in relevant_parts:
+                    # Skip empty parts
+                    if not part:
+                        continue
+                    # Include the part if it's "Lynda" or not a system folder
+                    if part == "Lynda" or not part.startswith('.'):
+                        title_parts.append(part)
+                
                 # Join parts and ensure total length is under 100 characters
-                title = " - ".join(relevant_parts)
-                if len(title) > 95:  # Leave some margin for safety
-                    # If too long, take first word of each part except the last one
-                    shortened_parts = []
-                    for j, part in enumerate(relevant_parts):
-                        if j < len(relevant_parts) - 1:
-                            # For all parts except the last, take just the first word
-                            first_word = part.split()[0]
-                            shortened_parts.append(first_word)
-                        else:
-                            # For the last part (course name), keep more detail but limit length
-                            last_part = part[:50]  # Limit last part to 50 chars
-                            shortened_parts.append(last_part)
-                    title = " - ".join(shortened_parts)
-                    # If still too long, truncate to 95 chars
-                    if len(title) > 95:
-                        title = title[:95]
+                title = " - ".join(title_parts)
+                # Truncate if necessary while keeping the structure
+                if len(title) > 95:
+                    title = title[:95] + "..."
                 return title
-        return os.path.basename(path)[:95]  # Fallback with length limit
+                
+        # Fallback to just the folder name
+        return os.path.basename(path)
     except Exception as e:
-        logging.error(f"Error in get_structured_title: {str(e)}")
-        # Return a safe fallback title
-        return os.path.basename(path)[:95]
+        logging.error(f"Error generating title: {str(e)}")
+        return os.path.basename(path)  # Fallback to just the folder name
 
 def is_tutorial_folder(path: str) -> bool:
     """
     Check if this is a tutorial folder.
-    A tutorial folder is either:
-    1. A level 4 folder under '05 Tutorials' (e.g. .../05 Tutorials/Google/Youtube/Lynda/Course Name)
-    2. A folder containing video files in a proper course structure
+    A tutorial folder should be the main course folder containing all videos,
+    not its parent folders or subfolders.
     """
     try:
         parts = Path(path).parts
         
-        # First check: Is this a level 4 folder under '05 Tutorials'?
+        # Find "05 Tutorials" in the path
+        tutorial_index = -1
         for i, part in enumerate(parts):
             if part == "05 Tutorials":
-                remaining_parts = parts[i+1:]
-                if len(remaining_parts) == 4:  # Exactly 4 levels after "05 Tutorials"
-                    return True
+                tutorial_index = i
+                break
+                
+        if tutorial_index == -1:
+            return False
+            
+        # Count levels after "05 Tutorials"
+        levels_after = len(parts) - (tutorial_index + 1)
         
-        # Second check: Does this folder contain video files in a course structure?
-        # Look for video files in subdirectories that match course patterns
-        video_count = 0
-        has_numbered_folders = False
+        # We expect: Google/Slides/Lynda/Course Name
+        # So 4 levels after "05 Tutorials"
+        if levels_after != 4:
+            return False
+            
+        # Check if this folder has video files in its structure
+        has_videos = False
+        has_subfolders = False
         
         for root, dirs, files in os.walk(path):
-            # Check if any directory names start with numbers (common in courses)
-            if any(re.match(r'^\d+', d) for d in dirs):
-                has_numbered_folders = True
-            
+            # If we find numbered subfolders, this is likely the main course folder
+            if any(re.match(r'^\d+\.', d) for d in dirs):
+                has_subfolders = True
+                
             # Count video files
-            video_count += sum(1 for f in files if f.lower().endswith(('.mp4', '.avi', '.mkv')))
-            
-            # If we find both numbered folders and videos, it's likely a course
-            if has_numbered_folders and video_count > 0:
+            if any(f.lower().endswith(('.mp4', '.avi', '.mkv')) for f in files):
+                has_videos = True
+                
+            if has_videos and has_subfolders:
                 return True
-            
-            # If we find a significant number of videos, it's likely a course
-            if video_count >= 5:
-                return True
-        
+                
         return False
         
     except Exception as e:
@@ -412,50 +415,70 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
     """Merge videos using ffmpeg with proper format settings and UI progress bar."""
     progress_window = None
     try:
-        # Create file list
-        list_path = os.path.join(os.path.dirname(output_path), "file_list.txt")
-        with open(list_path, 'w', encoding='utf-8') as f:
-            for full_path, _ in video_files:
-                # Use escaped paths for ffmpeg
-                escaped_path = full_path.replace('\\', '/')
-                f.write(f"file '{escaped_path}'\n")
+        # Create temporary directory for intermediate files
+        temp_dir = os.path.join(os.path.dirname(output_path), "temp_merge")
+        os.makedirs(temp_dir, exist_ok=True)
         
-        # Calculate expected duration
-        total_duration = 0
+        # First pass: Convert all videos to same format
         logging.info(f"\nAnalyzing {len(video_files)} videos for merge:")
+        total_duration = 0
+        standardized_files = []
+        
         for i, (full_path, rel_path) in enumerate(video_files, 1):
+            logging.info(f"Video {i}/{len(video_files)}: {rel_path}")
+            
+            # Get duration
             duration = get_video_duration(full_path) or 0
             total_duration += duration
-            logging.info(f"Video {i}/{len(video_files)}: {rel_path}")
-
+            
+            # Create standardized filename
+            std_filename = f"part_{i:03d}.mp4"
+            std_path = os.path.join(temp_dir, std_filename)
+            standardized_files.append(std_path)
+            
+            # Convert to standard format
+            cmd = [
+                "ffmpeg",
+                "-i", full_path,
+                "-c:v", "libx264",
+                "-preset", "fast",
+                "-crf", "23",
+                "-c:a", "aac",
+                "-b:a", "128k",
+                "-y",
+                std_path
+            ]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode != 0:
+                logging.error(f"Error standardizing video {rel_path}: {result.stderr}")
+                return False
+        
         if total_duration == 0:
             logging.error("Could not calculate total duration of videos")
             return False
             
-        logging.info(f"\nTotal expected duration: {total_duration:.2f} seconds")
+        # Create concat file
+        concat_file = os.path.join(temp_dir, "concat.txt")
+        with open(concat_file, 'w', encoding='utf-8') as f:
+            for std_file in standardized_files:
+                f.write(f"file '{os.path.basename(std_file)}'\n")
         
         # Create progress window
         progress_window = ProgressWindow("Merging Videos")
         progress_window.update_progress(0, total_duration, status="Starting merge process...")
         
-        # Merge videos with specific format settings
+        # Second pass: Concatenate standardized files
         cmd = [
             "ffmpeg",
             "-f", "concat",
             "-safe", "0",
-            "-i", list_path,
-            "-c:v", "libx264",     # Use H.264 codec
-            "-preset", "fast",      # Faster encoding
-            "-crf", "23",          # Good quality/size balance
-            "-c:a", "aac",         # AAC audio codec
-            "-b:a", "128k",        # Audio bitrate
-            "-movflags", "+faststart",  # Web playback optimization
-            "-max_muxing_queue_size", "1024",  # Increase queue size
-            "-y"                   # Overwrite output file
+            "-i", concat_file,
+            "-c", "copy",  # Just copy streams, no re-encoding
+            "-movflags", "+faststart",
+            "-y",
+            output_path
         ]
-        
-        # Add output path
-        cmd.append(output_path)
         
         # Run ffmpeg with progress monitoring
         process = subprocess.Popen(
@@ -463,20 +486,19 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,
-            bufsize=1
+            bufsize=1,
+            cwd=temp_dir  # Set working directory to temp_dir
         )
-
-        # Monitor the encoding progress through stderr
+        
+        # Monitor the encoding progress
         error_output = []
         while True:
             stderr_line = process.stderr.readline()
             if not stderr_line and process.poll() is not None:
                 break
                 
-            # Store error output
             error_output.append(stderr_line)
-                
-            # Parse progress information
+            
             if "time=" in stderr_line:
                 progress_data = parse_ffmpeg_progress(stderr_line)
                 if progress_data:
@@ -484,17 +506,16 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
                     speed = progress_data.get('speed', '')
                     size = progress_data.get('size', '')
                     
-                    # Update progress window
                     if progress_window:
                         status = f"Merging videos... ({current_duration:.1f}s / {total_duration:.1f}s)"
                         progress_window.update_progress(
-                            current_duration, 
+                            current_duration,
                             total_duration,
                             speed=speed,
                             size=size,
                             status=status
                         )
-
+        
         # Get the final status
         return_code = process.wait()
         
@@ -503,7 +524,7 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             logging.error(f"FFmpeg error: {error_msg}")
             if progress_window:
                 progress_window.update_progress(0, total_duration, status="Error in merge process!")
-                time.sleep(3)  # Show error briefly
+                time.sleep(3)
             return False
             
         # Verify output duration
@@ -514,7 +535,7 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             
         # Allow 5% tolerance for duration mismatch
         duration_diff = abs(output_duration - total_duration)
-        duration_tolerance = total_duration * 0.05  # 5% tolerance
+        duration_tolerance = total_duration * 0.05
         
         if duration_diff > duration_tolerance:
             logging.error(f"Output duration ({output_duration:.2f}s) doesn't match expected ({total_duration:.2f}s)")
@@ -522,7 +543,7 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             
         if progress_window:
             progress_window.update_progress(total_duration, total_duration, status="Merge completed successfully!")
-            time.sleep(2)  # Show completion message briefly
+            time.sleep(2)
             
         logging.info(f"Merge completed successfully! Final video duration: {output_duration:.2f} seconds")
         return True
@@ -531,16 +552,17 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         logging.error(f"Error merging videos: {str(e)}")
         if progress_window:
             progress_window.update_progress(0, total_duration, status=f"Error: {str(e)}")
-            time.sleep(3)  # Show error briefly
+            time.sleep(3)
         return False
     finally:
-        if os.path.exists(list_path):
-            try:
-                os.remove(list_path)
-            except:
-                pass
         if progress_window:
             progress_window.close()
+        # Clean up temp directory
+        try:
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
+        except:
+            pass
 
 def upload_to_youtube(youtube, video_path: str, title: str, description: str) -> Optional[Dict]:
     """Upload video to YouTube with improved error handling and retry logic."""
@@ -609,13 +631,28 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str) ->
         logging.error(f"Error uploading to YouTube: {str(e)}")
         return None
 
-def cleanup_and_save_link(folder_path: str, video_id: str, title: str):
-    """Save YouTube link and clean up files."""
-    link_file = os.path.join(folder_path, "youtube link.txt")
-    with open(link_file, 'w') as f:
-        f.write(f"Title: {title}\n")
-        f.write(f"URL: https://www.youtube.com/watch?v={video_id}\n")
-        f.write(f"Uploaded: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+def cleanup_and_save_link(folder_path: str, video_id: str) -> None:
+    """Save the YouTube link to a file and clean up temporary files."""
+    try:
+        # Create the YouTube link
+        youtube_link = f"https://youtu.be/{video_id}"
+        
+        # Save the link in the tutorial folder
+        link_file_path = os.path.join(folder_path, "youtube link.txt")
+        with open(link_file_path, "w") as f:
+            f.write(youtube_link)
+        logging.info(f"Saved YouTube link to: {link_file_path}")
+        
+        # Clean up any temporary files if they exist
+        temp_files = ["temp_merged.mp4", "temp_output.mp4"]
+        for temp_file in temp_files:
+            temp_path = os.path.join(folder_path, temp_file)
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+                logging.info(f"Cleaned up temporary file: {temp_path}")
+    except Exception as e:
+        logging.error(f"Error in cleanup_and_save_link: {str(e)}")
+        raise
 
 def delete_video_folders(tutorial_path: str) -> bool:
     """Delete all subfolders containing videos after successful upload."""
@@ -717,40 +754,26 @@ def process_tutorial_folder(tutorial_path: str, youtube: object):
         if os.path.exists(link_file):
             logging.info(f"Folder already processed (found youtube link.txt). Skipping: {tutorial_path}")
             return
-            
-        # Verify this is a level 4 tutorial folder
-        if not is_tutorial_folder(tutorial_path):
-            logging.error(f"Not a tutorial folder (level 4): {tutorial_path}")
-            return
-        
-        # Create temporary folder with shorter path if needed
-        original_folder_name = os.path.basename(tutorial_path)
-        if len(tutorial_path) > 200:  # Path is too long
-            temp_folder, original_folder_name = create_temp_folder_with_videos(tutorial_path)
-            if not temp_folder:
-                logging.error("Failed to create temporary folder")
-                return
-            working_path = temp_folder
-        else:
-            working_path = tutorial_path
         
         # Get videos from working path
-        video_files = collect_videos(working_path)
+        video_files = collect_videos(tutorial_path)
         if not video_files:
-            logging.error(f"No video files found in {working_path}")
+            logging.error(f"No video files found in {tutorial_path}")
             return
             
         logging.info(f"Found {len(video_files)} videos:")
         for _, rel_path in video_files:
             logging.info(f"  - {rel_path}")
         
-        # Get structured title using original folder name
+        # Get structured title
         title = get_structured_title(tutorial_path)
         logging.info(f"Generated title: {title}")
         
-        # Create merged file in the working folder
-        merged_filename = f"{shorten_folder_name(original_folder_name)}_merged.mp4"
-        merged_path = os.path.join(working_path, merged_filename)
+        # Create merged file in the tutorial folder
+        folder_name = os.path.basename(tutorial_path)
+        safe_name = re.sub(r'[^\w\s-]', '', folder_name).strip()[:50]
+        merged_filename = f"{safe_name}_merged.mp4"
+        merged_path = os.path.join(tutorial_path, merged_filename)
         
         logging.info("Starting video merge...")
         if not merge_videos(video_files, merged_path):
@@ -762,7 +785,7 @@ def process_tutorial_folder(tutorial_path: str, youtube: object):
         # Generate timestamps
         timestamps = generate_timestamps(video_files)
         description = "Tutorial Contents:\n\n" + timestamps
-        
+            
         # Upload with retries
         max_upload_attempts = 3
         upload_response = None
@@ -773,7 +796,7 @@ def process_tutorial_folder(tutorial_path: str, youtube: object):
                 upload_response = upload_to_youtube(youtube, merged_path, title, description)
                 if upload_response:
                     break
-                time.sleep(30)
+                time.sleep(60)  # Wait longer between attempts
             except Exception as e:
                 logging.error(f"Upload attempt {attempt + 1} failed: {str(e)}")
                 if attempt < max_upload_attempts - 1:
@@ -781,40 +804,45 @@ def process_tutorial_folder(tutorial_path: str, youtube: object):
                     time.sleep(60)
                 continue
         
-        if upload_response and upload_response.get('id'):
-            video_id = upload_response['id']
-            logging.info(f"Upload successful! Video ID: {video_id}")
+        if not upload_response or not upload_response.get('id'):
+            logging.error("Upload failed after all attempts")
+            return
             
-            # Save link file in the original tutorial folder
-            cleanup_and_save_link(tutorial_path, video_id, title)
-            logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
-            
-            # Only proceed with cleanup if we have a valid video ID and link file
-            link_file = os.path.join(tutorial_path, "youtube link.txt")
-            if os.path.exists(link_file):
-                # Delete all folders containing videos first
-                if delete_video_folders(tutorial_path):
-                    logging.info("Successfully deleted all video folders")
-                else:
-                    logging.error("Failed to delete some video folders")
-                    
-                # Clean up merged video file
-                try:
-                    os.remove(merged_path)
-                    logging.info(f"Cleaned up merged video file: {merged_path}")
-                except Exception as e:
-                    logging.warning(f"Could not clean up merged video: {str(e)}")
+        video_id = upload_response['id']
+        logging.info(f"Upload successful! Video ID: {video_id}")
+        
+        # Save link file in the tutorial folder
+        cleanup_and_save_link(tutorial_path, video_id)
+        logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
+        
+        # Only proceed with cleanup if we have a valid video ID and link file
+        if os.path.exists(link_file):
+            # Delete all folders containing videos
+            if delete_video_folders(tutorial_path):
+                logging.info("Successfully deleted all video folders")
             else:
-                logging.warning("Link file not created. Skipping cleanup to be safe.")
+                logging.error("Failed to delete some video folders")
+                
+            # Clean up merged video file
+            try:
+                os.remove(merged_path)
+                logging.info(f"Cleaned up merged video file: {merged_path}")
+            except Exception as e:
+                logging.warning(f"Could not clean up merged video: {str(e)}")
         else:
-            logging.error("Upload failed after all attempts. Keeping files for retry.")
+            logging.warning("Link file not created. Skipping cleanup to be safe.")
             
     except Exception as e:
         logging.error(f"Error processing tutorial folder: {str(e)}")
+        import traceback
+        logging.error(traceback.format_exc())
     finally:
         # Clean up temporary folder if it exists
-        if temp_folder:
-            cleanup_temp_folder(temp_folder)
+        if temp_folder and os.path.exists(temp_folder):
+            try:
+                shutil.rmtree(temp_folder)
+            except:
+                pass
 
 def find_tutorial_folders(parent_path: str) -> List[str]:
     """Find all tutorial folders under the given parent path."""
