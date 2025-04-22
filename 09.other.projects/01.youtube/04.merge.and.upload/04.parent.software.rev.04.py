@@ -273,18 +273,44 @@ def get_structured_title(path: str) -> str:
 
 def is_tutorial_folder(path: str) -> bool:
     """
-    Check if this is a level 4 tutorial folder (e.g. 'Google Slides Essential Training').
-    Path structure: .../05 Tutorials/level1/level2/level3/level4
+    Check if this is a tutorial folder.
+    A tutorial folder is either:
+    1. A level 4 folder under '05 Tutorials' (e.g. .../05 Tutorials/Google/Youtube/Lynda/Course Name)
+    2. A folder containing video files in a proper course structure
     """
     try:
         parts = Path(path).parts
-        # Find the index of "05 Tutorials"
+        
+        # First check: Is this a level 4 folder under '05 Tutorials'?
         for i, part in enumerate(parts):
             if part == "05 Tutorials":
-                # Check if we have exactly 4 levels after "05 Tutorials"
                 remaining_parts = parts[i+1:]
-                return len(remaining_parts) == 4
+                if len(remaining_parts) == 4:  # Exactly 4 levels after "05 Tutorials"
+                    return True
+        
+        # Second check: Does this folder contain video files in a course structure?
+        # Look for video files in subdirectories that match course patterns
+        video_count = 0
+        has_numbered_folders = False
+        
+        for root, dirs, files in os.walk(path):
+            # Check if any directory names start with numbers (common in courses)
+            if any(re.match(r'^\d+', d) for d in dirs):
+                has_numbered_folders = True
+            
+            # Count video files
+            video_count += sum(1 for f in files if f.lower().endswith(('.mp4', '.avi', '.mkv')))
+            
+            # If we find both numbered folders and videos, it's likely a course
+            if has_numbered_folders and video_count > 0:
+                return True
+            
+            # If we find a significant number of videos, it's likely a course
+            if video_count >= 5:
+                return True
+        
         return False
+        
     except Exception as e:
         logging.error(f"Error in is_tutorial_folder: {str(e)}")
         return False
@@ -309,23 +335,31 @@ def collect_videos(folder_path: str) -> List[Tuple[str, str]]:
         return []
 
 def get_video_duration(video_path: str) -> Optional[float]:
-    """Get video duration using ffprobe with better error handling."""
-    try:
-        result = subprocess.run(
-            ["ffprobe", "-v", "error", 
-             "-show_entries", "format=duration",
-             "-of", "default=noprint_wrappers=1:nokey=1", 
-             video_path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=True
-        )
-        duration = float(result.stdout.strip())
-        return duration
-    except Exception as e:
-        logging.warning(f"Could not get duration for {os.path.basename(video_path)}: {str(e)}")
-        return None
+    """Get video duration using ffprobe with better error handling and retries."""
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            result = subprocess.run(
+                ["ffprobe", "-v", "error", 
+                 "-show_entries", "format=duration",
+                 "-of", "default=noprint_wrappers=1:nokey=1", 
+                 video_path],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                check=True,
+                timeout=30  # Add timeout
+            )
+            duration = float(result.stdout.strip())
+            return duration
+        except subprocess.TimeoutExpired:
+            logging.warning(f"Timeout getting duration for {os.path.basename(video_path)}, attempt {attempt + 1}/{max_retries}")
+            if attempt == max_retries - 1:
+                return None
+            time.sleep(2)  # Wait before retry
+        except Exception as e:
+            logging.warning(f"Could not get duration for {os.path.basename(video_path)}: {str(e)}")
+            return None
 
 def generate_timestamps(video_files: List[Tuple[str, str]]) -> str:
     """Generate timestamps for video description with proper duration handling."""
@@ -382,7 +416,9 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         list_path = os.path.join(os.path.dirname(output_path), "file_list.txt")
         with open(list_path, 'w', encoding='utf-8') as f:
             for full_path, _ in video_files:
-                f.write(f"file '{full_path}'\n")
+                # Use escaped paths for ffmpeg
+                escaped_path = full_path.replace('\\', '/')
+                f.write(f"file '{escaped_path}'\n")
         
         # Calculate expected duration
         total_duration = 0
@@ -414,11 +450,12 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             "-c:a", "aac",         # AAC audio codec
             "-b:a", "128k",        # Audio bitrate
             "-movflags", "+faststart",  # Web playback optimization
-            "-stats",              # Print encoding progress
-            "-loglevel", "info",   # Show informative messages
-            output_path,
+            "-max_muxing_queue_size", "1024",  # Increase queue size
             "-y"                   # Overwrite output file
         ]
+        
+        # Add output path
+        cmd.append(output_path)
         
         # Run ffmpeg with progress monitoring
         process = subprocess.Popen(
@@ -430,10 +467,14 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         )
 
         # Monitor the encoding progress through stderr
+        error_output = []
         while True:
             stderr_line = process.stderr.readline()
             if not stderr_line and process.poll() is not None:
                 break
+                
+            # Store error output
+            error_output.append(stderr_line)
                 
             # Parse progress information
             if "time=" in stderr_line:
@@ -458,8 +499,8 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         return_code = process.wait()
         
         if return_code != 0:
-            error_output = process.stderr.read()
-            logging.error(f"FFmpeg error: {error_output}")
+            error_msg = '\n'.join(error_output)
+            logging.error(f"FFmpeg error: {error_msg}")
             if progress_window:
                 progress_window.update_progress(0, total_duration, status="Error in merge process!")
                 time.sleep(3)  # Show error briefly
@@ -471,8 +512,11 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             logging.error("Could not verify output video duration")
             return False
             
-        # Allow 5 second tolerance
-        if abs(output_duration - total_duration) > 5:
+        # Allow 5% tolerance for duration mismatch
+        duration_diff = abs(output_duration - total_duration)
+        duration_tolerance = total_duration * 0.05  # 5% tolerance
+        
+        if duration_diff > duration_tolerance:
             logging.error(f"Output duration ({output_duration:.2f}s) doesn't match expected ({total_duration:.2f}s)")
             return False
             
@@ -491,7 +535,10 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         return False
     finally:
         if os.path.exists(list_path):
-            os.remove(list_path)
+            try:
+                os.remove(list_path)
+            except:
+                pass
         if progress_window:
             progress_window.close()
 
@@ -770,43 +817,89 @@ def process_tutorial_folder(tutorial_path: str, youtube: object):
             cleanup_temp_folder(temp_folder)
 
 def find_tutorial_folders(parent_path: str) -> List[str]:
-    """Find all level 4 tutorial folders under the given parent path."""
+    """Find all tutorial folders under the given parent path."""
     tutorial_folders = []
     try:
-        # Walk through all subdirectories
-        for root, _, files in os.walk(parent_path):
-            # Check if this is a tutorial folder (level 4)
-            if is_tutorial_folder(root):
-                # Check if this folder has videos (directly or in subfolders)
-                has_videos = False
-                for _, _, fs in os.walk(root):
-                    if any(f.lower().endswith(('.mp4', '.avi', '.mkv')) for f in fs):
-                        has_videos = True
-                        break
-                if has_videos:
-                    tutorial_folders.append(root)
+        logging.info(f"\nScanning for tutorial folders in: {parent_path}")
+        
+        # First, look for direct tutorial folders (level 4)
+        if is_tutorial_folder(parent_path):
+            # Check if this folder has videos
+            has_videos = False
+            for root, _, files in os.walk(parent_path):
+                if any(f.lower().endswith(('.mp4', '.avi', '.mkv')) for f in files):
+                    has_videos = True
+                    break
+            if has_videos:
+                tutorial_folders.append(parent_path)
+                logging.info(f"Found tutorial folder: {parent_path}")
+        
+        # Then look for subfolders that might be tutorial folders
+        for root, dirs, _ in os.walk(parent_path):
+            for dir_name in dirs:
+                full_path = os.path.join(root, dir_name)
+                
+                # Skip if already processed
+                if os.path.exists(os.path.join(full_path, "youtube link.txt")):
+                    logging.info(f"Skipping already processed folder: {full_path}")
+                    continue
+                
+                # Check if this is a tutorial folder
+                if is_tutorial_folder(full_path):
+                    # Check if this folder has videos
+                    has_videos = False
+                    for _, _, files in os.walk(full_path):
+                        if any(f.lower().endswith(('.mp4', '.avi', '.mkv')) for f in files):
+                            has_videos = True
+                            break
+                    
+                    if has_videos:
+                        tutorial_folders.append(full_path)
+                        logging.info(f"Found tutorial folder: {full_path}")
+                    else:
+                        logging.info(f"Skipping folder with no videos: {full_path}")
+        
+        # Sort folders by path for consistent processing order
+        tutorial_folders.sort()
+        
+        if tutorial_folders:
+            logging.info(f"\nFound {len(tutorial_folders)} tutorial folders to process:")
+            for folder in tutorial_folders:
+                logging.info(f"  - {folder}")
+        else:
+            logging.warning("No tutorial folders with videos found")
+            
+        return tutorial_folders
+        
     except Exception as e:
         logging.error(f"Error finding tutorial folders: {str(e)}")
-    return sorted(tutorial_folders)
+        return []
 
 def process_folder(parent_path: str, youtube: object):
     """Process all tutorial folders under the given parent path."""
     try:
-        logging.info(f"Scanning for tutorial folders in: {parent_path}")
-        
         # Find all tutorial folders
         tutorial_folders = find_tutorial_folders(parent_path)
         
         if not tutorial_folders:
             logging.error("No tutorial folders with videos found")
             return
-            
-        logging.info(f"Found {len(tutorial_folders)} tutorial folders")
         
         # Process each tutorial folder
-        for tutorial_folder in tutorial_folders:
-            logging.info(f"\nProcessing tutorial: {tutorial_folder}")
-            process_tutorial_folder(tutorial_folder, youtube)
+        total_folders = len(tutorial_folders)
+        for i, tutorial_folder in enumerate(tutorial_folders, 1):
+            logging.info(f"\nProcessing tutorial {i}/{total_folders}: {tutorial_folder}")
+            
+            # Check if already processed
+            if os.path.exists(os.path.join(tutorial_folder, "youtube link.txt")):
+                logging.info("Folder already processed (found youtube link.txt). Skipping.")
+                continue
+                
+            try:
+                process_tutorial_folder(tutorial_folder, youtube)
+            except Exception as e:
+                logging.error(f"Error processing tutorial folder {tutorial_folder}: {str(e)}")
+                continue
             
     except Exception as e:
         logging.error(f"Error in process_folder: {str(e)}")
