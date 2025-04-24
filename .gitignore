@@ -391,3 +391,24 @@ token.json
 16.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).ipynb
 16.email/02.sum.and.reply/01.5.cells.complete.ipynb
 16.email/02.sum.and.reply/01.5.cells.complete.yasser-omar.ipynb
+09.other.projects/03.ats/06.fix.dep/02.process_pdfs_with_batch.py
+09.other.projects/03.ats/06.fix.dep/unmatched_records_report.txt
+
+# API keys, credentials and sensitive information
+**/creds.txt
+**/*.key
+**/*.pem
+**/*.pfx
+**/*.p12
+**/credentials.json
+**/client_secret*.json
+**/*config.json
+**/*.env*
+**/.env*
+**/token*.json
+**/secrets.yaml
+**/secrets.yml
+**/secrets.json
+**/password*.txt
+**/api_key*.txt
+**/auth_token*.txt

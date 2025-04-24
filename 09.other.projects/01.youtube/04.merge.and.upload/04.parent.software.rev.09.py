@@ -9,21 +9,22 @@ import re
 from datetime import datetime
 import subprocess
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple, Union
-import tkinter as tk
-from tkinter import ttk, messagebox
+from typing import List, Tuple, Dict, Optional
 from moviepy.editor import VideoFileClip, concatenate_videoclips
-import cv2
-import numpy as np
-from google.oauth2.credentials import Credentials
+import tkinter as tk
+from tkinter import ttk, filedialog, messagebox
+import threading
 from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.errors import HttpError
-import threading
 
-# Configure logging
+# OAuth 2.0 credentials
+SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+CLIENT_SECRETS_FILE = "client_secrets.json"
+
+# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -33,126 +34,274 @@ logging.basicConfig(
     ]
 )
 
-TOKEN_FILE = "token.json"
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
-
 class ProgressWindow:
-    def __init__(self, title="Progress", parent=None):
-        self.root = tk.Toplevel(parent) if parent else tk.Tk()
+    def __init__(self, title):
+        self.root = tk.Tk()
         self.root.title(title)
-        self.root.geometry("600x200")
+        self.root.geometry("400x150")
         
         # Center the window
-        self.root.update_idletasks()
-        width = self.root.winfo_width()
-        height = self.root.winfo_height()
-        x = (self.root.winfo_screenwidth() // 2) - (width // 2)
-        y = (self.root.winfo_screenheight() // 2) - (height // 2)
-        self.root.geometry(f'+{x}+{y}')
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        x = (screen_width - 400) // 2
+        y = (screen_height - 150) // 2
+        self.root.geometry(f"400x150+{x}+{y}")
         
-        # Make window stay on top
-        self.root.attributes('-topmost', True)
-        
-        # Create main frame
-        main_frame = ttk.Frame(self.root, padding="10")
-        main_frame.pack(fill=tk.BOTH, expand=True)
+        # Progress bar
+        self.progress = ttk.Progressbar(
+            self.root, orient="horizontal", length=300, mode="determinate"
+        )
+        self.progress.pack(pady=20)
         
         # Status label
         self.status_var = tk.StringVar(value="Initializing...")
-        self.status_label = ttk.Label(main_frame, textvariable=self.status_var)
-        self.status_label.pack(pady=(0, 5))
+        self.status_label = tk.Label(self.root, textvariable=self.status_var)
+        self.status_label.pack(pady=10)
         
-        # Progress bar
-        self.progress_var = tk.DoubleVar(value=0)
-        self.progress_bar = ttk.Progressbar(
-            main_frame, 
-            variable=self.progress_var,
-            maximum=100,
-            length=500
-        )
-        self.progress_bar.pack(pady=5)
-        
-        # Details frame
-        details_frame = ttk.LabelFrame(main_frame, text="Details", padding="5")
-        details_frame.pack(fill=tk.X, pady=5)
-        
-        # Time info
-        time_frame = ttk.Frame(details_frame)
-        time_frame.pack(fill=tk.X, pady=2)
-        
-        self.elapsed_var = tk.StringVar(value="Elapsed: 0:00:00")
-        self.remaining_var = tk.StringVar(value="Remaining: --:--:--")
-        
-        ttk.Label(time_frame, textvariable=self.elapsed_var).pack(side=tk.LEFT, padx=5)
-        ttk.Label(time_frame, textvariable=self.remaining_var).pack(side=tk.RIGHT, padx=5)
-        
-        # Stats frame
-        stats_frame = ttk.Frame(details_frame)
-        stats_frame.pack(fill=tk.X, pady=2)
-        
-        self.speed_var = tk.StringVar(value="Speed: --")
-        self.size_var = tk.StringVar(value="Size: --")
-        
-        ttk.Label(stats_frame, textvariable=self.speed_var).pack(side=tk.LEFT, padx=5)
-        ttk.Label(stats_frame, textvariable=self.size_var).pack(side=tk.RIGHT, padx=5)
+        # Time remaining label
+        self.time_var = tk.StringVar(value="")
+        self.time_label = tk.Label(self.root, textvariable=self.time_var)
+        self.time_label.pack(pady=5)
         
         self.start_time = time.time()
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.allow_close = False
-
-    def on_closing(self):
-        if self.allow_close:
-            self.root.destroy()
-
-    def update_progress(self, current: float, total: float, 
-                       speed: str = "", size: str = "", status: str = None):
+        
+    def update_progress(self, current: float, total: float, status: str = None):
+        """Update progress bar and status."""
+        if not self.root:
+            return
+            
+        progress = (current / total) * 100
+        self.progress["value"] = progress
+        
         if status:
             self.status_var.set(status)
-        
-        progress = (current / total * 100) if total > 0 else 0
-        self.progress_var.set(progress)
-        
-        elapsed = time.time() - self.start_time
-        elapsed_str = time.strftime('%H:%M:%S', time.gmtime(elapsed))
-        self.elapsed_var.set(f"Elapsed: {elapsed_str}")
-        
-        if progress > 0:
-            total_estimated = elapsed / (progress / 100)
-            remaining = total_estimated - elapsed
-            remaining_str = time.strftime('%H:%M:%S', time.gmtime(remaining))
-            self.remaining_var.set(f"Remaining: {remaining_str}")
-        
-        if speed:
-            self.speed_var.set(f"Speed: {speed}")
-        if size:
-            self.size_var.set(f"Size: {size}")
-        
-        self.root.update()
-
-    def close(self):
-        self.allow_close = True
-        self.root.destroy()
-
-def get_video_info(video_path: str) -> Optional[Dict]:
-    """Get video information using OpenCV."""
-    try:
-        cap = cv2.VideoCapture(video_path)
-        if not cap.isOpened():
-            return None
             
-        info = {
-            'width': int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
-            'height': int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),
-            'fps': cap.get(cv2.CAP_PROP_FPS),
-            'frame_count': int(cap.get(cv2.CAP_PROP_FRAME_COUNT)),
-            'fourcc': int(cap.get(cv2.CAP_PROP_FOURCC)),
-            'duration': int(cap.get(cv2.CAP_PROP_FRAME_COUNT) / cap.get(cv2.CAP_PROP_FPS))
-        }
-        cap.release()
-        return info
-    except Exception as e:
-        logging.error(f"Error getting video info: {str(e)}")
-        return None
+        # Calculate and show estimated time remaining
+        if progress > 0:
+            elapsed = time.time() - self.start_time
+            total_time = elapsed * (100 / progress)
+            remaining = total_time - elapsed
+            
+            if remaining > 60:
+                time_str = f"Estimated time remaining: {remaining/60:.1f} minutes"
+            else:
+                time_str = f"Estimated time remaining: {remaining:.0f} seconds"
+                
+            self.time_var.set(time_str)
+            
+        self.root.update()
+        
+    def close(self):
+        """Close the progress window."""
+        if self.root:
+            self.root.destroy()
+            self.root = None
+
+class VideoMergerApp:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Video Merger & YouTube Uploader")
+        self.root.geometry("800x600")
+        
+        # Center the window
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        x = (screen_width - 800) // 2
+        y = (screen_height - 600) // 2
+        self.root.geometry(f"800x600+{x}+{y}")
+        
+        self.create_widgets()
+        self.selected_files = []
+        self.output_path = None
+        
+    def create_widgets(self):
+        # Main frame
+        main_frame = ttk.Frame(self.root, padding="10")
+        main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+        
+        # Source folder selection
+        ttk.Label(main_frame, text="Source Folder:").grid(row=0, column=0, sticky=tk.W, pady=5)
+        self.source_path = tk.StringVar()
+        source_entry = ttk.Entry(main_frame, textvariable=self.source_path, width=60)
+        source_entry.grid(row=0, column=1, padx=5)
+        ttk.Button(main_frame, text="Browse", command=self.browse_source).grid(row=0, column=2)
+        
+        # Files listbox
+        ttk.Label(main_frame, text="Available Videos:").grid(row=1, column=0, sticky=tk.W, pady=5)
+        self.files_listbox = tk.Listbox(main_frame, width=70, height=15, selectmode=tk.MULTIPLE)
+        self.files_listbox.grid(row=2, column=0, columnspan=3, sticky=(tk.W, tk.E))
+        
+        # Scrollbar for listbox
+        scrollbar = ttk.Scrollbar(main_frame, orient=tk.VERTICAL, command=self.files_listbox.yview)
+        scrollbar.grid(row=2, column=3, sticky=(tk.N, tk.S))
+        self.files_listbox.configure(yscrollcommand=scrollbar.set)
+        
+        # Output path selection
+        ttk.Label(main_frame, text="Output Folder:").grid(row=3, column=0, sticky=tk.W, pady=5)
+        self.output_folder = tk.StringVar()
+        output_entry = ttk.Entry(main_frame, textvariable=self.output_folder, width=60)
+        output_entry.grid(row=3, column=1, padx=5)
+        ttk.Button(main_frame, text="Browse", command=self.browse_output).grid(row=3, column=2)
+        
+        # YouTube upload options
+        youtube_frame = ttk.LabelFrame(main_frame, text="YouTube Upload Options", padding="5")
+        youtube_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E), pady=10)
+        
+        ttk.Label(youtube_frame, text="Title:").grid(row=0, column=0, sticky=tk.W)
+        self.video_title = tk.StringVar()
+        ttk.Entry(youtube_frame, textvariable=self.video_title, width=60).grid(row=0, column=1, padx=5)
+        
+        ttk.Label(youtube_frame, text="Description:").grid(row=1, column=0, sticky=tk.W)
+        self.video_desc = tk.Text(youtube_frame, width=45, height=3)
+        self.video_desc.grid(row=1, column=1, padx=5, pady=5)
+        
+        # Buttons
+        button_frame = ttk.Frame(main_frame)
+        button_frame.grid(row=5, column=0, columnspan=3, pady=10)
+        
+        ttk.Button(button_frame, text="Merge Videos", command=self.merge_selected).pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text="Upload to YouTube", command=self.upload_to_youtube).pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text="Exit", command=self.root.quit).pack(side=tk.LEFT, padx=5)
+        
+    def browse_source(self):
+        folder = filedialog.askdirectory(
+            initialdir="\\\\fileserver2\\Head Office Server\\Projects Control (PC)\\10 Backup\\05 Tutorials\\Google\\Maps-Test",
+            title="Select Source Folder"
+        )
+        if folder:
+            self.source_path.set(folder)
+            self.update_file_list()
+            
+    def browse_output(self):
+        folder = filedialog.askdirectory(title="Select Output Folder")
+        if folder:
+            self.output_folder.set(folder)
+            
+    def update_file_list(self):
+        self.files_listbox.delete(0, tk.END)
+        folder = self.source_path.get()
+        if folder:
+            for file in sorted(glob.glob(os.path.join(folder, "**/*.mp4"), recursive=True)):
+                self.files_listbox.insert(tk.END, os.path.relpath(file, folder))
+                
+    def merge_selected(self):
+        selected_indices = self.files_listbox.curselection()
+        if not selected_indices:
+            messagebox.showwarning("Warning", "Please select videos to merge")
+            return
+            
+        if not self.output_folder.get():
+            messagebox.showwarning("Warning", "Please select output folder")
+            return
+            
+        # Get selected files
+        source_folder = self.source_path.get()
+        video_files = []
+        for idx in selected_indices:
+            filename = self.files_listbox.get(idx)
+            full_path = os.path.join(source_folder, filename)
+            video_files.append((full_path, filename))
+            
+        # Create output filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_path = os.path.join(self.output_folder.get(), f"merged_{timestamp}.mp4")
+        self.output_path = output_path
+        
+        # Start merge in a separate thread
+        thread = threading.Thread(target=self._merge_thread, args=(video_files, output_path))
+        thread.start()
+        
+    def _merge_thread(self, video_files: List[Tuple[str, str]], output_path: str):
+        if merge_videos(video_files, output_path):
+            self.root.after(0, lambda: messagebox.showinfo("Success", 
+                f"Videos merged successfully!\nSaved to: {output_path}"))
+        else:
+            self.root.after(0, lambda: messagebox.showerror("Error", 
+                "Failed to merge videos. Check the log file for details."))
+                
+    def get_credentials(self):
+        creds = None
+        if os.path.exists('token.json'):
+            try:
+                creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+            except Exception:
+                pass
+                
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
+                creds = flow.run_local_server(port=0)
+                
+            with open('token.json', 'w') as token:
+                token.write(creds.to_json())
+                
+        return creds
+        
+    def upload_to_youtube(self):
+        if not self.output_path or not os.path.exists(self.output_path):
+            messagebox.showwarning("Warning", "Please merge videos first")
+            return
+            
+        if not os.path.exists(CLIENT_SECRETS_FILE):
+            messagebox.showerror("Error", 
+                f"Missing {CLIENT_SECRETS_FILE}. Please obtain it from Google Cloud Console.")
+            return
+            
+        title = self.video_title.get()
+        description = self.video_desc.get("1.0", tk.END).strip()
+        
+        if not title:
+            messagebox.showwarning("Warning", "Please enter a video title")
+            return
+            
+        # Start upload in a separate thread
+        thread = threading.Thread(target=self._upload_thread, args=(title, description))
+        thread.start()
+        
+    def _upload_thread(self, title: str, description: str):
+        try:
+            creds = self.get_credentials()
+            youtube = build('youtube', 'v3', credentials=creds)
+            
+            body = {
+                'snippet': {
+                    'title': title,
+                    'description': description,
+                    'categoryId': '22'  # People & Blogs
+                },
+                'status': {
+                    'privacyStatus': 'private'
+                }
+            }
+            
+            insert_request = youtube.videos().insert(
+                part=','.join(body.keys()),
+                body=body,
+                media_body=MediaFileUpload(
+                    self.output_path,
+                    chunksize=-1,
+                    resumable=True
+                )
+            )
+            
+            response = None
+            while response is None:
+                status, response = insert_request.next_chunk()
+                if status:
+                    self.root.after(0, lambda: messagebox.showinfo("Upload Status", 
+                        f"Upload is {int(status.progress() * 100)}% complete..."))
+                    
+            self.root.after(0, lambda: messagebox.showinfo("Success", 
+                f"Upload Complete!\nVideo ID: {response['id']}"))
+                
+        except HttpError as e:
+            self.root.after(0, lambda: messagebox.showerror("Error", 
+                f"An HTTP error occurred: {e.resp.status} {e.content}"))
+        except Exception as e:
+            self.root.after(0, lambda: messagebox.showerror("Error", 
+                f"An error occurred: {str(e)}"))
 
 def videos_are_compatible(video_paths: List[str]) -> bool:
     """Check if videos can be directly concatenated."""
@@ -349,6 +498,5 @@ def test_merge():
         print("\nError: Video merge failed. Check the log file for details.")
 
 if __name__ == "__main__":
-    test_merge()
-
-[... Rest of the code from rev.08 remains the same ...] 
+    app = VideoMergerApp()
+    app.root.mainloop()
