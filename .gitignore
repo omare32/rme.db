@@ -414,3 +414,12 @@ token.json
 **/api_key*.txt
 **/auth_token*.txt
 16.email/02.sum.and.reply/01.5.cells.complete.new.api.ipynb
+09.other.projects/03.ats/04.ats-old/app.py
+09.other.projects/03.ats/07.last.working/02.process_pdfs_with_batch.py
+09.other.projects/03.ats/07.last.working/02.process_pdfs.py
+09.other.projects/03.ats/07.last.working/02b.process_ocr_with_gpt.py
+09.other.projects/03.ats/07.last.working/02a.extract_ocr_text.py
+09.other.projects/03.ats/07.last.working/fix_unmatched_with_gpt.py
+09.other.projects/03.ats/07.last.working/get_unmatched_records.py
+09.other.projects/03.ats/07.last.working/fix.jobs.departments.py
+09.other.projects/03.ats/07.last.working/fix_non_standard_values.py

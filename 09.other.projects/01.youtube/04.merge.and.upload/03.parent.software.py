@@ -50,22 +50,10 @@ def get_authenticated_service(client_secrets_file: str):
     return build('youtube', 'v3', credentials=creds)
 
 def get_structured_title(input_path: str) -> str:
-    """Generate a structured title from the folder path."""
+    """Return the last 4 parts of the path, joined by ' - ', in order from outermost to innermost."""
     try:
-        # Convert path to Path object
         path = Path(input_path)
-        parts = []
-        
-        # Walk up the path until we hit 'tutorials' or 'backup'
-        current = path
-        while current.name.lower() not in ['tutorials', 'backup']:
-            if current.name:  # Skip empty parts
-                parts.insert(0, current.name)
-            if current.parent == current:  # Root reached
-                break
-            current = current.parent
-        
-        # Join all parts with ' - '
+        parts = list(path.parts)[-4:]
         return ' - '.join(parts)
     except Exception as e:
         logging.error(f"Error in get_structured_title: {str(e)}")
@@ -215,20 +203,46 @@ def process_folder(folder_path: str, client_secrets_file: str):
     except Exception as e:
         logging.error(f"Error processing folder: {str(e)}")
 
+def find_leaf_folders(root_folder: str) -> list:
+    """Find all leaf (tutorial) folders under the root_folder (folders with video files, no subfolders with video files)."""
+    leaf_folders = []
+    for dirpath, dirnames, filenames in os.walk(root_folder):
+        # Check if this folder has video files
+        has_videos = any(f.lower().endswith((".mp4", ".avi", ".mkv")) for f in filenames)
+        # Check if any subfolder has video files
+        subfolders_with_videos = False
+        for d in dirnames:
+            subfolder = os.path.join(dirpath, d)
+            for _, _, subfiles in os.walk(subfolder):
+                if any(f.lower().endswith((".mp4", ".avi", ".mkv")) for f in subfiles):
+                    subfolders_with_videos = True
+                    break
+            if subfolders_with_videos:
+                break
+        if has_videos and not subfolders_with_videos:
+            leaf_folders.append(dirpath)
+    return leaf_folders
+
 def main():
-    # Get folder path
-    folder_path = input("Enter folder path: ")
-    if not os.path.exists(folder_path):
+    # Get root folder path
+    root_folder = input("Enter root folder path: ")
+    if not os.path.exists(root_folder):
         print("Path does not exist")
         return
-        
     # Get client secrets file
     client_secrets_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "client_secret.json")
     if not os.path.exists(client_secrets_file):
         print("Client secrets file not found")
         return
-        
-    process_folder(folder_path, client_secrets_file)
+    # Find all leaf (tutorial) folders
+    leaf_folders = find_leaf_folders(root_folder)
+    if not leaf_folders:
+        print("No tutorial folders found.")
+        return
+    print(f"Found {len(leaf_folders)} tutorial folders.")
+    for folder in leaf_folders:
+        print(f"Processing: {folder}")
+        process_folder(folder, client_secrets_file)
 
 if __name__ == "__main__":
     main()
