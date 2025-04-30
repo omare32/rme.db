@@ -34,6 +34,7 @@ TOKEN_FILE = "token.json"
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['PYTHONHTTPSVERIFY'] = '0'
 
 ssl._create_default_https_context = ssl._create_unverified_context
 

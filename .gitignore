@@ -423,3 +423,7 @@ token.json
 09.other.projects/03.ats/07.last.working/get_unmatched_records.py
 09.other.projects/03.ats/07.last.working/fix.jobs.departments.py
 09.other.projects/03.ats/07.last.working/fix_non_standard_values.py
+09.other.projects/03.ats/08.after.more.columns/02b.process_ocr_with_gpt.py
+.gitignore
+09.other.projects/03.ats/08.after.more.columns/02.process_pdfs.py
+09.other.projects/03.ats/08.after.more.columns/02.process_pdfs_with_batch.py
