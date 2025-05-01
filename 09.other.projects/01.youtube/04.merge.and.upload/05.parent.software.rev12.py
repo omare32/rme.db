@@ -64,9 +64,10 @@ def get_structured_title(input_path: str) -> str:
         return os.path.basename(input_path)
 
 def collect_videos(folder_path: str) -> List[Tuple[str, str]]:
-    """Collect all videos from folder and subfolders."""
+    """Collect all videos from folder and subfolders, supporting more extensions."""
     video_files = []
-    for ext in ('*.mp4', '*.avi', '*.mkv'):
+    extensions = ('*.mp4', '*.avi', '*.mkv', '*.mov', '*.flv')
+    for ext in extensions:
         for file_path in glob.glob(os.path.join(folder_path, "**", ext), recursive=True):
             rel_path = os.path.relpath(file_path, folder_path)
             video_files.append((file_path, rel_path))
@@ -95,6 +96,45 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
     finally:
         if os.path.exists('file_list.txt'):
             os.remove('file_list.txt')
+
+def convert_video(input_path: str, output_path: str) -> bool:
+    """Convert a video to mp4 (h264/aac)."""
+    try:
+        cmd = [
+            'ffmpeg',
+            '-i', input_path,
+            '-vf', 'scale=-2:720',
+            '-r', '30',
+            '-c:v', 'libx264',
+            '-preset', 'fast',
+            '-crf', '23',
+            '-c:a', 'aac',
+            '-b:a', '128k',
+            '-y',
+            output_path
+        ]
+        process = subprocess.run(cmd, capture_output=True, text=True)
+        if process.returncode != 0:
+            logging.error(f"Error converting {input_path}: {process.stderr}")
+        return process.returncode == 0
+    except Exception as e:
+        logging.error(f"Exception converting {input_path}: {str(e)}")
+        return False
+
+def convert_all_videos(video_files: List[Tuple[str, str]], converted_dir: str) -> List[Tuple[str, str]]:
+    """Convert all videos to mp4 in converted_dir, return new list of (full_path, rel_path)."""
+    os.makedirs(converted_dir, exist_ok=True)
+    converted_files = []
+    for full_path, rel_path in video_files:
+        base_name = os.path.splitext(rel_path)[0] + '.mp4'
+        out_path = os.path.join(converted_dir, base_name)
+        out_dir = os.path.dirname(out_path)
+        os.makedirs(out_dir, exist_ok=True)
+        if convert_video(full_path, out_path):
+            converted_files.append((out_path, rel_path))
+        else:
+            logging.error(f"Failed to convert {full_path}")
+    return converted_files
 
 def generate_timestamps(video_files: List[Tuple[str, str]]) -> str:
     """Generate timestamps for video description."""
@@ -145,8 +185,8 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str) ->
         logging.error(f"Error uploading to YouTube: {str(e)}")
         return None
 
-def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_path: str):
-    """Save YouTube link, delete merged video and all original videos/folders, leaving only the link file."""
+def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_path: str, converted_dir: Optional[str] = None):
+    """Save YouTube link, delete merged video and all original videos/folders, leaving only the link file. Also remove converted_videos if present."""
     link_file = os.path.join(folder_path, "youtube link.txt")
     with open(link_file, 'w') as f:
         f.write(f"Title: {title}\n")
@@ -162,25 +202,26 @@ def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_pa
             continue
         if os.path.isdir(item_path):
             shutil.rmtree(item_path)
-        elif item_path.endswith(('.mp4', '.avi', '.mkv')):
+        elif item_path.endswith(('.mp4', '.avi', '.mkv', '.mov', '.flv')):
             os.remove(item_path)
+    # Remove converted_videos folder if present
+    if converted_dir and os.path.exists(converted_dir):
+        shutil.rmtree(converted_dir)
 
 def get_video_duration(video_path: str) -> float:
     """Return duration of video in seconds using ffmpeg.probe."""
     try:
         probe = ffmpeg.probe(video_path)
-        # Find the first video stream with a duration
         for stream in probe['streams']:
             if 'duration' in stream:
                 return float(stream['duration'])
-        # Fallback to format duration
         return float(probe['format']['duration'])
     except Exception as e:
         logging.error(f"Error getting duration for {video_path}: {str(e)}")
         return 0.0
 
 def process_folder(folder_path: str, client_secrets_file: str):
-    """Process a folder of videos."""
+    """Process a folder of videos. If total duration > 10 hours, split and upload as two videos. Support more video formats and conversion if merge fails."""
     try:
         logging.info(f"Processing folder: {folder_path}")
         video_files = collect_videos(folder_path)
@@ -188,28 +229,57 @@ def process_folder(folder_path: str, client_secrets_file: str):
             logging.error("No video files found")
             return
         logging.info(f"Found {len(video_files)} videos")
-        title = get_structured_title(folder_path)
-        logging.info(f"Generated title: {title}")
-        merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged.mp4")
-        if not merge_videos(video_files, merged_path):
-            logging.error("Failed to merge videos")
-            return
-        logging.info("Videos merged successfully")
-        # Check merged video duration
-        duration = get_video_duration(merged_path)
-        if duration > 43200:  # 12 hours in seconds
-            logging.warning(f"Merged video is too long ({duration/3600:.2f} hours). Skipping upload and cleanup for: {merged_path}")
-            return
-        timestamps = generate_timestamps(video_files)
-        description = "Tutorial Contents:\n\n" + timestamps
-        youtube = get_authenticated_service(client_secrets_file)
-        video_id = upload_to_youtube(youtube, merged_path, title, description)
-        if video_id:
-            logging.info(f"Upload successful! Video ID: {video_id}")
-            cleanup_and_save_link(folder_path, video_id, title, merged_path)
-            logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
+        # Calculate total duration
+        total_duration = 0
+        durations = []
+        for file, _ in video_files:
+            d = get_video_duration(file)
+            durations.append(d)
+            total_duration += d
+        logging.info(f"Total duration: {total_duration/3600:.2f} hours")
+        title_base = get_structured_title(folder_path)
+        logging.info(f"Generated title: {title_base}")
+        # If total duration > 10 hours, split
+        if total_duration > 36000 and len(video_files) > 1:
+            mid = len(video_files) // 2
+            splits = [(video_files[:mid], durations[:mid], '01'), (video_files[mid:], durations[mid:], '02')]
         else:
-            logging.error("Upload failed")
+            splits = [(video_files, durations, None)]
+        for idx, (split_files, split_durations, suffix) in enumerate(splits):
+            merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged{suffix or ''}.mp4")
+            # Try direct merge first
+            merged_ok = merge_videos(split_files, merged_path)
+            converted_dir = None
+            if not merged_ok:
+                logging.warning(f"Direct merge failed for part {suffix or 'single'}. Attempting conversion.")
+                # Convert all to mp4 in a subfolder
+                converted_dir = os.path.join(folder_path, 'converted_videos')
+                converted_files = convert_all_videos(split_files, converted_dir)
+                if not converted_files:
+                    logging.error(f"Conversion failed for all videos in part {suffix or 'single'}.")
+                    continue
+                merged_ok = merge_videos([(f, r) for f, r in converted_files], merged_path)
+                if not merged_ok:
+                    logging.error(f"Failed to merge even after conversion for part {suffix or 'single'}")
+                    continue
+                split_files = [(f, r) for f, r in converted_files]  # For timestamps
+            logging.info(f"Videos merged successfully for part {suffix or 'single'}")
+            # Check merged video duration (should be < 12h, but check anyway)
+            duration = get_video_duration(merged_path)
+            if duration > 43200:
+                logging.warning(f"Merged video is too long ({duration/3600:.2f} hours). Skipping upload and cleanup for: {merged_path}")
+                continue
+            timestamps = generate_timestamps(split_files)
+            description = "Tutorial Contents:\n\n" + timestamps
+            title = title_base if not suffix else f"{title_base} {suffix}"
+            youtube = get_authenticated_service(client_secrets_file)
+            video_id = upload_to_youtube(youtube, merged_path, title, description)
+            if video_id:
+                logging.info(f"Upload successful! Video ID: {video_id}")
+                cleanup_and_save_link(folder_path, video_id, title, merged_path, converted_dir)
+                logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
+            else:
+                logging.error(f"Upload failed for part {suffix or 'single'}")
     except Exception as e:
         logging.error(f"Error processing folder: {str(e)}")
 

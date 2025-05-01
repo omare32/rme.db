@@ -180,7 +180,7 @@ def get_video_duration(video_path: str) -> float:
         return 0.0
 
 def process_folder(folder_path: str, client_secrets_file: str):
-    """Process a folder of videos."""
+    """Process a folder of videos. If total duration > 10 hours, split and upload as two videos."""
     try:
         logging.info(f"Processing folder: {folder_path}")
         video_files = collect_videos(folder_path)
@@ -188,28 +188,44 @@ def process_folder(folder_path: str, client_secrets_file: str):
             logging.error("No video files found")
             return
         logging.info(f"Found {len(video_files)} videos")
-        title = get_structured_title(folder_path)
-        logging.info(f"Generated title: {title}")
-        merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged.mp4")
-        if not merge_videos(video_files, merged_path):
-            logging.error("Failed to merge videos")
-            return
-        logging.info("Videos merged successfully")
-        # Check merged video duration
-        duration = get_video_duration(merged_path)
-        if duration > 43200:  # 12 hours in seconds
-            logging.warning(f"Merged video is too long ({duration/3600:.2f} hours). Skipping upload and cleanup for: {merged_path}")
-            return
-        timestamps = generate_timestamps(video_files)
-        description = "Tutorial Contents:\n\n" + timestamps
-        youtube = get_authenticated_service(client_secrets_file)
-        video_id = upload_to_youtube(youtube, merged_path, title, description)
-        if video_id:
-            logging.info(f"Upload successful! Video ID: {video_id}")
-            cleanup_and_save_link(folder_path, video_id, title, merged_path)
-            logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
+        # Calculate total duration
+        total_duration = 0
+        durations = []
+        for file, _ in video_files:
+            d = get_video_duration(file)
+            durations.append(d)
+            total_duration += d
+        logging.info(f"Total duration: {total_duration/3600:.2f} hours")
+        title_base = get_structured_title(folder_path)
+        logging.info(f"Generated title: {title_base}")
+        # If total duration > 10 hours, split
+        if total_duration > 36000 and len(video_files) > 1:
+            mid = len(video_files) // 2
+            splits = [(video_files[:mid], durations[:mid], '01'), (video_files[mid:], durations[mid:], '02')]
         else:
-            logging.error("Upload failed")
+            splits = [(video_files, durations, None)]
+        for idx, (split_files, split_durations, suffix) in enumerate(splits):
+            merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged{suffix or ''}.mp4")
+            if not merge_videos(split_files, merged_path):
+                logging.error(f"Failed to merge videos for part {suffix or 'single'}")
+                continue
+            logging.info(f"Videos merged successfully for part {suffix or 'single'}")
+            # Check merged video duration (should be < 12h, but check anyway)
+            duration = get_video_duration(merged_path)
+            if duration > 43200:
+                logging.warning(f"Merged video is too long ({duration/3600:.2f} hours). Skipping upload and cleanup for: {merged_path}")
+                continue
+            timestamps = generate_timestamps(split_files)
+            description = "Tutorial Contents:\n\n" + timestamps
+            title = title_base if not suffix else f"{title_base} {suffix}"
+            youtube = get_authenticated_service(client_secrets_file)
+            video_id = upload_to_youtube(youtube, merged_path, title, description)
+            if video_id:
+                logging.info(f"Upload successful! Video ID: {video_id}")
+                cleanup_and_save_link(folder_path, video_id, title, merged_path)
+                logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
+            else:
+                logging.error(f"Upload failed for part {suffix or 'single'}")
     except Exception as e:
         logging.error(f"Error processing folder: {str(e)}")
 
