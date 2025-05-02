@@ -18,6 +18,7 @@ from googleapiclient.http import MediaFileUpload
 import tkinter as tk
 from tkinter import filedialog
 import ssl
+import string
 
 # Configure logging
 logging.basicConfig(
@@ -84,7 +85,7 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
             output_path,
             '-y'
         ]
-        process = subprocess.run(cmd, capture_output=True, text=True)
+        process = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
         return process.returncode == 0
     except Exception as e:
         logging.error(f"Error merging videos: {str(e)}")
@@ -108,7 +109,7 @@ def convert_video(input_path: str, output_path: str) -> bool:
             '-y',
             output_path
         ]
-        process = subprocess.run(cmd, capture_output=True, text=True)
+        process = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
         if process.returncode != 0:
             logging.error(f"Error converting {input_path}: {process.stderr}")
         return process.returncode == 0
@@ -226,6 +227,13 @@ def get_video_duration(video_path: str) -> float:
         logging.error(f"Error getting duration for {video_path}: {str(e)}")
         return 0.0
 
+def sanitize_title(title):
+    # Remove non-printable characters
+    printable = set(string.printable)
+    title = ''.join(filter(lambda x: x in printable, title))
+    # Truncate to 100 chars
+    return title[:100]
+
 def process_folder(folder_path: str, client_secrets_file: str):
     try:
         logging.info(f"Processing folder: {folder_path}")
@@ -243,6 +251,8 @@ def process_folder(folder_path: str, client_secrets_file: str):
             total_duration += d
         logging.info(f"Total duration: {total_duration/3600:.2f} hours")
         title_base = get_structured_title(folder_path)
+        if not title_base or not title_base.strip():
+            title_base = os.path.basename(folder_path)
         logging.info(f"Generated title: {title_base}")
         # If total duration > 10 hours, split
         if total_duration > 36000 and len(video_files) > 1:
@@ -287,6 +297,14 @@ def process_folder(folder_path: str, client_secrets_file: str):
             timestamps = generate_timestamps(split_files)
             description = "Tutorial Contents:\n\n" + timestamps
             title = title_base if not suffix else f"{title_base} {suffix}"
+            title = title.strip()
+            if not title:
+                title = os.path.basename(folder_path)
+            title = sanitize_title(title)
+            logging.info(f"Uploading with title: '{title}' (length: {len(title)})")
+            if not title or not title.strip():
+                title = os.path.basename(folder_path)[:100]
+                logging.warning(f"Title was empty after sanitization, using fallback: '{title}'")
             youtube = get_authenticated_service(client_secrets_file)
             video_id = upload_to_youtube(youtube, merged_path, title, description)
             if video_id:
