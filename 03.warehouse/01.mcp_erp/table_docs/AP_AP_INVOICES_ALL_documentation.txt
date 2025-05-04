@@ -1,0 +1,667 @@
+Documentation log for AP.AP_INVOICES_ALL
+
+
+--- Prompt for group 1 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 1 of 10):
+['INVOICE_ID', 'LAST_UPDATE_DATE', 'LAST_UPDATED_BY', 'VENDOR_ID', 'INVOICE_NUM', 'SET_OF_BOOKS_ID', 'INVOICE_CURRENCY_CODE', 'PAYMENT_CURRENCY_CODE', 'PAYMENT_CROSS_RATE', 'INVOICE_AMOUNT', 'VENDOR_SITE_ID', 'AMOUNT_PAID', 'DISCOUNT_AMOUNT_TAKEN', 'INVOICE_DATE', 'SOURCE', 'INVOICE_TYPE_LOOKUP_CODE', 'DESCRIPTION', 'BATCH_ID', 'AMOUNT_APPLICABLE_TO_DISCOUNT', 'TAX_AMOUNT']
+
+Sample data (10 random rows, long values truncated):
+ INVOICE_ID    LAST_UPDATE_DATE  LAST_UPDATED_BY  VENDOR_ID             INVOICE_NUM  SET_OF_BOOKS_ID INVOICE_CURRENCY_CODE PAYMENT_CURRENCY_CODE  PAYMENT_CROSS_RATE  INVOICE_AMOUNT  VENDOR_SITE_ID  AMOUNT_PAID  DISCOUNT_AMOUNT_TAKEN INVOICE_DATE               SOURCE INVOICE_TYPE_LOOKUP_CODE             DESCRIPTION  BATCH_ID  AMOUNT_APPLICABLE_TO_DISCOUNT TAX_AMOUNT
+    3286174 2023-02-28 16:04:26             1672       3021                   56189             2030                   EGP                   EGP                   1     881459.9972           76053  881459.9972                    NaN   2023-02-28 Manual Invoice Entry                 STANDARD وادى النطرون بشاى ف/...       NaN                    773210.5239       None
+     317409 2018-08-13 11:43:21             3259      75513             5/10/7/2018             2028                   USD                   USD                   1        880.0000           80572     880.0000                    0.0   2018-07-30 Manual Invoice Entry                 STANDARD                    None       NaN                       880.0000       None
+     238439 2017-06-01 11:57:13             1371      54273              1/5/3/2017             2028                   MZN                   MZN                   1    1362501.0000           64061 1362501.0000                    0.0   2017-03-01 Manual Invoice Entry                 STANDARD                    None       NaN                   1362501.0000       None
+    1800755 2021-12-13 14:57:13             5725      52240               St-12-76.             2127                   EGP                   EGP                   1     -67800.0000          197569  -67800.0000                    0.0   2021-12-12 Manual Invoice Entry                   CREDIT تسويه عهده يوسف  شرا...       NaN                    -67800.0000       None
+     317423 2018-08-07 09:21:23             1352      54397                      16             2026                   EUR                   EUR                   1          0.0000           64528          NaN                    NaN   2018-07-01 Manual Invoice Entry                 STANDARD  امر توريد 31 ايسلفا...   14027.0                            NaN       None
+    3124213 2022-09-05 12:44:25             2983      52240 ايجارات ش9 - 22-Self...             2030                   EGP                   EGP                   1       3300.0000          416081    3300.0000                    0.0   2022-08-31 Manual Invoice Entry               PREPAYMENT ايجارات ش9 - 22-Self...       NaN                      3300.0000       None
+     447666 2019-12-18 10:41:32             2983       5011       100% - C44 - IKEA             2030                   EGP                   EGP                   1      12995.0000            6019   12995.0000                    0.0   2019-12-17 Manual Invoice Entry               PREPAYMENT       100% - C44 - IKEA       NaN                     12995.0000       None
+    3152087 2022-09-11 10:57:12             2879      52240 st-159-165-167-168-1...             2030                   EGP                   EGP                   1      32812.5200           61508   32575.2600                    NaN   2022-09-11 Manual Invoice Entry                 STANDARD تسويه ك/159-165-167-...       NaN                     32812.5200       None
+     272895 2018-01-11 17:29:15             1679      52239           loans-2-12-17             2030                   EGP                   EGP                   1       8000.0000           62526    8000.0000                    0.0   2017-12-30 Manual Invoice Entry               PREPAYMENT                    None       NaN                      8000.0000       None
+    3014249 2022-11-10 16:48:26             1680      73215                   66231             2030                   EGP                   EGP                   1    2054274.3000           78816 2054274.3000                    0.0   2022-06-28 Manual Invoice Entry                 STANDARD اورا ريلاينس ف/66231...       NaN                   1809494.1000       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICES_ALL
+
+The AP.AP_INVOICES_ALL object is a table in an Oracle ERP system that contains detailed information about all the invoices processed in the Accounts Payable (AP) module. This table serves as a central repository for invoice data, which is crucial for financial reporting, vendor payment tracking, and auditing purposes.
+
+Column Descriptions:
+
+1. INVOICE_ID: This is a unique identifier for each invoice in the system. It is likely an auto-incrementing integer.
+
+2. LAST_UPDATE_DATE: This timestamp indicates the most recent date and time when the invoice record was updated.
+
+3. LAST_UPDATED_BY: This field represents the ID of the user who last updated the invoice record.
+
+4. VENDOR_ID: This is a unique identifier for the vendor associated with the invoice.
+
+5. INVOICE_NUM: This is the number of the invoice as provided by the vendor.
+
+6. SET_OF_BOOKS_ID: This ID represents the set of financial books to which the invoice belongs. This is useful for companies that maintain multiple sets of books for different purposes or regions.
+
+7. INVOICE_CURRENCY_CODE: This field indicates the currency in which the invoice was issued.
+
+8. PAYMENT_CURRENCY_CODE: This field indicates the currency used for payment of the invoice.
+
+9. PAYMENT_CROSS_RATE: This is the exchange rate used for converting the invoice currency to the payment currency.
+
+10. INVOICE_AMOUNT: This is the total amount of the invoice in the invoice currency.
+
+11. VENDOR_SITE_ID: This ID represents the specific location of the vendor associated with the invoice.
+
+12. AMOUNT_PAID: This is the amount that has been paid towards the invoice in the payment currency.
+
+13. DISCOUNT_AMOUNT_TAKEN: This field represents any discounts that were applied to the invoice.
+
+14. INVOICE_DATE: This is the date when the invoice was issued.
+
+15. SOURCE: This field indicates the source or method of invoice entry.
+
+16. INVOICE_TYPE_LOOKUP_CODE: This code represents the type of the invoice, such as "STANDARD", "CREDIT", or "PREPAYMENT".
+
+17. DESCRIPTION: This field contains a description or additional details about the invoice.
+
+18. BATCH_ID: This ID represents the batch in which the invoice was processed.
+
+19. AMOUNT_APPLICABLE_TO_DISCOUNT: This is the portion of the invoice amount that is eligible for discount.
+
+20. TAX_AMOUNT: This field represents the amount of tax included in the invoice.
+
+The AP.AP_INVOICES_ALL table is likely related to other tables in the AP module, such as vendor tables (via VENDOR_ID and VENDOR_SITE_ID), user tables (via LAST_UPDATED_BY), and financial books tables (via SET_OF_BOOKS_ID). The relationships between these tables enable comprehensive tracking and reporting of invoice and payment data.
+
+--- Prompt for group 2 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 2 of 10):
+['TERMS_ID', 'TERMS_DATE', 'PAYMENT_METHOD_LOOKUP_CODE', 'PAY_GROUP_LOOKUP_CODE', 'ACCTS_PAY_CODE_COMBINATION_ID', 'PAYMENT_STATUS_FLAG', 'CREATION_DATE', 'CREATED_BY', 'BASE_AMOUNT', 'VAT_CODE', 'LAST_UPDATE_LOGIN', 'EXCLUSIVE_PAYMENT_FLAG', 'PO_HEADER_ID', 'FREIGHT_AMOUNT', 'GOODS_RECEIVED_DATE', 'INVOICE_RECEIVED_DATE', 'VOUCHER_NUM', 'APPROVED_AMOUNT', 'RECURRING_PAYMENT_ID', 'EXCHANGE_RATE']
+
+Sample data (10 random rows, long values truncated):
+ TERMS_ID TERMS_DATE PAYMENT_METHOD_LOOKUP_CODE PAY_GROUP_LOOKUP_CODE  ACCTS_PAY_CODE_COMBINATION_ID PAYMENT_STATUS_FLAG       CREATION_DATE  CREATED_BY  BASE_AMOUNT VAT_CODE  LAST_UPDATE_LOGIN EXCLUSIVE_PAYMENT_FLAG PO_HEADER_ID FREIGHT_AMOUNT GOODS_RECEIVED_DATE INVOICE_RECEIVED_DATE VOUCHER_NUM  APPROVED_AMOUNT RECURRING_PAYMENT_ID  EXCHANGE_RATE
+    10000 2023-02-28                       None                  None                           2040                   Y 2023-02-28 16:03:18        1672          NaN     None           16605136                      N         None           None                None                  None        None        881459.90                 None            NaN
+    10000 2018-07-30                       None                  None                           3032                   Y 2018-08-05 14:26:24        3259          NaN     None            1792359                      N         None           None                None                  None        None           880.00                 None            NaN
+    10000 2017-03-01                       None                  None                          18003                   Y 2017-06-01 11:28:36        1371    17712.513     None             934780                      N         None           None                None                  None        None       1362501.00                 None       0.013000
+    10000 2021-12-12                       None                  None                         198369                   Y 2021-12-13 14:55:50        5725          NaN     None           10257369                      N         None           None                None                  None        None        -67800.00                 None            NaN
+    10000 2018-07-01                       None                  None                           9055                   N 2018-08-05 14:49:19        1638        0.000     None            1796007                      N         None           None                None                  None        None             0.00                 None      21.135379
+    10000 2022-08-31                       None                  None                         107018                   Y 2022-08-31 13:04:21        1971          NaN     None           14823097                      N         None           None                None                  None        None          3300.00                 None            NaN
+    10000 2019-12-17                       None                  None                           2040                   Y 2019-12-17 15:25:36        1676          NaN     None            4390365                      N         None           None                None                  None        None         12995.00                 None            NaN
+    10000 2022-09-11                       None                  None                         107018                   Y 2022-09-11 09:52:52        2879          NaN     None           14880340                      N         None           None                None                  None        None         32812.52                 None            NaN
+    10000 2017-12-30                       None                  None                         107019                   Y 2018-01-08 12:39:58        1970          NaN     None            1295922                      N         None           None                None                  None        None          8000.00                 None            NaN
+    10040 2022-06-16                       None                  None                           2040                   Y 2022-06-28 13:39:40        1672          NaN     None           15383834                      N         None           None                None                  None        None       2054274.30                 None            NaN
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICES_ALL
+
+The AP.AP_INVOICES_ALL object is a table in an Oracle ERP system that contains information related to invoices in the Accounts Payable (AP) module. This table is used to store all invoice data, including payment terms, payment methods, payment status, creation details, amounts, and related identifiers. This data is crucial for managing and tracking all payable invoices in the business.
+
+Column Descriptions:
+
+1. TERMS_ID: This is the unique identifier for the payment terms associated with the invoice.
+2. TERMS_DATE: This is the date when the payment terms were agreed upon.
+3. PAYMENT_METHOD_LOOKUP_CODE: This field represents the code for the payment method used for the invoice. The absence of data in the sample suggests this field may not be in use.
+4. PAY_GROUP_LOOKUP_CODE: This field represents the code for the payment group associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+5. ACCTS_PAY_CODE_COMBINATION_ID: This is the unique identifier for the combination of account codes associated with the invoice.
+6. PAYMENT_STATUS_FLAG: This flag indicates the payment status of the invoice. 'Y' likely indicates a paid status, and 'N' an unpaid status.
+7. CREATION_DATE: This is the date and time when the invoice record was created.
+8. CREATED_BY: This is the identifier of the user who created the invoice record.
+9. BASE_AMOUNT: This is the base amount of the invoice. The presence of NaN values suggests that this field may not always be populated.
+10. VAT_CODE: This field represents the code for the Value Added Tax (VAT) associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+11. LAST_UPDATE_LOGIN: This is the identifier of the user who last updated the invoice record.
+12. EXCLUSIVE_PAYMENT_FLAG: This flag indicates whether the invoice has an exclusive payment or not. The meaning of 'exclusive payment' is not clear from the data provided.
+13. PO_HEADER_ID: This is the unique identifier for the Purchase Order associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+14. FREIGHT_AMOUNT: This is the freight amount associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+15. GOODS_RECEIVED_DATE: This is the date when the goods associated with the invoice were received. The absence of data in the sample suggests this field may not be in use.
+16. INVOICE_RECEIVED_DATE: This is the date when the invoice was received. The absence of data in the sample suggests this field may not be in use.
+17. VOUCHER_NUM: This is the voucher number associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+18. APPROVED_AMOUNT: This is the approved amount for the invoice.
+19. RECURRING_PAYMENT_ID: This is the identifier for any recurring payments associated with the invoice. The absence of data in the sample suggests this field may not be in use.
+20. EXCHANGE_RATE: This is the exchange rate applied to the invoice, if applicable.
+
+This table does not appear to have explicit relationships with other tables based on the provided data. However, it can be inferred that there may be relationships with other tables in the AP module, such as those containing payment terms, payment methods, account codes, users, purchase orders, and recurring payments.
+
+--- Prompt for group 3 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 3 of 10):
+['EXCHANGE_RATE_TYPE', 'EXCHANGE_DATE', 'EARLIEST_SETTLEMENT_DATE', 'ORIGINAL_PREPAYMENT_AMOUNT', 'DOC_SEQUENCE_ID', 'DOC_SEQUENCE_VALUE', 'DOC_CATEGORY_CODE', 'ATTRIBUTE1', 'ATTRIBUTE2', 'ATTRIBUTE3', 'ATTRIBUTE4', 'ATTRIBUTE5', 'ATTRIBUTE6', 'ATTRIBUTE7', 'ATTRIBUTE8', 'ATTRIBUTE9', 'ATTRIBUTE10', 'ATTRIBUTE11', 'ATTRIBUTE12', 'ATTRIBUTE13']
+
+Sample data (10 random rows, long values truncated):
+EXCHANGE_RATE_TYPE EXCHANGE_DATE EARLIEST_SETTLEMENT_DATE ORIGINAL_PREPAYMENT_AMOUNT  DOC_SEQUENCE_ID  DOC_SEQUENCE_VALUE DOC_CATEGORY_CODE ATTRIBUTE1 ATTRIBUTE2 ATTRIBUTE3 ATTRIBUTE4 ATTRIBUTE5 ATTRIBUTE6 ATTRIBUTE7 ATTRIBUTE8 ATTRIBUTE9          ATTRIBUTE10 ATTRIBUTE11 ATTRIBUTE12 ATTRIBUTE13
+              None           NaT                      NaT                       None            13335            23302109     RME_SUPPLIERS       None          1       None       None       None     292108       None       None       None                Steel        None        None        None
+              None           NaT                      NaT                       None              791              180703  TRD Cash Invoice       None          1       None       None       None       None       None       None       None                 None        None        None        None
+              User    2017-03-01                      NaT                       None              227                1284           STD INV       None          1       None       None       None       None       None       None       None                 None        None        None        None
+              None           NaT                      NaT                       None             5017            21000581           CRM INV       None          3       None       None       None       None       None       None       None                 None        None        None        None
+              User    2018-07-01                      NaT                       None              754            18070805           STD INV       None          1       None       None       None       None       None       None       None                 None        None        None        None
+              None           NaT               2022-07-05                       None             7775            22006814        ADJUST INV       None          3       None       None       None     329106       None       None       None           Petty cash        None        None        None
+              None           NaT               2019-12-17                       None             1135            19315239     RME_SUPPLIERS       None          1       None       None       None     100073       None       None       None                 None        None        None        None
+              None           NaT                      NaT                       None             7797           221090238    RME_PETTY_CASH       None          3       None       None       None       None       None       None       None           Petty cash        None        None        None
+              None           NaT               2018-01-08                       None              195             1604193        PREPAY INV       None          3       None       None       None       None       None       None       None                 None        None        None        None
+              None           NaT                      NaT                       None             7811            22309028     RME_SUPPLIERS       None          1       None      73215    1864624     163083       None       None       None Procurement Concrete        None        None        None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICES_ALL
+
+**Object Type:** Table/View
+
+**Description:** The AP.AP_INVOICES_ALL object in the Oracle ERP system is a table that stores all the invoice data. This table is used to manage and track all invoices, including their exchange rates, dates, and other related information. It is an essential part of the Accounts Payable module, which is responsible for managing and recording all the company's obligations to pay its suppliers.
+
+**Column Descriptions:**
+
+1. `EXCHANGE_RATE_TYPE`: This field indicates the type of exchange rate used for the invoice. It can be user-defined or system-defined. If the value is 'User', it means the exchange rate is manually entered by the user. If the value is 'None', it means the system-defined exchange rate is used.
+
+2. `EXCHANGE_DATE`: This field records the date when the exchange rate is applied. It is in date format.
+
+3. `EARLIEST_SETTLEMENT_DATE`: This field records the earliest possible date for settling the invoice. It is in date format.
+
+4. `ORIGINAL_PREPAYMENT_AMOUNT`: This field records the original prepayment amount for the invoice, if any.
+
+5. `DOC_SEQUENCE_ID`: This field is the unique identifier for the document sequence. It is a numeric value.
+
+6. `DOC_SEQUENCE_VALUE`: This field represents the value of the document in the sequence. It is a numeric value.
+
+7. `DOC_CATEGORY_CODE`: This field indicates the category of the document. It can be 'RME_SUPPLIERS', 'TRD Cash Invoice', 'STD INV', 'CRM INV', 'ADJUST INV', 'RME_PETTY_CASH', 'PREPAY INV', etc.
+
+8. `ATTRIBUTE1` to `ATTRIBUTE13`: These are generic fields that can be used to store additional information about the invoice. The actual meaning of these fields can vary based on the business context. For example, ATTRIBUTE10 in some records is used to store the type of goods or services procured, like 'Steel', 'Petty cash', 'Procurement Concrete', etc.
+
+**Inferred Relationships and Business Logic:**
+
+- The `DOC_SEQUENCE_ID` and `DOC_SEQUENCE_VALUE` fields are likely related to the sequencing of documents or invoices in the system. The sequence could be based on the order of creation, approval, or any other business logic.
+
+- The `DOC_CATEGORY_CODE` field categorizes the invoices into different types. This categorization could be based on the nature of the transaction, the type of supplier, or any other business logic.
+
+- The `ATTRIBUTE1` to `ATTRIBUTE13` fields are flexible and can be used to store various types of additional information based on business needs. For example, they could be used to store details about the goods or services procured, the department or project that the invoice is related to, or any other relevant information.
+
+--- Prompt for group 4 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 4 of 10):
+['ATTRIBUTE14', 'ATTRIBUTE15', 'ATTRIBUTE_CATEGORY', 'APPROVAL_STATUS', 'APPROVAL_DESCRIPTION', 'INVOICE_DISTRIBUTION_TOTAL', 'POSTING_STATUS', 'PREPAY_FLAG', 'AUTHORIZED_BY', 'CANCELLED_DATE', 'CANCELLED_BY', 'CANCELLED_AMOUNT', 'TEMP_CANCELLED_AMOUNT', 'PROJECT_ACCOUNTING_CONTEXT', 'USSGL_TRANSACTION_CODE', 'USSGL_TRX_CODE_CONTEXT', 'PROJECT_ID', 'TASK_ID', 'EXPENDITURE_TYPE', 'EXPENDITURE_ITEM_DATE']
+
+Sample data (10 random rows, long values truncated):
+ATTRIBUTE14 ATTRIBUTE15 ATTRIBUTE_CATEGORY APPROVAL_STATUS APPROVAL_DESCRIPTION INVOICE_DISTRIBUTION_TOTAL POSTING_STATUS PREPAY_FLAG AUTHORIZED_BY CANCELLED_DATE CANCELLED_BY CANCELLED_AMOUNT TEMP_CANCELLED_AMOUNT PROJECT_ACCOUNTING_CONTEXT USSGL_TRANSACTION_CODE USSGL_TRX_CODE_CONTEXT PROJECT_ID TASK_ID EXPENDITURE_TYPE EXPENDITURE_ITEM_DATE
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+       None        None               None            None                 None                       None           None        None          None           None         None             None                  None                       None                   None                   None       None    None             None                  None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+# AP.AP_INVOICES_ALL Table Documentation
+
+## Overview
+The AP.AP_INVOICES_ALL table is part of an Oracle ERP system and is used to store information related to invoices in the Accounts Payable (AP) module. This table is crucial for tracking invoice details, approval status, posting status, cancellation details, and related project accounting information.
+
+## Column Descriptions
+
+1. **ATTRIBUTE14, ATTRIBUTE15**: These are generic columns that can be used to store additional invoice-related information as required by the business. The specific use of these columns can vary based on the organization's needs.
+
+2. **ATTRIBUTE_CATEGORY**: This field is used to categorize the attributes stored in ATTRIBUTE14 and ATTRIBUTE15. The specific categories can vary based on the organization's needs.
+
+3. **APPROVAL_STATUS**: This field indicates the approval status of the invoice. It can contain values such as 'Approved', 'Pending', 'Rejected', etc.
+
+4. **APPROVAL_DESCRIPTION**: This field provides a description or notes related to the approval status of the invoice.
+
+5. **INVOICE_DISTRIBUTION_TOTAL**: This field represents the total amount of the invoice that has been distributed for payment.
+
+6. **POSTING_STATUS**: This field indicates the posting status of the invoice in the general ledger. It can contain values such as 'Posted', 'Not Posted', etc.
+
+7. **PREPAY_FLAG**: This field indicates whether the invoice is a prepayment invoice. It is a boolean field and can contain values 'Y' for Yes and 'N' for No.
+
+8. **AUTHORIZED_BY**: This field records the name of the person who authorized the invoice.
+
+9. **CANCELLED_DATE**: This field records the date when the invoice was cancelled, if applicable.
+
+10. **CANCELLED_BY**: This field records the name of the person who cancelled the invoice, if applicable.
+
+11. **CANCELLED_AMOUNT**: This field records the amount that was cancelled from the invoice, if applicable.
+
+12. **TEMP_CANCELLED_AMOUNT**: This field records a temporary cancelled amount from the invoice, if applicable. This could be used in scenarios where a cancellation is pending approval.
+
+13. **PROJECT_ACCOUNTING_CONTEXT**: This field provides context for the invoice in relation to project accounting, if applicable.
+
+14. **USSGL_TRANSACTION_CODE**: This field records the United States Standard General Ledger (USSGL) transaction code associated with the invoice, if applicable.
+
+15. **USSGL_TRX_CODE_CONTEXT**: This field provides context for the USSGL transaction code, if applicable.
+
+16. **PROJECT_ID**: This field records the ID of the project associated with the invoice, if applicable.
+
+17. **TASK_ID**: This field records the ID of the task associated with the invoice within a project, if applicable.
+
+18. **EXPENDITURE_TYPE**: This field records the type of expenditure associated with the invoice, if applicable.
+
+19. **EXPENDITURE_ITEM_DATE**: This field records the date of the expenditure item associated with the invoice, if applicable.
+
+## Relationships and Business Logic
+The AP.AP_INVOICES_ALL table likely interacts with other tables in the Oracle ERP system. For example, the PROJECT_ID and TASK_ID fields suggest a relationship with a projects table. The USSGL_TRANSACTION_CODE field suggests a relationship with a general ledger table.
+
+The approval and cancellation fields (APPROVAL_STATUS, APPROVAL_DESCRIPTION, CANCELLED_DATE, CANCELLED_BY, CANCELLED_AMOUNT, TEMP_CANCELLED_AMOUNT) suggest business processes around invoice approval and cancellation. The PREPAY_FLAG field suggests a business process around prepayment invoices.
+
+--- Prompt for group 5 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 5 of 10):
+['PA_QUANTITY', 'EXPENDITURE_ORGANIZATION_ID', 'PA_DEFAULT_DIST_CCID', 'VENDOR_PREPAY_AMOUNT', 'PAYMENT_AMOUNT_TOTAL', 'AWT_FLAG', 'AWT_GROUP_ID', 'REFERENCE_1', 'REFERENCE_2', 'ORG_ID', 'PRE_WITHHOLDING_AMOUNT', 'GLOBAL_ATTRIBUTE_CATEGORY', 'GLOBAL_ATTRIBUTE1', 'GLOBAL_ATTRIBUTE2', 'GLOBAL_ATTRIBUTE3', 'GLOBAL_ATTRIBUTE4', 'GLOBAL_ATTRIBUTE5', 'GLOBAL_ATTRIBUTE6', 'GLOBAL_ATTRIBUTE7', 'GLOBAL_ATTRIBUTE8']
+
+Sample data (10 random rows, long values truncated):
+PA_QUANTITY EXPENDITURE_ORGANIZATION_ID PA_DEFAULT_DIST_CCID VENDOR_PREPAY_AMOUNT PAYMENT_AMOUNT_TOTAL AWT_FLAG AWT_GROUP_ID REFERENCE_1 REFERENCE_2  ORG_ID PRE_WITHHOLDING_AMOUNT GLOBAL_ATTRIBUTE_CATEGORY GLOBAL_ATTRIBUTE1 GLOBAL_ATTRIBUTE2 GLOBAL_ATTRIBUTE3 GLOBAL_ATTRIBUTE4 GLOBAL_ATTRIBUTE5 GLOBAL_ATTRIBUTE6 GLOBAL_ATTRIBUTE7 GLOBAL_ATTRIBUTE8
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      86                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      86                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None     870                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      85                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+       None                        None                 None                 None                 None     None         None        None        None      83                   None                      None              None              None              None              None              None              None              None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICES_ALL
+
+The AP.AP_INVOICES_ALL object is a table in an Oracle ERP system that stores information related to invoices. This table is crucial for managing and tracking all the invoices in the Accounts Payable module. It contains various details about the invoices, such as the quantity, expenditure organization, vendor prepayment amount, total payment amount, withholding tax details, and various global attributes.
+
+Column Details:
+
+1. PA_QUANTITY: This field is likely to represent the quantity of a product or service mentioned in the invoice. However, the sample data does not provide any values for this field.
+
+2. EXPENDITURE_ORGANIZATION_ID: This field is likely to represent the unique identifier of the organization where the expenditure occurred. The sample data does not provide any values for this field.
+
+3. PA_DEFAULT_DIST_CCID: This field is likely to represent the default distribution cost center ID. The sample data does not provide any values for this field.
+
+4. VENDOR_PREPAY_AMOUNT: This field is likely to represent the amount prepaid to the vendor. The sample data does not provide any values for this field.
+
+5. PAYMENT_AMOUNT_TOTAL: This field represents the total amount of the payment made for the invoice. The sample data does not provide any values for this field.
+
+6. AWT_FLAG: This field is likely to indicate whether Automatic Withholding Tax (AWT) is applicable or not. The sample data does not provide any values for this field.
+
+7. AWT_GROUP_ID: This field is likely to represent the group ID for Automatic Withholding Tax (AWT). The sample data does not provide any values for this field.
+
+8. REFERENCE_1, REFERENCE_2: These fields are likely to contain any reference information related to the invoice. The sample data does not provide any values for these fields.
+
+9. ORG_ID: This field represents the unique identifier of the organization related to the invoice. 
+
+10. PRE_WITHHOLDING_AMOUNT: This field is likely to represent the amount withheld prior to the payment. The sample data does not provide any values for this field.
+
+11. GLOBAL_ATTRIBUTE_CATEGORY, GLOBAL_ATTRIBUTE1, GLOBAL_ATTRIBUTE2, GLOBAL_ATTRIBUTE3, GLOBAL_ATTRIBUTE4, GLOBAL_ATTRIBUTE5, GLOBAL_ATTRIBUTE6, GLOBAL_ATTRIBUTE7, GLOBAL_ATTRIBUTE8: These fields are likely to contain global attributes related to the invoice. These could be customizable based on the organization's needs. The sample data does not provide any values for these fields.
+
+The relationships or business logic cannot be inferred from the provided data as the sample data does not contain any values. Further information or more populated sample data would be needed to infer relationships or business logic.
+
+--- Prompt for group 6 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 6 of 10):
+['GLOBAL_ATTRIBUTE9', 'GLOBAL_ATTRIBUTE10', 'GLOBAL_ATTRIBUTE11', 'GLOBAL_ATTRIBUTE12', 'GLOBAL_ATTRIBUTE13', 'GLOBAL_ATTRIBUTE14', 'GLOBAL_ATTRIBUTE15', 'GLOBAL_ATTRIBUTE16', 'GLOBAL_ATTRIBUTE17', 'GLOBAL_ATTRIBUTE18', 'GLOBAL_ATTRIBUTE19', 'GLOBAL_ATTRIBUTE20', 'AUTO_TAX_CALC_FLAG', 'PAYMENT_CROSS_RATE_TYPE', 'PAYMENT_CROSS_RATE_DATE', 'PAY_CURR_INVOICE_AMOUNT', 'MRC_BASE_AMOUNT', 'MRC_EXCHANGE_RATE', 'MRC_EXCHANGE_RATE_TYPE', 'MRC_EXCHANGE_DATE']
+
+Sample data (10 random rows, long values truncated):
+GLOBAL_ATTRIBUTE9 GLOBAL_ATTRIBUTE10 GLOBAL_ATTRIBUTE11 GLOBAL_ATTRIBUTE12 GLOBAL_ATTRIBUTE13 GLOBAL_ATTRIBUTE14 GLOBAL_ATTRIBUTE15 GLOBAL_ATTRIBUTE16 GLOBAL_ATTRIBUTE17 GLOBAL_ATTRIBUTE18 GLOBAL_ATTRIBUTE19 GLOBAL_ATTRIBUTE20 AUTO_TAX_CALC_FLAG PAYMENT_CROSS_RATE_TYPE PAYMENT_CROSS_RATE_DATE  PAY_CURR_INVOICE_AMOUNT MRC_BASE_AMOUNT MRC_EXCHANGE_RATE MRC_EXCHANGE_RATE_TYPE MRC_EXCHANGE_DATE
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2023-02-28              881459.9972            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2018-07-30                 880.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2017-03-01             1362501.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2021-12-12              -67800.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2018-07-01                   0.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2022-08-31                3300.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2019-12-17               12995.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2022-09-11               32812.5200            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2017-12-30                8000.0000            None              None                   None              None
+             None               None               None               None               None               None               None               None               None               None               None               None               None                    None              2022-06-28             2054274.3000            None              None                   None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object is part of the Oracle ERP system, specifically within the Accounts Payable (AP) module. It appears to store invoice data, including various attributes, tax calculation flags, payment cross rates, and multi-reporting currency (MRC) information. 
+
+**Column Details:**
+
+1. **GLOBAL_ATTRIBUTE9 to GLOBAL_ATTRIBUTE20:** These columns are likely used to store additional information about the invoice that is not captured in other fields. The data type and usage of these fields may vary depending on the business requirements. In the provided sample data, these fields do not contain any values.
+
+2. **AUTO_TAX_CALC_FLAG:** This field is likely a flag that indicates whether tax for the invoice is calculated automatically. The data type and usage of this field are not clear from the sample data.
+
+3. **PAYMENT_CROSS_RATE_TYPE:** This field likely indicates the type of cross rate used for payment. Cross rates are used in foreign exchange markets where the quotation of the relative value of two currencies is made without using the U.S. dollar.
+
+4. **PAYMENT_CROSS_RATE_DATE:** This field likely indicates the date when the cross rate for payment was determined.
+
+5. **PAY_CURR_INVOICE_AMOUNT:** This field likely indicates the invoice amount in the payment currency.
+
+6. **MRC_BASE_AMOUNT:** This field likely indicates the base amount in the multi-reporting currency (MRC). MRC is a feature in Oracle that allows for the recording of transactions in more than one currency.
+
+7. **MRC_EXCHANGE_RATE:** This field likely indicates the exchange rate used for the MRC.
+
+8. **MRC_EXCHANGE_RATE_TYPE:** This field likely indicates the type of exchange rate used for the MRC.
+
+9. **MRC_EXCHANGE_DATE:** This field likely indicates the date when the MRC exchange rate was determined.
+
+**Relationships and Business Logic:** The table appears to be a standalone object with no explicit relationships indicated in the provided data. However, in a typical ERP system, this table would likely be related to other tables in the AP module, such as vendor details, payment terms, and tax codes. The business logic behind the data in this table would be the recording and processing of payable invoices, potentially in multiple currencies.
+
+--- Prompt for group 7 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 7 of 10):
+['GL_DATE', 'AWARD_ID', 'PAID_ON_BEHALF_EMPLOYEE_ID', 'AMT_DUE_CCARD_COMPANY', 'AMT_DUE_EMPLOYEE', 'APPROVAL_READY_FLAG', 'APPROVAL_ITERATION', 'WFAPPROVAL_STATUS', 'REQUESTER_ID', 'VALIDATION_REQUEST_ID', 'VALIDATED_TAX_AMOUNT', 'QUICK_CREDIT', 'CREDITED_INVOICE_ID', 'DISTRIBUTION_SET_ID', 'APPLICATION_ID', 'PRODUCT_TABLE', 'REFERENCE_KEY1', 'REFERENCE_KEY2', 'REFERENCE_KEY3', 'REFERENCE_KEY4']
+
+Sample data (10 random rows, long values truncated):
+   GL_DATE AWARD_ID PAID_ON_BEHALF_EMPLOYEE_ID AMT_DUE_CCARD_COMPANY AMT_DUE_EMPLOYEE APPROVAL_READY_FLAG  APPROVAL_ITERATION WFAPPROVAL_STATUS REQUESTER_ID VALIDATION_REQUEST_ID  VALIDATED_TAX_AMOUNT QUICK_CREDIT CREDITED_INVOICE_ID DISTRIBUTION_SET_ID APPLICATION_ID PRODUCT_TABLE REFERENCE_KEY1 REFERENCE_KEY2 REFERENCE_KEY3 REFERENCE_KEY4
+2023-02-28     None                       None                  None             None                   Y                 NaN      NOT REQUIRED         None                  None           108249.4733            N                None                None           None          None           None           None           None           None
+2018-07-30     None                       None                  None             None                   Y                 NaN MANUALLY APPROVED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2017-03-01     None                       None                  None             None                   Y                 NaN MANUALLY APPROVED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2021-12-12     None                       None                  None             None                   Y                 NaN      NOT REQUIRED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2018-07-01     None                       None                  None             None                   Y                 1.0 MANUALLY APPROVED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2022-08-31     None                       None                  None             None                   Y                 0.0      NOT REQUIRED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2019-12-17     None                       None                  None             None                   Y                 NaN      NOT REQUIRED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2022-09-11     None                       None                  None             None                   Y                 0.0      NOT REQUIRED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2017-12-30     None                       None                  None             None                   Y                 0.0      NOT REQUIRED         None                  None                   NaN            N                None                None           None          None           None           None           None           None
+2022-06-28     None                       None                  None             None                   Y                 NaN      NOT REQUIRED         None                  None           244780.2000            N                None                None           None          None           None           None           None           None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AP.AP_INVOICES_ALL object in the Oracle ERP system is used to store all the invoice data related to the Accounts Payable (AP) module. It includes details about the invoice, such as the date, amount due, approval status, and other relevant information. This data is crucial for managing and tracking payments to vendors, employees, and credit card companies.
+
+**Column Descriptions:**
+
+1. `GL_DATE`: This field represents the General Ledger date, which is the date when the invoice is recorded in the financial accounts.
+
+2. `AWARD_ID`: This field is used to store the identifier of the award related to the invoice, if applicable.
+
+3. `PAID_ON_BEHALF_EMPLOYEE_ID`: This field stores the identifier of the employee on whose behalf the payment is made.
+
+4. `AMT_DUE_CCARD_COMPANY`: This field represents the amount due to the credit card company.
+
+5. `AMT_DUE_EMPLOYEE`: This field represents the amount due to the employee.
+
+6. `APPROVAL_READY_FLAG`: This field indicates whether the invoice is ready for approval (Y for yes, N for no).
+
+7. `APPROVAL_ITERATION`: This field stores the number of times the invoice has gone through the approval process.
+
+8. `WFAPPROVAL_STATUS`: This field represents the status of the workflow approval process for the invoice.
+
+9. `REQUESTER_ID`: This field stores the identifier of the person who requested the invoice.
+
+10. `VALIDATION_REQUEST_ID`: This field stores the identifier of the validation request associated with the invoice.
+
+11. `VALIDATED_TAX_AMOUNT`: This field represents the amount of tax validated on the invoice.
+
+12. `QUICK_CREDIT`: This field indicates whether the invoice has a quick credit feature enabled (Y for yes, N for no).
+
+13. `CREDITED_INVOICE_ID`: This field stores the identifier of the credited invoice, if applicable.
+
+14. `DISTRIBUTION_SET_ID`: This field stores the identifier of the distribution set associated with the invoice.
+
+15. `APPLICATION_ID`: This field stores the identifier of the application where the invoice was created.
+
+16. `PRODUCT_TABLE`: This field stores the product table associated with the invoice.
+
+17. `REFERENCE_KEY1`, `REFERENCE_KEY2`, `REFERENCE_KEY3`, `REFERENCE_KEY4`: These fields are used to store additional reference information related to the invoice.
+
+**Inferred Relationships/Business Logic:**
+
+Based on the column names and sample data, it can be inferred that each record in this table represents a unique invoice. The approval process for each invoice can go through multiple iterations, as indicated by the `APPROVAL_ITERATION` field. The `WFAPPROVAL_STATUS` field suggests that the approval process is likely managed through a workflow system. The `QUICK_CREDIT` field suggests that some invoices may have a quick credit feature enabled, which could potentially expedite the payment process.
+
+--- Prompt for group 8 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 8 of 10):
+['REFERENCE_KEY5', 'TOTAL_TAX_AMOUNT', 'SELF_ASSESSED_TAX_AMOUNT', 'TAX_RELATED_INVOICE_ID', 'TRX_BUSINESS_CATEGORY', 'USER_DEFINED_FISC_CLASS', 'TAXATION_COUNTRY', 'DOCUMENT_SUB_TYPE', 'SUPPLIER_TAX_INVOICE_NUMBER', 'SUPPLIER_TAX_INVOICE_DATE', 'SUPPLIER_TAX_EXCHANGE_RATE', 'TAX_INVOICE_RECORDING_DATE', 'TAX_INVOICE_INTERNAL_SEQ', 'LEGAL_ENTITY_ID', 'HISTORICAL_FLAG', 'FORCE_REVALIDATION_FLAG', 'BANK_CHARGE_BEARER', 'REMITTANCE_MESSAGE1', 'REMITTANCE_MESSAGE2', 'REMITTANCE_MESSAGE3']
+
+Sample data (10 random rows, long values truncated):
+REFERENCE_KEY5  TOTAL_TAX_AMOUNT  SELF_ASSESSED_TAX_AMOUNT TAX_RELATED_INVOICE_ID TRX_BUSINESS_CATEGORY USER_DEFINED_FISC_CLASS TAXATION_COUNTRY DOCUMENT_SUB_TYPE SUPPLIER_TAX_INVOICE_NUMBER SUPPLIER_TAX_INVOICE_DATE SUPPLIER_TAX_EXCHANGE_RATE TAX_INVOICE_RECORDING_DATE TAX_INVOICE_INTERNAL_SEQ  LEGAL_ENTITY_ID HISTORICAL_FLAG FORCE_REVALIDATION_FLAG BANK_CHARGE_BEARER REMITTANCE_MESSAGE1 REMITTANCE_MESSAGE2 REMITTANCE_MESSAGE3
+          None       108249.4733                       0.0                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23282            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23282            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            32285            None                       N               None                None                None                None
+          None            0.0000                       0.0                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23280            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+          None            0.0000                       NaN                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+          None       244780.2000                       0.0                   None                  None                    None               EG              None                        None                      None                       None                       None                     None            23283            None                       N               None                None                None                None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object: AP.AP_INVOICES_ALL
+
+The AP.AP_INVOICES_ALL object in the Oracle ERP system is a table that stores information related to invoices in the accounts payable module. This table is crucial for tracking and managing invoices, tax amounts, and related supplier information. 
+
+Column Descriptions:
+
+1. REFERENCE_KEY5: This field is likely used to store a secondary reference key for the invoice. The purpose of this field is not clear from the sample data provided.
+
+2. TOTAL_TAX_AMOUNT: This field stores the total tax amount associated with the invoice.
+
+3. SELF_ASSESSED_TAX_AMOUNT: This field stores the amount of tax that has been self-assessed. 
+
+4. TAX_RELATED_INVOICE_ID: This field likely stores the ID of an invoice that is related to the tax amount.
+
+5. TRX_BUSINESS_CATEGORY: This field is likely used to categorize the business transaction related to the invoice.
+
+6. USER_DEFINED_FISC_CLASS: This field is likely used to store a user-defined fiscal classification for the invoice.
+
+7. TAXATION_COUNTRY: This field stores the country code where the taxation is applicable.
+
+8. DOCUMENT_SUB_TYPE: This field likely stores a subtype classification for the invoice document.
+
+9. SUPPLIER_TAX_INVOICE_NUMBER: This field stores the tax invoice number provided by the supplier.
+
+10. SUPPLIER_TAX_INVOICE_DATE: This field stores the date of the tax invoice provided by the supplier.
+
+11. SUPPLIER_TAX_EXCHANGE_RATE: This field stores the exchange rate applicable to the supplier's tax invoice.
+
+12. TAX_INVOICE_RECORDING_DATE: This field stores the date when the tax invoice was recorded in the system.
+
+13. TAX_INVOICE_INTERNAL_SEQ: This field likely stores an internal sequence number for the tax invoice.
+
+14. LEGAL_ENTITY_ID: This field stores the ID of the legal entity associated with the invoice.
+
+15. HISTORICAL_FLAG: This field is likely used to indicate whether the invoice is historical.
+
+16. FORCE_REVALIDATION_FLAG: This field is likely used to indicate whether the invoice requires revalidation.
+
+17. BANK_CHARGE_BEARER: This field likely indicates who bears any bank charges associated with the invoice.
+
+18. REMITTANCE_MESSAGE1, REMITTANCE_MESSAGE2, REMITTANCE_MESSAGE3: These fields likely store messages related to the remittance of the invoice.
+
+Inferred Relationships and Business Logic:
+
+The LEGAL_ENTITY_ID likely links to a table containing details about the legal entities. The TAX_RELATED_INVOICE_ID may link to another invoice in the same or a different table. The various tax fields suggest that the table is used in calculating and tracking tax amounts for invoices. The presence of fields for supplier tax invoice details suggests that this table might be used in conjunction with supplier data. The FORCE_REVALIDATION_FLAG might be used to trigger certain business processes, such as revalidation of the invoice.
+
+--- Prompt for group 9 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 9 of 10):
+['UNIQUE_REMITTANCE_IDENTIFIER', 'URI_CHECK_DIGIT', 'SETTLEMENT_PRIORITY', 'PAYMENT_REASON_CODE', 'PAYMENT_REASON_COMMENTS', 'PAYMENT_METHOD_CODE', 'DELIVERY_CHANNEL_CODE', 'QUICK_PO_HEADER_ID', 'NET_OF_RETAINAGE_FLAG', 'RELEASE_AMOUNT_NET_OF_TAX', 'CONTROL_AMOUNT', 'PARTY_ID', 'PARTY_SITE_ID', 'PAY_PROC_TRXN_TYPE_CODE', 'PAYMENT_FUNCTION', 'CUST_REGISTRATION_CODE', 'CUST_REGISTRATION_NUMBER', 'PORT_OF_ENTRY_CODE', 'EXTERNAL_BANK_ACCOUNT_ID', 'VENDOR_CONTACT_ID']
+
+Sample data (10 random rows, long values truncated):
+UNIQUE_REMITTANCE_IDENTIFIER URI_CHECK_DIGIT SETTLEMENT_PRIORITY PAYMENT_REASON_CODE PAYMENT_REASON_COMMENTS PAYMENT_METHOD_CODE DELIVERY_CHANNEL_CODE  QUICK_PO_HEADER_ID NET_OF_RETAINAGE_FLAG RELEASE_AMOUNT_NET_OF_TAX CONTROL_AMOUNT  PARTY_ID  PARTY_SITE_ID PAY_PROC_TRXN_TYPE_CODE PAYMENT_FUNCTION CUST_REGISTRATION_CODE CUST_REGISTRATION_NUMBER PORT_OF_ENTRY_CODE  EXTERNAL_BANK_ACCOUNT_ID VENDOR_CONTACT_ID
+                        None            None                None                None                    None               CHECK                  None           2019313.0                     N                      None           None     22080         102104                    None             None                   None                     None               None                    1062.0              None
+                        None            None                None                None                    None                Cash                  None                 NaN                     N                      None           None    149695         108176                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None       Bank_Transfer                  None                 NaN                     N                      None           None     99453          91342                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None                Cash                  None                 NaN                     N                      None           None     96318         213642                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None               CHECK                  None            157193.0                     N                      None           None    102421          92043                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None               CHECK                  None                 NaN                  None                      None           None     96318         437631                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None                 EFT                  None            213632.0                     N                      None           None     31082          23110                    None             None                   None                     None               None                    1383.0              None
+                        None            None                None                None                    None               CHECK                  None                 NaN                  None                      None           None     96318          87640                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None               CHECK                  None                 NaN                  None                      None           None     96317          88658                    None             None                   None                     None               None                       NaN              None
+                        None            None                None                None                    None                 EFT                  None                 NaN                     N                      None           None    134613         105011                    None             None                   None                     None               None                       NaN              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object is used to store information related to invoices in the Accounts Payable (AP) module of an Oracle ERP system. It contains details about the remittance, payment method, vendor, and other related information. This data is crucial for managing and tracking payments to suppliers, vendors, and other parties.
+
+**Column Details:**
+
+1. `UNIQUE_REMITTANCE_IDENTIFIER`: This field is used to store a unique identifier for each remittance. It appears to be null in the sample data.
+
+2. `URI_CHECK_DIGIT`: This field is likely used to store a check digit for the unique remittance identifier. It is also null in the sample data.
+
+3. `SETTLEMENT_PRIORITY`: This field is likely used to indicate the priority of the settlement for a particular invoice. It is null in the sample data.
+
+4. `PAYMENT_REASON_CODE`: This field is used to store a code that represents the reason for the payment. It is null in the sample data.
+
+5. `PAYMENT_REASON_COMMENTS`: This field is used to store any comments related to the reason for the payment. It is null in the sample data.
+
+6. `PAYMENT_METHOD_CODE`: This field is used to store the method of payment for the invoice. It can be 'CHECK', 'Cash', 'Bank_Transfer', 'EFT', etc.
+
+7. `DELIVERY_CHANNEL_CODE`: This field is used to store the code representing the delivery channel for the payment. It is null in the sample data.
+
+8. `QUICK_PO_HEADER_ID`: This field is used to store the identifier for the Purchase Order associated with the invoice.
+
+9. `NET_OF_RETAINAGE_FLAG`: This field is a flag that indicates whether the payment is net of retainage. It can be 'Y' for Yes or 'N' for No.
+
+10. `RELEASE_AMOUNT_NET_OF_TAX`: This field is used to store the release amount net of tax. It is null in the sample data.
+
+11. `CONTROL_AMOUNT`: This field is used to store the control amount for the invoice. It is null in the sample data.
+
+12. `PARTY_ID`: This field is used to store the identifier for the party (vendor, supplier, etc.) associated with the invoice.
+
+13. `PARTY_SITE_ID`: This field is used to store the identifier for the site of the party associated with the invoice.
+
+14. `PAY_PROC_TRXN_TYPE_CODE`: This field is used to store the transaction type code for the payment process. It is null in the sample data.
+
+15. `PAYMENT_FUNCTION`: This field is used to store the function of the payment. It is null in the sample data.
+
+16. `CUST_REGISTRATION_CODE`: This field is used to store the registration code of the customer. It is null in the sample data.
+
+17. `CUST_REGISTRATION_NUMBER`: This field is used to store the registration number of the customer. It is null in the sample data.
+
+18. `PORT_OF_ENTRY_CODE`: This field is used to store the code of the port of entry. It is null in the sample data.
+
+19. `EXTERNAL_BANK_ACCOUNT_ID`: This field is used to store the identifier for the external bank account.
+
+20. `VENDOR_CONTACT_ID`: This field is used to store the identifier for the contact person at the vendor's side. It is null in the sample data.
+
+**Inferred Relationships or Business Logic:**
+
+The `PARTY_ID` and `PARTY_SITE_ID` fields likely link to a table containing party or vendor details. The `QUICK_PO_HEADER_ID` field likely links to a Purchase Order table. The `PAYMENT_METHOD_CODE` field indicates the method of payment, and the `NET_OF_RETAINAGE_FLAG` field indicates whether the payment is net of retainage. The `EXTERNAL_BANK_ACCOUNT_ID` field likely links to a table containing bank account details.
+
+--- Prompt for group 10 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 10 of 10):
+['INTERNAL_CONTACT_EMAIL', 'DISC_IS_INV_LESS_TAX_FLAG', 'EXCLUDE_FREIGHT_FROM_DISCOUNT', 'PAY_AWT_GROUP_ID', 'ORIGINAL_INVOICE_AMOUNT', 'DISPUTE_REASON', 'REMIT_TO_SUPPLIER_NAME', 'REMIT_TO_SUPPLIER_ID', 'REMIT_TO_SUPPLIER_SITE', 'REMIT_TO_SUPPLIER_SITE_ID', 'RELATIONSHIP_ID', 'PO_MATCHED_FLAG', 'VALIDATION_WORKER_ID']
+
+Sample data (10 random rows, long values truncated):
+INTERNAL_CONTACT_EMAIL DISC_IS_INV_LESS_TAX_FLAG EXCLUDE_FREIGHT_FROM_DISCOUNT PAY_AWT_GROUP_ID ORIGINAL_INVOICE_AMOUNT DISPUTE_REASON REMIT_TO_SUPPLIER_NAME REMIT_TO_SUPPLIER_ID REMIT_TO_SUPPLIER_SITE REMIT_TO_SUPPLIER_SITE_ID RELATIONSHIP_ID PO_MATCHED_FLAG VALIDATION_WORKER_ID
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                      None                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                      None                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+                  None                         Y                             N             None                    None           None                   None                 None                   None                      None            None            None                 None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICES_ALL
+
+The AP.AP_INVOICES_ALL table in the Oracle ERP system is a comprehensive table that contains information related to invoices in the accounts payable module. This table is crucial for managing and tracking all invoice-related data, including details about the supplier, invoice amounts, dispute reasons, and validation workers. It also contains flags for various business rules and conditions related to the invoice.
+
+Column Descriptions:
+
+1. 'INTERNAL_CONTACT_EMAIL': This field likely contains the email address of the internal contact person responsible for the invoice. However, the sample data does not provide any specific values.
+
+2. 'DISC_IS_INV_LESS_TAX_FLAG': This flag indicates whether the invoice amount is less than the tax amount. 'Y' likely stands for 'Yes' and 'N' for 'No'.
+
+3. 'EXCLUDE_FREIGHT_FROM_DISCOUNT': This flag indicates whether freight charges are excluded from any discounts applied to the invoice. 'Y' likely stands for 'Yes' and 'N' for 'No'.
+
+4. 'PAY_AWT_GROUP_ID': This field likely represents the ID of the group responsible for withholding tax payments. The sample data does not provide any specific values.
+
+5. 'ORIGINAL_INVOICE_AMOUNT': This field likely represents the original amount of the invoice before any adjustments, discounts, or taxes are applied. The sample data does not provide any specific values.
+
+6. 'DISPUTE_REASON': This field likely contains the reason for any disputes related to the invoice. The sample data does not provide any specific values.
+
+7. 'REMIT_TO_SUPPLIER_NAME': This field likely contains the name of the supplier to whom the payment should be remitted. The sample data does not provide any specific values.
+
+8. 'REMIT_TO_SUPPLIER_ID': This field likely contains the ID of the supplier to whom the payment should be remitted. The sample data does not provide any specific values.
+
+9. 'REMIT_TO_SUPPLIER_SITE': This field likely contains the site or location of the supplier to whom the payment should be remitted. The sample data does not provide any specific values.
+
+10. 'REMIT_TO_SUPPLIER_SITE_ID': This field likely contains the ID of the site or location of the supplier to whom the payment should be remitted. The sample data does not provide any specific values.
+
+11. 'RELATIONSHIP_ID': This field likely represents the ID of the relationship between the company and the supplier. The sample data does not provide any specific values.
+
+12. 'PO_MATCHED_FLAG': This flag likely indicates whether the invoice has been matched with a purchase order. The sample data does not provide any specific values.
+
+13. 'VALIDATION_WORKER_ID': This field likely represents the ID of the worker who validated the invoice. The sample data does not provide any specific values.
+
+The relationships between the fields and any business logic would need to be inferred from more complete data or from the application's business rules. However, it is clear that this table is crucial for managing invoice data and ensuring accurate and timely payments to suppliers.

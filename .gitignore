@@ -427,3 +427,7 @@ token.json
 .gitignore
 09.other.projects/03.ats/08.after.more.columns/02.process_pdfs.py
 09.other.projects/03.ats/08.after.more.columns/02.process_pdfs_with_batch.py
+03.warehouse/01.mcp_erp/document_ap_checks_all.py
+03.warehouse/01.mcp_erp/document_ap_schema_overview.py
+03.warehouse/01.mcp_erp/document_top10_ap_ar_tables.py
+03.warehouse/01.mcp_erp/document_ar_schema_overview.py
