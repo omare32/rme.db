@@ -1,0 +1,118 @@
+Object Name: AP.AP_PAYMENT_SCHEDULES_ALL
+
+The AP.AP_PAYMENT_SCHEDULES_ALL table in the Oracle ERP system contains information related to the payment schedules of invoices. This table is crucial for managing and tracking the payment status of invoices, including details about the payment method, due dates, discount dates, and the amount remaining to be paid. 
+
+Column Descriptions:
+
+1. INVOICE_ID: This is the unique identifier for each invoice. It is a numerical value and is used to distinguish each invoice.
+
+2. LAST_UPDATED_BY: This column represents the ID of the user who last updated the invoice record. 
+
+3. LAST_UPDATE_DATE: This column records the date and time when the invoice record was last updated.
+
+4. PAYMENT_CROSS_RATE: This column represents the cross rate of the payment. In this sample data, all values are 1, which may suggest a single currency is being used.
+
+5. PAYMENT_NUM: This column represents the payment number. In this sample data, all values are 1, which may suggest that each invoice is paid in a single payment.
+
+6. AMOUNT_REMAINING: This column represents the remaining amount to be paid on the invoice.
+
+7. CREATED_BY: This column represents the ID of the user who created the invoice record.
+
+8. CREATION_DATE: This column records the date and time when the invoice record was created.
+
+9. DISCOUNT_DATE: This column represents the date when any discount on the invoice is applied. In this sample data, all values are None, which may suggest that no discounts are applied.
+
+10. DUE_DATE: This column represents the date when the invoice payment is due.
+
+11. FUTURE_PAY_DUE_DATE: This column represents any future due date for the invoice payment. In this sample data, all values are None, which may suggest that there are no future payments due.
+
+12. GROSS_AMOUNT: This column represents the total amount of the invoice before any deductions or discounts.
+
+13. HOLD_FLAG: This column indicates whether the invoice is on hold (Y) or not (N).
+
+14. LAST_UPDATE_LOGIN: This column represents the login ID of the user who last updated the invoice record.
+
+15. PAYMENT_METHOD_LOOKUP_CODE: This column represents the lookup code for the payment method. In this sample data, all values are None, which may suggest that the payment method is not recorded in this table.
+
+16. PAYMENT_PRIORITY: This column represents the priority of the payment. In this sample data, all values are 99, which may suggest a default priority level.
+
+17. PAYMENT_STATUS_FLAG: This column indicates whether the payment status is active (Y) or not (N).
+
+18. SECOND_DISCOUNT_DATE: This column represents the second date when any discount on the invoice is applied. In this sample data, all values are None, which may suggest that no second discounts are applied.
+
+19. THIRD_DISCOUNT_DATE: This column represents the third date when any discount on the invoice is applied. In this sample data, all values are None, which may suggest that no third discounts are applied.
+
+20. BATCH_ID: This column represents the ID of the batch that the invoice belongs to. In this sample data, all values are None, which may suggest that the invoices are not batch processed.
+
+The relationships between the columns are not explicitly stated, but it can be inferred that the invoice creation and update details are related to the user who performed these actions. The payment details are likely related to the invoice ID. The discount dates and amounts remaining would be related to the gross amount of the invoice.
+
+**Object Name:** AP.AP_PAYMENT_SCHEDULES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object is part of the Oracle ERP system, specifically within the Accounts Payable (AP) module. It appears to be used for managing and tracking the payment schedules and related discount amounts for various transactions. However, based on the sample data provided, it seems that this particular set of records does not contain any specific data.
+
+**Column Descriptions:**
+
+1. `DISCOUNT_AMOUNT_AVAILABLE`: This field is likely to store the total discount amount available for a particular payment schedule. The data type is not specified, but it is likely to be a numerical value.
+
+2. `SECOND_DISC_AMT_AVAILABLE`: This field is likely to store the amount available for a second discount, if applicable.
+
+3. `THIRD_DISC_AMT_AVAILABLE`: This field is likely to store the amount available for a third discount, if applicable.
+
+4. `ATTRIBUTE1` to `ATTRIBUTE15`: These fields are likely to be customizable fields that can be used to store additional information related to the payment schedule. The specific use of these fields may vary depending on the business needs.
+
+5. `ATTRIBUTE_CATEGORY`: This field is likely to be used to categorize the records based on certain attributes. The specific use of this field may vary depending on the business needs.
+
+6. `DISCOUNT_AMOUNT_REMAINING`: This field is likely to store the remaining discount amount after some payments have been made. The data type is not specified, but it is likely to be a numerical value.
+
+**Relationships and Business Logic:** Based on the column names and the nature of the data, it can be inferred that this table/view is likely to be related to other tables/views in the AP module that deal with payments, invoices, and discounts. The specific relationships and business logic would depend on the overall design of the database and the business rules of the organization. However, without more specific data or context, it is not possible to provide a detailed analysis of the relationships and business logic.
+
+## AP.AP_PAYMENT_SCHEDULES_ALL Table Documentation (Group 3 of 4)
+
+The AP.AP_PAYMENT_SCHEDULES_ALL table is part of an Oracle ERP system, specifically within the Accounts Payable (AP) module. This table appears to be designed to store organization-specific attributes related to payment schedules. However, based on the provided sample data, it seems that these fields are not currently being utilized.
+
+Below is a detailed description of each column in this group:
+
+1. **ORG_ID**: This field represents the unique identifier for an organization within the ERP system. Each row corresponds to a specific organization. For example, in the sample data, we have organization IDs like 83, 81, 85, and 1584.
+
+2. **GLOBAL_ATTRIBUTE_CATEGORY**: This field is intended to categorize the global attributes. However, in the provided sample data, this field is not being used and contains 'None' for all rows.
+
+3. **GLOBAL_ATTRIBUTE1** to **GLOBAL_ATTRIBUTE18**: These fields are designed to store various global attributes related to the payment schedules for each organization. The purpose and type of data stored in each attribute would typically be defined by the business based on their specific needs. For example, one attribute might store a custom payment term, while another might store a specific business rule related to payments. However, in the provided sample data, all of these fields contain 'None', indicating they are not currently being used.
+
+It's important to note that the use of 'global attributes' in a table structure like this provides flexibility for the business to define and store various types of data without needing to alter the underlying database structure. However, this can also make the data more challenging to understand and manage without clear documentation and consistent usage.
+
+Based on the provided data, it's not possible to infer any specific relationships or business logic. However, typically in an ERP system, the ORG_ID would be linked to other tables containing additional information about each organization. For example, there might be a table with the organization's name, address, and other details. Similarly, the global attributes might be used in various ways across the system, depending on how they are defined by the business.
+
+**Object Name:** AP.AP_PAYMENT_SCHEDULES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object is used to store information related to payment schedules in an Oracle ERP system. It appears to be part of the Accounts Payable (AP) module, which is responsible for managing and recording the company's short-term liabilities. The data in this table can be used to track payments, identify payment methods, and manage supplier relationships.
+
+**Column Descriptions:**
+
+1. **GLOBAL_ATTRIBUTE19 & GLOBAL_ATTRIBUTE20:** These columns are likely used to store additional information that doesn't fit into the other predefined fields. The exact nature of this information would depend on the business's specific needs. In the provided sample, these fields are not used.
+
+2. **EXTERNAL_BANK_ACCOUNT_ID:** This column stores the identifier for the external bank account associated with the payment. This could be the bank account of the supplier to which the payment is being made.
+
+3. **INV_CURR_GROSS_AMOUNT:** This column stores the gross amount of the invoice in the current currency. This would be the total amount to be paid before any deductions or additions.
+
+4. **CHECKRUN_ID:** This column likely stores the identifier for a batch of checks if the payment method is by check. In the provided sample, this field is not used.
+
+5. **DBI_EVENTS_COMPLETE_FLAG:** This column stores a flag indicating whether all DBI (Database Interface) events related to the payment have been completed. A value of 'N' suggests that the events are not yet complete.
+
+6. **IBY_HOLD_REASON:** This column likely stores the reason for any holds placed on the payment. In the provided sample, this field is not used.
+
+7. **PAYMENT_METHOD_CODE:** This column stores the code for the method of payment, such as 'EFT' for Electronic Funds Transfer, 'CHECK' for check, or 'Bank_Transfer' for bank transfer.
+
+8. **REMITTANCE_MESSAGE1, REMITTANCE_MESSAGE2, REMITTANCE_MESSAGE3:** These columns likely store any messages or notes related to the remittance. In the provided sample, these fields are not used.
+
+9. **REMIT_TO_SUPPLIER_NAME, REMIT_TO_SUPPLIER_ID, REMIT_TO_SUPPLIER_SITE, REMIT_TO_SUPPLIER_SITE_ID:** These columns store information about the supplier to whom the payment is being made. This includes the supplier's name, identifier, site, and site identifier.
+
+10. **RELATIONSHIP_ID:** This column likely stores an identifier for the relationship between the company and the supplier. In the provided sample, this field is not used.
+
+**Inferred Relationships or Business Logic:**
+
+The table seems to be primarily used to manage payment schedules and track payment details. The presence of columns for supplier information suggests that it may be linked to a supplier table in the database. The payment method code could potentially be linked to a table that stores detailed information about each payment method. The lack of data in many of the columns in the provided sample suggests that these fields may be optional or used only in specific circumstances.
+

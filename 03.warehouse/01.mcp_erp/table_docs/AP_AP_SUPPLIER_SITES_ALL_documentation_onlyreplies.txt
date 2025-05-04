@@ -1,0 +1,352 @@
+**Object Name:** AP.AP_SUPPLIER_SITES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object contains information about all the supplier sites in the system. It is used to store and manage data related to the suppliers' locations, including their addresses and site codes. This information is crucial for various business operations such as purchasing, payment processing, and request for quotation (RFQ) activities.
+
+**Column Descriptions:**
+
+1. `VENDOR_SITE_ID`: A unique identifier for each supplier site. This is the primary key for the table.
+
+2. `LAST_UPDATE_DATE`: The date and time when the supplier site record was last updated.
+
+3. `LAST_UPDATED_BY`: The ID of the user who last updated the supplier site record.
+
+4. `VENDOR_ID`: A unique identifier for the supplier associated with the site.
+
+5. `VENDOR_SITE_CODE`: A unique code assigned to the supplier site.
+
+6. `VENDOR_SITE_CODE_ALT`: An alternate code for the supplier site, if any.
+
+7. `LAST_UPDATE_LOGIN`: The login ID of the user who last updated the record.
+
+8. `CREATION_DATE`: The date and time when the supplier site record was created.
+
+9. `CREATED_BY`: The ID of the user who created the supplier site record.
+
+10. `PURCHASING_SITE_FLAG`: A flag indicating whether the site is used for purchasing activities. 'Y' means it is used for purchasing, 'N' means it is not.
+
+11. `RFQ_ONLY_SITE_FLAG`: A flag indicating whether the site is used only for Request for Quotation (RFQ) activities. 'Y' means it is used only for RFQ, 'N' means it is not.
+
+12. `PAY_SITE_FLAG`: A flag indicating whether the site is used for payment activities. 'Y' means it is used for payments, 'N' means it is not.
+
+13. `ATTENTION_AR_FLAG`: A flag indicating whether the site requires special attention or action. 'Y' means it requires attention, 'N' means it does not.
+
+14. `ADDRESS_LINE1`, `ADDRESS_LINE2`, `ADDRESS_LINE3`: These fields store the address of the supplier site. Each line represents a part of the address.
+
+15. `ADDRESS_LINES_ALT`: An alternate address for the supplier site, if any.
+
+16. `CITY`: The city where the supplier site is located.
+
+17. `STATE`: The state where the supplier site is located.
+
+18. `ZIP`: The zip or postal code of the supplier site.
+
+**Relationships and Business Logic:** 
+
+The `VENDOR_ID` field likely links to a Suppliers table where detailed information about each supplier is stored. The `CREATED_BY` and `LAST_UPDATED_BY` fields likely link to a Users or Employees table to identify who made the changes. 
+
+The flags (`PURCHASING_SITE_FLAG`, `RFQ_ONLY_SITE_FLAG`, `PAY_SITE_FLAG`, `ATTENTION_AR_FLAG`) indicate the functions and characteristics of each site. For example, if `PURCHASING_SITE_FLAG` is 'Y', it means that the site is used for purchasing activities. 
+
+The `VENDOR_SITE_CODE` and `VENDOR_SITE_CODE_ALT` fields might be used in business logic to identify sites in system processes or for reporting purposes. 
+
+The address fields (`ADDRESS_LINE1`, `ADDRESS_LINE2`, `ADDRESS_LINE3`, `CITY`, `STATE`, `ZIP`) are used to store the physical location of the supplier site, which could be used for shipping or billing purposes.
+
+**Object Name:** AP.AP_SUPPLIER_SITES_ALL
+
+**Object Type:** Table/View
+
+**Description:** The AP.AP_SUPPLIER_SITES_ALL object is a table in the Oracle ERP system that contains detailed information about the supplier sites. The data stored in this table is crucial for managing supplier relationships, tracking shipments, billing, and payment processing. 
+
+**Column Descriptions:**
+
+1. **PROVINCE:** This field represents the province where the supplier site is located. It appears to be null in the provided sample data.
+
+2. **COUNTRY:** This field indicates the country of the supplier site. For example, 'MR' and 'EG' in the sample data.
+
+3. **AREA_CODE:** This field stores the area code for the phone number of the supplier site. The sample data does not provide any specific values.
+
+4. **PHONE:** This field contains the phone number of the supplier site. It is null in the sample data.
+
+5. **CUSTOMER_NUM:** This field represents a unique identifier or number assigned to each customer. It is null in the sample data.
+
+6. **SHIP_TO_LOCATION_ID:** This field stores the unique identifier for the location where goods are shipped. It is null in the sample data.
+
+7. **BILL_TO_LOCATION_ID:** This field contains the unique identifier for the location where the invoice is sent. It is null in the sample data.
+
+8. **SHIP_VIA_LOOKUP_CODE:** This field represents the code used to look up the shipping method. It is null in the sample data.
+
+9. **FREIGHT_TERMS_LOOKUP_CODE:** This field stores the code used to look up the freight terms. It is null in the sample data.
+
+10. **FOB_LOOKUP_CODE:** This field contains the code used to look up the Free On Board (FOB) point. It is null in the sample data.
+
+11. **INACTIVE_DATE:** This field indicates the date when the supplier site became inactive. For example, '4712-12-31 00:00:00' in the sample data.
+
+12. **FAX:** This field stores the fax number of the supplier site. It is null in the sample data.
+
+13. **FAX_AREA_CODE:** This field represents the area code for the fax number of the supplier site. It is null in the sample data.
+
+14. **TELEX:** This field contains the telex number of the supplier site. It is null in the sample data.
+
+15. **PAYMENT_METHOD_LOOKUP_CODE:** This field represents the code used to look up the payment method. It is null in the sample data.
+
+16. **BANK_ACCOUNT_NAME:** This field stores the name of the bank account used for transactions. It is null in the sample data.
+
+17. **BANK_ACCOUNT_NUM:** This field contains the number of the bank account used for transactions. It is null in the sample data.
+
+18. **BANK_NUM:** This field represents the bank number where the account is held. It is null in the sample data.
+
+19. **BANK_ACCOUNT_TYPE:** This field indicates the type of bank account used for transactions. It is null in the sample data.
+
+20. **TERMS_DATE_BASIS:** This field stores the basis for the terms date. In the sample data, it is 'Invoice'.
+
+**Relationships and Business Logic:** The table appears to be a part of a larger database system that includes other tables related to suppliers, shipments, invoices, and payments. The relationships between this table and others are not explicitly provided in the data, but it can be inferred that there may be connections based on common fields like customer number, location IDs, and bank account numbers. The business logic behind this table seems to be managing and tracking supplier site information for shipping, billing, and payment purposes.
+
+**Object Name:** AP.AP_SUPPLIER_SITES_ALL
+
+**Object Description:** 
+The AP.AP_SUPPLIER_SITES_ALL table in the Oracle ERP system contains information related to supplier sites. It is used to manage and track various aspects of supplier site data, including payment details, tax information, and invoice details. This information is crucial for managing supplier relationships, processing payments, and maintaining accurate financial records.
+
+**Column Descriptions:**
+
+1. `CURRENT_CATALOG_NUM`: This field is likely to store the current catalog number associated with the supplier site. The sample data does not provide specific values.
+
+2. `VAT_CODE`: This field is likely to store the Value Added Tax (VAT) code associated with the supplier site. The sample data does not provide specific values.
+
+3. `DISTRIBUTION_SET_ID`: This field is likely to store the unique identifier for the distribution set associated with the supplier site. The sample data does not provide specific values.
+
+4. `ACCTS_PAY_CODE_COMBINATION_ID`: This field stores the unique identifier for the account pay code combination associated with the supplier site.
+
+5. `PREPAY_CODE_COMBINATION_ID`: This field stores the unique identifier for the prepay code combination associated with the supplier site.
+
+6. `PAY_GROUP_LOOKUP_CODE`: This field is likely to store the lookup code for the pay group associated with the supplier site. The sample data does not provide specific values.
+
+7. `PAYMENT_PRIORITY`: This field stores the payment priority for the supplier site.
+
+8. `TERMS_ID`: This field is likely to store the unique identifier for the payment terms associated with the supplier site. The sample data does not provide specific values.
+
+9. `INVOICE_AMOUNT_LIMIT`: This field stores the invoice amount limit for the supplier site.
+
+10. `PAY_DATE_BASIS_LOOKUP_CODE`: This field stores the lookup code for the pay date basis associated with the supplier site.
+
+11. `ALWAYS_TAKE_DISC_FLAG`: This field stores a flag indicating whether the supplier site always takes a discount.
+
+12. `INVOICE_CURRENCY_CODE`: This field stores the currency code for the invoice associated with the supplier site.
+
+13. `PAYMENT_CURRENCY_CODE`: This field stores the currency code for the payment associated with the supplier site.
+
+14. `HOLD_ALL_PAYMENTS_FLAG`: This field stores a flag indicating whether all payments to the supplier site are on hold.
+
+15. `HOLD_FUTURE_PAYMENTS_FLAG`: This field stores a flag indicating whether future payments to the supplier site are on hold.
+
+16. `HOLD_REASON`: This field is likely to store the reason for holding payments to the supplier site. The sample data does not provide specific values.
+
+17. `HOLD_UNMATCHED_INVOICES_FLAG`: This field stores a flag indicating whether unmatched invoices to the supplier site are on hold.
+
+18. `AP_TAX_ROUNDING_RULE`: This field stores the Accounts Payable tax rounding rule associated with the supplier site.
+
+19. `AUTO_TAX_CALC_FLAG`: This field stores a flag indicating whether tax calculation is automated for the supplier site.
+
+20. `AUTO_TAX_CALC_OVERRIDE`: This field is likely to store a flag indicating whether the automated tax calculation for the supplier site can be overridden. The sample data does not provide specific values.
+
+**Inferred Relationships and Business Logic:**
+The table appears to be related to supplier site management, particularly in terms of payments, taxes, and invoices. The relationships between different fields such as `ACCTS_PAY_CODE_COMBINATION_ID`, `PREPAY_CODE_COMBINATION_ID`, and `DISTRIBUTION_SET_ID` suggest that these elements are likely linked in the business logic. The presence of various flags indicates that the table is used to control and manage different aspects of payment processing, such as holds on payments or automated tax calculations.
+
+**Object Name:** AP.AP_SUPPLIER_SITES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This table/view stores information related to supplier sites in an Oracle ERP system. It is used to manage and track supplier site-specific details, such as tax information, payment exclusivity, and other attributes. This data is crucial for managing supplier relationships, payments, and reporting.
+
+**Column Descriptions:**
+
+1. `AMOUNT_INCLUDES_TAX_FLAG`: This flag indicates whether the amount includes tax or not. 'N' means the amount does not include tax, 'Y' means it does, and 'None' means the information is not available.
+
+2. `EXCLUSIVE_PAYMENT_FLAG`: This flag indicates whether the payment to the supplier is exclusive or not. The specific values are not provided in the sample data.
+
+3. `TAX_REPORTING_SITE_FLAG`: This flag indicates whether the site is a tax reporting site. 'N' means it is not a tax reporting site, 'Y' means it is, and 'None' means the information is not available.
+
+4. `ATTRIBUTE_CATEGORY`: This field is used to categorize the attributes. The specific values are not provided in the sample data.
+
+5. `ATTRIBUTE1` to `ATTRIBUTE15`: These fields are used to store additional information about the supplier site. The specific values and their meanings are not provided in the sample data.
+
+6. `REQUEST_ID`: This field is used to store the ID of the request associated with the supplier site. A value of -1 in the sample data suggests that no specific request is associated.
+
+**Inferred Relationships/Business Logic:**
+
+- The `REQUEST_ID` could be linked to a separate table or view that contains detailed information about requests, such as a requests table.
+- The `ATTRIBUTE_CATEGORY` could be used to group or filter the supplier sites based on certain characteristics. The specific categories and their meanings would need to be defined elsewhere, possibly in a separate table or a data dictionary.
+- The flags (`AMOUNT_INCLUDES_TAX_FLAG`, `EXCLUSIVE_PAYMENT_FLAG`, `TAX_REPORTING_SITE_FLAG`) suggest that the system supports different configurations for tax handling and payment methods for each supplier site. This could impact how payments are calculated and reported for each site.
+
+**Object Name:** AP.AP_SUPPLIER_SITES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object stores information related to supplier sites in an Oracle ERP system. It includes details about the program application, validation, VAT registration, address, language, and other attributes. This data is crucial for managing supplier relationships, ensuring accurate billing and shipping, and maintaining compliance with tax regulations.
+
+**Column Descriptions:**
+
+1. `PROGRAM_APPLICATION_ID`: This is an identifier for the application program associated with the supplier site. The sample data suggests this may be a system-generated ID.
+
+2. `PROGRAM_ID`: This is an identifier for the program associated with the supplier site. The sample data suggests this may be a system-generated ID.
+
+3. `PROGRAM_UPDATE_DATE`: This is the date and time when the program was last updated.
+
+4. `VALIDATION_NUMBER`: This field stores a validation number for the supplier site. The purpose and generation method of this number are not clear from the sample data.
+
+5. `EXCLUDE_FREIGHT_FROM_DISCOUNT`: This is a flag indicating whether freight costs should be excluded from any discounts. 'N' means no, 'Y' means yes.
+
+6. `VAT_REGISTRATION_NUM`: This is the VAT (Value Added Tax) registration number for the supplier. This is important for tax purposes.
+
+7. `OFFSET_VAT_CODE`: This field stores the offset VAT code for the supplier. The purpose of this code is not clear from the sample data.
+
+8. `ORG_ID`: This is an identifier for the organization associated with the supplier site.
+
+9. `CHECK_DIGITS`: This field stores check digits. The purpose and generation method of these digits are not clear from the sample data.
+
+10. `BANK_NUMBER`: This field stores the bank number associated with the supplier site.
+
+11. `ADDRESS_LINE4`: This field stores the fourth line of the supplier site's address.
+
+12. `COUNTY`: This field stores the county of the supplier site's address.
+
+13. `ADDRESS_STYLE`: This field stores the style of the supplier site's address.
+
+14. `LANGUAGE`: This field stores the language associated with the supplier site.
+
+15. `ALLOW_AWT_FLAG`: This is a flag indicating whether Automatic Withholding Tax (AWT) is allowed. 'N' means no, 'Y' means yes.
+
+16. `AWT_GROUP_ID`: This is an identifier for the AWT group associated with the supplier site.
+
+17. `GLOBAL_ATTRIBUTE1`, `GLOBAL_ATTRIBUTE2`, `GLOBAL_ATTRIBUTE3`, `GLOBAL_ATTRIBUTE4`: These fields store global attributes for the supplier site. The purpose of these attributes is not clear from the sample data.
+
+**Inferred Relationships or Business Logic:**
+
+The `ORG_ID` likely links to an Organizations table in the database, providing additional details about the organization associated with each supplier site. The `PROGRAM_ID` and `PROGRAM_APPLICATION_ID` may link to a Programs table, providing details about the application programs used by each supplier site. The `AWT_GROUP_ID` likely links to a table storing details about different AWT groups. The `BANK_NUMBER` might link to a table storing details about different banks.
+
+Object Name: AP.AP_SUPPLIER_SITES_ALL
+
+The AP.AP_SUPPLIER_SITES_ALL object is a table in the Oracle ERP system. It is used to store information related to supplier sites. This table is part of the Accounts Payable (AP) module, which is used to manage and record accounting data related to suppliers. 
+
+The table contains the following fields:
+
+1. GLOBAL_ATTRIBUTE5 to GLOBAL_ATTRIBUTE20: These fields are used to store additional attributes related to the supplier site. The specific purpose of these fields may vary depending on the business needs. In the provided sample data, these fields are not populated.
+
+2. GLOBAL_ATTRIBUTE_CATEGORY: This field is used to categorize the global attributes. The specific categories would depend on the business needs. In the provided sample data, this field is not populated.
+
+3. EDI_TRANSACTION_HANDLING: This field is used to store information related to how Electronic Data Interchange (EDI) transactions are handled for the supplier site. EDI is a method used to electronically transfer data between different systems. In the provided sample data, this field is not populated.
+
+4. EDI_ID_NUMBER: This field is used to store the EDI identification number for the supplier site. This would be used to identify the supplier site in EDI transactions. In the provided sample data, this field is not populated.
+
+5. EDI_PAYMENT_METHOD: This field is used to store the payment method used for EDI transactions with the supplier site. In the provided sample data, this field is not populated.
+
+Based on the provided sample data, it appears that this table is not currently being used to store any data. However, it could be used to store detailed information about supplier sites, including additional attributes, EDI transaction handling details, and payment methods. 
+
+The relationships between this table and other tables in the database would depend on the specific business logic and database schema. For example, this table could be linked to a table containing basic supplier information using a supplier ID field. This would allow for detailed supplier site information to be associated with the basic supplier information.
+
+Object Name: AP.AP_SUPPLIER_SITES_ALL
+
+The AP.AP_SUPPLIER_SITES_ALL object in the Oracle ERP system is a table that contains information about supplier sites. This table is crucial for managing supplier information, particularly in relation to payments, remittances, and communication details. 
+
+Column Details:
+
+1. EDI_PAYMENT_FORMAT: This field is likely to store the format of Electronic Data Interchange (EDI) payments. EDI is a method of transferring data between different computer systems or networks.
+
+2. EDI_REMITTANCE_METHOD: This field is expected to contain the method of remittance via EDI.
+
+3. BANK_CHARGE_BEARER: This field indicates who bears the bank charges. The 'I' value in the sample data suggests that it might be the supplier.
+
+4. EDI_REMITTANCE_INSTRUCTION: This field would store any specific instructions for EDI remittance.
+
+5. BANK_BRANCH_TYPE: This field is likely to store the type of bank branch associated with the supplier.
+
+6. PAY_ON_CODE: This field might contain a code that determines when the payment should be made.
+
+7. DEFAULT_PAY_SITE_ID: This field is expected to store the default payment site ID for the supplier.
+
+8. PAY_ON_RECEIPT_SUMMARY_CODE: This field might contain a code summarizing the pay-on-receipt policy.
+
+9. TP_HEADER_ID: This field might be a unique identifier for a transaction processing header.
+
+10. ECE_TP_LOCATION_CODE: This field might store a location code related to transaction processing.
+
+11. PCARD_SITE_FLAG: This field indicates whether a purchase card is associated with the site. 'N' value suggests that a purchase card is not associated.
+
+12. MATCH_OPTION: This field might contain a code indicating the match option for invoices and purchase orders. 'R' value suggests a particular matching option.
+
+13. COUNTRY_OF_ORIGIN_CODE: This field is expected to store the country of origin code for the supplier.
+
+14. FUTURE_DATED_PAYMENT_CCID: This field might store a unique identifier for future-dated payments.
+
+15. CREATE_DEBIT_MEMO_FLAG: This field indicates whether a debit memo can be created. 'Y' value suggests that a debit memo can be created.
+
+16. OFFSET_TAX_FLAG: This field might indicate whether tax can be offset.
+
+17. SUPPLIER_NOTIF_METHOD: This field is likely to store the method of notification for the supplier.
+
+18. EMAIL_ADDRESS: This field stores the email address of the supplier.
+
+19. REMITTANCE_EMAIL: This field stores the email address where remittance information should be sent.
+
+20. PRIMARY_PAY_SITE_FLAG: This field indicates whether the site is the primary payment site. 'N' value suggests that it is not the primary payment site.
+
+The relationships or business logic cannot be inferred from the provided information. However, it is likely that this table would have relationships with other tables in the ERP system, such as those related to supplier details, payment details, and bank details.
+
+Object Name: AP.AP_SUPPLIER_SITES_ALL
+
+The AP.AP_SUPPLIER_SITES_ALL is a table in an Oracle ERP system that contains information about supplier sites. This table is crucial for managing supplier data, including their location, legal business name, and other related information. The data stored in this table can be used for various business purposes such as supplier management, invoice processing, and financial reporting.
+
+Column Descriptions:
+
+1. SHIPPING_CONTROL: This field may contain information about the shipping control policies or procedures related to the supplier site. The sample data does not provide specific values.
+
+2. SELLING_COMPANY_IDENTIFIER: This field may contain an identifier for the company selling to the supplier. The sample data does not provide specific values.
+
+3. GAPLESS_INV_NUM_FLAG: This field indicates whether the invoice numbering for the supplier is gapless (i.e., sequential without missing numbers). 'N' likely stands for 'No'.
+
+4. DUNS_NUMBER: This field may contain the Data Universal Numbering System (DUNS) number, which is a unique identifier for businesses worldwide. The sample data does not provide specific values.
+
+5. TOLERANCE_ID: This field may contain an identifier related to the tolerance levels set for the supplier, possibly related to quality control or payment terms.
+
+6. LOCATION_ID: This field contains identifiers for the physical locations of the supplier sites.
+
+7. PARTY_SITE_ID: This field contains identifiers for the supplier sites.
+
+8. SERVICES_TOLERANCE_ID: This field may contain an identifier related to the tolerance levels set for services provided by the supplier.
+
+9. RETAINAGE_RATE: This field may contain information about the retainage rate, which is a portion of the agreed upon contract price deliberately withheld until the work is substantially complete to assure that contractor or subcontractor will satisfy its obligations.
+
+10. TCA_SYNC_STATE, TCA_SYNC_PROVINCE, TCA_SYNC_COUNTY, TCA_SYNC_CITY, TCA_SYNC_ZIP, TCA_SYNC_COUNTRY: These fields may contain information about the supplier's location that is synchronized with the Trading Community Architecture (TCA), Oracle's framework for managing complex trading relationships.
+
+11. PAY_AWT_GROUP_ID: This field may contain an identifier for the group handling automatic withholding tax (AWT) payments for the supplier.
+
+12. CAGE_CODE: This field may contain the Commercial and Government Entity (CAGE) Code, a unique identifier assigned to suppliers to various government or defense agencies.
+
+13. LEGAL_BUSINESS_NAME: This field contains the legal name of the business as registered in their local jurisdiction.
+
+14. DOING_BUS_AS_NAME: This field contains the trade name, or "doing business as" name, of the supplier.
+
+15. DIVISION_NAME: This field may contain the name of the division within the supplier's company that is associated with the site.
+
+The table does not appear to have explicit relationships with other tables based on the provided information. However, it can be inferred that there may be relationships with other tables in the database, such as those containing detailed location data (based on the LOCATION_ID), party data (based on the PARTY_SITE_ID), or payment data (based on the PAY_AWT_GROUP_ID).
+
+Object Name: AP.AP_SUPPLIER_SITES_ALL
+
+Group: 9 of 9
+
+The AP.AP_SUPPLIER_SITES_ALL is a table in an Oracle ERP system. This table is part of the Accounts Payable (AP) module and is used to store information about the supplier sites. This specific group of columns (group 9 of 9) seems to contain information related to the supplier's business status, comments from the Central Contractor Registration (CCR), and debarment dates.
+
+Column Details:
+
+1. SMALL_BUSINESS_CODE: This column is likely used to store a code that indicates whether the supplier is classified as a small business. The specific codes used and their meanings would be defined elsewhere in the system or documentation. In the provided sample data, this field is empty, which could indicate that these suppliers are not classified as small businesses, or that this information is not available or not applicable.
+
+2. CCR_COMMENTS: This column appears to be used for storing comments or notes from the Central Contractor Registration (CCR). The CCR is a database used by the U.S. Federal Government to collect information about suppliers. In the provided sample data, this field is empty, suggesting that there are no comments for these suppliers, or that this information is not available or not applicable.
+
+3. DEBARMENT_START_DATE: This column likely contains the date when a supplier was debarred or disqualified from doing business. Debarment is a serious action often taken due to fraud, violation of laws, or other misconduct. In the provided sample data, this field is empty, which could indicate that these suppliers have not been debarred, or that this information is not available or not applicable.
+
+4. DEBARMENT_END_DATE: This column is expected to contain the date when a supplier's debarment period ends, and they are allowed to do business again. In the provided sample data, this field is empty, which could indicate that these suppliers have not been debarred, or that this information is not available or not applicable.
+
+Relationships or Business Logic:
+
+Based on the column names and their purposes, it can be inferred that this table could be used to track the status and history of suppliers, particularly in relation to their eligibility to do business. The debarment start and end dates could be used to calculate the duration of debarment. The small business code could be used in reports or analyses related to small business participation. The CCR comments could provide additional context or details about the supplier's status or performance.
+

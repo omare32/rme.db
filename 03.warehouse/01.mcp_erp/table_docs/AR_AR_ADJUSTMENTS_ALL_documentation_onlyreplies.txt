@@ -1,0 +1,175 @@
+## AR.AR_ADJUSTMENTS_ALL Table Documentation
+
+The `AR.AR_ADJUSTMENTS_ALL` table in the Oracle ERP system is used to store all adjustments made to accounts receivable. This includes adjustments made to lines, invoices, freight charges, taxes, and receivables charges. The table serves as a log for all these adjustments, allowing for tracking and auditing of changes made to accounts receivable.
+
+### Column Descriptions:
+
+- `ADJUSTMENT_ID`: A unique identifier for each adjustment record in the table.
+- `LAST_UPDATED_BY`: The ID of the user who last updated the adjustment record.
+- `LAST_UPDATE_DATE`: The date and time when the adjustment record was last updated.
+- `LAST_UPDATE_LOGIN`: The login ID of the user who last updated the adjustment record.
+- `CREATED_BY`: The ID of the user who created the adjustment record.
+- `CREATION_DATE`: The date and time when the adjustment record was created.
+- `AMOUNT`: The amount of the adjustment. This is typically a negative value, indicating a reduction in the amount due.
+- `APPLY_DATE`: The date when the adjustment was applied.
+- `GL_DATE`: The date when the adjustment was posted to the general ledger.
+- `SET_OF_BOOKS_ID`: The ID of the set of books where the adjustment was recorded.
+- `CODE_COMBINATION_ID`: The ID of the code combination associated with the adjustment. This typically refers to the account code in the general ledger.
+- `TYPE`: The type of transaction that the adjustment was applied to. This could be a line item (`LINE`) or an invoice (`INVOICE`).
+- `ADJUSTMENT_TYPE`: The type of adjustment. In the sample data, all adjustments are of type `M`.
+- `STATUS`: The status of the adjustment. In the sample data, all adjustments are active (`A`).
+- `LINE_ADJUSTED`: The amount of the line item that was adjusted.
+- `FREIGHT_ADJUSTED`: The amount of freight charges that was adjusted. This field may be `NaN` if no freight charges were adjusted.
+- `TAX_ADJUSTED`: The amount of tax that was adjusted.
+- `RECEIVABLES_CHARGES_ADJUSTED`: The amount of receivables charges that was adjusted. This field may be `NaN` if no receivables charges were adjusted.
+- `ASSOCIATED_CASH_RECEIPT_ID`: The ID of the cash receipt associated with the adjustment, if any.
+- `CHARGEBACK_CUSTOMER_TRX_ID`: The ID of the chargeback customer transaction associated with the adjustment, if any.
+
+### Inferred Relationships and Business Logic:
+
+The `AR.AR_ADJUSTMENTS_ALL` table appears to be related to other tables in the database through fields like `LAST_UPDATED_BY`, `CREATED_BY`, `SET_OF_BOOKS_ID`, `CODE_COMBINATION_ID`, `ASSOCIATED_CASH_RECEIPT_ID`, and `CHARGEBACK_CUSTOMER_TRX_ID`. These fields likely refer to records in other tables such as users, books, code combinations, cash receipts, and customer transactions.
+
+The `AMOUNT` field is typically negative, suggesting that adjustments usually represent reductions in the amount due. The `APPLY_DATE` and `GL_DATE` fields suggest that there may be a delay between when an adjustment is applied and when it is posted to the general ledger. The `TYPE` field indicates whether the adjustment was applied to a line item or an invoice. The `STATUS` field indicates whether the adjustment is active or not.
+
+**Object Name:** AR.AR_ADJUSTMENTS_ALL
+
+**Object Description:** The AR.AR_ADJUSTMENTS_ALL table in the Oracle ERP system is designed to store all the adjustments made to the Accounts Receivable (AR) transactions. This table plays a crucial role in tracking changes, modifications, or corrections made to the AR transactions, which is essential for maintaining accurate financial records and ensuring the integrity of the financial data.
+
+**Column Descriptions:**
+
+1. **BATCH_ID:** This field is designed to store the unique identifier of the batch in which the adjustment was made. However, in the provided sample data, this field is not populated.
+
+2. **CUSTOMER_TRX_ID:** This field stores the unique identifier of the customer transaction that was adjusted.
+
+3. **CUSTOMER_TRX_LINE_ID:** This field is intended to store the unique identifier of the specific line item in the customer transaction that was adjusted. However, in the provided sample data, this field is not populated.
+
+4. **SUBSEQUENT_TRX_ID:** This field is designed to store the unique identifier of any subsequent transaction related to the adjusted transaction. However, in the provided sample data, this field is not populated.
+
+5. **PAYMENT_SCHEDULE_ID:** This field stores the unique identifier of the payment schedule associated with the adjusted transaction.
+
+6. **RECEIVABLES_TRX_ID:** This field stores the unique identifier of the receivables transaction that was adjusted.
+
+7. **DISTRIBUTION_SET_ID:** This field is designed to store the unique identifier of the distribution set associated with the adjusted transaction. However, in the provided sample data, this field is not populated.
+
+8. **GL_POSTED_DATE:** This field stores the date when the adjustment was posted to the General Ledger (GL).
+
+9. **COMMENTS:** This field is intended to store any comments or notes related to the adjustment. However, in the provided sample data, this field is not populated.
+
+10. **AUTOMATICALLY_GENERATED:** This field is designed to indicate whether the adjustment was automatically generated by the system. However, in the provided sample data, this field is not populated.
+
+11. **CREATED_FROM:** This field stores the source or the module from which the adjustment was created. In the provided sample data, all adjustments were created from 'ARXTWADJ'.
+
+12. **REASON_CODE:** This field is intended to store the reason code for the adjustment. However, in the provided sample data, this field is not populated.
+
+13. **POSTABLE:** This field indicates whether the adjustment is postable (Y) or not (N).
+
+14. **APPROVED_BY:** This field stores the unique identifier of the user who approved the adjustment.
+
+15. **ATTRIBUTE_CATEGORY:** This field is designed to store the category of the attribute associated with the adjustment. However, in the provided sample data, this field is not populated.
+
+16. **ATTRIBUTE1 to ATTRIBUTE5:** These fields are designed to store additional attribute values associated with the adjustment. In the provided sample data, only ATTRIBUTE1 and ATTRIBUTE2 are populated for some records, and ATTRIBUTE3 is populated with 'Bank Fees' for some records.
+
+**Inferred Relationships or Business Logic:**
+
+The AR.AR_ADJUSTMENTS_ALL table appears to be related to other tables in the Oracle ERP system through fields like CUSTOMER_TRX_ID, PAYMENT_SCHEDULE_ID, and RECEIVABLES_TRX_ID. These fields likely link to corresponding records in the customer transactions, payment schedules, and receivables transactions tables, respectively. The CREATED_FROM field indicates that all adjustments were created from the 'ARXTWADJ' module, suggesting a relationship between this table and that module.
+
+# AR.AR_ADJUSTMENTS_ALL Table Documentation
+
+## Overview
+The AR.AR_ADJUSTMENTS_ALL table in the Oracle ERP system is used to store data related to financial adjustments within the organization. This table is crucial for financial management and accounting purposes, as it tracks adjustments made to the accounts receivable (AR) of the organization. 
+
+## Column Descriptions
+
+1. **ATTRIBUTE6 - ATTRIBUTE15**: These columns are likely used to store additional, customizable data related to the adjustments. The exact nature of this data would depend on the organization's specific needs and configuration of the Oracle ERP system. In the provided sample data, these fields are all null.
+
+2. **POSTING_CONTROL_ID**: This is an identifier for the control mechanism related to the posting of the adjustment. This could be used to link to a table or view that provides more information about the control mechanism.
+
+3. **ACCTD_AMOUNT**: This column represents the accounted amount of the adjustment. The values are negative, which might indicate a decrease in the accounts receivable balance.
+
+4. **PROGRAM_APPLICATION_ID**: This is an identifier for the application that was used to make the adjustment. A value of -1 in the sample data might indicate that the adjustment was made manually or outside of a specific application.
+
+5. **PROGRAM_ID**: This is an identifier for the specific program or process that made the adjustment. A value of -1 in the sample data might indicate that the adjustment was made manually or outside of a specific program.
+
+6. **PROGRAM_UPDATE_DATE**: This is the date and time when the adjustment was made or last updated in the system.
+
+7. **REQUEST_ID**: This could be an identifier for the request that led to the adjustment. The null values in the sample data might indicate that not all adjustments are linked to specific requests.
+
+8. **ADJUSTMENT_NUMBER**: This is a unique identifier for each adjustment.
+
+9. **ORG_ID**: This is an identifier for the organization or department within the organization that the adjustment pertains to.
+
+10. **USSGL_TRANSACTION_CODE**: This could be a code related to the United States Standard General Ledger (USSGL) that classifies the type of adjustment. The null values in the sample data might indicate that this field is not used in all cases.
+
+11. **USSGL_TRANSACTION_CODE_CONTEXT**: This could provide additional context or information about the USSGL transaction code. The null values in the sample data might indicate that this field is not used in all cases.
+
+## Relationships and Business Logic
+The AR.AR_ADJUSTMENTS_ALL table likely interacts with other tables in the Oracle ERP system. For example, the ORG_ID could link to a table that provides more information about each organization or department. The POSTING_CONTROL_ID, PROGRAM_APPLICATION_ID, and PROGRAM_ID could also link to other tables that provide more information about the control mechanisms, applications, and programs, respectively.
+
+The negative values in the ACCTD_AMOUNT column suggest that adjustments typically decrease the accounts receivable balance. This could reflect payments received, allowances for doubtful accounts, or other types of adjustments. The specific business logic would depend on the organization's accounting practices and configuration of the Oracle ERP system.
+
+**Object Name:** AR.AR_ADJUSTMENTS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_ADJUSTMENTS_ALL object is a part of the Oracle ERP system and is used to store information related to adjustments made in the Accounts Receivable (AR) module. Adjustments could include changes to invoice amounts, tax rules, or other financial data. This object is crucial for maintaining accurate financial records and for auditing purposes.
+
+**Column Descriptions:**
+
+1. `DOC_SEQUENCE_VALUE`: This field stores the unique sequence value of the document associated with the adjustment. It is a numeric field and can be used to identify specific documents.
+
+2. `DOC_SEQUENCE_ID`: This field stores the unique identifier of the document sequence. It is a numeric field and can be used to group adjustments related to the same sequence.
+
+3. `ASSOCIATED_APPLICATION_ID`: This field is intended to store the ID of the application associated with the adjustment. However, in the provided sample data, this field is not populated.
+
+4. `CONS_INV_ID`: This field is intended to store the consolidated invoice ID associated with the adjustment. However, in the provided sample data, this field is not populated.
+
+5. `MRC_GL_POSTED_DATE`: This field is intended to store the date when the adjustment was posted to the General Ledger (GL) in the Multiple Reporting Currency (MRC) context. However, in the provided sample data, this field is not populated.
+
+6. `MRC_POSTING_CONTROL_ID`: This field is intended to store the control ID related to the MRC posting. However, in the provided sample data, this field is not populated.
+
+7. `MRC_ACCTD_AMOUNT`: This field is intended to store the accounted amount in the MRC context. However, in the provided sample data, this field is not populated.
+
+8. `ADJ_TAX_ACCT_RULE`: This field stores the rule ID for the tax accounting related to the adjustment. In the sample data, this field is populated with the value 33.
+
+9. `GLOBAL_ATTRIBUTE_CATEGORY` to `GLOBAL_ATTRIBUTE11`: These fields are intended to store global attributes related to the adjustment. These could be used to store additional information or custom data. However, in the provided sample data, these fields are not populated.
+
+**Inferred Relationships or Business Logic:**
+
+The `DOC_SEQUENCE_VALUE` and `DOC_SEQUENCE_ID` fields suggest that each adjustment can be linked to a specific document sequence. This implies that adjustments are not standalone but are related to other financial documents in the system.
+
+The `ADJ_TAX_ACCT_RULE` field suggests that each adjustment is associated with a specific tax accounting rule, which could affect how the adjustment is accounted for in the financial system.
+
+The presence of `MRC_GL_POSTED_DATE`, `MRC_POSTING_CONTROL_ID`, and `MRC_ACCTD_AMOUNT` fields suggest that the system supports Multiple Reporting Currencies (MRC), and adjustments can be posted and accounted for in different currencies.
+
+The `GLOBAL_ATTRIBUTE_CATEGORY` to `GLOBAL_ATTRIBUTE11` fields suggest that the system allows for a high degree of customization, as users can store a wide range of additional data related to each adjustment.
+
+**Object Name:** AR.AR_ADJUSTMENTS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_ADJUSTMENTS_ALL object is part of an Oracle ERP system, specifically within the Accounts Receivable (AR) module. This table appears to store data related to adjustments made to accounts receivable transactions. Adjustments could include changes to the amount due, write-offs, or other modifications to the original transaction.
+
+**Column Descriptions:**
+
+1. **GLOBAL_ATTRIBUTE12 - GLOBAL_ATTRIBUTE20:** These columns are likely used to store additional information about the adjustments that do not fit into the other predefined fields. The exact nature of the data stored in these fields may vary depending on the business's specific needs. In the provided sample data, these fields are all null.
+
+2. **LINK_TO_TRX_HIST_ID:** This column would typically contain identifiers linking each adjustment to a specific transaction in the transaction history. However, in the provided sample data, this field is null.
+
+3. **EVENT_ID:** This column stores unique identifiers for each event, which could be any action or series of actions that result in an adjustment.
+
+4. **UPGRADE_METHOD:** This column indicates the method used for upgrading the system or data. In the provided sample data, all entries are 'R12', which suggests an upgrade to version R12 of the Oracle ERP system.
+
+5. **AX_ACCOUNTED_FLAG:** This column would typically indicate whether the adjustment has been accounted for in the AX (Accounting) module. However, in the provided sample data, this field is null.
+
+6. **INTEREST_HEADER_ID:** This column would typically contain identifiers linking each adjustment to a specific interest header, which could be related to interest calculations or accruals. However, in the provided sample data, this field is null.
+
+7. **INTEREST_LINE_ID:** This column would typically contain identifiers linking each adjustment to a specific line within an interest calculation or accrual. However, in the provided sample data, this field is null.
+
+**Inferred Relationships or Business Logic:** 
+
+Based on the column names and sample data, it can be inferred that each row in this table represents an adjustment event. The 'EVENT_ID' field provides a unique identifier for each event. The 'UPGRADE_METHOD' field suggests that the data in this table may have been migrated or upgraded from an older system or version. 
+
+The 'GLOBAL_ATTRIBUTE' fields suggest that the table is designed to accommodate a variety of adjustment types or scenarios, as these fields can hold various types of data. However, without further context or non-null sample data, it's difficult to infer more specific relationships or business logic. 
+
+The null values in 'LINK_TO_TRX_HIST_ID', 'AX_ACCOUNTED_FLAG', 'INTEREST_HEADER_ID', and 'INTEREST_LINE_ID' suggest that these fields may be optional or that the sample data comes from a point in the process before these fields have been populated.
+

@@ -1,0 +1,457 @@
+Documentation log for AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+
+--- Prompt for group 1 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 1 of 7):
+['RECEIVABLE_APPLICATION_ID', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'CREATED_BY', 'CREATION_DATE', 'AMOUNT_APPLIED', 'AMOUNT_APPLIED_FROM', 'TRANS_TO_RECEIPT_RATE', 'GL_DATE', 'CODE_COMBINATION_ID', 'SET_OF_BOOKS_ID', 'DISPLAY', 'APPLY_DATE', 'APPLICATION_TYPE', 'STATUS', 'PAYMENT_SCHEDULE_ID', 'LAST_UPDATE_LOGIN', 'CASH_RECEIPT_ID', 'APPLIED_CUSTOMER_TRX_ID', 'APPLIED_CUSTOMER_TRX_LINE_ID']
+
+Sample data (10 random rows, long values truncated):
+ RECEIVABLE_APPLICATION_ID  LAST_UPDATED_BY    LAST_UPDATE_DATE  CREATED_BY       CREATION_DATE  AMOUNT_APPLIED AMOUNT_APPLIED_FROM TRANS_TO_RECEIPT_RATE    GL_DATE  CODE_COMBINATION_ID  SET_OF_BOOKS_ID DISPLAY APPLY_DATE APPLICATION_TYPE STATUS  PAYMENT_SCHEDULE_ID  LAST_UPDATE_LOGIN  CASH_RECEIPT_ID  APPLIED_CUSTOMER_TRX_ID APPLIED_CUSTOMER_TRX_LINE_ID
+                     47841             1678 2017-08-01 11:24:22        1678 2017-07-19 12:35:58    5.803916e+04                None                  None 2017-04-01                17096             2030       Y 2017-05-31             CASH    APP                77307               1678            42400                  68191.0                         None
+                   1778618             1677 2025-02-27 02:01:10       13572 2025-02-26 08:58:50   -3.917448e+06                None                  None 2025-02-26                34027             2030       N 2025-02-26             CASH  UNAPP              1947928               1677          2170286                      NaN                         None
+                    128015             1681 2020-02-10 12:52:39        1681 2020-02-10 12:51:46    2.500000e+05                None                  None 2020-01-27               226719             2134       N 2020-01-27             CASH  UNAPP               215507               1681           122990                      NaN                         None
+                    855763             1677 2022-09-29 18:14:31       12290 2022-09-29 16:22:39    2.749182e+07                None                  None 2022-09-13                34027             2030       N 2022-09-13             CASH  UNAPP               182326               1677            94508                      NaN                         None
+                     49214             1213 2017-08-24 15:10:18        1641 2017-08-15 17:18:21   -8.454844e+05                None                  None 2017-06-08                29013             2026       N 2017-06-08             CASH  UNAPP                78273               1213            43097                      NaN                         None
+                   1509370            14552 2024-05-21 10:58:34       14552 2024-05-21 10:57:06    4.385000e+05                None                  None 2024-05-21               276421             2254       N 2024-05-21             CASH  UNAPP              1701608              14552          1920103                      NaN                         None
+                    747253             2414 2022-05-20 08:52:28        2414 2022-05-20 08:51:56    1.156873e+05                None                  None 2022-05-20               250045             2235       Y 2022-05-20             CASH    APP              1052122               2414          1069124                 841476.0                         None
+                    865713             1677 2022-10-11 22:00:59       11526 2022-10-11 17:54:58   -2.438011e+07                None                  None 2022-10-11                34027             2030       N 2022-10-11             CASH  UNAPP              1147452               1677          1206978                      NaN                         None
+                    297850             2753 2021-10-12 14:40:39        1642 2021-04-22 13:22:18    8.781795e+06                None                  None 2021-04-14                66009             2026       Y 2021-04-14             CASH    APP               431289                 -1           334446                 371031.0                         None
+                   1510379             1677 2024-06-02 11:38:46        9921 2024-05-22 15:18:24   -6.178174e+06                None                  None 2024-05-22                34027             2030       N 2024-05-22             CASH  UNAPP              1022460               1677          1036844                      NaN                         None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table in the Oracle ERP system contains information about the applications of receivables in the Accounts Receivable (AR) module. The business purpose of this table is to track and manage the application of payments against outstanding receivables. This includes details about the application type, status, amount applied, and related transaction and receipt information.
+
+Column Descriptions:
+
+1. RECEIVABLE_APPLICATION_ID: This is the unique identifier for each receivable application. It is a primary key in the table.
+
+2. LAST_UPDATED_BY: This field records the ID of the user who last updated the record.
+
+3. LAST_UPDATE_DATE: This timestamp field records the date and time when the record was last updated.
+
+4. CREATED_BY: This field records the ID of the user who created the record.
+
+5. CREATION_DATE: This timestamp field records the date and time when the record was created.
+
+6. AMOUNT_APPLIED: This field records the amount that has been applied or paid towards the receivable.
+
+7. AMOUNT_APPLIED_FROM: This field seems to be unused in the sample data provided. It might be intended to record the source of the applied amount.
+
+8. TRANS_TO_RECEIPT_RATE: This field also seems to be unused in the sample data. It might be intended to record the exchange rate applied if the transaction and receipt are in different currencies.
+
+9. GL_DATE: This field records the date when the transaction was recorded in the General Ledger.
+
+10. CODE_COMBINATION_ID: This field records the ID of the code combination associated with the receivable application.
+
+11. SET_OF_BOOKS_ID: This field records the ID of the set of books where the receivable application is recorded.
+
+12. DISPLAY: This field indicates whether the receivable application is displayed (Y) or not (N).
+
+13. APPLY_DATE: This field records the date when the amount was applied to the receivable.
+
+14. APPLICATION_TYPE: This field records the type of application, such as CASH.
+
+15. STATUS: This field records the status of the application, such as APP (applied) or UNAPP (unapplied).
+
+16. PAYMENT_SCHEDULE_ID: This field records the ID of the payment schedule associated with the receivable application.
+
+17. LAST_UPDATE_LOGIN: This field records the login ID of the user who last updated the record.
+
+18. CASH_RECEIPT_ID: This field records the ID of the cash receipt associated with the receivable application.
+
+19. APPLIED_CUSTOMER_TRX_ID: This field records the ID of the customer transaction where the amount was applied.
+
+20. APPLIED_CUSTOMER_TRX_LINE_ID: This field seems to be unused in the sample data provided. It might be intended to record the ID of the specific line item in the customer transaction where the amount was applied.
+
+Based on the column names and sample data, it can be inferred that this table is primarily used to track the application of payments against receivables. The status and application type fields suggest that the table may be used to manage different types of applications and their statuses. The presence of fields for user and date information suggests that the table also tracks who created and updated each record and when these actions occurred.
+
+--- Prompt for group 2 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 2 of 7):
+['APPLIED_PAYMENT_SCHEDULE_ID', 'CUSTOMER_TRX_ID', 'LINE_APPLIED', 'TAX_APPLIED', 'FREIGHT_APPLIED', 'RECEIVABLES_CHARGES_APPLIED', 'EARNED_DISCOUNT_TAKEN', 'UNEARNED_DISCOUNT_TAKEN', 'DAYS_LATE', 'APPLICATION_RULE', 'GL_POSTED_DATE', 'COMMENTS', 'ATTRIBUTE_CATEGORY', 'ATTRIBUTE1', 'ATTRIBUTE2', 'ATTRIBUTE3', 'ATTRIBUTE4', 'ATTRIBUTE5', 'ATTRIBUTE6', 'ATTRIBUTE7']
+
+Sample data (10 random rows, long values truncated):
+ APPLIED_PAYMENT_SCHEDULE_ID CUSTOMER_TRX_ID  LINE_APPLIED  TAX_APPLIED  FREIGHT_APPLIED  RECEIVABLES_CHARGES_APPLIED  EARNED_DISCOUNT_TAKEN  UNEARNED_DISCOUNT_TAKEN DAYS_LATE APPLICATION_RULE GL_POSTED_DATE COMMENTS ATTRIBUTE_CATEGORY ATTRIBUTE1 ATTRIBUTE2 ATTRIBUTE3 ATTRIBUTE4 ATTRIBUTE5 ATTRIBUTE6 ATTRIBUTE7
+                     77112.0            None  5.803916e+04      0.00000              0.0                          0.0                    0.0                      0.0      None             60.0     2017-08-01     None               None Collection       None       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.7     2025-02-27     None                 83 Collection       0151       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.2     2020-02-10     None               None       None       None       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             90.4     2022-09-29     None                 83 On Account       0060       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.7     2017-08-24     None               None Collection       None       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.2     2024-05-21     None               None       None       None       None       None       None       None       None
+                   1049184.0            None  1.086995e+05   6987.82911              0.0                          0.0                    0.0                      0.0      None             60.0     2022-05-20     None               None Collection       None       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.7     2022-10-11     None                 83 On Account       0123       None       None       None       None       None
+                    384213.0            None  8.781795e+06      0.00000              0.0                          0.0                    0.0                      0.0      None             60.0     2021-05-08     None                 85 Collection       None       None       None       None       None       None
+                         NaN            None           NaN          NaN              NaN                          NaN                    NaN                      NaN      None             60.7     2024-06-02     None                 83 On Account       0159       None       None       None       None       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object: AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL is a table in the Oracle ERP system that contains information related to the application of payments against receivables. This table is used to track and manage customer transactions, including the application of payments, discounts, and charges. It is an essential part of the accounts receivable process, helping to ensure accurate financial reporting and customer account management.
+
+Columns:
+
+1. APPLIED_PAYMENT_SCHEDULE_ID: This is a unique identifier for the payment schedule that has been applied. It is a numerical value and can be used to track specific payment schedules.
+
+2. CUSTOMER_TRX_ID: This is a unique identifier for the customer transaction. It appears to be null in the sample data, but typically it would be used to link to the specific transaction in the customer transactions table.
+
+3. LINE_APPLIED: This column represents the amount applied to the line item in the transaction. It is a numerical value.
+
+4. TAX_APPLIED: This column represents the amount of tax applied in the transaction. It is a numerical value.
+
+5. FREIGHT_APPLIED: This column represents the amount of freight charges applied in the transaction. It is a numerical value.
+
+6. RECEIVABLES_CHARGES_APPLIED: This column represents the amount of receivables charges applied in the transaction. It is a numerical value.
+
+7. EARNED_DISCOUNT_TAKEN: This column represents the amount of earned discount that has been taken in the transaction. It is a numerical value.
+
+8. UNEARNED_DISCOUNT_TAKEN: This column represents the amount of unearned discount that has been taken in the transaction. It is a numerical value.
+
+9. DAYS_LATE: This column represents the number of days late the payment was received. It is a numerical value.
+
+10. APPLICATION_RULE: This column represents the rule applied for the application of the payment. It is a numerical value.
+
+11. GL_POSTED_DATE: This column represents the date when the transaction was posted to the General Ledger. It is a date value.
+
+12. COMMENTS: This column is for any additional comments related to the transaction. It is a text field.
+
+13. ATTRIBUTE_CATEGORY: This column is a category for additional attributes related to the transaction. It is a text field.
+
+14. ATTRIBUTE1 to ATTRIBUTE7: These are additional attribute fields that can be used to store extra information related to the transaction. They are text fields.
+
+Based on the sample data, it appears that some fields may not always be populated, such as the CUSTOMER_TRX_ID and the ATTRIBUTE fields. The APPLICATION_RULE field appears to be a coded value, with specific numbers representing different rules. The ATTRIBUTE_CATEGORY field also appears to be coded, with specific numbers representing different categories.
+
+--- Prompt for group 3 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 3 of 7):
+['ATTRIBUTE8', 'ATTRIBUTE9', 'ATTRIBUTE10', 'POSTABLE', 'POSTING_CONTROL_ID', 'ACCTD_AMOUNT_APPLIED_FROM', 'ACCTD_AMOUNT_APPLIED_TO', 'ACCTD_EARNED_DISCOUNT_TAKEN', 'ATTRIBUTE11', 'ATTRIBUTE12', 'ATTRIBUTE13', 'ATTRIBUTE14', 'ATTRIBUTE15', 'CONFIRMED_FLAG', 'PROGRAM_APPLICATION_ID', 'PROGRAM_ID', 'PROGRAM_UPDATE_DATE', 'REQUEST_ID', 'USSGL_TRANSACTION_CODE', 'USSGL_TRANSACTION_CODE_CONTEXT']
+
+Sample data (10 random rows, long values truncated):
+ATTRIBUTE8 ATTRIBUTE9 ATTRIBUTE10 POSTABLE  POSTING_CONTROL_ID  ACCTD_AMOUNT_APPLIED_FROM  ACCTD_AMOUNT_APPLIED_TO  ACCTD_EARNED_DISCOUNT_TAKEN ATTRIBUTE11 ATTRIBUTE12 ATTRIBUTE13 ATTRIBUTE14 ATTRIBUTE15 CONFIRMED_FLAG  PROGRAM_APPLICATION_ID  PROGRAM_ID PROGRAM_UPDATE_DATE  REQUEST_ID USSGL_TRANSACTION_CODE USSGL_TRANSACTION_CODE_CONTEXT
+      None       None        None     None               48980               5.803916e+04             5.803916e+04                          0.0        None        None        None        None        None           None                      -1   -100104.0          2017-07-19          -1                   None                           None
+      None       None        None     None             2279502              -3.917448e+06                      NaN                          NaN        None        None        None        None        None           None                      -1   -100103.0          2025-02-26          -1                   None                           None
+      None       None        None     None              212846               2.500000e+05                      NaN                          NaN        None        None        None        None        None           None                      -1         NaN          2020-02-10          -1                   None                           None
+      None       None        None        Y             1401174               2.749182e+07                      NaN                          NaN        None        None        None        None        None           None                      -1   -100102.0          2022-09-29          -1                   None                           None
+      None       None        None     None               49313              -8.454844e+05                      NaN                          NaN        None        None        None        None        None           None                      -1   -100103.0          2017-08-15          -1                   None                           None
+      None       None        None     None             2011369               4.385000e+05                      NaN                          NaN        None        None        None        None        None           None                      -1         NaN          2024-05-21          -1                   None                           None
+      None       None        None     None             1286062               1.156873e+05             1.156873e+05                          0.0        None        None        None        None        None           None                      -1   -100104.0          2022-05-20          -1                   None                           None
+      None       None        None     None             1411168              -2.438011e+07                      NaN                          NaN        None        None        None        None        None           None                      -1        -1.0          2022-10-11          -1                   None                           None
+      None       None        None     None              618140               8.781795e+06             8.781795e+06                          0.0        None        None        None        None        None           None                      -1        -1.0          2021-10-12          -1                   None                           None
+      None       None        None     None             2023409              -6.178174e+06                      NaN                          NaN        None        None        None        None        None           None                      -1   -100106.0          2024-05-22          -1                   None                           None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+## AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table in the Oracle ERP system is a part of the Accounts Receivable module. It contains detailed information about the application of payments and adjustments to invoices, debit memos, chargebacks, deposits, and on-account credits.
+
+### Column Descriptions
+
+1. **ATTRIBUTE8 - ATTRIBUTE15**: These are generic columns that can be used to store additional information as needed by the business. The specific use of these columns can vary depending on the business requirements.
+
+2. **POSTABLE**: This column indicates whether the record can be posted or not. If the value is 'Y', it means the record is postable.
+
+3. **POSTING_CONTROL_ID**: This is a unique identifier for the posting control. It is used to control the posting process.
+
+4. **ACCTD_AMOUNT_APPLIED_FROM**: This column represents the accounted amount applied from a particular transaction. It is expressed in the functional currency.
+
+5. **ACCTD_AMOUNT_APPLIED_TO**: This column represents the accounted amount applied to a particular transaction. It is expressed in the functional currency.
+
+6. **ACCTD_EARNED_DISCOUNT_TAKEN**: This column represents the accounted amount of the earned discount taken. It is expressed in the functional currency.
+
+7. **CONFIRMED_FLAG**: This column indicates whether the record has been confirmed or not. The specific use of this column can vary depending on the business requirements.
+
+8. **PROGRAM_APPLICATION_ID**: This is a unique identifier for the program application. It is used to track the application of a program.
+
+9. **PROGRAM_ID**: This is a unique identifier for the program. It is used to track the program associated with the record.
+
+10. **PROGRAM_UPDATE_DATE**: This column represents the date when the program was last updated.
+
+11. **REQUEST_ID**: This is a unique identifier for the request. It is used to track the request associated with the record.
+
+12. **USSGL_TRANSACTION_CODE**: This column represents the United States Standard General Ledger (USSGL) transaction code associated with the record.
+
+13. **USSGL_TRANSACTION_CODE_CONTEXT**: This column provides additional context for the USSGL transaction code.
+
+### Relationships and Business Logic
+
+The relationships between this table and others in the system would depend on the specific business logic and system design. However, it can be inferred that this table would likely have relationships with other tables in the Accounts Receivable module, such as those related to customers, transactions, and accounting.
+
+The business logic would involve applying payments and adjustments to various transactions, tracking these applications, and posting the accounting entries as appropriate. The use of the ATTRIBUTE and CONFIRMED_FLAG columns would depend on the specific business requirements.
+
+--- Prompt for group 4 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 4 of 7):
+['EARNED_DISCOUNT_CCID', 'UNEARNED_DISCOUNT_CCID', 'ACCTD_UNEARNED_DISCOUNT_TAKEN', 'REVERSAL_GL_DATE', 'CASH_RECEIPT_HISTORY_ID', 'ORG_ID', 'TAX_CODE', 'GLOBAL_ATTRIBUTE1', 'GLOBAL_ATTRIBUTE2', 'GLOBAL_ATTRIBUTE3', 'GLOBAL_ATTRIBUTE4', 'GLOBAL_ATTRIBUTE5', 'GLOBAL_ATTRIBUTE6', 'GLOBAL_ATTRIBUTE7', 'GLOBAL_ATTRIBUTE8', 'GLOBAL_ATTRIBUTE9', 'GLOBAL_ATTRIBUTE10', 'GLOBAL_ATTRIBUTE11', 'GLOBAL_ATTRIBUTE12', 'GLOBAL_ATTRIBUTE13']
+
+Sample data (10 random rows, long values truncated):
+ EARNED_DISCOUNT_CCID  UNEARNED_DISCOUNT_CCID  ACCTD_UNEARNED_DISCOUNT_TAKEN REVERSAL_GL_DATE  CASH_RECEIPT_HISTORY_ID  ORG_ID TAX_CODE GLOBAL_ATTRIBUTE1 GLOBAL_ATTRIBUTE2 GLOBAL_ATTRIBUTE3 GLOBAL_ATTRIBUTE4 GLOBAL_ATTRIBUTE5 GLOBAL_ATTRIBUTE6 GLOBAL_ATTRIBUTE7 GLOBAL_ATTRIBUTE8 GLOBAL_ATTRIBUTE9 GLOBAL_ATTRIBUTE10 GLOBAL_ATTRIBUTE11 GLOBAL_ATTRIBUTE12 GLOBAL_ATTRIBUTE13
+               2042.0                  2042.0                            0.0              NaT                    34684      83     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN              NaT                  2047806      83     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN              NaT                    98833    1039     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+               2042.0                  2042.0                            NaN       2022-09-13                    79412      83     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN              NaT                    35465      85     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN              NaT                  1807515    1584     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+             239847.0                239847.0                            0.0              NaT                   951797    1445     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN       2022-10-11                  1092182      83     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+               2026.0                  2026.0                            0.0              NaT                   244211      85     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+                  NaN                     NaN                            NaN       2024-06-26                   929478      83     None              None              None              None              None              None              None              None              None              None               None               None               None               None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+**Object Type:** Table/View
+
+**Description:** The AR.AR_RECEIVABLE_APPLICATIONS_ALL object in the Oracle ERP system contains information related to the receivables and cash receipts in the organization. It is used to track and manage the financial transactions related to receivables, discounts, and tax codes. This object is crucial for financial reporting, auditing, and accounts receivable management.
+
+**Column Descriptions:**
+
+1. `EARNED_DISCOUNT_CCID`: This field stores the unique identifier for the earned discounts. The value is a numeric type and can be used to track and manage earned discounts.
+
+2. `UNEARNED_DISCOUNT_CCID`: This field holds the unique identifier for the unearned discounts. It is a numeric type and can be used to track and manage unearned discounts.
+
+3. `ACCTD_UNEARNED_DISCOUNT_TAKEN`: This numeric field represents the accounted unearned discount taken. It is used for financial calculations and reporting.
+
+4. `REVERSAL_GL_DATE`: This field stores the date of the reversal general ledger entry. It is a date type field and is used for tracking and auditing purposes.
+
+5. `CASH_RECEIPT_HISTORY_ID`: This field holds the unique identifier for the cash receipt history. It is a numeric type and is used for tracking cash receipts.
+
+6. `ORG_ID`: This numeric field represents the unique identifier for the organization. It is used to link the receivables to the specific organization.
+
+7. `TAX_CODE`: This field stores the tax code applicable to the receivable. It is used for tax calculations and reporting.
+
+8. `GLOBAL_ATTRIBUTE1` to `GLOBAL_ATTRIBUTE13`: These fields are reserved for future use or for storing additional data as per the organization's requirements. Currently, they do not hold any data.
+
+**Relationships and Business Logic:** The `EARNED_DISCOUNT_CCID` and `UNEARNED_DISCOUNT_CCID` fields can be linked to a discounts table to fetch detailed information about the discounts. The `ORG_ID` can be linked to an organizations table to fetch detailed information about the organization. The `CASH_RECEIPT_HISTORY_ID` can be linked to a cash receipts table to fetch the history of cash receipts. The `TAX_CODE` can be linked to a tax table to fetch detailed information about the tax. The business logic and calculations related to discounts, tax, and cash receipts can be inferred from these relationships.
+
+--- Prompt for group 5 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 5 of 7):
+['GLOBAL_ATTRIBUTE14', 'GLOBAL_ATTRIBUTE15', 'GLOBAL_ATTRIBUTE16', 'GLOBAL_ATTRIBUTE17', 'GLOBAL_ATTRIBUTE18', 'GLOBAL_ATTRIBUTE19', 'GLOBAL_ATTRIBUTE20', 'GLOBAL_ATTRIBUTE_CATEGORY', 'CONS_INV_ID', 'CONS_INV_ID_TO', 'RULE_SET_ID', 'LINE_EDISCOUNTED', 'TAX_EDISCOUNTED', 'FREIGHT_EDISCOUNTED', 'CHARGES_EDISCOUNTED', 'LINE_UEDISCOUNTED', 'TAX_UEDISCOUNTED', 'FREIGHT_UEDISCOUNTED', 'CHARGES_UEDISCOUNTED', 'RECEIVABLES_TRX_ID']
+
+Sample data (10 random rows, long values truncated):
+GLOBAL_ATTRIBUTE14 GLOBAL_ATTRIBUTE15 GLOBAL_ATTRIBUTE16 GLOBAL_ATTRIBUTE17 GLOBAL_ATTRIBUTE18 GLOBAL_ATTRIBUTE19 GLOBAL_ATTRIBUTE20 GLOBAL_ATTRIBUTE_CATEGORY CONS_INV_ID CONS_INV_ID_TO  RULE_SET_ID  LINE_EDISCOUNTED  TAX_EDISCOUNTED  FREIGHT_EDISCOUNTED  CHARGES_EDISCOUNTED  LINE_UEDISCOUNTED  TAX_UEDISCOUNTED  FREIGHT_UEDISCOUNTED  CHARGES_UEDISCOUNTED RECEIVABLES_TRX_ID
+              None               None               None               None               None               None               None                      None        None           None          2.0               0.0              0.0                  0.0                  0.0                0.0               0.0                   0.0                   0.0               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          2.0               0.0              0.0                  0.0                  0.0                0.0               0.0                   0.0                   0.0               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+              None               None               None               None               None               None               None                      None        None           None          2.0               0.0              0.0                  0.0                  0.0                0.0               0.0                   0.0                   0.0               None
+              None               None               None               None               None               None               None                      None        None           None          NaN               NaN              NaN                  NaN                  NaN                NaN               NaN                   NaN                   NaN               None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+# AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+## Overview
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table is part of an Oracle ERP system, specifically within the Accounts Receivable (AR) module. This table appears to store detailed information about receivable transactions, including various attributes, identifiers, and discount details. 
+
+## Column Descriptions
+
+- `GLOBAL_ATTRIBUTE14` to `GLOBAL_ATTRIBUTE20`: These columns are likely used to store additional, customizable data related to the receivable transaction. The specific purpose of these fields may vary depending on the business's needs. In the provided sample data, these fields are not populated.
+
+- `GLOBAL_ATTRIBUTE_CATEGORY`: This column is likely used to categorize the global attributes. The specific categories would depend on the business's needs. In the provided sample data, this field is not populated.
+
+- `CONS_INV_ID` and `CONS_INV_ID_TO`: These columns likely store identifiers for consolidated invoices. The specific use of these fields may depend on the business's invoicing practices. In the provided sample data, these fields are not populated.
+
+- `RULE_SET_ID`: This column likely stores an identifier for a set of rules or policies related to the receivable transaction. The specific rules would depend on the business's policies.
+
+- `LINE_EDISCOUNTED`, `TAX_EDISCOUNTED`, `FREIGHT_EDISCOUNTED`, `CHARGES_EDISCOUNTED`: These columns likely store the amounts for line items, taxes, freight, and other charges after any eligible discounts have been applied.
+
+- `LINE_UEDISCOUNTED`, `TAX_UEDISCOUNTED`, `FREIGHT_UEDISCOUNTED`, `CHARGES_UEDISCOUNTED`: These columns likely store the undiscounted amounts for line items, taxes, freight, and other charges.
+
+- `RECEIVABLES_TRX_ID`: This column likely stores a unique identifier for the receivable transaction.
+
+## Relationships and Business Logic
+The `RECEIVABLES_TRX_ID` field is likely a foreign key linking to another table that contains additional details about the receivable transaction. The `RULE_SET_ID` field may also be a foreign key linking to a table that defines the rules or policies for the transaction.
+
+The `*_EDISCOUNTED` and `*_UEDISCOUNTED` fields suggest that the business applies discounts to various components of a transaction, including line items, taxes, freight, and other charges. The specific discount rules and calculations would likely be defined elsewhere in the system.
+
+Please note that the actual usage of these fields may vary depending on the business's specific implementation of the Oracle ERP system.
+
+--- Prompt for group 6 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 6 of 7):
+['ON_ACCOUNT_CUSTOMER', 'MRC_AMOUNT_APPLIED', 'MRC_AMOUNT_APPLIED_FROM', 'MRC_DISPLAY', 'MRC_STATUS', 'MRC_PAYMENT_SCHEDULE_ID', 'MRC_CASH_RECEIPT_ID', 'MRC_GL_POSTED_DATE', 'MRC_POSTING_CONTROL_ID', 'MRC_ACCTD_AMOUNT_APPLIED_FROM', 'MRC_ACCTD_AMOUNT_APPLIED_TO', 'MRC_ACCTD_EARNED_DISC_TAKEN', 'MRC_ACCTD_UNEARNED_DISC_TAKEN', 'EDISC_TAX_ACCT_RULE', 'UNEDISC_TAX_ACCT_RULE', 'LINK_TO_TRX_HIST_ID', 'LINK_TO_CUSTOMER_TRX_ID', 'APPLICATION_REF_TYPE', 'APPLICATION_REF_ID', 'APPLICATION_REF_NUM']
+
+Sample data (10 random rows, long values truncated):
+ON_ACCOUNT_CUSTOMER MRC_AMOUNT_APPLIED MRC_AMOUNT_APPLIED_FROM MRC_DISPLAY MRC_STATUS MRC_PAYMENT_SCHEDULE_ID MRC_CASH_RECEIPT_ID MRC_GL_POSTED_DATE MRC_POSTING_CONTROL_ID MRC_ACCTD_AMOUNT_APPLIED_FROM MRC_ACCTD_AMOUNT_APPLIED_TO MRC_ACCTD_EARNED_DISC_TAKEN MRC_ACCTD_UNEARNED_DISC_TAKEN EDISC_TAX_ACCT_RULE UNEDISC_TAX_ACCT_RULE LINK_TO_TRX_HIST_ID LINK_TO_CUSTOMER_TRX_ID APPLICATION_REF_TYPE APPLICATION_REF_ID     APPLICATION_REF_NUM
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None          EMAR/SIER/1354
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None توريد محول خفض جهد م...
+               None               None                    None        None       None                    None                None               None                   None                          None                        None                        None                          None                None                  None                None                    None                 None               None                    None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+# AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table is part of the Oracle ERP system, specifically within the Accounts Receivable (AR) module. This table appears to be designed to track and manage the application of payments or credits to customer accounts, including details about the amounts applied, the status of the application, and the associated accounting entries. However, the sample data provided does not contain any actual values, which limits the ability to infer specific business logic or relationships.
+
+## Column Descriptions
+
+1. **ON_ACCOUNT_CUSTOMER**: This field likely represents the customer to whom the payment or credit is being applied. The data type and format are unknown based on the provided sample data.
+
+2. **MRC_AMOUNT_APPLIED**: This field likely represents the amount of payment or credit that is being applied to the customer's account.
+
+3. **MRC_AMOUNT_APPLIED_FROM**: This field likely represents the original source of the payment or credit that is being applied.
+
+4. **MRC_DISPLAY**: The purpose of this field is unclear based on the name and sample data.
+
+5. **MRC_STATUS**: This field likely represents the status of the payment or credit application.
+
+6. **MRC_PAYMENT_SCHEDULE_ID**: This field likely represents a unique identifier for a payment schedule associated with the payment or credit application.
+
+7. **MRC_CASH_RECEIPT_ID**: This field likely represents a unique identifier for a cash receipt associated with the payment or credit application.
+
+8. **MRC_GL_POSTED_DATE**: This field likely represents the date when the payment or credit application was posted to the General Ledger.
+
+9. **MRC_POSTING_CONTROL_ID**: This field likely represents a unique identifier for a posting control record associated with the payment or credit application.
+
+10. **MRC_ACCTD_AMOUNT_APPLIED_FROM**: This field likely represents the original source of the accounted amount that is being applied.
+
+11. **MRC_ACCTD_AMOUNT_APPLIED_TO**: This field likely represents the destination of the accounted amount that is being applied.
+
+12. **MRC_ACCTD_EARNED_DISC_TAKEN**: This field likely represents the accounted amount of any earned discounts that were taken.
+
+13. **MRC_ACCTD_UNEARNED_DISC_TAKEN**: This field likely represents the accounted amount of any unearned discounts that were taken.
+
+14. **EDISC_TAX_ACCT_RULE**: This field likely represents a rule for accounting for tax on earned discounts.
+
+15. **UNEDISC_TAX_ACCT_RULE**: This field likely represents a rule for accounting for tax on unearned discounts.
+
+16. **LINK_TO_TRX_HIST_ID**: This field likely represents a link to a transaction history record associated with the payment or credit application.
+
+17. **LINK_TO_CUSTOMER_TRX_ID**: This field likely represents a link to a customer transaction record associated with the payment or credit application.
+
+18. **APPLICATION_REF_TYPE**: This field likely represents the type of reference associated with the payment or credit application.
+
+19. **APPLICATION_REF_ID**: This field likely represents a unique identifier for a reference associated with the payment or credit application.
+
+20. **APPLICATION_REF_NUM**: This field likely represents a reference number associated with the payment or credit application.
+
+Please note that the actual usage and meaning of these fields may vary based on the specific business processes and accounting practices of the organization using the Oracle ERP system.
+
+--- Prompt for group 7 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AR.AR_RECEIVABLE_APPLICATIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 7 of 7):
+['CHARGEBACK_CUSTOMER_TRX_ID', 'SECONDARY_APPLICATION_REF_ID', 'PAYMENT_SET_ID', 'APPLICATION_REF_REASON', 'CUSTOMER_REFERENCE', 'CUSTOMER_REASON', 'APPLIED_REC_APP_ID', 'SECONDARY_APPLICATION_REF_TYPE', 'SECONDARY_APPLICATION_REF_NUM', 'EVENT_ID', 'UPGRADE_METHOD', 'AX_ACCOUNTED_FLAG', 'INCLUDE_IN_ACCUMULATION', 'ON_ACCT_CUST_ID', 'ON_ACCT_CUST_SITE_USE_ID', 'ON_ACCT_PO_NUM']
+
+Sample data (10 random rows, long values truncated):
+CHARGEBACK_CUSTOMER_TRX_ID SECONDARY_APPLICATION_REF_ID PAYMENT_SET_ID APPLICATION_REF_REASON CUSTOMER_REFERENCE CUSTOMER_REASON APPLIED_REC_APP_ID SECONDARY_APPLICATION_REF_TYPE SECONDARY_APPLICATION_REF_NUM  EVENT_ID UPGRADE_METHOD AX_ACCOUNTED_FLAG INCLUDE_IN_ACCUMULATION ON_ACCT_CUST_ID ON_ACCT_CUST_SITE_USE_ID ON_ACCT_PO_NUM
+                      None                         None           None                   None               None            None               None                           None                          None    684587            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  17115651            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None   3285026            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  13567375            R12              None                       N            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None    744602            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  16025914            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  12765311            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  13611194            R12              None                       N            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None   5203449            R12              None                    None            None                     None           None
+                      None                         None           None                   None               None            None               None                           None                          None  16030521            R12              None                       N            None                     None           None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_RECEIVABLE_APPLICATIONS_ALL object in the Oracle ERP system is designed to store information related to receivable applications. It is used to track and manage the details of customer transactions, payments, and other related activities. This object is crucial for managing accounts receivable, ensuring accurate financial reporting, and facilitating effective decision-making.
+
+**Column Descriptions:**
+
+1. `CHARGEBACK_CUSTOMER_TRX_ID`: This field is likely to store the unique identifier for a chargeback transaction related to a customer. A chargeback is a return of funds to a customer, typically resulting from a dispute.
+
+2. `SECONDARY_APPLICATION_REF_ID`: This field is likely to store the unique identifier for a secondary application reference. The specifics of what this reference pertains to would depend on the business context.
+
+3. `PAYMENT_SET_ID`: This field is likely to store the unique identifier for a set of payments.
+
+4. `APPLICATION_REF_REASON`: This field is likely to store the reason associated with the application reference.
+
+5. `CUSTOMER_REFERENCE`: This field is likely to store a reference value related to the customer. This could be a code, number, or string that uniquely identifies the customer in some way.
+
+6. `CUSTOMER_REASON`: This field is likely to store the reason provided by the customer for a particular action or event.
+
+7. `APPLIED_REC_APP_ID`: This field is likely to store the unique identifier for the applied receivable application.
+
+8. `SECONDARY_APPLICATION_REF_TYPE`: This field is likely to store the type of the secondary application reference.
+
+9. `SECONDARY_APPLICATION_REF_NUM`: This field is likely to store the number of the secondary application reference.
+
+10. `EVENT_ID`: This field is likely to store the unique identifier for a specific event.
+
+11. `UPGRADE_METHOD`: This field is likely to store the method used for an upgrade. In the sample data, it shows "R12", which might refer to an Oracle ERP version.
+
+12. `AX_ACCOUNTED_FLAG`: This field is likely to store a flag indicating whether the record has been accounted for in the AX (Accounting) system.
+
+13. `INCLUDE_IN_ACCUMULATION`: This field is likely to store a flag indicating whether the record should be included in any accumulation or aggregation operations.
+
+14. `ON_ACCT_CUST_ID`: This field is likely to store the unique identifier for the customer on account.
+
+15. `ON_ACCT_CUST_SITE_USE_ID`: This field is likely to store the unique identifier for the site use of the customer on account.
+
+16. `ON_ACCT_PO_NUM`: This field is likely to store the purchase order number associated with the customer on account.
+
+**Relationships and Business Logic:** The relationships and business logic would depend on the specific business context and how this table/view is used within the larger system. However, it's clear that this object is related to accounts receivable and customer transactions, and it likely interacts with other objects related to customers, payments, and accounting.

@@ -1,0 +1,122 @@
+# AP.AP_CHECK_FORMATS Table Documentation
+
+The AP.AP_CHECK_FORMATS table in the Oracle ERP system is designed to store information related to the various check formats used by the organization. This includes details about the format, its dimensions, and other related specifications. This information is crucial for the Accounts Payable (AP) department to ensure that checks are printed correctly and are compliant with the organization's standards and requirements.
+
+## Column Descriptions
+
+1. **CHECK_FORMAT_ID**: This is the unique identifier for each check format. It is a primary key for this table.
+
+2. **LAST_UPDATE_DATE**: This field records the date and time when the last update was made to the record.
+
+3. **LAST_UPDATED_BY**: This field records the ID of the user who made the last update to the record.
+
+4. **NAME**: This field stores the name of the check format. For example, 'Short Check Format', 'Check Recording', 'Netherlands Domestic', etc.
+
+5. **TYPE**: This field is intended to store the type of the check format. However, based on the sample data, it appears to be unused.
+
+6. **STUB_FIRST_FLAG**: This field indicates whether the stub is printed first on the check. 'Y' indicates that the stub is printed first, while 'N' indicates otherwise.
+
+7. **CHECK_LENGTH**: This field is intended to store the length of the check. However, based on the sample data, it appears to be unused.
+
+8. **STUB_LENGTH**: This field is intended to store the length of the stub. However, based on the sample data, it appears to be unused.
+
+9. **INVOICES_PER_STUB**: This field indicates the number of invoices that can be listed per stub.
+
+10. **OVERFLOW_RULE**: This field is intended to store the rule to be applied when the number of invoices exceeds the limit of invoices per stub. However, based on the sample data, it appears to be unused.
+
+11. **PRE_NUMBERED_FLAG**: This field is intended to indicate whether the checks are pre-numbered. However, based on the sample data, it appears to be unused.
+
+12. **CHECK_NUM_ROW_LINE**, **DATE_ROW_LINE**, **AMOUNT_ROW_LINE**, **AMOUNT_WORDS_ROW_LINE**, **VENDOR_NUM_ROW_LINE**, **VENDOR_NAME_ROW_LINE**, **VENDOR_ADDRESS_ROW_LINE**, **STUB_CHECK_NUM_ROW_LINE**, **STUB_VENDOR_NAME_ROW_LINE**: These fields are intended to store the row and line number where specific information is printed on the check and stub. However, based on the sample data, these fields appear to be unused.
+
+## Relationships and Business Logic
+
+The AP.AP_CHECK_FORMATS table does not appear to have explicit relationships with other tables based on the provided data. However, in a typical ERP system, it could be linked to other tables that store check or payment information.
+
+The business logic behind this table is to maintain a standardized format for checks issued by the organization. By defining the check format, including the order of printing and the number of invoices per stub, the organization can ensure consistency and accuracy in its payments.
+
+Object Name: AP.AP_CHECK_FORMATS
+
+The AP.AP_CHECK_FORMATS table in the Oracle ERP system is used to store information related to the format of checks and other payment methods used in the Accounts Payable (AP) module. This table is crucial for managing and tracking different payment methods, currencies, and related programs used for creating and confirming payments.
+
+Column Descriptions:
+
+1. STUB_VENDOR_NUM_ROW_LINE: This field is likely to store the row line number of the vendor number on the check stub. The sample data does not provide any values for this field.
+
+2. STUB_FIRST_INVOICE_ROW_LINE: This field is likely to store the row line number of the first invoice on the check stub. The sample data does not provide any values for this field.
+
+3. PAYMENT_METHOD_LOOKUP_CODE: This field stores the type of payment method used. Examples from the sample data include CHECK, EFT (Electronic Funds Transfer), and WIRE.
+
+4. CURRENCY_CODE: This field stores the code of the currency used for the payment. Examples from the sample data include USD, NLG, ATS, EUR, GBP, and DEM.
+
+5. CREATE_PAYMENTS_PROGRAM_ID: This field is likely to store the ID of the program used to create payments. The sample data does not provide any values for this field.
+
+6. CONFIRM_PAYMENTS_PROGRAM_ID: This field is likely to store the ID of the program used to confirm payments. The sample data does not provide any values for this field.
+
+7. SEPARATE_REMITTANCE_ADVICE: This field indicates whether a separate remittance advice is provided ('Y' for Yes, 'N' for No).
+
+8. REMITTANCE_ADVICE_PROGRAM_ID: This field stores the ID of the program used to generate remittance advice.
+
+9. LAST_UPDATE_LOGIN: This field stores the ID of the last login that updated the record.
+
+10. CREATION_DATE: This field stores the date and time when the record was created.
+
+11. CREATED_BY: This field stores the ID of the user who created the record.
+
+12. EFT_TYPE: This field is likely to store the type of Electronic Funds Transfer (EFT). The sample data does not provide any values for this field.
+
+13. MULTI_CURRENCY_FLAG: This field indicates whether multiple currencies are involved ('Y' for Yes, 'N' for No).
+
+14. ATTRIBUTE_CATEGORY: This field is likely to store the category of additional attributes. The sample data does not provide any values for this field.
+
+15. ATTRIBUTE1 to ATTRIBUTE6: These fields are likely to store additional attribute values related to the check format. The sample data does not provide any values for these fields.
+
+The relationships between this table and others in the system, as well as specific business logic, cannot be determined based on the provided information.
+
+**Object Name:** AP.AP_CHECK_FORMATS
+
+**Object Type:** Table/View
+
+**Description:** The AP.AP_CHECK_FORMATS object is a table in the Oracle ERP system that stores information related to the formatting and processing of checks in the Accounts Payable (AP) module. This table is crucial for managing the payment process, including the formatting of checks, the programs used to build and format payments, and the grouping of payments by due date.
+
+**Column Descriptions:**
+
+1. **ATTRIBUTE7 to ATTRIBUTE15:** These are generic attribute fields that can be used to store additional information as required by the business. The specific use of these fields may vary depending on the organization's needs.
+
+2. **ZERO_AMOUNTS_ONLY:** This field indicates whether the check format is used only for checks with a zero amount. 'N' means it is not used only for zero amounts, while 'Y' indicates it is.
+
+3. **BUILD_PAYMENTS_PROGRAM_ID:** This field stores the ID of the program used to build the payments. This is a key reference to the program that compiles the payment data.
+
+4. **FORMAT_PAYMENTS_PROGRAM_ID:** This field stores the ID of the program used to format the payments. This is a key reference to the program that formats the payment data for check printing.
+
+5. **PRINT_CHECK_STUB:** This field indicates whether a check stub is printed along with the check. 'Y' means a stub is printed, while 'N' means it is not.
+
+6. **GROUP_BY_DUE_DATE:** This field indicates whether payments are grouped by their due date. 'Y' means payments are grouped by due date, while 'N' means they are not.
+
+7. **GLOBAL_ATTRIBUTE_CATEGORY to GLOBAL_ATTRIBUTE5:** These are global attribute fields that can be used to store additional information as required by the business. The specific use of these fields may vary depending on the organization's needs.
+
+**Inferred Relationships and Business Logic:**
+
+- The BUILD_PAYMENTS_PROGRAM_ID and FORMAT_PAYMENTS_PROGRAM_ID fields suggest that this table is likely linked to another table or view that stores details about the various payment programs.
+- The ZERO_AMOUNTS_ONLY, PRINT_CHECK_STUB, and GROUP_BY_DUE_DATE fields are likely used to control the payment and check printing process.
+- The ATTRIBUTE and GLOBAL_ATTRIBUTE fields suggest that this table can be customized to store additional data as required by the business.
+
+Object Name: AP.AP_CHECK_FORMATS
+
+The AP.AP_CHECK_FORMATS is a table in the Oracle ERP system. This table is part of the Accounts Payable (AP) module and is likely used to store information related to the format of checks used in the system. However, based on the provided sample data, it appears that this table is currently not populated with any specific check format data.
+
+Column Descriptions:
+
+1. GLOBAL_ATTRIBUTE6 to GLOBAL_ATTRIBUTE20: These columns are likely designed to store additional attributes or information related to the check formats. The exact nature of the data to be stored in these columns would depend on the business requirements. In the provided sample data, these columns are not populated.
+
+2. BANK_FILE_CHARACTER_SET: This column is likely intended to store the character set used in the bank file. This could be important when dealing with international transactions where different character sets might be used. In the provided sample data, this column is not populated.
+
+3. TRANSMISSIONS_FLAG: This column is likely a flag to indicate whether the check format data needs to be transmitted to another system or process. In the provided sample data, this column is not populated.
+
+4. ZD_EDITION_NAME: This column likely stores the name of the edition for the check format. In the provided sample data, all rows have the value 'ORA$BASE', which might be a default value.
+
+5. ZD_SYNC: This column likely indicates whether the check format data is in sync with another system or process. In the provided sample data, all rows have the value 'SYNCED', indicating that the data is in sync.
+
+Relationships or Business Logic:
+
+Without additional context or data, it's difficult to infer specific relationships or business logic. However, given that this table is part of the AP module, it's likely related to other tables that store information about vendors, payments, and bank accounts. The check format data in this table might be used when generating checks for payments to vendors. The 'TRANSMISSIONS_FLAG' and 'ZD_SYNC' columns suggest that this table might be involved in data integrations or synchronizations with other systems or processes.
+
