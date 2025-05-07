@@ -15,6 +15,7 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -95,28 +96,40 @@ def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
         if os.path.exists('file_list.txt'):
             os.remove('file_list.txt')
 
+def sanitize_description(desc: str) -> str:
+    """Remove non-printable characters and truncate to 5000 chars for YouTube description."""
+    # Remove non-printable characters (except common whitespace)
+    desc = re.sub(r'[^\x09\x0A\x0D\x20-\x7E\u00A0-\uD7FF\uE000-\uFFFD]', '', desc)
+    # Truncate to 5000 chars
+    return desc[:5000]
+
 def generate_timestamps(video_files: List[Tuple[str, str]]) -> str:
-    """Generate timestamps for video description."""
+    """Generate timestamps for video description with improved ffprobe error handling."""
     timestamps = []
     current_time = 0
-    
-    for _, rel_path in video_files:
+    for full_path, rel_path in video_files:
         hours = int(current_time // 3600)
         minutes = int((current_time % 3600) // 60)
         seconds = int(current_time % 60)
         timestamp = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-        
         video_name = os.path.splitext(os.path.basename(rel_path))[0]
         timestamps.append(f"{timestamp} - {video_name}")
-        
         try:
-            probe = ffmpeg.probe(rel_path)
-            duration = float(probe['streams'][0]['duration'])
-            current_time += duration
+            # Use ffprobe via subprocess for better error capture
+            cmd = [
+                'ffprobe', '-v', 'error', '-show_entries', 'format=duration',
+                '-of', 'default=noprint_wrappers=1:nokey=1', full_path
+            ]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode == 0 and result.stdout.strip():
+                duration = float(result.stdout.strip())
+                current_time += duration
+            else:
+                logging.error(f"ffprobe error for {full_path}: {result.stderr.strip()}")
+                current_time += 0
         except Exception as e:
-            logging.error(f"Error getting duration for {rel_path}: {str(e)}")
+            logging.error(f"Exception running ffprobe for {full_path}: {str(e)}")
             current_time += 0
-    
     return '\n'.join(timestamps)
 
 def upload_to_youtube(youtube, video_path: str, title: str, description: str) -> Optional[str]:
@@ -164,42 +177,33 @@ def process_folder(folder_path: str, client_secrets_file: str):
     """Process a folder of videos."""
     try:
         logging.info(f"Processing folder: {folder_path}")
-        
         # Get videos
         video_files = collect_videos(folder_path)
         if not video_files:
             logging.error("No video files found")
             return
-            
         logging.info(f"Found {len(video_files)} videos")
-        
         # Get title
         title = get_structured_title(folder_path)
         logging.info(f"Generated title: {title}")
-        
         # Merge videos
         merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged.mp4")
         if not merge_videos(video_files, merged_path):
             logging.error("Failed to merge videos")
             return
-            
         logging.info("Videos merged successfully")
-        
         # Generate timestamps
         timestamps = generate_timestamps(video_files)
-        description = "Tutorial Contents:\n\n" + timestamps
-        
+        description = sanitize_description("Tutorial Contents:\n\n" + timestamps)
         # Upload to YouTube
         youtube = get_authenticated_service(client_secrets_file)
         video_id = upload_to_youtube(youtube, merged_path, title, description)
-        
         if video_id:
             logging.info(f"Upload successful! Video ID: {video_id}")
             cleanup_and_save_link(folder_path, video_id, title)
             logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
         else:
             logging.error("Upload failed")
-            
     except Exception as e:
         logging.error(f"Error processing folder: {str(e)}")
 
