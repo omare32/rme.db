@@ -394,6 +394,9 @@ token.json
 09.other.projects/03.ats/06.fix.dep/02.process_pdfs_with_batch.py
 09.other.projects/03.ats/06.fix.dep/unmatched_records_report.txt
 09.other.projects/03.ats/06.full.folder.with.git/
+16.email/03.reem/01.old.nada.new.api/01_fetch_emails.py
+16.email/03.reem/01.old.nada.new.api/04_create_drafts.py
+16.email/03.reem/01.old.nada.new.api/original.rme.api.ipynb
 
 # API keys, credentials and sensitive information
 **/creds.txt
@@ -431,3 +434,4 @@ token.json
 03.warehouse/01.mcp_erp/document_ap_schema_overview.py
 03.warehouse/01.mcp_erp/document_top10_ap_ar_tables.py
 03.warehouse/01.mcp_erp/document_ar_schema_overview.py
+16.email/03.reem/01.old.nada.new.api/original.ipynb
