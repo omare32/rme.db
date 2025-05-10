@@ -260,6 +260,30 @@ def sanitize_title(title):
     # Truncate to 100 chars
     return title[:100]
 
+def split_videos_by_duration(video_files: List[Tuple[str, str]], durations: List[float], max_duration: float = 41400) -> List[Tuple[List[Tuple[str, str]], List[float], str]]:
+    """
+    Splits the list of video files into as many parts as needed so that each part's total duration is <= max_duration (default 11.5 hours).
+    Returns a list of tuples: (split_files, split_durations, suffix)
+    """
+    splits = []
+    part = []
+    part_durations = []
+    part_total = 0.0
+    part_idx = 1
+    for (file, rel), dur in zip(video_files, durations):
+        if part_total + dur > max_duration and part:
+            splits.append((part, part_durations, f"{part_idx:02d}"))
+            part = []
+            part_durations = []
+            part_total = 0.0
+            part_idx += 1
+        part.append((file, rel))
+        part_durations.append(dur)
+        part_total += dur
+    if part:
+        splits.append((part, part_durations, f"{part_idx:02d}"))
+    return splits
+
 def process_folder(folder_path: str, client_secrets_file: str):
     try:
         logging.info(f"Processing folder: {folder_path}")
@@ -280,10 +304,9 @@ def process_folder(folder_path: str, client_secrets_file: str):
         if not title_base or not title_base.strip():
             title_base = os.path.basename(folder_path)
         logging.info(f"Generated title: {title_base}")
-        # If total duration > 10 hours, split
-        if total_duration > 36000 and len(video_files) > 1:
-            mid = len(video_files) // 2
-            splits = [(video_files[:mid], durations[:mid], '01'), (video_files[mid:], durations[mid:], '02')]
+        # Split into as many parts as needed so each is <= 11.5 hours
+        if total_duration > 41400 and len(video_files) > 1:
+            splits = split_videos_by_duration(video_files, durations, max_duration=41400)
         else:
             splits = [(video_files, durations, None)]
         for idx, (split_files, split_durations, suffix) in enumerate(splits):
@@ -294,6 +317,15 @@ def process_folder(folder_path: str, client_secrets_file: str):
             use_conversion = False
             merged_duration = get_video_duration(merged_path) if merged_ok else 0
             sum_original = sum([get_video_duration(f) for f, _ in split_files])
+            # Sanity check: merged duration should be within 10% of sum of originals
+            if merged_ok and sum_original > 0:
+                diff_ratio = abs(merged_duration - sum_original) / sum_original
+                if diff_ratio > 0.10:
+                    logging.warning(f"Merged video duration {merged_duration/3600:.2f}h differs by more than 10% from originals ({sum_original/3600:.2f}h). Will try safe conversion path.")
+                    merged_ok = False
+                    use_conversion = True
+                    if os.path.exists(merged_path):
+                        os.remove(merged_path)
             # If merged video is more than 3x the sum of originals and >8 hours, treat as failed
             if merged_ok and merged_duration > max(8*3600, 3*sum_original):
                 logging.warning(f"Merged video duration {merged_duration/3600:.2f}h is much larger than originals ({sum_original/3600:.2f}h). Will try safe conversion path.")
@@ -314,10 +346,21 @@ def process_folder(folder_path: str, client_secrets_file: str):
                     logging.error(f"Failed to merge even after conversion for part {suffix or 'single'}")
                     continue
                 split_files = [(f, r) for f, r in converted_files]  # For timestamps
+                # Recalculate durations after conversion
+                merged_duration = get_video_duration(merged_path)
+                sum_original = sum([get_video_duration(f) for f, _ in split_files])
+                # Sanity check again after conversion
+                if sum_original > 0:
+                    diff_ratio = abs(merged_duration - sum_original) / sum_original
+                    if diff_ratio > 0.10:
+                        logging.error(f"Merged video after conversion still differs by more than 10% from originals. Skipping part {suffix or 'single'}.")
+                        if os.path.exists(merged_path):
+                            os.remove(merged_path)
+                        continue
             logging.info(f"Videos merged successfully for part {suffix or 'single'}")
-            # Check merged video duration (should be < 12h, but check anyway)
+            # Check merged video duration (should be < 11.5h, but check anyway)
             duration = get_video_duration(merged_path)
-            if duration > 43200:
+            if duration > 41400:
                 logging.warning(f"Merged video is too long ({duration/3600:.2f} hours). Skipping upload and cleanup for: {merged_path}")
                 continue
             timestamps = generate_timestamps(split_files)
