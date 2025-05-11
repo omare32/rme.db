@@ -80,8 +80,8 @@ def select_folder_dialog(title="Select the folder containing videos to upload"):
     return folder_selected
 
 def main():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    client_secrets_file = os.path.join(script_dir, "client_secret.dlc.json")
+    cwd = os.getcwd()
+    client_secrets_file = os.path.join(cwd, "client_secret.dlc.json")
     if not os.path.exists(client_secrets_file):
         logging.error("Client secrets file not found")
         return
@@ -90,8 +90,8 @@ def main():
     # Ask user for folder containing videos to upload
     input_folder = select_folder_dialog()
     if not input_folder or not os.path.exists(input_folder):
-        logging.warning("No folder selected or path does not exist. Using script directory.")
-        input_folder = script_dir
+        logging.warning("No folder selected or path does not exist. Using current working directory.")
+        input_folder = cwd
     folder_name = os.path.basename(input_folder)
     # Find all video files in the folder (no recursion)
     extensions = ("*.mp4", "*.avi", "*.mkv", "*.mov", "*.flv", "*.rmvb")
@@ -119,5 +119,4 @@ def main():
         else:
             logging.error(f"Upload failed for {video_path}")
 
-if __name__ == "__main__":
-    main()
+main()
