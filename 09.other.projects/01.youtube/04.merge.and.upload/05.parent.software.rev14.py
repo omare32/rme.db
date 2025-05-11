@@ -20,6 +20,7 @@ from tkinter import filedialog
 import ssl
 import string
 import re
+import tempfile
 
 # Configure logging
 logging.basicConfig(
@@ -39,6 +40,11 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 os.environ['PYTHONHTTPSVERIFY'] = '0'
 
 ssl._create_default_https_context = ssl._create_unverified_context
+
+# Add global lists to track failed conversions and merges
+FAILED_CONVERSIONS = []
+FAILED_MERGES = []
+SKIPPED_FILES = []
 
 def get_authenticated_service(client_secrets_file: str):
     creds = None
@@ -66,34 +72,62 @@ def get_structured_title(input_path: str) -> str:
 def collect_videos(folder_path: str) -> List[Tuple[str, str]]:
     video_files = []
     extensions = ('*.mp4', '*.avi', '*.mkv', '*.mov', '*.flv', '*.rmvb')
-    for ext in extensions:
-        for file_path in glob.glob(os.path.join(folder_path, "**", ext), recursive=True):
-            rel_path = os.path.relpath(file_path, folder_path)
-            video_files.append((file_path, rel_path))
+    for root, dirs, files in os.walk(folder_path):
+        # Skip any 'converted_videos' subfolder
+        if 'converted_videos' in root.split(os.sep):
+            continue
+        for ext in extensions:
+            for file in glob.glob(os.path.join(root, ext)):
+                rel_path = os.path.relpath(file, folder_path)
+                video_files.append((file, rel_path))
     return sorted(video_files)
 
 def merge_videos(video_files: List[Tuple[str, str]], output_path: str) -> bool:
     try:
-        with open('file_list.txt', 'w', encoding='utf-8') as f:
+        valid_files = []
+        file_list_path = None
+        with tempfile.NamedTemporaryFile('w', delete=False, suffix='.txt', encoding='utf-8') as tmpfile:
             for full_path, _ in video_files:
-                f.write(f"file '{full_path}'\n")
+                if not os.path.exists(full_path):
+                    logging.error(f"File does not exist, skipping: {full_path}")
+                    SKIPPED_FILES.append(full_path)
+                    continue
+                if get_video_duration(full_path) <= 0:
+                    logging.error(f"File is not a valid video or is corrupt, skipping: {full_path}")
+                    SKIPPED_FILES.append(full_path)
+                    continue
+                abs_path = os.path.abspath(full_path).replace('\\', '/')
+                abs_path = abs_path.replace("'", "'\\''")
+                tmpfile.write(f"file '{abs_path}'\n")
+                valid_files.append(full_path)
+            file_list_path = tmpfile.name
+        if not valid_files:
+            logging.error(f"No valid files to merge for output: {output_path}")
+            FAILED_MERGES.append(output_path)
+            return False
         cmd = [
             'ffmpeg',
             '-f', 'concat',
             '-safe', '0',
-            '-i', 'file_list.txt',
+            '-i', file_list_path,
             '-c', 'copy',
             output_path,
             '-y'
         ]
         process = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
+        if process.returncode != 0:
+            logging.error(f"Error merging videos: {process.stderr}")
+            FAILED_MERGES.append(output_path)
+            # Log the list of files in this batch for debugging
+            logging.error(f"Files in failed batch merge for {output_path}: {valid_files}")
         return process.returncode == 0
     except Exception as e:
         logging.error(f"Error merging videos: {str(e)}")
+        FAILED_MERGES.append(output_path)
         return False
     finally:
-        if os.path.exists('file_list.txt'):
-            os.remove('file_list.txt')
+        if 'file_list_path' in locals() and file_list_path and os.path.exists(file_list_path):
+            os.remove(file_list_path)
 
 def convert_video(input_path: str, output_path: str) -> bool:
     try:
@@ -113,9 +147,11 @@ def convert_video(input_path: str, output_path: str) -> bool:
         process = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
         if process.returncode != 0:
             logging.error(f"Error converting {input_path}: {process.stderr}")
+            FAILED_CONVERSIONS.append(input_path)
         return process.returncode == 0
     except Exception as e:
         logging.error(f"Exception converting {input_path}: {str(e)}")
+        FAILED_CONVERSIONS.append(input_path)
         return False
 
 def convert_all_videos(video_files: List[Tuple[str, str]], converted_dir: str) -> List[Tuple[str, str]]:
@@ -192,7 +228,7 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str) ->
         logging.error(f"Error uploading to YouTube: {str(e)}")
         return None
 
-def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_path: str, converted_dir: Optional[str] = None, delete_all: bool = False):
+def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_path: str, converted_dir: Optional[str] = None, delete_all: bool = False, original_files: Optional[list] = None):
     link_file = os.path.join(folder_path, "youtube link.txt")
     with open(link_file, 'w') as f:
         f.write(f"Title: {title}\n")
@@ -225,22 +261,31 @@ def cleanup_and_save_link(folder_path: str, video_id: str, title: str, merged_pa
             shutil.rmtree(converted_dir)
         except Exception as e:
             logging.error(f"Failed to delete converted_videos: {converted_dir}: {str(e)}")
-    # If delete_all is True, remove all video files in all subfolders as well
+    # If delete_all is True, remove all original video files in all subfolders as well
     if delete_all:
-        for root, dirs, files in os.walk(folder_path):
-            for file in files:
-                if file.endswith((".mp4", ".avi", ".mkv", ".mov", ".flv", ".rmvb")):
+        # Remove all original video files (not just converted) in all subfolders
+        if original_files:
+            for orig_file in original_files:
+                if os.path.exists(orig_file):
                     try:
-                        os.remove(os.path.join(root, file))
+                        os.remove(orig_file)
                     except Exception as e:
-                        logging.error(f"Failed to delete {file}: {str(e)}")
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                if dir_path != converted_dir and os.path.exists(dir_path):
-                    try:
-                        shutil.rmtree(dir_path)
-                    except Exception as e:
-                        logging.error(f"Failed to delete directory {dir_path}: {str(e)}")
+                        logging.error(f"Failed to delete original video file: {orig_file}: {str(e)}")
+        else:
+            for root, dirs, files in os.walk(folder_path):
+                for file in files:
+                    if file.endswith((".mp4", ".avi", ".mkv", ".mov", ".flv", ".rmvb")):
+                        try:
+                            os.remove(os.path.join(root, file))
+                        except Exception as e:
+                            logging.error(f"Failed to delete {file}: {str(e)}")
+                for dir in dirs:
+                    dir_path = os.path.join(root, dir)
+                    if dir_path != converted_dir and os.path.exists(dir_path):
+                        try:
+                            shutil.rmtree(dir_path)
+                        except Exception as e:
+                            logging.error(f"Failed to delete directory {dir_path}: {str(e)}")
 
 def get_video_duration(video_path: str) -> float:
     try:
@@ -251,6 +296,7 @@ def get_video_duration(video_path: str) -> float:
         return float(probe['format']['duration'])
     except Exception as e:
         logging.error(f"Error getting duration for {video_path}: {str(e)}")
+        SKIPPED_FILES.append(video_path)
         return 0.0
 
 def sanitize_title(title):
@@ -284,8 +330,24 @@ def split_videos_by_duration(video_files: List[Tuple[str, str]], durations: List
         splits.append((part, part_durations, f"{part_idx:02d}"))
     return splits
 
+def batch_merge(video_files: List[Tuple[str, str]], batch_size: int, temp_dir: str) -> List[Tuple[str, str]]:
+    os.makedirs(temp_dir, exist_ok=True)
+    batch_files = []
+    for i in range(0, len(video_files), batch_size):
+        batch = video_files[i:i+batch_size]
+        batch_path = os.path.join(temp_dir, f"batch_{i//batch_size:03d}.mp4")
+        if merge_videos(batch, batch_path):
+            batch_files.append((batch_path, f"batch_{i//batch_size:03d}.mp4"))
+        else:
+            logging.error(f"Batch merge failed for {batch_path}")
+            FAILED_MERGES.append(batch_path)
+    return batch_files
+
 def process_folder(folder_path: str, client_secrets_file: str):
     try:
+        if os.path.basename(folder_path) == 'converted_videos':
+            logging.error("Refusing to process a folder named 'converted_videos' to avoid recursion.")
+            return
         logging.info(f"Processing folder: {folder_path}")
         video_files = collect_videos(folder_path)
         if not video_files:
@@ -297,8 +359,14 @@ def process_folder(folder_path: str, client_secrets_file: str):
         durations = []
         for file, _ in video_files:
             d = get_video_duration(file)
+            if d == 0.0:
+                logging.error(f"Skipping unreadable/corrupt file: {file}")
+                continue
             durations.append(d)
             total_duration += d
+        if not durations:
+            logging.error("No valid video files after filtering corrupt/unreadable files.")
+            return
         logging.info(f"Total duration: {total_duration/3600:.2f} hours")
         title_base = get_structured_title(folder_path)
         if not title_base or not title_base.strip():
@@ -312,7 +380,19 @@ def process_folder(folder_path: str, client_secrets_file: str):
         for idx, (split_files, split_durations, suffix) in enumerate(splits):
             merged_path = os.path.join(folder_path, f"{os.path.basename(folder_path)}_merged{suffix or ''}.mp4")
             # Try direct merge first
-            merged_ok = merge_videos(split_files, merged_path)
+            # If too many files, do batch merge
+            if len(split_files) > 100:
+                temp_batch_dir = os.path.join(folder_path, 'batch_merge_temp')
+                batch_files = batch_merge(split_files, 100, temp_batch_dir)
+                merged_ok = merge_videos(batch_files, merged_path)
+                # Clean up batch files
+                for f, _ in batch_files:
+                    if os.path.exists(f):
+                        os.remove(f)
+                if os.path.exists(temp_batch_dir):
+                    shutil.rmtree(temp_batch_dir)
+            else:
+                merged_ok = merge_videos(split_files, merged_path)
             converted_dir = None
             use_conversion = False
             merged_duration = get_video_duration(merged_path) if merged_ok else 0
@@ -336,12 +416,26 @@ def process_folder(folder_path: str, client_secrets_file: str):
             if not merged_ok:
                 logging.warning(f"Direct merge failed or unsafe for part {suffix or 'single'}. Attempting conversion.")
                 # Convert all to mp4 in a subfolder
-                converted_dir = os.path.join(folder_path, 'converted_videos')
+                if os.path.basename(folder_path) == 'converted_videos':
+                    converted_dir = os.path.join(folder_path, 'converted_videos_2')
+                else:
+                    converted_dir = os.path.join(folder_path, 'converted_videos')
                 converted_files = convert_all_videos(split_files, converted_dir)
                 if not converted_files:
                     logging.error(f"Conversion failed for all videos in part {suffix or 'single'}.")
                     continue
-                merged_ok = merge_videos([(f, r) for f, r in converted_files], merged_path)
+                # If too many files, do batch merge after conversion
+                if len(converted_files) > 100:
+                    temp_batch_dir = os.path.join(folder_path, 'batch_merge_temp')
+                    batch_files = batch_merge(converted_files, 100, temp_batch_dir)
+                    merged_ok = merge_videos(batch_files, merged_path)
+                    for f, _ in batch_files:
+                        if os.path.exists(f):
+                            os.remove(f)
+                    if os.path.exists(temp_batch_dir):
+                        shutil.rmtree(temp_batch_dir)
+                else:
+                    merged_ok = merge_videos([(f, r) for f, r in converted_files], merged_path)
                 if not merged_ok:
                     logging.error(f"Failed to merge even after conversion for part {suffix or 'single'}")
                     continue
@@ -378,10 +472,24 @@ def process_folder(folder_path: str, client_secrets_file: str):
             video_id = upload_to_youtube(youtube, merged_path, title, description)
             if video_id:
                 logging.info(f"Upload successful! Video ID: {video_id}")
-                cleanup_and_save_link(folder_path, video_id, title, merged_path, converted_dir, delete_all=use_conversion)
+                # Pass original files to cleanup if conversion was used
+                orig_files = [f for f, _ in split_files] if use_conversion else None
+                cleanup_and_save_link(folder_path, video_id, title, merged_path, converted_dir, delete_all=use_conversion, original_files=orig_files)
                 logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
             else:
                 logging.error(f"Upload failed for part {suffix or 'single'}")
+        # Write skipped files summary
+        if SKIPPED_FILES:
+            skipped_path = os.path.join(folder_path, 'skipped_files.txt')
+            with open(skipped_path, 'w', encoding='utf-8') as f:
+                for path in SKIPPED_FILES:
+                    f.write(path + '\n')
+            logging.info(f"Skipped files written to {skipped_path}")
+        # Log failed conversions and merges
+        if FAILED_CONVERSIONS:
+            logging.error(f"Failed conversions: {FAILED_CONVERSIONS}")
+        if FAILED_MERGES:
+            logging.error(f"Failed merges: {FAILED_MERGES}")
     except Exception as e:
         logging.error(f"Error processing folder: {str(e)}")
 
