@@ -1,0 +1,16 @@
+D:\OneDrive\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\15.websites\03.all.4.websites\explore_projects.py:22: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+          PROJECT_NUM                    PROJECT_NAME
+0                None                            None
+1                0019                  Ismalia Bridge
+2                0030                   Mall Of Egypt
+3                0032                Sodic Club House
+4                0040  Al Mostathmreen GIS Substation
+..                ...                             ...
+510            TR0103                           H.S.R
+511            TR0104  ORA-ZED Towers Phase2 Membrane
+512            TR0107        Damietta Container PKG01
+513            TR0108                 GOOD Seal Epoxy
+514  Village E PKG#62             EMAAR-PKG#62-UPTOWN
+
+[515 rows x 2 columns]
