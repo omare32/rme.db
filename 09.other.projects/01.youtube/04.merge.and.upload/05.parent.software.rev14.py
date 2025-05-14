@@ -349,7 +349,7 @@ def process_folder(folder_path: str, client_secrets_file: str):
             logging.error("Refusing to process a folder named 'converted_videos' to avoid recursion.")
             return
         logging.info(f"Processing folder: {folder_path}")
-        # REV 16: Check for existing merged video and youtube link
+        # REV 15: Check for existing merged video and youtube link
         link_file = os.path.join(folder_path, "youtube link.txt")
         merged_videos = [f for f in os.listdir(folder_path) if f.endswith('.mp4') and '_merged' in f]
         if os.path.exists(link_file):
@@ -360,18 +360,7 @@ def process_folder(folder_path: str, client_secrets_file: str):
             merged_videos = sorted(merged_videos)
             for merged_name in merged_videos:
                 merged_path = os.path.join(folder_path, merged_name)
-                if not os.path.exists(merged_path):
-                    logging.warning(f"Merged video file not found: {merged_path}, skipping upload.")
-                    continue
-                # Use structured title (last 4 folders separated by dashes)
-                title = get_structured_title(folder_path)
-                if not title or not title.strip():
-                    title = os.path.splitext(merged_name)[0]
-                # If there are multiple merged videos, add suffix
-                if len(merged_videos) > 1:
-                    suffix = os.path.splitext(merged_name)[0].replace(os.path.basename(folder_path), '').replace('_merged', '').strip()
-                    if suffix:
-                        title = f"{title} {suffix}"
+                title = os.path.splitext(merged_name)[0]
                 title = sanitize_title(title)
                 # Try to generate timestamps from original videos if they exist
                 video_files = collect_videos(folder_path)
@@ -384,7 +373,6 @@ def process_folder(folder_path: str, client_secrets_file: str):
                 video_id = upload_to_youtube(youtube, merged_path, title, description)
                 if video_id:
                     logging.info(f"Upload successful! Video ID: {video_id}")
-                    # Clean up and save link as in normal flow
                     cleanup_and_save_link(folder_path, video_id, title, merged_path)
                     logging.info(f"Video URL: https://www.youtube.com/watch?v={video_id}")
                 else:
