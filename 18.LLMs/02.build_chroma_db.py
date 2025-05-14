@@ -42,9 +42,19 @@ if COLLECTION_NAME in [c.name for c in client.list_collections()]:
 else:
     collection = client.create_collection(COLLECTION_NAME)
 
+def get_existing_ids(collection):
+    # Get all existing IDs in the collection
+    # Chroma doesn't have a direct way to list all IDs, so we use get() with a large limit
+    try:
+        results = collection.get(include=["ids"], limit=1000000)
+        return set(results["ids"])
+    except Exception:
+        return set()
+
 def process_json_files():
     files = [f for f in os.listdir(EXTRACTED_DIR) if f.endswith('.json')]
     doc_count = 0
+    existing_ids = get_existing_ids(collection)
     for file in files:
         with open(os.path.join(EXTRACTED_DIR, file), 'r', encoding='utf-8') as f:
             docs = json.load(f)
@@ -54,6 +64,9 @@ def process_json_files():
                 continue
             chunks = chunk_text(text)
             for i, chunk in enumerate(chunks):
+                chunk_id = f"{doc['file_name']}_{i}_{doc_count}"
+                if chunk_id in existing_ids:
+                    continue  # Skip already embedded chunk
                 meta = {
                     'file_name': doc['file_name'],
                     'file_path': doc['file_path'],
@@ -67,12 +80,12 @@ def process_json_files():
                         documents=[chunk],
                         embeddings=[emb],
                         metadatas=[meta],
-                        ids=[f"{doc['file_name']}_{i}_{doc_count}"]
+                        ids=[chunk_id]
                     )
                     doc_count += 1
                 except Exception as e:
                     print(f"Error embedding chunk: {e}")
-    print(f"Finished! {doc_count} chunks embedded and stored in Chroma DB.")
+    print(f"Finished! {doc_count} new chunks embedded and stored in Chroma DB.")
 
 if __name__ == "__main__":
     process_json_files() 
