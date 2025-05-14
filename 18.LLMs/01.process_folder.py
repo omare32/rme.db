@@ -5,6 +5,8 @@ import pytesseract
 from PIL import Image
 import pandas as pd
 from datetime import datetime
+from docx import Document
+from pptx import Presentation
 
 # Add tkinter for folder selection
 def select_folder():
@@ -54,6 +56,28 @@ def extract_text_from_excel(excel_path):
         pass
     return text.strip()
 
+def extract_text_from_docx(docx_path):
+    text = ""
+    try:
+        doc = Document(docx_path)
+        for para in doc.paragraphs:
+            text += para.text + "\n"
+    except Exception:
+        pass
+    return text.strip()
+
+def extract_text_from_pptx(pptx_path):
+    text = ""
+    try:
+        prs = Presentation(pptx_path)
+        for slide in prs.slides:
+            for shape in slide.shapes:
+                if hasattr(shape, "text"):
+                    text += shape.text + "\n"
+    except Exception:
+        pass
+    return text.strip()
+
 def process_folder(folder_path, output_json_path):
     data = []
     for root, dirs, files in os.walk(folder_path):
@@ -74,6 +98,10 @@ def process_folder(folder_path, output_json_path):
                 entry['text'] = text
             elif ext in ['xls', 'xlsx']:
                 entry['text'] = extract_text_from_excel(file_path)
+            elif ext == 'docx':
+                entry['text'] = extract_text_from_docx(file_path)
+            elif ext == 'pptx':
+                entry['text'] = extract_text_from_pptx(file_path)
             else:
                 continue
             if entry['text']:

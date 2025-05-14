@@ -82,7 +82,7 @@ HTML = '''
         <div class="sources">
             <strong>Sources:</strong><br>
             {% for src in sources %}
-                <div>- <a class="source-link" href="/open_file?path={{ src['file_path'] | urlencode }}" target="_blank">{{ src['file_name'] }}</a> ({{ src['file_path'] }})</div>
+                <div>- <a class="source-link" href="/serve_pdf?path={{ src['file_path'] | urlencode }}" target="_blank">{{ src['file_name'] }}</a> ({{ src['file_path'] }})</div>
             {% endfor %}
         </div>
         {% endif %}
@@ -160,24 +160,17 @@ def index():
                 seen.add(key)
     return render_template_string(HTML, answer=answer, sources=sources, question=question, mistral_version=mistral_version)
 
-@app.route('/open_file')
-def open_file():
-    import sys
-    import subprocess
+@app.route('/serve_pdf')
+def serve_pdf():
+    from flask import send_file, abort
+    import urllib.parse
     path = request.args.get('path')
-    if not path:
-        return "No file path provided.", 400
-    # Try to open the file using the default application
+    if not path or not os.path.isfile(path):
+        return abort(404)
     try:
-        if os.name == 'nt':  # Windows
-            os.startfile(path)
-        elif sys.platform == 'darwin':  # macOS
-            subprocess.call(['open', path])
-        else:  # Linux
-            subprocess.call(['xdg-open', path])
-        return f"Opened {path}", 200
+        return send_file(path, mimetype='application/pdf', as_attachment=False)
     except Exception as e:
-        return f"Failed to open file: {e}", 500
+        return f"Failed to serve file: {e}", 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True) 

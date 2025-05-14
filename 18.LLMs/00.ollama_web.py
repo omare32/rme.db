@@ -5,6 +5,9 @@ import pytesseract
 from PIL import Image
 import io
 import os
+from docx import Document
+from pptx import Presentation
+import pandas as pd
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/uploads'
@@ -47,8 +50,8 @@ HTML = '''
         <h1>RME Chatbot Rev003a</h1>
         <div class="model-info">Using Mistral v.{{ mistral_version }}</div>
         <form method="post" enctype="multipart/form-data">
-            <label for="pdf">Upload a PDF (optional):</label><br>
-            <input type="file" id="pdf" name="pdf" accept="application/pdf"><br><br>
+            <label for="file">Upload a file (PDF, Excel, Word, PowerPoint):</label><br>
+            <input type="file" id="file" name="file" accept=".pdf,.xls,.xlsx,.docx,.pptx"><br><br>
             <label for="prompt">Enter your prompt:</label><br>
             <textarea id="prompt" name="prompt" required>{{ prompt or '' }}</textarea><br>
             <button type="submit">Send to Mistral</button>
@@ -59,10 +62,10 @@ HTML = '''
             {{ response }}
         </div>
         {% endif %}
-        {% if pdf_text %}
+        {% if file_text %}
         <div class="pdf-section">
-            <button type="button" onclick="togglePdfText()">Show Extracted PDF Text</button>
-            <div id="pdfTextDiv" class="pdf-text">{{ pdf_text }}</div>
+            <button type="button" onclick="togglePdfText()">Show Extracted File Text</button>
+            <div id="pdfTextDiv" class="pdf-text">{{ file_text }}</div>
         </div>
         {% endif %}
     </div>
@@ -115,23 +118,65 @@ def ocr_pdf(pdf_path):
         pass
     return text.strip()
 
+def extract_text_from_excel(excel_path):
+    text = ""
+    try:
+        xls = pd.ExcelFile(excel_path)
+        for sheet_name in xls.sheet_names:
+            df = pd.read_excel(xls, sheet_name=sheet_name, dtype=str)
+            text += f"\n--- Sheet: {sheet_name} ---\n"
+            text += df.fillna('').to_string(index=False, header=True)
+    except Exception:
+        pass
+    return text.strip()
+
+def extract_text_from_docx(docx_path):
+    text = ""
+    try:
+        doc = Document(docx_path)
+        for para in doc.paragraphs:
+            text += para.text + "\n"
+    except Exception:
+        pass
+    return text.strip()
+
+def extract_text_from_pptx(pptx_path):
+    text = ""
+    try:
+        prs = Presentation(pptx_path)
+        for slide in prs.slides:
+            for shape in slide.shapes:
+                if hasattr(shape, "text"):
+                    text += shape.text + "\n"
+    except Exception:
+        pass
+    return text.strip()
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     response = None
     prompt = None
-    pdf_text = None
+    file_text = None
     mistral_version = get_mistral_version()
     if request.method == 'POST':
         prompt = request.form['prompt']
-        pdf_file = request.files.get('pdf')
-        if pdf_file and pdf_file.filename:
-            pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_file.filename)
-            pdf_file.save(pdf_path)
-            pdf_text = extract_text_from_pdf(pdf_path)
-            if not pdf_text:
-                pdf_text = ocr_pdf(pdf_path)
-        if pdf_text:
-            full_prompt = f"Context from PDF:\n{pdf_text}\n\nQuestion: {prompt}"
+        uploaded_file = request.files.get('file')
+        if uploaded_file and uploaded_file.filename:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            uploaded_file.save(file_path)
+            ext = uploaded_file.filename.lower().split('.')[-1]
+            if ext == 'pdf':
+                file_text = extract_text_from_pdf(file_path)
+                if not file_text:
+                    file_text = ocr_pdf(file_path)
+            elif ext in ['xls', 'xlsx']:
+                file_text = extract_text_from_excel(file_path)
+            elif ext == 'docx':
+                file_text = extract_text_from_docx(file_path)
+            elif ext == 'pptx':
+                file_text = extract_text_from_pptx(file_path)
+        if file_text:
+            full_prompt = f"Context from file:\n{file_text}\n\nQuestion: {prompt}"
         else:
             full_prompt = prompt
         try:
@@ -150,7 +195,7 @@ def index():
                 response = f"Ollama API error: {r.status_code}"
         except Exception as e:
             response = f"Error: {e}"
-    return render_template_string(HTML, response=response, prompt=prompt, mistral_version=mistral_version, pdf_text=pdf_text)
+    return render_template_string(HTML, response=response, prompt=prompt, mistral_version=mistral_version, file_text=file_text)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True) 
