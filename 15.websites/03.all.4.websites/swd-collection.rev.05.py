@@ -154,10 +154,20 @@ def fetch_data(project_name, from_date, to_date):
                 PROJECT_NAME AS Project_Name, 
                 PROJECT_NUM AS Project_Num
             FROM {TABLE_NAME}
-            WHERE PROJECT_NAME = %s
+            WHERE 1=1
         """
 
-        params = [project_name]
+        params = []
+
+        if not project_name or project_name == "all":
+            # Filter to only allowed projects
+            allowed_projects = list(PROJECTS_TO_SHOW)
+            placeholders = ','.join(['%s'] * len(allowed_projects))
+            query += f" AND PROJECT_NAME IN ({placeholders})"
+            params.extend(allowed_projects)
+        else:
+            query += " AND PROJECT_NAME = %s"
+            params.append(project_name)
 
         if from_date:
             query += " AND RECEIPT_DATE >= %s"
