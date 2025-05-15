@@ -1,0 +1,922 @@
+{
+  "created": "2025-05-15T19:29:51.306Z",
+  "count": 1044,
+  "offset": 0,
+  "artists": [
+    {
+      "id": "feb30f65-eefa-4c18-9c03-3e97b200b275",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 100,
+      "name": "Natur",
+      "sort-name": "Natur",
+      "area": {
+        "id": "74e50e58-5deb-4b99-93a2-decbb365c07f",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "New York",
+        "sort-name": "New York",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "1211e843-3e3b-4b91-ba0d-a9e772ea3703",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
+      "score": 97,
+      "name": "Natur",
+      "sort-name": "Natur",
+      "country": "BR",
+      "area": {
+        "id": "f45b47f8-5796-386e-b172-6c31b009a5d8",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Brazil",
+        "sort-name": "Brazil",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "dub techno DJ & producer from Brazil",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "22ec0058-774e-43df-91df-ce73891943c2",
+      "score": 84,
+      "name": "Onde Natur",
+      "sort-name": "Onde Natur",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "90dceb3b-d0be-4c85-b7db-4f59b85c07d8",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 84,
+      "name": "Mutter Natur",
+      "sort-name": "Mutter Natur",
+      "country": "DE",
+      "area": {
+        "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Germany",
+        "sort-name": "Germany",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "hip hop"
+        }
+      ]
+    },
+    {
+      "id": "a78e212f-4dca-4113-8712-d1108edb6dfa",
+      "score": 76,
+      "name": "Park & Natur",
+      "sort-name": "Park & Natur",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "ebca484e-de96-4f0d-86e9-66c419f9e236",
+      "score": 76,
+      "name": "Kosmos Natur Furor",
+      "sort-name": "Kosmos Natur Furor",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "efbaef07-e465-4390-858a-297bdc5c392b",
+      "score": 76,
+      "name": "the Natur-L",
+      "sort-name": "the Natur-L",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "e2719fe0-5063-461d-afdc-c20f159758cb",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 65,
+      "name": "Gitte Natur & Thomas Kirk",
+      "sort-name": "Natur, Gitte & Kirk, Thomas",
+      "life-span": {
+        "ended": null
+      }
+    },
+    {
+      "id": "3bdcd49d-212e-4f4f-877a-eac1e4a2bddc",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 64,
+      "name": "Naughty by Nature",
+      "sort-name": "Naughty by Nature",
+      "country": "US",
+      "area": {
+        "id": "489ce91b-6658-3307-9877-795b68554c98",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United States",
+        "sort-name": "United States",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "b7abc17a-76de-40a2-88a5-c128228288a5",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "East Orange",
+        "sort-name": "East Orange",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "isnis": [
+        "0000000121874047"
+      ],
+      "life-span": {
+        "begin": "1989",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Naughty by Nature",
+          "name": "Naughty by Nature",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "Naughty by Nature",
+          "type-id": "894afba6-2816-3c24-8072-eadb66bd04bc",
+          "name": "Naughty by Nature",
+          "locale": null,
+          "type": "Artist name",
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "New Style, The",
+          "type-id": "894afba6-2816-3c24-8072-eadb66bd04bc",
+          "name": "The New Style",
+          "locale": null,
+          "type": "Artist name",
+          "primary": null,
+          "begin-date": "1986",
+          "end-date": null
+        },
+        {
+          "sort-name": "N-By-N",
+          "name": "N-By-N",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 4,
+          "name": "hip hop"
+        },
+        {
+          "count": -1,
+          "name": "pop rap"
+        },
+        {
+          "count": 1,
+          "name": "boom bap"
+        },
+        {
+          "count": 0,
+          "name": "conscious hip hop"
+        },
+        {
+          "count": 0,
+          "name": "rock and indie"
+        },
+        {
+          "count": 1,
+          "name": "east coast hip hop"
+        },
+        {
+          "count": 0,
+          "name": "hardcore hip hop"
+        }
+      ]
+    },
+    {
+      "id": "414aad23-bd28-443d-9f7f-1b05892cdb47",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 61,
+      "name": "Human Nature",
+      "sort-name": "Human Nature",
+      "country": "AU",
+      "area": {
+        "id": "106e0bec-b638-3b37-b731-f53d507dc00e",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Australia",
+        "sort-name": "Australia",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "3f179da4-83c6-4a28-a627-e46b4a8ff1ed",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Sydney",
+        "sort-name": "Sydney",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "Australian pop vocal group",
+      "isnis": [
+        "0000000110902516",
+        "0000000504433783"
+      ],
+      "life-span": {
+        "begin": "1989",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "4Trax",
+          "name": "4Trax",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "pop"
+        },
+        {
+          "count": 1,
+          "name": "doo-wop"
+        },
+        {
+          "count": 1,
+          "name": "motown"
+        },
+        {
+          "count": 1,
+          "name": "boy band"
+        }
+      ]
+    },
+    {
+      "id": "8f48ecc4-0813-4edf-ba67-818f47e7e752",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 60,
+      "name": "Natural Snow Buildings",
+      "sort-name": "Natural Snow Buildings",
+      "country": "FR",
+      "area": {
+        "id": "08310658-51eb-3801-80de-5a0739207115",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "France",
+        "sort-name": "France",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "dc10c22b-e510-4006-8b7f-fecb4f36436e",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Paris",
+        "sort-name": "Paris",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "isnis": [
+        "0000000470087578"
+      ],
+      "life-span": {
+        "begin": "1998-05",
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "post-rock"
+        },
+        {
+          "count": 2,
+          "name": "ambient"
+        },
+        {
+          "count": 1,
+          "name": "experimental"
+        },
+        {
+          "count": 2,
+          "name": "drone"
+        },
+        {
+          "count": 2,
+          "name": "psychedelic folk"
+        },
+        {
+          "count": 1,
+          "name": "free folk"
+        }
+      ]
+    },
+    {
+      "id": "bd81c05a-71a9-4c95-a64c-a4351c9e21a5",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 60,
+      "name": "Naturally 7",
+      "sort-name": "Naturally 7",
+      "country": "US",
+      "area": {
+        "id": "489ce91b-6658-3307-9877-795b68554c98",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United States",
+        "sort-name": "United States",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "2eb1a58a-5a1a-4100-8302-fe274f64f7aa",
+        "type": "District",
+        "type-id": "84039871-5e47-38ca-a66a-45e512c8290f",
+        "name": "Rosedale",
+        "sort-name": "Rosedale",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "isnis": [
+        "0000000115516382"
+      ],
+      "life-span": {
+        "begin": "1999",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Naturally Seven",
+          "name": "Naturally Seven",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "a cappella"
+        }
+      ]
+    },
+    {
+      "id": "a4115de8-b48e-4275-84b3-c8c03be4d1d4",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 58,
+      "name": "Natural Born Grooves",
+      "sort-name": "Natural Born Grooves",
+      "area": {
+        "id": "c02ebe2f-ecf0-4671-9f09-d997c0effb9a",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Antwerp",
+        "sort-name": "Antwerp",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "isnis": [
+        "0000000104722607"
+      ],
+      "life-span": {
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Natural Born Groovers",
+          "name": "Natural Born Groovers",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "NBG",
+          "name": "NBG",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "Natural Born Groove",
+          "name": "Natural Born Groove",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "Nutural Born Grooves",
+          "name": "Nutural Born Grooves",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "house"
+        }
+      ]
+    },
+    {
+      "id": "1bb72630-2f0c-4f8d-a1ac-ed1c7913546c",
+      "score": 58,
+      "name": "NatureQuest",
+      "sort-name": "NatureQuest",
+      "life-span": {
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "label as artist"
+        }
+      ]
+    },
+    {
+      "id": "da661b9e-b092-47be-8e41-ddef53b1d2f6",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
+      "score": 58,
+      "gender-id": "36d3d30a-839d-3eda-8cb3-29be4384e4a9",
+      "name": "The Joy of Nature",
+      "sort-name": "Joy of Nature, The",
+      "gender": "male",
+      "country": "PT",
+      "area": {
+        "id": "781b0c54-3d54-362d-a941-8a617def4992",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Portugal",
+        "sort-name": "Portugal",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "begin": "1999",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "The Joy of Nature and Discipline",
+          "name": "The Joy of Nature and Discipline",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ]
+    },
+    {
+      "id": "b0fe3cb8-028c-4fe3-820f-f1d19345c015",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 58,
+      "name": "The Supernaturals",
+      "sort-name": "Supernaturals, The",
+      "country": "GB",
+      "area": {
+        "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United Kingdom",
+        "sort-name": "United Kingdom",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "c279f805-01f8-46f5-99cf-51f165a1adad",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Glasgow",
+        "sort-name": "Glasgow",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "begin": "1993",
+        "end": "2002",
+        "ended": true
+      },
+      "aliases": [
+        {
+          "sort-name": "Supernaturals, the",
+          "name": "Supernaturals, the",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "Supernaturals",
+          "name": "Supernaturals",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "rock and indie"
+        }
+      ]
+    },
+    {
+      "id": "82ae54d4-2ea6-4d02-b499-0f51f1ea72f0",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 56,
+      "name": "Ernie Haase & Signature Sound",
+      "sort-name": "Haase, Ernie & Signature Sound",
+      "country": "US",
+      "area": {
+        "id": "489ce91b-6658-3307-9877-795b68554c98",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United States",
+        "sort-name": "United States",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "begin": "2002",
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "southern gospel"
+        }
+      ]
+    },
+    {
+      "id": "dadee2ed-9f6e-4332-ae08-ea9fc6181048",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 56,
+      "name": "Against Nature",
+      "sort-name": "Against Nature",
+      "country": "US",
+      "area": {
+        "id": "489ce91b-6658-3307-9877-795b68554c98",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United States",
+        "sort-name": "United States",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "2fb5445d-3987-49fe-957a-f730a7acc4a2",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Baltimore",
+        "sort-name": "Baltimore",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "metal band from Baltimore",
+      "life-span": {
+        "begin": "2004",
+        "end": "2013",
+        "ended": true
+      }
+    },
+    {
+      "id": "d5bc27cd-700f-4651-b9b5-aabb43d2fc8d",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 56,
+      "name": "Raver\u2019s Nature",
+      "sort-name": "Raver\u2019s Nature",
+      "life-span": {
+        "begin": "1993",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Ravers's Nature",
+          "name": "Ravers's Nature",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        },
+        {
+          "sort-name": "Ravers Nature",
+          "name": "Ravers Nature",
+          "locale": null,
+          "type": null,
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ]
+    },
+    {
+      "id": "145a23a7-d8dc-402a-b4b4-b0f99fd3a1cb",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
+      "score": 56,
+      "gender-id": "36d3d30a-839d-3eda-8cb3-29be4384e4a9",
+      "name": "Natural Black",
+      "sort-name": "Natural Black",
+      "gender": "male",
+      "country": "GY",
+      "area": {
+        "id": "c4a33ce9-580e-3d57-9c32-f75daf2f75ef",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Guyana",
+        "sort-name": "Guyana",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "f1221edb-09b7-4a16-8083-fbab09b37d7c",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Georgetown",
+        "sort-name": "Georgetown",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "reggae singer from Guyana",
+      "life-span": {
+        "begin": "1975-03-16",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Softley, Mortimer Duke",
+          "type-id": "d4dcd0c0-b341-3612-a332-c0ce797b25cf",
+          "name": "Mortimer Duke Softley",
+          "locale": null,
+          "type": "Legal name",
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "reggae"
+        }
+      ]
+    },
+    {
+      "id": "d81e240c-707e-4230-b833-dac01be4844c",
+      "score": 55,
+      "name": "Nature of Wires",
+      "sort-name": "Nature of Wires",
+      "area": {
+        "id": "9d5dd675-3cf4-4296-9e39-67865ebee758",
+        "type": "Subdivision",
+        "type-id": "fd3d44c5-80a1-3842-9745-2c4972d35afa",
+        "name": "England",
+        "sort-name": "England",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "begin": "1986",
+        "ended": null
+      }
+    },
+    {
+      "id": "7bfe58bb-c4f5-4139-996b-82f9c375640a",
+      "type": "Person",
+      "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
+      "score": 55,
+      "gender-id": "36d3d30a-839d-3eda-8cb3-29be4384e4a9",
+      "name": "Nature",
+      "sort-name": "Nature",
+      "gender": "male",
+      "area": {
+        "id": "675bbb61-a94a-4b54-9242-1fbf81a46ee6",
+        "type": "District",
+        "type-id": "84039871-5e47-38ca-a66a-45e512c8290f",
+        "name": "Queensbridge",
+        "sort-name": "Queensbridge",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "QB rapper Jermaine Baxter",
+      "life-span": {
+        "begin": "1972-12-05",
+        "ended": null
+      },
+      "aliases": [
+        {
+          "sort-name": "Baxter, Jermaine",
+          "type-id": "d4dcd0c0-b341-3612-a332-c0ce797b25cf",
+          "name": "Jermaine Baxter",
+          "locale": null,
+          "type": "Legal name",
+          "primary": null,
+          "begin-date": null,
+          "end-date": null
+        }
+      ],
+      "tags": [
+        {
+          "count": 2,
+          "name": "hip hop"
+        }
+      ]
+    },
+    {
+      "id": "7104e618-635e-49f8-b165-08c70f71d6b8",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 55,
+      "name": "Hot Natured",
+      "sort-name": "Hot Natured",
+      "country": "GB",
+      "area": {
+        "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United Kingdom",
+        "sort-name": "United Kingdom",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "f03d09b3-39dc-4083-afd6-159e3f0d462f",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "London",
+        "sort-name": "London",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "isnis": [
+        "0000000468920161"
+      ],
+      "life-span": {
+        "begin": "2009",
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "house"
+        },
+        {
+          "count": 1,
+          "name": "deep house"
+        }
+      ]
+    },
+    {
+      "id": "0412f7e3-6871-4327-88b5-523401106aa9",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 55,
+      "name": "Natural Child",
+      "sort-name": "Natural Child",
+      "country": "US",
+      "area": {
+        "id": "489ce91b-6658-3307-9877-795b68554c98",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "United States",
+        "sort-name": "United States",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "begin-area": {
+        "id": "e68879f9-bd95-41ff-96ba-c082ff37cc74",
+        "type": "City",
+        "type-id": "6fd8f29a-3d0a-32fc-980d-ea697b69da78",
+        "name": "Nashville",
+        "sort-name": "Nashville",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "life-span": {
+        "begin": "2009",
+        "ended": null
+      }
+    },
+    {
+      "id": "f8e9efed-d204-4829-b351-cdb6775c430f",
+      "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+      "score": 54,
+      "name": "Force of Nature",
+      "sort-name": "Force of Nature",
+      "country": "JP",
+      "area": {
+        "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+        "type": "Country",
+        "type-id": "06dd0ae4-8c74-30bb-b43d-95dcedf961de",
+        "name": "Japan",
+        "sort-name": "Japan",
+        "life-span": {
+          "ended": null
+        }
+      },
+      "disambiguation": "Japanese hip-hop/electronic duo",
+      "life-span": {
+        "ended": null
+      },
+      "tags": [
+        {
+          "count": 1,
+          "name": "instrumental"
+        },
+        {
+          "count": 1,
+          "name": "hip hop"
+        },
+        {
+          "count": 1,
+          "name": "instrumental hip hop"
+        }
+      ]
+    }
+  ]
+}
