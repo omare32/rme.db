@@ -4,37 +4,82 @@ import requests
 import json
 from datetime import datetime
 import webbrowser
+import traceback
+import sys
+from base64 import b64encode
+from spotify_config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 
-def get_band_name():
-    root = tk.Tk()
-    root.title('MusicBrainz Search')
+class MainWindow:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title('MusicBrainz Search')
+        
+        # Center the window
+        window_width = 300
+        window_height = 150
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        self.window.geometry(f'{window_width}x{window_height}+{x}+{y}')
+        
+        # Create search frame
+        self.band_var = tk.StringVar()
+        
+        tk.Label(self.window, text='Enter band name:', pady=10).pack()
+        self.entry = tk.Entry(self.window, textvariable=self.band_var, width=30)
+        self.entry.pack(pady=5)
+        
+        search_button = tk.Button(self.window, text='Search', command=self.search)
+        search_button.pack(pady=10)
+        
+        # Bind enter key
+        self.entry.bind('<Return>', lambda e: self.search())
+        self.entry.focus()
     
-    # Center the window
-    window_width = 300
-    window_height = 150
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    x = (screen_width - window_width) // 2
-    y = (screen_height - window_height) // 2
-    root.geometry(f'{window_width}x{window_height}+{x}+{y}')
+    def search(self):
+        band_name = self.band_var.get().strip()
+        if band_name:
+            print(f"Searching for: {band_name}")
+            search_band(self.window, band_name)
+            self.entry.delete(0, tk.END)  # Clear the entry
+        else:
+            messagebox.showwarning('Warning', 'Please enter a band name.')
+
+class SpotifyAPI:
+    def __init__(self):
+        self.token = None
+        self.get_token()
     
-    band_var = tk.StringVar()
+    def get_token(self):
+        auth = b64encode(f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}".encode()).decode()
+        response = requests.post(
+            'https://accounts.spotify.com/api/token',
+            headers={'Authorization': f'Basic {auth}'},
+            data={'grant_type': 'client_credentials'}
+        )
+        response.raise_for_status()
+        self.token = response.json()['access_token']
     
-    tk.Label(root, text='Enter band name:', pady=10).pack()
-    entry = tk.Entry(root, textvariable=band_var, width=30)
-    entry.pack(pady=5)
+    def search_artist(self, name):
+        headers = {'Authorization': f'Bearer {self.token}'}
+        response = requests.get(
+            'https://api.spotify.com/v1/search',
+            headers=headers,
+            params={'q': name, 'type': 'artist', 'limit': 1}
+        )
+        response.raise_for_status()
+        return response.json()
     
-    def on_submit():
-        root.quit()
-    
-    tk.Button(root, text='Search', command=on_submit).pack(pady=10)
-    entry.focus()
-    entry.bind('<Return>', lambda e: on_submit())
-    
-    root.mainloop()
-    value = band_var.get()
-    root.destroy()
-    return value
+    def get_albums(self, artist_id):
+        headers = {'Authorization': f'Bearer {self.token}'}
+        response = requests.get(
+            f'https://api.spotify.com/v1/artists/{artist_id}/albums',
+            headers=headers,
+            params={'include_groups': 'album,single', 'limit': 50}
+        )
+        response.raise_for_status()
+        return response.json()
 
 class MusicBrainzSearch:
     def __init__(self):
@@ -57,10 +102,12 @@ class MusicBrainzSearch:
         response.raise_for_status()
         return response.json()
 
-def create_results_window(title):
-    window = tk.Toplevel()
+def create_results_window(parent, title):
+    window = tk.Toplevel(parent)
     window.title(title)
     window.geometry('800x600')
+    window.transient(parent)
+    window.grab_set()
     
     # Create main frame
     main_frame = ttk.Frame(window)
@@ -77,8 +124,9 @@ def create_results_window(title):
     
     return window, tree
 
-def search_band(band_name):
+def search_band(parent, band_name):
     try:
+        print(f"Searching for band: {band_name}")
         mb = MusicBrainzSearch()
         
         # Search for artists
@@ -97,7 +145,7 @@ def search_band(band_name):
             return
         
         # Create artists window
-        window, tree = create_results_window(f'Artists matching "{band_name}"')
+        window, tree = create_results_window(parent, f'Artists matching "{band_name}"')
         
         # Configure columns
         tree['columns'] = ('name', 'type', 'country', 'score')
@@ -134,21 +182,40 @@ def search_band(band_name):
                 albums_data = mb.get_albums(artist_id)
                 
                 # Create albums window
-                albums_window, albums_tree = create_results_window(f'Albums by {artist_name}')
+                albums_window, albums_tree = create_results_window(parent, f'Albums by {artist_name}')
                 
                 # Configure columns
-                albums_tree['columns'] = ('title', 'type', 'year')
+                albums_tree['columns'] = ('title', 'type', 'year', 'popularity')
                 albums_tree.heading('title', text='Title')
                 albums_tree.heading('type', text='Type')
                 albums_tree.heading('year', text='Year')
+                albums_tree.heading('popularity', text='Popularity')
+                
+                # Get Spotify data
+                try:
+                    spotify = SpotifyAPI()
+                    spotify_artist = spotify.search_artist(artist_name)['artists']['items'][0]
+                    spotify_albums = spotify.get_albums(spotify_artist['id'])
+                    
+                    # Create album name to popularity mapping
+                    popularity_map = {}
+                    for album in spotify_albums['items']:
+                        popularity_map[album['name'].lower()] = album.get('popularity', 'N/A')
+                except Exception as e:
+                    print(f"Spotify error: {e}")
+                    popularity_map = {}
                 
                 # Add albums to treeview
                 for album in albums_data['release-groups']:
+                    title = album.get('title', 'N/A')
                     first_release_date = album.get('first-release-date', 'N/A')[:4]
+                    popularity = popularity_map.get(title.lower(), 'N/A')
+                    
                     albums_tree.insert('', tk.END, values=(
-                        album.get('title', 'N/A'),
+                        title,
                         album.get('primary-type', 'N/A'),
-                        first_release_date
+                        first_release_date,
+                        f"{popularity}/100" if popularity != 'N/A' else 'N/A'
                     ))
                 
                 # Save full data to file
@@ -170,8 +237,11 @@ def search_band(band_name):
         messagebox.showerror('Error', f'An error occurred: {str(e)}')
 
 if __name__ == '__main__':
-    band_name = get_band_name()
-    if band_name.strip():
-        search_band(band_name)
-    else:
-        messagebox.showwarning('Warning', 'Please enter a band name to search.')
+    try:
+        app = MainWindow()
+        app.window.mainloop()
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        print("Traceback:")
+        traceback.print_exc()
+        messagebox.showerror('Error', f'An unexpected error occurred: {str(e)}')
