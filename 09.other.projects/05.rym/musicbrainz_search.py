@@ -6,8 +6,7 @@ from datetime import datetime
 import webbrowser
 import traceback
 import sys
-from base64 import b64encode
-from spotify_config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from lastfm_config import LASTFM_API_KEY
 
 class MainWindow:
     def __init__(self):
@@ -46,38 +45,32 @@ class MainWindow:
         else:
             messagebox.showwarning('Warning', 'Please enter a band name.')
 
-class SpotifyAPI:
+class LastFMAPI:
     def __init__(self):
-        self.token = None
-        self.get_token()
-    
-    def get_token(self):
-        auth = b64encode(f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}".encode()).decode()
-        response = requests.post(
-            'https://accounts.spotify.com/api/token',
-            headers={'Authorization': f'Basic {auth}'},
-            data={'grant_type': 'client_credentials'}
-        )
-        response.raise_for_status()
-        self.token = response.json()['access_token']
+        self.api_key = LASTFM_API_KEY
+        self.base_url = 'http://ws.audioscrobbler.com/2.0/'
     
     def search_artist(self, name):
-        headers = {'Authorization': f'Bearer {self.token}'}
-        response = requests.get(
-            'https://api.spotify.com/v1/search',
-            headers=headers,
-            params={'q': name, 'type': 'artist', 'limit': 1}
-        )
+        params = {
+            'method': 'artist.search',
+            'artist': name,
+            'api_key': self.api_key,
+            'format': 'json',
+            'limit': 10
+        }
+        response = requests.get(self.base_url, params=params)
         response.raise_for_status()
         return response.json()
     
-    def get_albums(self, artist_id):
-        headers = {'Authorization': f'Bearer {self.token}'}
-        response = requests.get(
-            f'https://api.spotify.com/v1/artists/{artist_id}/albums',
-            headers=headers,
-            params={'include_groups': 'album,single', 'limit': 50}
-        )
+    def get_top_albums(self, artist_name):
+        params = {
+            'method': 'artist.gettopalbums',
+            'artist': artist_name,
+            'api_key': self.api_key,
+            'format': 'json',
+            'limit': 50
+        }
+        response = requests.get(self.base_url, params=params)
         response.raise_for_status()
         return response.json()
 
@@ -185,37 +178,41 @@ def search_band(parent, band_name):
                 albums_window, albums_tree = create_results_window(parent, f'Albums by {artist_name}')
                 
                 # Configure columns
-                albums_tree['columns'] = ('title', 'type', 'year', 'popularity')
+                albums_tree['columns'] = ('title', 'type', 'year', 'playcount', 'listeners')
                 albums_tree.heading('title', text='Title')
                 albums_tree.heading('type', text='Type')
                 albums_tree.heading('year', text='Year')
-                albums_tree.heading('popularity', text='Popularity')
+                albums_tree.heading('playcount', text='Play Count')
+                albums_tree.heading('listeners', text='Listeners')
                 
-                # Get Spotify data
+                # Get Last.fm data
                 try:
-                    spotify = SpotifyAPI()
-                    spotify_artist = spotify.search_artist(artist_name)['artists']['items'][0]
-                    spotify_albums = spotify.get_albums(spotify_artist['id'])
+                    lastfm = LastFMAPI()
+                    lastfm_albums = lastfm.get_top_albums(artist_name)
                     
-                    # Create album name to popularity mapping
-                    popularity_map = {}
-                    for album in spotify_albums['items']:
-                        popularity_map[album['name'].lower()] = album.get('popularity', 'N/A')
+                    # Create album name to stats mapping
+                    album_stats = {}
+                    for album in lastfm_albums['topalbums']['album']:
+                        album_stats[album['name'].lower()] = {
+                            'playcount': album.get('playcount', 'N/A'),
+                            'listeners': album.get('listeners', 'N/A')
+                        }
                 except Exception as e:
-                    print(f"Spotify error: {e}")
-                    popularity_map = {}
+                    print(f"Last.fm error: {e}")
+                    album_stats = {}
                 
                 # Add albums to treeview
                 for album in albums_data['release-groups']:
                     title = album.get('title', 'N/A')
                     first_release_date = album.get('first-release-date', 'N/A')[:4]
-                    popularity = popularity_map.get(title.lower(), 'N/A')
+                    stats = album_stats.get(title.lower(), {'playcount': 'N/A', 'listeners': 'N/A'})
                     
                     albums_tree.insert('', tk.END, values=(
                         title,
                         album.get('primary-type', 'N/A'),
                         first_release_date,
-                        f"{popularity}/100" if popularity != 'N/A' else 'N/A'
+                        f"{int(stats['playcount']):,}" if stats['playcount'] != 'N/A' else 'N/A',
+                        f"{int(stats['listeners']):,}" if stats['listeners'] != 'N/A' else 'N/A'
                     ))
                 
                 # Save full data to file
