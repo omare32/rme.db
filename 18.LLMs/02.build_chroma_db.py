@@ -16,6 +16,7 @@ CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 
 COLLECTION_NAME = 'company_docs'
 CHUNK_SIZE = 1000  # characters per chunk
 CHUNK_OVERLAP = 200
+ID_TRACK_FILE = os.path.join(CHROMA_DB_DIR, 'embedded_chunk_ids.txt')
 
 # Helper: chunk text
 def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
@@ -42,19 +43,20 @@ if COLLECTION_NAME in [c.name for c in client.list_collections()]:
 else:
     collection = client.create_collection(COLLECTION_NAME)
 
-def get_existing_ids(collection):
-    # Get all existing IDs in the collection
-    # Chroma doesn't have a direct way to list all IDs, so we use get() with a large limit
-    try:
-        results = collection.get(include=["ids"], limit=1000000)
-        return set(results["ids"])
-    except Exception:
+def load_embedded_ids():
+    if not os.path.exists(ID_TRACK_FILE):
         return set()
+    with open(ID_TRACK_FILE, 'r', encoding='utf-8') as f:
+        return set(line.strip() for line in f if line.strip())
+
+def save_embedded_id(chunk_id):
+    with open(ID_TRACK_FILE, 'a', encoding='utf-8') as f:
+        f.write(chunk_id + '\n')
 
 def process_json_files():
     files = [f for f in os.listdir(EXTRACTED_DIR) if f.endswith('.json')]
     doc_count = 0
-    existing_ids = get_existing_ids(collection)
+    embedded_ids = load_embedded_ids()
     for file in files:
         with open(os.path.join(EXTRACTED_DIR, file), 'r', encoding='utf-8') as f:
             docs = json.load(f)
@@ -64,8 +66,8 @@ def process_json_files():
                 continue
             chunks = chunk_text(text)
             for i, chunk in enumerate(chunks):
-                chunk_id = f"{doc['file_name']}_{i}_{doc_count}"
-                if chunk_id in existing_ids:
+                chunk_id = f"{doc['file_name']}_{i}"
+                if chunk_id in embedded_ids:
                     continue  # Skip already embedded chunk
                 meta = {
                     'file_name': doc['file_name'],
@@ -82,6 +84,7 @@ def process_json_files():
                         metadatas=[meta],
                         ids=[chunk_id]
                     )
+                    save_embedded_id(chunk_id)
                     doc_count += 1
                 except Exception as e:
                     print(f"Error embedding chunk: {e}")
