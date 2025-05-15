@@ -7,6 +7,18 @@ import pandas as pd
 from datetime import datetime
 from docx import Document
 from pptx import Presentation
+import warnings
+import re
+
+# Suppress specific CropBox warning from pdfplumber
+import logging
+logging.getLogger("pdfminer").setLevel(logging.ERROR)
+
+class CropBoxFilter:
+    def filter(self, record):
+        return not (record.levelno == logging.WARNING and 'CropBox missing from /Page, defaulting to MediaBox' in record.getMessage())
+
+logging.getLogger().addFilter(CropBoxFilter())
 
 # Add tkinter for folder selection
 def select_folder():
@@ -82,6 +94,7 @@ def process_folder(folder_path, output_json_path):
     data = []
     for root, dirs, files in os.walk(folder_path):
         for file in files:
+            print(f"[INFO] Processing file: {file}")
             file_path = os.path.join(root, file)
             ext = file.lower().split('.')[-1]
             entry = {
@@ -91,21 +104,37 @@ def process_folder(folder_path, output_json_path):
                 'extracted_at': datetime.now().isoformat(),
                 'text': ''
             }
+            reason = None
             if ext == 'pdf':
                 text = extract_text_from_pdf(file_path)
                 if not text:
                     text = ocr_pdf(file_path)
+                    if text:
+                        reason = 'extracted via OCR'
+                    else:
+                        reason = 'no text extracted (PDF and OCR failed)'
+                else:
+                    reason = 'extracted as text PDF'
                 entry['text'] = text
             elif ext in ['xls', 'xlsx']:
-                entry['text'] = extract_text_from_excel(file_path)
+                text = extract_text_from_excel(file_path)
+                entry['text'] = text
+                reason = 'extracted from Excel' if text else 'no text extracted (Excel)'
             elif ext == 'docx':
-                entry['text'] = extract_text_from_docx(file_path)
+                text = extract_text_from_docx(file_path)
+                entry['text'] = text
+                reason = 'extracted from Word' if text else 'no text extracted (Word)'
             elif ext == 'pptx':
-                entry['text'] = extract_text_from_pptx(file_path)
+                text = extract_text_from_pptx(file_path)
+                entry['text'] = text
+                reason = 'extracted from PowerPoint' if text else 'no text extracted (PowerPoint)'
             else:
+                print(f"[WARN] Skipped unsupported file type: {file}")
                 continue
             if entry['text']:
                 data.append(entry)
+            else:
+                print(f"[WARN] No text extracted from: {file} ({reason})")
     with open(output_json_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"Processed {len(data)} documents. Output saved to {output_json_path}")
