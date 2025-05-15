@@ -6,6 +6,7 @@ import openai
 import requests
 from flask import Flask, render_template_string, request, send_file
 from urllib.parse import quote
+import json
 
 # Load OpenAI API key from .env
 load_dotenv()
@@ -16,6 +17,10 @@ CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 
 COLLECTION_NAME = 'company_docs'
 OLLAMA_URL = 'http://localhost:11434/api/generate'
 MISTRAL_MODEL = 'mistral:latest'
+
+TRAIN_LOG_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/gpt.tuning'
+LOG_FILE = os.path.join(TRAIN_LOG_DIR, 'gpt_feedback_log.jsonl')
+os.makedirs(TRAIN_LOG_DIR, exist_ok=True)
 
 def get_mistral_version():
     try:
@@ -135,6 +140,15 @@ def ask_openai(question, context_chunks):
     )
     return resp.choices[0].message.content.strip()
 
+def log_gpt_feedback(context_chunks, question, answer):
+    record = {
+        'context': context_chunks,
+        'question': question,
+        'answer': answer
+    }
+    with open(LOG_FILE, 'a', encoding='utf-8') as f:
+        f.write(json.dumps(record, ensure_ascii=False) + '\n')
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     answer = None
@@ -148,6 +162,7 @@ def index():
         context_chunks = [doc for doc, meta in results]
         if llm == 'gpt':
             answer = ask_openai(question, context_chunks)
+            log_gpt_feedback(context_chunks, question, answer)
         else:
             answer = ask_mistral(question, context_chunks)
         # Collect unique sources
