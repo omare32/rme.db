@@ -7,6 +7,7 @@ import requests
 from flask import Flask, render_template_string, request, send_file
 from urllib.parse import quote
 import json
+import re
 
 # Load OpenAI API key from .env
 load_dotenv()
@@ -96,21 +97,34 @@ HTML = '''
 </html>
 '''
 
-# Helper: search Chroma DB
-def search_chroma(query, top_k=5):
+def extract_project_name_from_question(question):
+    # Simple heuristic: look for words like 'project', 'port', 'lot', 'zed', etc.
+    keywords = r'(project|port|lot|zed|damietta|rashwan|saint gobain|ring road|silos|dashboard|sector|global|company)'
+    match = re.search(rf'([A-Za-z0-9\- ]*{keywords}[A-Za-z0-9\- ]*)', question, re.IGNORECASE)
+    if match:
+        return match.group(0).strip().lower()
+    return None
+
+def search_chroma_with_project(query, top_k=10):
+    project_name = extract_project_name_from_question(query)
     client = chromadb.PersistentClient(path=CHROMA_DB_DIR, settings=Settings(allow_reset=True))
     collection = client.get_collection(COLLECTION_NAME)
-    # Embed the query
     emb = openai.embeddings.create(input=[query], model="text-embedding-ada-002").data[0].embedding
     results = collection.query(query_embeddings=[emb], n_results=top_k, include=['documents', 'metadatas'])
     docs = results['documents'][0]
     metas = results['metadatas'][0]
-    return list(zip(docs, metas))
+    # Filter or boost by project name
+    if project_name:
+        filtered = [(doc, meta) for doc, meta in zip(docs, metas) if meta.get('project', '').lower() == project_name]
+        if filtered:
+            return filtered[:5]  # Return top 5 matching project
+    # Fallback: return top 5 as is
+    return list(zip(docs, metas))[:5]
 
-# Helper: ask Mistral (Ollama)
-def ask_mistral(question, context_chunks):
+def ask_mistral(question, context_chunks, project_name=None):
     context = "\n\n".join(context_chunks)
-    prompt = f"You are a helpful assistant for a construction company. Use the following context to answer the question.\n\nContext:\n{context}\n\nQuestion: {question}\nAnswer:"
+    project_str = f"Project: {project_name}\n" if project_name else ""
+    prompt = f"You are a helpful assistant for a construction company. Only answer if the context is about the correct project.\n{project_str}Use the following context to answer the question.\n\nContext:\n{context}\n\nQuestion: {question}\nAnswer:"
     try:
         r = requests.post(
             OLLAMA_URL,
@@ -128,10 +142,10 @@ def ask_mistral(question, context_chunks):
     except Exception as e:
         return f"Error: {e}"
 
-# Helper: ask OpenAI with context
-def ask_openai(question, context_chunks):
+def ask_openai(question, context_chunks, project_name=None):
     context = "\n\n".join(context_chunks)
-    prompt = f"You are a helpful assistant for a construction company. Use the following context to answer the question.\n\nContext:\n{context}\n\nQuestion: {question}\nAnswer:"
+    project_str = f"Project: {project_name}\n" if project_name else ""
+    prompt = f"You are a helpful assistant for a construction company. Only answer if the context is about the correct project.\n{project_str}Use the following context to answer the question.\n\nContext:\n{context}\n\nQuestion: {question}\nAnswer:"
     resp = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
@@ -158,13 +172,14 @@ def index():
     if request.method == 'POST':
         question = request.form['question']
         llm = request.form.get('llm', 'mistral')
-        results = search_chroma(question, top_k=5)
+        project_name = extract_project_name_from_question(question)
+        results = search_chroma_with_project(question, top_k=10)
         context_chunks = [doc for doc, meta in results]
         if llm == 'gpt':
-            answer = ask_openai(question, context_chunks)
+            answer = ask_openai(question, context_chunks, project_name)
             log_gpt_feedback(context_chunks, question, answer)
         else:
-            answer = ask_mistral(question, context_chunks)
+            answer = ask_mistral(question, context_chunks, project_name)
         # Collect unique sources
         seen = set()
         sources = []
