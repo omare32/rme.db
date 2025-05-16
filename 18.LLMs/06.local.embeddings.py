@@ -1,23 +1,23 @@
+# Requirements: pip install sentence-transformers torch chromadb tqdm python-dotenv
 import os
 import json
-import openai
+from sentence_transformers import SentenceTransformer
 import chromadb
 from chromadb.config import Settings
 from dotenv import load_dotenv
 from tqdm import tqdm
 
-# Load OpenAI API key from .env
+# Load environment variables (if needed for paths)
 load_dotenv()
-openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # New paths outside the repo
 EXTRACTED_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/extracted_json'
-CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db'
-COLLECTION_NAME = 'company_docs'
+CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db_local'
+COLLECTION_NAME = 'company_docs_local'
 CHUNK_SIZE = 500  # characters per chunk (reduced for more precise retrieval)
 CHUNK_OVERLAP = 200
 ID_TRACK_FILE = os.path.join(CHROMA_DB_DIR, 'embedded_chunk_ids.txt')
-BATCH_SIZE = 32  # Number of chunks to embed in one API call
+BATCH_SIZE = 32  # Number of chunks to embed in one call
 
 # Helper: chunk text
 def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
@@ -29,20 +29,10 @@ def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
         start += chunk_size - overlap
     return chunks
 
-# Helper: get OpenAI embeddings
-def get_embedding(text):
-    resp = openai.embeddings.create(
-        input=[text],
-        model="text-embedding-ada-002"
-    )
-    return resp.data[0].embedding
-
+# Helper: get local embeddings
+model = SentenceTransformer('all-MiniLM-L6-v2')  # You can change to another local model if needed
 def get_embeddings(texts):
-    resp = openai.embeddings.create(
-        input=texts,
-        model="text-embedding-ada-002"
-    )
-    return [item.embedding for item in resp.data]
+    return model.encode(texts, show_progress_bar=False, convert_to_numpy=True).tolist()
 
 # Initialize Chroma DB
 client = chromadb.PersistentClient(path=CHROMA_DB_DIR, settings=Settings(allow_reset=True))
