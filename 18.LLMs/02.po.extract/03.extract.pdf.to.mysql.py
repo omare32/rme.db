@@ -10,12 +10,17 @@ import pytesseract
 from pdf2image import convert_from_path
 import hashlib
 
-# Configure logging
+# Configure logging with UTF-8 encoding
+class UTF8FileHandler(logging.FileHandler):
+    def __init__(self, filename, mode='a', encoding='utf-8', delay=False):
+        logging.FileHandler.__init__(self, filename, mode, encoding, delay)
+
+# Configure logging to handle Unicode characters
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('pdf_extraction.log'),
+        UTF8FileHandler('pdf_extraction.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -261,11 +266,13 @@ class PDFExtractor:
                 
                 # Skip if already processed
                 if file_hash in self.processed_files:
-                    logging.info(f"Skipping already processed file ({i+1}/{total_pdfs}): {pdf_path}")
+                    safe_path = repr(pdf_path)
+                    logging.info(f"Skipping already processed file ({i+1}/{total_pdfs}): {safe_path}")
                     skipped += 1
                     continue
                 
-                logging.info(f"Processing ({i+1}/{total_pdfs}): {pdf_path}")
+                safe_path = repr(pdf_path)
+                logging.info(f"Processing ({i+1}/{total_pdfs}): {safe_path}")
                 
                 # Extract text
                 text = self.extract_text_from_pdf(pdf_path)
@@ -283,7 +290,8 @@ class PDFExtractor:
                     logging.info(f"Progress: {i+1}/{total_pdfs} PDFs processed")
                 
             except Exception as e:
-                logging.error(f"Error processing {pdf_path}: {str(e)}")
+                safe_path = repr(pdf_path)
+                logging.error(f"Error processing {safe_path}: {str(e)}")
                 errors += 1
         
         # Close database connection
