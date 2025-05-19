@@ -1,4 +1,5 @@
 import os
+import sys
 import glob
 import logging
 from datetime import datetime
@@ -10,8 +11,6 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
-import tkinter as tk
-from tkinter import filedialog
 
 # Configure logging
 logging.basicConfig(
@@ -72,47 +71,28 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str = "
         logging.error(f"Error uploading {video_path} to YouTube: {str(e)}")
         return None
 
-def select_folder_dialog(title="Select the folder containing videos to upload"):
-    root = tk.Tk()
-    root.attributes('-topmost', True)  # Bring window to front
-    root.withdraw()  # Hide the root window
-    
-    # Center the dialog on screen
-    window_width = 400
-    window_height = 100
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    x = (screen_width // 2) - (window_width // 2)
-    y = (screen_height // 2) - (window_height // 2)
-    
-    # Create a temporary window to center the dialog
-    temp = tk.Toplevel(root)
-    temp.withdraw()
-    temp.geometry(f'{window_width}x{window_height}+{x}+{y}')
-    temp.update()
-    
-    # Show the folder selection dialog
-    folder_selected = filedialog.askdirectory(parent=temp, title=title)
-    
-    # Cleanup
-    temp.destroy()
-    root.destroy()
-    
-    return folder_selected
+
 
 def main():
+    # Get folder path from command line argument
+    if len(sys.argv) < 2:
+        print("Please provide the folder path as a command line argument.")
+        print(f"Usage: {sys.argv[0]} <folder_path>")
+        return
+        
+    input_folder = sys.argv[1]
+    if not os.path.exists(input_folder):
+        print(f"Error: The specified folder does not exist: {input_folder}")
+        return
+        
     cwd = os.getcwd()
     client_secrets_file = os.path.join(cwd, "client_secret.dlc.json")
     if not os.path.exists(client_secrets_file):
         logging.error(f"Client secrets file not found at: {client_secrets_file}")
         return
+        
     youtube = get_authenticated_service(client_secrets_file)
     logging.info("YouTube authentication complete.")
-    # Ask user for folder containing videos to upload
-    input_folder = select_folder_dialog()
-    if not input_folder or not os.path.exists(input_folder):
-        logging.warning("No folder selected or path does not exist. Using current working directory.")
-        input_folder = cwd
     folder_name = os.path.basename(input_folder)
     # Find all files in the folder (no recursion)
     video_files = [os.path.join(input_folder, f) for f in os.listdir(input_folder) 
