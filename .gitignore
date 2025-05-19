@@ -374,7 +374,7 @@ licenses/LICENSES-ui.txt
 # Dask Executor tests generate this directory
 /tests/executors/dask-worker-space/
 
-# airflow-build-dockerfile and correconding ignore file
+# airflow-build-dockerfile and correponding ignore file
 airflow-build-dockerfile*
 rme.db/rme.db.code-workspace
 
@@ -440,5 +440,4 @@ token.json
 18.LLMs/02.po.extract/09.pdf.webapp copy.py
 18.LLMs/02.po.extract/09.pdf.webapp.backup.with.api.py
 18.LLMs/02.po.extract/app.py
-18.LLMs/02.po.extract/09.pdf.webapp.py
 18.LLMs/02.po.extract/09.pdf.webapp.py
