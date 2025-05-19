@@ -441,3 +441,5 @@ token.json
 18.LLMs/02.po.extract/09.pdf.webapp.backup.with.api.py
 18.LLMs/02.po.extract/app.py
 18.LLMs/02.po.extract/09.pdf.webapp.py
+a0.support/secrets.txt
+a0.support/clean_repo.py
