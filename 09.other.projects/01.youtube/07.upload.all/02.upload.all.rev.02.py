@@ -6,6 +6,8 @@ from datetime import datetime
 from pathlib import Path
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+import tkinter as tk
+from tkinter import filedialog
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
@@ -73,16 +75,39 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str = "
 
 
 
-def main():
-    # Get folder path from command line argument
-    if len(sys.argv) < 2:
-        print("Please provide the folder path as a command line argument.")
-        print(f"Usage: {sys.argv[0]} <folder_path>")
-        return
+def select_folder_dialog():
+    """Open a folder selection dialog and return the selected path."""
+    try:
+        # Initialize Tkinter
+        root = tk.Tk()
+        root.withdraw()  # Hide the root window
         
-    input_folder = sys.argv[1]
-    if not os.path.exists(input_folder):
-        print(f"Error: The specified folder does not exist: {input_folder}")
+        # Set dialog to center of screen
+        root.update_idletasks()
+        width = root.winfo_screenwidth()
+        height = root.winfo_screenheight()
+        x = (width - 400) // 2
+        y = (height - 300) // 2
+        root.geometry(f'400x300+{x}+{y}')
+        
+        # Show folder selection dialog
+        folder_path = filedialog.askdirectory(
+            title="Select folder containing videos to upload",
+            mustexist=True
+        )
+        
+        # Cleanup
+        root.destroy()
+        return folder_path
+    except Exception as e:
+        logging.error(f"Error in folder selection: {str(e)}")
+        return None
+
+def main():
+    # Get folder path from dialog
+    input_folder = select_folder_dialog()
+    if not input_folder or not os.path.exists(input_folder):
+        logging.error("No folder selected or folder does not exist")
         return
         
     cwd = os.getcwd()
