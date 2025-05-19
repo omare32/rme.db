@@ -74,16 +74,37 @@ def upload_to_youtube(youtube, video_path: str, title: str, description: str = "
 
 def select_folder_dialog(title="Select the folder containing videos to upload"):
     root = tk.Tk()
-    root.withdraw()
-    folder_selected = filedialog.askdirectory(title=title)
+    root.attributes('-topmost', True)  # Bring window to front
+    root.withdraw()  # Hide the root window
+    
+    # Center the dialog on screen
+    window_width = 400
+    window_height = 100
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width // 2) - (window_width // 2)
+    y = (screen_height // 2) - (window_height // 2)
+    
+    # Create a temporary window to center the dialog
+    temp = tk.Toplevel(root)
+    temp.withdraw()
+    temp.geometry(f'{window_width}x{window_height}+{x}+{y}')
+    temp.update()
+    
+    # Show the folder selection dialog
+    folder_selected = filedialog.askdirectory(parent=temp, title=title)
+    
+    # Cleanup
+    temp.destroy()
     root.destroy()
+    
     return folder_selected
 
 def main():
     cwd = os.getcwd()
     client_secrets_file = os.path.join(cwd, "client_secret.dlc.json")
     if not os.path.exists(client_secrets_file):
-        logging.error("Client secrets file not found")
+        logging.error(f"Client secrets file not found at: {client_secrets_file}")
         return
     youtube = get_authenticated_service(client_secrets_file)
     logging.info("YouTube authentication complete.")
