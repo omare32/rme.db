@@ -14,7 +14,7 @@ load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Chroma DB paths
-CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db'
+CHROMA_DB_DIR = r'D:/OEssam/chroma_db'
 COLLECTION_NAME = 'company_docs'
 OLLAMA_URL = 'http://localhost:11434/api/generate'
 MISTRAL_MODEL = 'mistral:latest'

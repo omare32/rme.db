@@ -268,7 +268,7 @@ def process_folder(folder_path, output_json_path):
 
 if __name__ == "__main__":
     # New output directory outside the repo
-    output_dir = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/extracted_json'
+    output_dir = r'D:/OEssam/extracted_json'
     os.makedirs(output_dir, exist_ok=True)
     folder = select_folder()
     if not folder:

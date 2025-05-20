@@ -11,8 +11,8 @@ from tqdm import tqdm
 load_dotenv()
 
 # New paths outside the repo
-EXTRACTED_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/extracted_json'
-CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db_local'
+EXTRACTED_DIR = r'D:/OEssam/extracted_json'
+CHROMA_DB_DIR = r'D:/OEssam/chroma_db_local'
 COLLECTION_NAME = 'company_docs_local'
 CHUNK_SIZE = 500  # characters per chunk (reduced for more precise retrieval)
 CHUNK_OVERLAP = 200

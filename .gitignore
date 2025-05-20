@@ -443,3 +443,7 @@ token.json
 18.LLMs/02.po.extract/09.pdf.webapp.py
 a0.support/secrets.txt
 a0.support/clean_repo.py
+18.LLMs/01.mistral/03.web_qa.py
+18.LLMs/01.mistral/07.local.web.qa.py
+18.LLMs/01.mistral/02.build_chroma_db.py
+18.LLMs/01.mistral/07.local.web.qa.py

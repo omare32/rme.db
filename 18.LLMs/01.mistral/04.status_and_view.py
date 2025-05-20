@@ -5,8 +5,8 @@ import pandas as pd
 from tabulate import tabulate
 
 # Paths
-EXTRACTED_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/extracted_json'
-CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db'
+EXTRACTED_DIR = r'D:/OEssam/extracted_json'
+CHROMA_DB_DIR = r'D:/OEssam/chroma_db'
 TUNING_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/gpt.tuning'
 TUNING_FILE = os.path.join(TUNING_DIR, 'gpt_feedback_log.jsonl')
 

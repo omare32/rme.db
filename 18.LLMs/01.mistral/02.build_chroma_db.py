@@ -11,8 +11,8 @@ load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # New paths outside the repo
-EXTRACTED_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/extracted_json'
-CHROMA_DB_DIR = r'C:/Users/Omar Essam2/OneDrive - Rowad Modern Engineering/x004 Data Science/03.rme.db/05.llm/chroma_db'
+EXTRACTED_DIR = r'D:/OEssam/extracted_json'
+CHROMA_DB_DIR = r'D:/OEssam/chroma_db'
 COLLECTION_NAME = 'company_docs'
 CHUNK_SIZE = 500  # characters per chunk (reduced for more precise retrieval)
 CHUNK_OVERLAP = 200
