@@ -15,6 +15,13 @@ from langchain_community.vectorstores import FAISS
 from langchain_ollama import OllamaLLM
 from langchain.chains import RetrievalQA
 from langchain_community.graphs import NetworkxEntityGraph
+from dataclasses import dataclass
+
+@dataclass
+class KnowledgeTriple:
+    subject: str
+    predicate: str
+    object_: str  # Note the underscore to match NetworkxEntityGraph's expectation
 
 class OCRPDFLoader(BaseLoader):
     def __init__(self, file_path):
@@ -132,6 +139,13 @@ JSON Output:"""
             total_chars = sum(len(doc.page_content) for doc in documents)
             print(f"\nTotal characters before splitting: {total_chars}")
             
+            # Clean and normalize text
+            for doc in documents:
+                # Remove left-to-right and right-to-left marks
+                doc.page_content = doc.page_content.replace('\u200e', '').replace('\u200f', '')
+                # Normalize Arabic text
+                doc.page_content = doc.page_content.strip()
+            
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=chunk_size,
                 chunk_overlap=chunk_overlap,
@@ -145,7 +159,11 @@ JSON Output:"""
             # Debug: Check content after splitting
             if chunks:
                 print(f"\nSplit {len(documents)} documents into {len(chunks)} chunks")
-                print(f"First chunk preview: {chunks[0].page_content[:100]}...")
+                try:
+                    preview = chunks[0].page_content[:100].encode('utf-8', errors='ignore').decode('utf-8')
+                    print(f"First chunk preview: {preview}...")
+                except Exception as e:
+                    print(f"Could not display preview: {str(e)}")
             else:
                 raise ValueError("Splitting produced no chunks")
                 
@@ -215,42 +233,104 @@ JSON Output:"""
                 self.po_data[po_number] = po_data
                 
                 # Add basic PO information to graph
-                self.graph.add_triple(po_number, 'issued_to', po_data.get('supplier', 'unknown'))
-                self.graph.add_triple(po_number, 'dated_on', po_data.get('date', 'unknown'))
-                self.graph.add_triple(po_number, 'has_value', str(po_data.get('total_amount', '0')))
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=po_number,
+                    predicate='issued_to',
+                    object_=po_data.get('supplier', 'unknown')
+                ))
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=po_number,
+                    predicate='dated_on',
+                    object_=po_data.get('date', 'unknown')
+                ))
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=po_number,
+                    predicate='has_value',
+                    object_=str(po_data.get('total_amount', '0'))
+                ))
                 
                 # Add items
                 for item in po_data.get('items', []):
                     item_str = json.dumps(item, ensure_ascii=False)
-                    self.graph.add_triple(po_number, 'includes', item_str)
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=po_number,
+                        predicate='includes',
+                        object_=item_str
+                    ))
             
             # Then extract general relationships
             relationships = self.extract_entities_and_relationships(doc.page_content, po_data)
+            
+            # Add to knowledge graph
             for entity1, relation, entity2 in relationships:
-                self.graph.add_triple(entity1, relation, entity2)
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=entity1,
+                    predicate=relation,
+                    object_=entity2
+                ))
     
     def query(self, question, use_graph=True, k=3):
         """Query the system using both vector store and knowledge graph"""
-        if not self.vector_store:
-            raise ValueError("Vector store not initialized. Run process_documents first.")
+        try:
+            # Get relevant documents from vector store
+            docs = self.vector_store.similarity_search(question, k=k)
             
-        # Get relevant documents
-        docs = self.vector_store.similarity_search(question, k=k)
-        context = "\n".join([doc.page_content for doc in docs])
-        
-        if use_graph:
-            # Get relevant graph context
-            graph_context = self.graph.get_relevant_subgraph(question)
-            context += f"\nKnowledge Graph Information:\n{graph_context}"
-        
-        # Create QA chain
-        qa_chain = RetrievalQA.from_chain_type(
-            llm=self.llm,
-            chain_type="stuff",
-            retriever=self.vector_store.as_retriever()
-        )
-        
-        return qa_chain.run(question)
+            # Get relevant subgraph if using graph
+            if use_graph:
+                # Extract relevant nodes and edges from the graph
+                graph_context = []
+                for node in self.graph._graph.nodes():
+                    # Add node information
+                    edges = list(self.graph._graph.edges(node, data=True))
+                    if edges:
+                        graph_context.append(f"Node: {node}")
+                        for _, target, data in edges:
+                            graph_context.append(f"  -> {data.get('predicate', 'related_to')} -> {target}")
+                
+                graph_context = "\n".join(graph_context)
+            else:
+                graph_context = ""
+            
+            # Combine document and graph context
+            context = "\n\n".join([doc.page_content for doc in docs])
+            if graph_context:
+                context += "\n\nGraph Context:\n" + graph_context
+            
+            # Create prompt
+            prompt = f"""Based on the following context, answer the question. If you cannot find the answer in the context, say 'I don't have enough information to answer that.'\n\nContext:\n{context}\n\nQuestion: {question}\n\nAnswer:"""
+            
+            # Get response from LLM
+            response = self.llm.predict(prompt)
+            return response
+            
+        except Exception as e:
+            print(f"Error processing query: {str(e)}")
+            return "Sorry, I encountered an error while processing your query."
+    
+    def save_graph(self, output_dir):
+        """Save the knowledge graph to disk"""
+        try:
+            # Create output directory if it doesn't exist
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Save the graph in GEXF format for visualization
+            gexf_path = os.path.join(output_dir, 'knowledge_graph.gexf')
+            nx.write_gexf(self.graph._graph, gexf_path)
+            print(f"\nSaved graph to {gexf_path}")
+            
+            # Save graph data as JSON for easier loading
+            graph_data = {
+                'nodes': list(self.graph._graph.nodes()),
+                'edges': [(u, v, d) for u, v, d in self.graph._graph.edges(data=True)]
+            }
+            json_path = os.path.join(output_dir, 'knowledge_graph.json')
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(graph_data, f, ensure_ascii=False, indent=2)
+            print(f"Saved graph data to {json_path}")
+            
+        except Exception as e:
+            print(f"Error saving graph: {str(e)}")
+            raise
     
     def process_documents(self):
         """Main method to process documents and build both vector store and knowledge graph"""
@@ -271,7 +351,12 @@ JSON Output:"""
             print("\nBuilding knowledge graph...")
             self.build_knowledge_graph(chunks)
             
+            # Save the graph
+            output_dir = r"C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\05.llm\graph.rag"
+            self.save_graph(output_dir)
+            
             print("\nDocument processing complete!")
+            
         except Exception as e:
             print(f"\nError in document processing: {str(e)}")
             raise
