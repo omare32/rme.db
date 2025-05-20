@@ -26,15 +26,20 @@ def connect_to_database():
         print(f"Error connecting to MySQL database: {e}")
         return None
 
-def get_enhanced_stats(connection):
+def get_enhanced_stats():
     """Get enhanced statistics including project and document type information"""
-    cursor = connection.cursor()
+    connection = connect_to_database()
+    if connection is None:
+        return None
+    
     stats = {}
+    cursor = connection.cursor()
     
     try:
-        # Get total PDFs count
-        cursor.execute("SELECT COUNT(*) FROM `po.pdfs`")
-        stats['total_pdfs'] = cursor.fetchone()[0]
+        # Set total files and processed files from screenshot
+        stats['total_files'] = 16275  # Total files from screenshot
+        stats['processed_files'] = 3580  # Processed files from screenshot
+        stats['total_pdfs'] = stats['processed_files']  # Use processed files count
         
         # Get project statistics
         cursor.execute("SELECT COUNT(DISTINCT project_name) FROM `po.pdfs` WHERE project_name IS NOT NULL")
@@ -170,8 +175,14 @@ def generate_enhanced_report(stats, charts):
     """Generate an enhanced Word document report with project and document type statistics"""
     doc = Document()
     
+    # Add parent folder information
+    doc.add_heading('PDF Extraction Report', 0)
+    doc.add_paragraph('Current Processing Directory:')
+    doc.add_paragraph('\\\\fileserver2\\Head Office Server\\Procurement (PR)\\02 Projects Document', style='List Bullet')
+    doc.add_paragraph()
+    
     # Add title
-    title = doc.add_heading('Enhanced PDF Extraction Database Report', 0)
+    title = doc.add_heading('PDF Extraction Database Report', 0)
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     
     # Add date
@@ -184,7 +195,9 @@ def generate_enhanced_report(stats, charts):
     
     # Overall Statistics section
     doc.add_heading('Overall Statistics', level=1)
-    doc.add_paragraph(f"Total PDFs Processed: {stats.get('total_pdfs', 'N/A')} documents")
+    doc.add_paragraph(f"Total Files in Directory: {stats.get('total_files', 'N/A')} documents")
+    doc.add_paragraph(f"Total PDFs Processed: {stats.get('processed_files', 'N/A')} documents")
+    doc.add_paragraph(f"Processing Progress: {stats.get('processed_files', 0)}/{stats.get('total_files', 0)} ({(stats.get('processed_files', 0)/stats.get('total_files', 1))*100:.1f}%)")
     doc.add_paragraph(f"Total Projects: {stats.get('total_projects', 'N/A')}")
     doc.add_paragraph(f"Total Document Types: {stats.get('total_doc_types', 'N/A')}")
     
@@ -227,9 +240,12 @@ def generate_enhanced_report(stats, charts):
             doc.add_paragraph(f"• {doc_type}: {count} documents", style='List Bullet')
     
     # Save the document
-    report_file = "Enhanced_PDF_Extraction_Report.docx"
+    # Generate timestamp for filename
+    timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    report_file = os.path.join(script_dir, f'PDF_Extraction_Report_{timestamp}.docx')
     doc.save(report_file)
-    print(f"Enhanced Word report generated: {os.path.abspath(report_file)}")
+    print(f"Word report generated: {os.path.abspath(report_file)}")
     
     return report_file
 
@@ -242,7 +258,7 @@ def main():
     
     # Get enhanced statistics
     print("Gathering enhanced statistics...")
-    stats = get_enhanced_stats(connection)
+    stats = get_enhanced_stats()
     
     # Close connection
     connection.close()

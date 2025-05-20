@@ -1,24 +1,21 @@
 import os
-import re
+import os
 import json
 import networkx as nx
+from datetime import datetime
 import pytesseract
-from typing import List, Dict, Any
 from pdf2image import convert_from_path
 from PIL import Image
 from io import BytesIO
-from dataclasses import dataclass
-
-# Langchain imports
 from langchain_community.document_loaders.base import BaseLoader
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 from langchain.chains import RetrievalQA
 from langchain_community.graphs import NetworkxEntityGraph
-from langchain.callbacks.manager import CallbackManager
+from dataclasses import dataclass
 
 @dataclass
 class KnowledgeTriple:
@@ -61,112 +58,40 @@ class OCRPDFLoader(BaseLoader):
         return documents
 
 class GraphRAG:
-    def __init__(self, pdf_directory, model_name="mistral"):
-        """Initialize the GraphRAG system"""
-        self.pdf_directory = pdf_directory
+    def __init__(self, model_name="mistral", pdf_directory=None):
         self.model_name = model_name
-        
-        # Initialize LLM with timeout
-        self.llm = Ollama(
-            model=model_name,
-            callback_manager=CallbackManager([]),
-            temperature=0,
-            timeout=30  # 30 second timeout
-        )
-        
-        # Initialize embeddings
-        try:
-            self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
-        except Exception as e:
-            print(f"Error initializing embeddings: {str(e)}")
-            self.embeddings = None
-        
-        # Initialize graph
+        self.pdf_directory = pdf_directory or "D:\\OEssam\\01.pdfs"
+        # Use a multilingual model for embeddings
+        self.embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
+        self.llm = OllamaLLM(model=model_name)
         self.graph = NetworkxEntityGraph()
-        
-        # Initialize vector store
         self.vector_store = None
         self.po_data = {}
         
-        print("Initialized GraphRAG system successfully")
-        
-    def extract_po_data(self, text):
-        """Extract key business entities from text with error handling and timeout"""
-        default_data = {
-            'project_po': {
-                'po_number': 'unknown',
-                'project_name': 'unknown',
-                'issue_date': 'unknown',
-                'status': 'unknown'
-            },
-            'supplier': {
-                'name': 'unknown',
-                'id': 'unknown',
-                'contact': 'unknown'
-            },
-            'items': [],
-            'terms': {
-                'delivery': 'unknown',
-                'warranty': 'unknown',
-                'other': 'unknown'
-            },
-            'payment': {
-                'terms': 'unknown',
-                'total_amount': 'unknown',
-                'currency': 'unknown',
-                'schedule': 'unknown'
-            }
-        }
+    def extract_po_details(self, text):
+        """Extract purchase order details using structured prompts"""
+        prompt = f"""Extract the following information from this purchase order text. Return as JSON with these keys:
+        - po_number: The purchase order number
+        - date: The PO date
+        - supplier: The supplier/company name
+        - total_amount: The total amount with currency
+        - items: List of items with quantities and prices
+
+Text: {text}
+
+JSON Output:"""
         
         try:
-            # Use regex to extract PO number first (faster than LLM)
-            po_match = re.search(r'P[O]?[-.\s]?\d{2,}[-.]?\d{2,}', text)
-            if po_match:
-                default_data['project_po']['po_number'] = po_match.group().strip()
-            
-            # Try to extract dates (faster than LLM)
-            date_matches = re.findall(r'\d{1,2}[-/]\d{1,2}[-/]\d{2,4}', text)
-            if date_matches:
-                default_data['project_po']['issue_date'] = date_matches[0]
-            
-            # Use LLM with a shorter prompt for better reliability
-            prompt = """Extract from the text (return 'unknown' if not found):
-            1. Project name
-            2. Supplier name and ID
-            3. Main items (max 3)
-            4. Payment terms
-            5. Total amount
-            Format as Python dict.
-            
-            Text: {text}
-            """
-            
-            try:
-                response = self.llm.predict(prompt, timeout=10)  # 10 second timeout
-                extracted = eval(response)
-                
-                # Update default data with extracted information
-                if isinstance(extracted, dict):
-                    if 'project_name' in extracted:
-                        default_data['project_po']['project_name'] = extracted['project_name']
-                    if 'supplier' in extracted:
-                        default_data['supplier'].update(extracted['supplier'])
-                    if 'items' in extracted:
-                        default_data['items'] = extracted['items'][:3]  # Limit to 3 items
-                    if 'payment_terms' in extracted:
-                        default_data['payment']['terms'] = extracted['payment_terms']
-                    if 'total_amount' in extracted:
-                        default_data['payment']['total_amount'] = extracted['total_amount']
-            
-            except Exception as llm_error:
-                print(f"LLM extraction failed: {str(llm_error)}. Using regex extracted data.")
-            
-            return default_data
-            
-        except Exception as e:
-            print(f"Error in data extraction: {str(e)}")
-            return default_data
-            
+            response = self.llm.predict(prompt)
+            # Try to find the JSON part in the response
+            json_match = re.search(r'\{[^}]+\}', response.replace('\n', ' '))
+            if json_match:
+                data = json.loads(json_match.group())
+                return data
+        except:
+            pass
+        return None
+        
     def load_pdfs(self):
         """Load PDF files from the specified directory"""
         if not os.path.exists(self.pdf_directory):
@@ -299,106 +224,50 @@ class GraphRAG:
         return relationships
     
     def build_knowledge_graph(self, documents):
-        """Build knowledge graph from documents focusing on key business entities"""
+        """Build knowledge graph from documents with PO context"""
         for doc in documents:
-            # Extract PO data
-            data = self.extract_po_data(doc.page_content)
-            if not data:
-                continue
+            # First extract structured PO data
+            po_data = self.extract_po_details(doc.page_content)
+            if po_data:
+                po_number = po_data.get('po_number', 'unknown_po')
+                self.po_data[po_number] = po_data
                 
-            # 1. Project/PO Information
-            po_info = data['project_po']
-            po_number = po_info['po_number']
-            if po_number == 'unknown':
-                continue
-                
-            # Create PO node and link to project
-            if po_info['project_name'] != 'unknown':
+                # Add basic PO information to graph
                 self.graph.add_triple(KnowledgeTriple(
                     subject=po_number,
-                    predicate='belongs_to_project',
-                    object_=po_info['project_name']
+                    predicate='issued_to',
+                    object_=po_data.get('supplier', 'unknown')
                 ))
-            
-            # Add PO status and date
-            if po_info['status'] != 'unknown':
                 self.graph.add_triple(KnowledgeTriple(
                     subject=po_number,
-                    predicate='has_status',
-                    object_=po_info['status']
+                    predicate='dated_on',
+                    object_=po_data.get('date', 'unknown')
                 ))
-            
-            if po_info['issue_date'] != 'unknown':
                 self.graph.add_triple(KnowledgeTriple(
                     subject=po_number,
-                    predicate='issued_on',
-                    object_=po_info['issue_date']
-                ))
-            
-            # 2. Supplier Information
-            supplier = data['supplier']
-            if supplier['name'] != 'unknown':
-                self.graph.add_triple(KnowledgeTriple(
-                    subject=po_number,
-                    predicate='issued_to_supplier',
-                    object_=supplier['name']
+                    predicate='has_value',
+                    object_=str(po_data.get('total_amount', '0'))
                 ))
                 
-                # Add supplier details
-                if supplier['id'] != 'unknown':
-                    self.graph.add_triple(KnowledgeTriple(
-                        subject=supplier['name'],
-                        predicate='has_id',
-                        object_=supplier['id']
-                    ))
-                
-                if supplier['contact'] != 'unknown':
-                    self.graph.add_triple(KnowledgeTriple(
-                        subject=supplier['name'],
-                        predicate='has_contact',
-                        object_=supplier['contact']
-                    ))
-            
-            # 3. Items Information
-            for item in data['items']:
-                if 'item_code' in item and item['item_code'] != 'unknown':
-                    item_code = item['item_code']
-                    
-                    # Link item to PO
+                # Add items
+                for item in po_data.get('items', []):
+                    item_str = json.dumps(item, ensure_ascii=False)
                     self.graph.add_triple(KnowledgeTriple(
                         subject=po_number,
-                        predicate='includes_item',
-                        object_=item_code
-                    ))
-                    
-                    # Add item details
-                    for key, value in item.items():
-                        if key != 'item_code' and value != 'unknown':
-                            self.graph.add_triple(KnowledgeTriple(
-                                subject=item_code,
-                                predicate=f'has_{key}',
-                                object_=str(value)
-                            ))
-            
-            # 4. Terms and Conditions
-            terms = data['terms']
-            for term_type, value in terms.items():
-                if value != 'unknown':
-                    self.graph.add_triple(KnowledgeTriple(
-                        subject=po_number,
-                        predicate=f'has_{term_type}_terms',
-                        object_=value
+                        predicate='includes',
+                        object_=item_str
                     ))
             
-            # 5. Payment Information
-            payment = data['payment']
-            for pay_type, value in payment.items():
-                if value != 'unknown':
-                    self.graph.add_triple(KnowledgeTriple(
-                        subject=po_number,
-                        predicate=f'has_{pay_type}',
-                        object_=str(value)
-                    ))
+            # Then extract general relationships
+            relationships = self.extract_entities_and_relationships(doc.page_content, po_data)
+            
+            # Add to knowledge graph
+            for entity1, relation, entity2 in relationships:
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=entity1,
+                    predicate=relation,
+                    object_=entity2
+                ))
     
     def query(self, question, use_graph=True, k=3):
         """Query the system using both vector store and knowledge graph"""
