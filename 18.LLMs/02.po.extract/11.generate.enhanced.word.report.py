@@ -7,6 +7,14 @@ from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
+
+def count_pdf_files(directory):
+    """Count total number of PDF files in directory and its subdirectories"""
+    pdf_count = 0
+    for path in Path(directory).rglob('*.pdf'):
+        pdf_count += 1
+    return pdf_count
 
 # Database configuration
 DB_CONFIG = {
@@ -36,10 +44,14 @@ def get_enhanced_stats():
     cursor = connection.cursor()
     
     try:
-        # Set total files and processed files from screenshot
-        stats['total_files'] = 16275  # Total files from screenshot
-        stats['processed_files'] = 3580  # Processed files from screenshot
-        stats['total_pdfs'] = stats['processed_files']  # Use processed files count
+        # Count total PDF files in source directory
+        source_dir = r'\\fileserver2\Head Office Server\Procurement (PR)\02 Projects Document'
+        stats['total_files'] = count_pdf_files(source_dir)
+        
+        # Get processed files count from database
+        cursor.execute("SELECT COUNT(*) FROM `po.pdfs`")
+        stats['processed_files'] = cursor.fetchone()[0]
+        stats['total_pdfs'] = stats['processed_files']
         
         # Get project statistics
         cursor.execute("SELECT COUNT(DISTINCT project_name) FROM `po.pdfs` WHERE project_name IS NOT NULL")

@@ -7,15 +7,26 @@ import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
 from io import BytesIO
+import os
+import re
+import json
+import networkx as nx
+import pytesseract
+from typing import List, Dict, Any
+from pdf2image import convert_from_path
+from PIL import Image
+from io import BytesIO
+from dataclasses import dataclass
+
+# LangChain imports
 from langchain_community.document_loaders.base import BaseLoader
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_ollama import OllamaLLM
+from langchain_community.llms.ollama import Ollama
 from langchain.chains import RetrievalQA
 from langchain_community.graphs import NetworkxEntityGraph
-from dataclasses import dataclass
 
 @dataclass
 class KnowledgeTriple:
@@ -61,36 +72,97 @@ class GraphRAG:
     def __init__(self, model_name="mistral", pdf_directory=None):
         self.model_name = model_name
         self.pdf_directory = pdf_directory or "D:\\OEssam\\01.pdfs"
-        # Use a multilingual model for embeddings
-        self.embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
-        self.llm = OllamaLLM(model=model_name)
-        self.graph = NetworkxEntityGraph()
-        self.vector_store = None
-        self.po_data = {}
-        
-    def extract_po_details(self, text):
-        """Extract purchase order details using structured prompts"""
-        prompt = f"""Extract the following information from this purchase order text. Return as JSON with these keys:
-        - po_number: The purchase order number
-        - date: The PO date
-        - supplier: The supplier/company name
-        - total_amount: The total amount with currency
-        - items: List of items with quantities and prices
-
-Text: {text}
-
-JSON Output:"""
         
         try:
-            response = self.llm.predict(prompt)
-            # Try to find the JSON part in the response
-            json_match = re.search(r'\{[^}]+\}', response.replace('\n', ' '))
-            if json_match:
-                data = json.loads(json_match.group())
-                return data
-        except:
-            pass
-        return None
+            # Use a multilingual model for embeddings
+            self.embeddings = HuggingFaceEmbeddings(
+                model_name='sentence-transformers/all-MiniLM-L6-v2',
+                model_kwargs={'device': 'cpu'}
+            )
+            
+            # Initialize LLM with timeout
+            self.llm = Ollama(
+                model=model_name,
+                temperature=0.0,
+                stop=["\n\n"],
+                timeout=30.0  # 30 second timeout
+            )
+            
+            self.graph = NetworkxEntityGraph()
+            self.vector_store = None
+            self.po_data = {}
+            
+            print("Successfully initialized GraphRAG with models loaded")
+            
+        except Exception as e:
+            print(f"Error initializing models: {str(e)}")
+            raise
+        
+    def extract_po_details(self, text):
+        """Extract purchase order details using structured prompts with project focus"""
+        prompt = f"""Extract the following information from this purchase order text. Return as JSON with these keys:
+        {{
+            "po_number": "The purchase order number",
+            "project": {{
+                "name": "The project name",
+                "code": "The project code if available"
+            }},
+            "date": "The PO date",
+            "supplier": {{
+                "name": "The supplier/company name",
+                "id": "The supplier ID if available",
+                "category": "The supplier category/type if mentioned"
+            }},
+            "items": [
+                {{
+                    "name": "The item name/description",
+                    "quantity": "The quantity ordered",
+                    "unit": "The unit of measurement",
+                    "value": "The total value for this item"
+                }}
+            ],
+            "total_value": "The total PO value",
+            "payment_terms": "Any payment terms mentioned",
+            "delivery_terms": "Any delivery terms or conditions"
+        }}
+
+        Return only the JSON, no other text.
+
+        Text: {text}
+        """
+        
+        try:
+            response = self.llm.predict(prompt, timeout=10)
+            
+            # Parse response as JSON
+            try:
+                po_data = json.loads(response)
+                return po_data
+            except json.JSONDecodeError:
+                print("Error parsing LLM response as JSON")
+                return {
+                    'po_number': None,
+                    'project': {'name': None, 'code': None},
+                    'date': None,
+                    'supplier': {'name': None, 'id': None, 'category': None},
+                    'total_value': None,
+                    'payment_terms': None,
+                    'delivery_terms': None,
+                    'items': []
+                }
+                
+        except Exception as e:
+            print(f"Error getting LLM response: {str(e)}")
+            return {
+                'po_number': None,
+                'project': {'name': None, 'code': None},
+                'date': None,
+                'supplier': {'name': None, 'id': None, 'category': None},
+                'total_value': None,
+                'payment_terms': None,
+                'delivery_terms': None,
+                'items': []
+            }
         
     def load_pdfs(self):
         """Load PDF files from the specified directory"""
@@ -224,113 +296,461 @@ JSON Output:"""
         return relationships
     
     def build_knowledge_graph(self, documents):
-        """Build knowledge graph from documents with PO context"""
+        """Build hierarchical knowledge graph focused on projects and suppliers"""
+        # Track unique entities to avoid duplication
+        projects = {}
+        suppliers = {}
+        items = {}
+        
         for doc in documents:
-            # First extract structured PO data
+            # Extract structured PO data
             po_data = self.extract_po_details(doc.page_content)
-            if po_data:
-                po_number = po_data.get('po_number', 'unknown_po')
-                self.po_data[po_number] = po_data
+            if not po_data or not po_data.get('po_number'):
+                continue
                 
-                # Add basic PO information to graph
+            po_number = po_data['po_number']
+            self.po_data[po_number] = po_data
+            
+            # 1. Handle Project
+            project = po_data.get('project', {})
+            if project.get('name'):
+                project_name = project['name']
+                projects[project_name] = project
+                
+                # Link PO to Project
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=project_name,
+                    predicate='has_po',
+                    object_=po_number
+                ))
+                
+                # Add project metadata
+                if project.get('code'):
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=project_name,
+                        predicate='has_code',
+                        object_=project['code']
+                    ))
+            
+            # 2. Handle Supplier
+            supplier = po_data.get('supplier', {})
+            if supplier.get('name'):
+                supplier_name = supplier['name']
+                suppliers[supplier_name] = supplier
+                
+                # Link PO to Supplier
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=supplier_name,
+                    predicate='issued_po',
+                    object_=po_number
+                ))
+                
+                # Add supplier metadata
+                if supplier.get('id'):
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=supplier_name,
+                        predicate='has_id',
+                        object_=supplier['id']
+                    ))
+                if supplier.get('category'):
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=supplier_name,
+                        predicate='has_category',
+                        object_=supplier['category']
+                    ))
+            
+            # 3. Add PO details
+            if po_data.get('date'):
                 self.graph.add_triple(KnowledgeTriple(
                     subject=po_number,
-                    predicate='issued_to',
-                    object_=po_data.get('supplier', 'unknown')
+                    predicate='issued_on',
+                    object_=po_data['date']
                 ))
-                self.graph.add_triple(KnowledgeTriple(
-                    subject=po_number,
-                    predicate='dated_on',
-                    object_=po_data.get('date', 'unknown')
-                ))
+            
+            if po_data.get('total_amount'):
                 self.graph.add_triple(KnowledgeTriple(
                     subject=po_number,
                     predicate='has_value',
-                    object_=str(po_data.get('total_amount', '0'))
+                    object_=str(po_data['total_amount'])
                 ))
                 
-                # Add items
-                for item in po_data.get('items', []):
-                    item_str = json.dumps(item, ensure_ascii=False)
-                    self.graph.add_triple(KnowledgeTriple(
-                        subject=po_number,
-                        predicate='includes',
-                        object_=item_str
-                    ))
-            
-            # Then extract general relationships
-            relationships = self.extract_entities_and_relationships(doc.page_content, po_data)
-            
-            # Add to knowledge graph
-            for entity1, relation, entity2 in relationships:
+            if po_data.get('payment_terms'):
                 self.graph.add_triple(KnowledgeTriple(
-                    subject=entity1,
-                    predicate=relation,
-                    object_=entity2
+                    subject=po_number,
+                    predicate='has_payment_terms',
+                    object_=po_data['payment_terms']
                 ))
+            
+            # 4. Handle Items (max 3 per PO to reduce nodes)
+            for item in po_data.get('items', [])[:3]:
+                if not item.get('code'):
+                    continue
+                    
+                item_code = item['code']
+                items[item_code] = item
+                
+                # Link item to PO
+                self.graph.add_triple(KnowledgeTriple(
+                    subject=po_number,
+                    predicate='includes_item',
+                    object_=item_code
+                ))
+                
+                # Add item metadata
+                if item.get('category'):
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=item_code,
+                        predicate='has_category',
+                        object_=item['category']
+                    ))
+                
+                # Combine quantity and unit price into a single node
+                if item.get('quantity') and item.get('unit_price'):
+                    value_node = f"{item.get('quantity')} units at {item.get('unit_price')} each"
+                    self.graph.add_triple(KnowledgeTriple(
+                        subject=item_code,
+                        predicate='has_value',
+                        object_=value_node
+                    ))
+        
+        # Print statistics
+        print(f"\nGraph Statistics:")
+        print(f"Projects: {len(projects)}")
+        print(f"Suppliers: {len(suppliers)}")
+        print(f"POs: {len(self.po_data)}")
+        print(f"Items: {len(items)}")
+        print(f"Total Nodes: {len(self.graph._graph.nodes())}")
     
     def query(self, question, use_graph=True, k=3):
-        """Query the system using both vector store and knowledge graph"""
+        """Query the system focusing on business entities and relationships"""
         try:
             # Get relevant documents from vector store
             docs = self.vector_store.similarity_search(question, k=k)
             
-            # Get relevant subgraph if using graph
+            # Get graph context if requested
+            graph_context = ""
             if use_graph:
-                # Extract relevant nodes and edges from the graph
-                graph_context = []
-                for node in self.graph._graph.nodes():
-                    # Add node information
-                    edges = list(self.graph._graph.edges(node, data=True))
-                    if edges:
-                        graph_context.append(f"Node: {node}")
-                        for _, target, data in edges:
-                            graph_context.append(f"  -> {data.get('predicate', 'related_to')} -> {target}")
+                # Analyze question type
+                question_lower = question.lower()
                 
-                graph_context = "\n".join(graph_context)
-            else:
-                graph_context = ""
+                if 'supplier' in question_lower:
+                    # Get all suppliers and their relationships
+                    suppliers = [n for n, d in self.graph._graph.nodes(data=True) 
+                               if any(edge[2].get('predicate') == 'issued_po' 
+                                   for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    supplier_stats = []
+                    for supplier in suppliers:
+                        # Get POs for this supplier
+                        pos = [edge[1] for edge in self.graph._graph.edges(supplier, data=True)
+                              if edge[2].get('predicate') == 'issued_po']
+                        
+                        # Get projects for these POs
+                        projects = set()
+                        total_value = 0
+                        total_items = 0
+                        
+                        for po in pos:
+                            # Get project
+                            project_edges = [edge[0] for edge in self.graph._graph.in_edges(po, data=True)
+                                           if edge[2].get('predicate') == 'has_po']
+                            projects.update(project_edges)
+                            
+                            # Get value
+                            value_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                          if edge[2].get('predicate') == 'has_value']
+                            if value_edges:
+                                try:
+                                    total_value += float(value_edges[0][2].get('object_', '0').split()[0])
+                                except:
+                                    pass
+                            
+                            # Get items
+                            item_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                         if edge[2].get('predicate') == 'has_item']
+                            total_items += len(item_edges)
+                        
+                        supplier_stats.append({
+                            'name': supplier,
+                            'pos': len(pos),
+                            'projects': len(projects),
+                            'total_value': total_value,
+                            'total_items': total_items
+                        })
+                    
+                    # Sort by total value and add relationships
+                    supplier_stats.sort(key=lambda x: x['total_value'], reverse=True)
+                    
+                    # Format supplier information with relationships
+                    graph_context += "\nSupplier Analysis:\n"
+                    graph_context += "-" * 40 + "\n"
+                    
+                    for stat in supplier_stats:
+                        # Basic stats
+                        graph_context += f"\nSupplier: {stat['name']}\n"
+                        graph_context += f"  - Active POs: {stat['pos']}\n"
+                        graph_context += f"  - Projects Involved: {stat['projects']}\n"
+                        graph_context += f"  - Total Value: {stat['total_value']:,.2f}\n"
+                        graph_context += f"  - Total Items: {stat['total_items']}\n"
+                        
+                        # Calculate averages
+                        avg_po_value = stat['total_value'] / stat['pos'] if stat['pos'] > 0 else 0
+                        avg_items_per_po = stat['total_items'] / stat['pos'] if stat['pos'] > 0 else 0
+                        
+                        graph_context += f"  - Average PO Value: {avg_po_value:,.2f}\n"
+                        graph_context += f"  - Average Items/PO: {avg_items_per_po:,.1f}\n"
+                
+                elif 'project' in question_lower:
+                    # Get all projects and their relationships
+                    projects = [n for n, d in self.graph._graph.nodes(data=True)
+                               if any(edge[2].get('predicate') == 'has_po'
+                                   for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    project_stats = []
+                    for project in projects:
+                        # Get POs for this project
+                        pos = [edge[1] for edge in self.graph._graph.edges(project, data=True)
+                              if edge[2].get('predicate') == 'has_po']
+                        
+                        # Get suppliers and items for these POs
+                        suppliers = set()
+                        total_value = 0
+                        total_items = 0
+                        latest_po_date = None
+                        po_dates = []
+                        
+                        for po in pos:
+                            # Get supplier and track relationships
+                            # Get supplier info and track relationships
+                            supplier_edges = [edge[0] for edge in self.graph._graph.in_edges(po, data=True)
+                                            if edge[2].get('predicate') == 'issued_po']
+                            suppliers.update(supplier_edges)
+                            
+                            # Get value and payment terms
+                            value_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                          if edge[2].get('predicate') == 'has_value']
+                            payment_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                           if edge[2].get('predicate') == 'payment_terms']
+                            
+                            if value_edges:
+                                try:
+                                    value = float(value_edges[0][2].get('object_', '0').split()[0])
+                                    total_value += value
+                                except:
+                                    pass
+                            
+                            # Get items and categories
+                            item_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                         if edge[2].get('predicate') == 'has_item']
+                            total_items += len(item_edges)
+                            
+                            # Track item categories if available
+                            for item_edge in item_edges:
+                                category_edges = [edge for edge in self.graph._graph.edges(item_edge[1], data=True)
+                                                if edge[2].get('predicate') == 'category']
+                            
+                            # Get date and track timeline
+                            date_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                         if edge[2].get('predicate') == 'issued_on']
+                            if date_edges:
+                                po_date = date_edges[0][2].get('object_')
+                                if po_date:
+                                    po_dates.append(po_date)
+                                    if not latest_po_date or po_date > latest_po_date:
+                                        latest_po_date = po_date
+                        
+                        # Calculate timeline metrics
+                        po_dates.sort()
+                        first_po = po_dates[0] if po_dates else 'Unknown'
+                        last_po = po_dates[-1] if po_dates else 'Unknown'
+                        
+                        # Track supplier relationships
+                        supplier_pos = {}
+                        for supplier in suppliers:
+                            supplier_pos[supplier] = len([edge[1] for edge in self.graph._graph.edges(supplier, data=True)
+                                                         if edge[2].get('predicate') == 'issued_po' and
+                                                         any(edge2[2].get('predicate') == 'has_po' and edge2[0] == project
+                                                             for edge2 in self.graph._graph.in_edges(edge[1], data=True))])
+                        
+                        project_stats.append({
+                            'name': project,
+                            'pos': len(pos),
+                            'suppliers': len(suppliers),
+                            'supplier_details': supplier_pos,
+                            'total_value': total_value,
+                            'total_items': total_items,
+                            'first_po': first_po,
+                            'last_po': last_po,
+                            'po_count': len(po_dates)
+                        })
+                    
+                    # Sort by total value
+                    project_stats.sort(key=lambda x: x['total_value'], reverse=True)
+                    
+                    # Format project information with timeline and relationships
+                    graph_context += "\nProject Analysis:\n"
+                    graph_context += "-" * 40 + "\n"
+                    
+                    for stat in project_stats:
+                        graph_context += f"\nProject: {stat['name']}\n"
+                        graph_context += f"  - Timeline:\n"
+                        graph_context += f"    * First PO: {stat['first_po']}\n"
+                        graph_context += f"    * Latest PO: {stat['last_po']}\n"
+                        graph_context += f"    * Total POs: {stat['po_count']}\n"
+                        graph_context += f"\n  - Financial:\n"
+                        graph_context += f"    * Total Value: {stat['total_value']:,.2f}\n"
+                        graph_context += f"    * Avg PO Value: {stat['total_value']/stat['pos']:,.2f}\n" if stat['pos'] > 0 else "\n"
+                        graph_context += f"\n  - Items & Suppliers:\n"
+                        graph_context += f"    * Total Items: {stat['total_items']}\n"
+                        graph_context += f"    * Items per PO: {stat['total_items']/stat['pos']:,.1f}\n" if stat['pos'] > 0 else "\n"
+                        graph_context += f"    * Active Suppliers: {stat['suppliers']}\n"
+                        
+                        # Show top suppliers
+                        if stat['supplier_details']:
+                            graph_context += f"\n  - Top Suppliers:\n"
+                            sorted_suppliers = sorted(stat['supplier_details'].items(), key=lambda x: x[1], reverse=True)[:3]
+                            for supplier, pos in sorted_suppliers:
+                                graph_context += f"    * {supplier}: {pos} POs\n"
+                
+                elif 'item' in question_lower:
+                    # Get all items and their relationships
+                    items = []
+                    for n, d in self.graph._graph.nodes(data=True):
+                        item_edges = [edge for edge in self.graph._graph.edges(n, data=True)
+                                     if edge[2].get('predicate') == 'has_item']
+                        if item_edges:
+                            # Get value and quantity
+                            value_edges = [edge for edge in self.graph._graph.edges(n, data=True)
+                                          if edge[2].get('predicate') == 'has_value']
+                            quantity_edges = [edge for edge in self.graph._graph.edges(n, data=True)
+                                            if edge[2].get('predicate') == 'has_quantity']
+                            
+                            value = 0
+                            quantity = 0
+                            
+                            if value_edges:
+                                try:
+                                    value = float(value_edges[0][2].get('object_', '0').split()[0])
+                                except:
+                                    pass
+                                    
+                            if quantity_edges:
+                                try:
+                                    quantity = float(quantity_edges[0][2].get('object_', '0').split()[0])
+                                except:
+                                    pass
+                            
+                            # Get associated PO
+                            po_edges = [edge[0] for edge in self.graph._graph.in_edges(n, data=True)
+                                       if edge[2].get('predicate') == 'has_item']
+                            
+                            for po in po_edges:
+                                # Get project and supplier
+                                project_edges = [edge[0] for edge in self.graph._graph.in_edges(po, data=True)
+                                                if edge[2].get('predicate') == 'has_po']
+                                supplier_edges = [edge[0] for edge in self.graph._graph.in_edges(po, data=True)
+                                                 if edge[2].get('predicate') == 'issued_po']
+                                
+                                items.append({
+                                    'name': n,
+                                    'value': value,
+                                    'quantity': quantity,
+                                    'unit_value': value/quantity if quantity else 0,
+                                    'po': po,
+                                    'project': project_edges[0] if project_edges else 'Unknown',
+                                    'supplier': supplier_edges[0] if supplier_edges else 'Unknown'
+                                })
+                    
+                    # Sort by total value
+                    items.sort(key=lambda x: x['value'], reverse=True)
+                    
+                    # Format item information
+                    graph_context += "\nTop Items by Value:\n"
+                    for i, item in enumerate(items[:5], 1):
+                        graph_context += f"\n{i}. {item['name']}\n"
+                        graph_context += f"   Value: {item['value']:,.2f}\n"
+                        graph_context += f"   Quantity: {item['quantity']}\n"
+                        graph_context += f"   Unit Value: {item['unit_value']:,.2f}\n"
+                        graph_context += f"   Project: {item['project']}\n"
+                        graph_context += f"   Supplier: {item['supplier']}\n"
+                        graph_context += f"   PO: {item['po']}\n"
+                    
+                    # Add summary statistics
+                    total_items = len(items)
+                    total_value = sum(item['value'] for item in items)
+                    avg_value = total_value / total_items if total_items > 0 else 0
+                    
+                    graph_context += f"\nSummary Statistics:\n"
+                    graph_context += f"Total Items: {total_items}\n"
+                    graph_context += f"Total Value: {total_value:,.2f}\n"
+                    graph_context += f"Average Value: {avg_value:,.2f}\n"
+                
+                else:
+                    # Default analysis - show overview of all entity types
+                    graph_context += "\nOverview of Purchase Order Data:\n"
+                    
+                    # Count entity types
+                    suppliers = [n for n, d in self.graph._graph.nodes(data=True) 
+                               if any(edge[2].get('predicate') == 'issued_po' 
+                                   for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    projects = [n for n, d in self.graph._graph.nodes(data=True)
+                               if any(edge[2].get('predicate') == 'has_po'
+                                   for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    pos = [n for n, d in self.graph._graph.nodes(data=True)
+                          if any(edge[2].get('predicate') == 'has_item'
+                              for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    items = [n for n, d in self.graph._graph.nodes(data=True)
+                            if any(edge[2].get('predicate') == 'has_value'
+                                for edge in self.graph._graph.edges(n, data=True))]
+                    
+                    # Calculate total value
+                    total_value = 0
+                    for po in pos:
+                        value_edges = [edge for edge in self.graph._graph.edges(po, data=True)
+                                      if edge[2].get('predicate') == 'has_value']
+                        if value_edges:
+                            try:
+                                total_value += float(value_edges[0][2].get('object_', '0').split()[0])
+                            except:
+                                pass
+                    
+                    graph_context += f"\nEntity Counts:\n"
+                    graph_context += f"  - Projects: {len(projects)}\n"
+                    graph_context += f"  - Suppliers: {len(suppliers)}\n"
+                    graph_context += f"  - Purchase Orders: {len(pos)}\n"
+                    graph_context += f"  - Unique Items: {len(items)}\n"
+                    graph_context += f"\nTotal Value: {total_value:,.2f}\n"
+                    graph_context += f"Average PO Value: {total_value/len(pos):,.2f}\n" if pos else "\n"
+                    graph_context += f"POs per Project: {len(pos)/len(projects):,.1f}\n" if projects else "\n"
+                    graph_context += f"POs per Supplier: {len(pos)/len(suppliers):,.1f}\n" if suppliers else "\n"
             
             # Combine document and graph context
             context = "\n\n".join([doc.page_content for doc in docs])
             if graph_context:
-                context += "\n\nGraph Context:\n" + graph_context
+                context += "\n\nGraph Analysis:\n" + graph_context
             
-            # Create prompt
-            prompt = f"""Based on the following context, answer the question. If you cannot find the answer in the context, say 'I don't have enough information to answer that.'\n\nContext:\n{context}\n\nQuestion: {question}\n\nAnswer:"""
+            # Create focused prompt
+            prompt = f"""Based on the following context about purchase orders, projects, and suppliers, answer this specific question. 
+            Focus on numerical facts and business relationships. If you cannot find the exact information, say 'I don't have enough information' 
+            rather than making assumptions.\n\nContext:\n{context}\n\nQuestion: {question}\n\nAnswer:"""
             
-            # Get response from LLM
-            response = self.llm.predict(prompt)
-            return response
+            # Get response from LLM with timeout
+            try:
+                response = self.llm.predict(prompt, timeout=10)
+                return response
+            except Exception as e:
+                print(f"LLM timeout or error: {str(e)}")
+                # Fall back to just the graph analysis if we have it
+                if graph_context:
+                    return f"Based on the graph analysis: {graph_context}"
+                return "Sorry, I couldn't process this query in time."
             
         except Exception as e:
             print(f"Error processing query: {str(e)}")
             return "Sorry, I encountered an error while processing your query."
-    
-    def save_graph(self, output_dir):
-        """Save the knowledge graph to disk"""
-        try:
-            # Create output directory if it doesn't exist
-            os.makedirs(output_dir, exist_ok=True)
-            
-            # Save the graph in GEXF format for visualization
-            gexf_path = os.path.join(output_dir, 'knowledge_graph.gexf')
-            nx.write_gexf(self.graph._graph, gexf_path)
-            print(f"\nSaved graph to {gexf_path}")
-            
-            # Save graph data as JSON for easier loading
-            graph_data = {
-                'nodes': list(self.graph._graph.nodes()),
-                'edges': [(u, v, d) for u, v, d in self.graph._graph.edges(data=True)]
-            }
-            json_path = os.path.join(output_dir, 'knowledge_graph.json')
-            with open(json_path, 'w', encoding='utf-8') as f:
-                json.dump(graph_data, f, ensure_ascii=False, indent=2)
-            print(f"Saved graph data to {json_path}")
-            
-        except Exception as e:
-            print(f"Error saving graph: {str(e)}")
-            raise
     
     def process_documents(self):
         """Main method to process documents and build both vector store and knowledge graph"""
@@ -351,19 +771,88 @@ JSON Output:"""
             print("\nBuilding knowledge graph...")
             self.build_knowledge_graph(chunks)
             
-            # Save the graph
-            output_dir = r"C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\05.llm\graph.rag"
-            self.save_graph(output_dir)
-            
             print("\nDocument processing complete!")
+            
+            # Print graph statistics
+            total_nodes = len(self.graph._graph.nodes())
+            total_edges = len(self.graph._graph.edges())
+            print(f"\nGraph Statistics:")
+            print(f"Total Nodes: {total_nodes}")
+            print(f"Total Edges: {total_edges}")
+            
+            # Count node types
+            node_types = {}
+            for node in self.graph._graph.nodes():
+                node_type = "unknown"
+                if any(edge[2].get('predicate') == 'has_po' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "project"
+                elif any(edge[2].get('predicate') == 'issued_po' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "supplier"
+                elif any(edge[2].get('predicate') == 'has_value' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "item"
+                
+                node_types[node_type] = node_types.get(node_type, 0) + 1
+            
+            print("\nNode Types:")
+            for node_type, count in node_types.items():
+                print(f"{node_type.title()}: {count}")
             
         except Exception as e:
             print(f"\nError in document processing: {str(e)}")
             raise
-        
+
+    def save_graph(self, output_dir):
+        """Save the knowledge graph to disk"""
+        try:
+            # Create output directory if it doesn't exist
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Save graph in GEXF format for Gephi
+            gexf_path = os.path.join(output_dir, "knowledge_graph.gexf")
+            nx.write_gexf(self.graph._graph, gexf_path)
+            print(f"\nSaved graph to {gexf_path}")
+            
+            # Save graph statistics
+            stats = {
+                "total_nodes": len(self.graph._graph.nodes()),
+                "total_edges": len(self.graph._graph.edges()),
+                "node_types": {},
+                "edge_types": {}
+            }
+            
+            # Count node types
+            for node in self.graph._graph.nodes():
+                node_type = "unknown"
+                if any(edge[2].get('predicate') == 'has_po' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "project"
+                elif any(edge[2].get('predicate') == 'issued_po' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "supplier"
+                elif any(edge[2].get('predicate') == 'has_value' for edge in self.graph._graph.edges(node, data=True)):
+                    node_type = "item"
+                
+                stats["node_types"][node_type] = stats["node_types"].get(node_type, 0) + 1
+            
+            # Count edge types
+            for _, _, data in self.graph._graph.edges(data=True):
+                edge_type = data.get('predicate', 'unknown')
+                stats["edge_types"][edge_type] = stats["edge_types"].get(edge_type, 0) + 1
+            
+            # Save statistics
+            stats_path = os.path.join(output_dir, "graph_stats.json")
+            with open(stats_path, 'w') as f:
+                json.dump(stats, f, indent=2)
+            print(f"Saved statistics to {stats_path}")
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error saving graph: {str(e)}")
+            return False
+
+
 def main():
+    """Main function to run the GraphRAG system"""
     try:
-        # Initialize GraphRAG
         print("Initializing GraphRAG...")
         rag = GraphRAG(model_name="mistral", pdf_directory="D:\\OEssam\\01.pdfs")
         
@@ -371,13 +860,14 @@ def main():
         print("\nProcessing documents...")
         rag.process_documents()
         
-        # Example queries
+        # Example queries focused on business entities
         print("\nRunning example queries...")
         questions = [
-            "List all suppliers and their total order values",
-            "What are the most commonly ordered items?",
-            "What is the total value of all purchase orders?",
-            "Show me the details of the latest purchase order"
+            "List all suppliers and their total purchase order values",
+            "Which projects have the most purchase orders?",
+            "What are the top 5 most valuable items across all POs?",
+            "Show me the payment terms for recent purchase orders",
+            "Which suppliers are associated with which projects?"
         ]
         
         for question in questions:
@@ -387,10 +877,18 @@ def main():
                 print(f"A: {answer}")
             except Exception as e:
                 print(f"Error processing query: {str(e)}")
+        
+        # Save the graph and statistics
+        print("\nSaving graph and statistics...")
+        if rag.save_graph("output"):
+            print("Successfully saved graph and statistics")
+        else:
+            print("Failed to save graph and statistics")
                 
     except Exception as e:
-        print(f"\nError: {str(e)}")
+        print(f"\nError in main: {str(e)}")
         raise
+
 
 if __name__ == "__main__":
     main()

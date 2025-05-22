@@ -35,7 +35,7 @@ DOCUMENTS_INDEX_FILE = os.path.join(VECTOR_DB_DIR, "document_index.json")
 
 # Ollama API configuration
 OLLAMA_API_URL = "http://10.10.12.202:11434"  # IP address of the GPU machine
-MODEL_NAME = "mistral"  # Model to use for chat
+MODEL_NAME = "mistral"  # Using mistral model which is available on the server
 
 # Global variables
 OLLAMA_AVAILABLE = False
@@ -46,175 +46,188 @@ CONNECTION_CHECK_INTERVAL = 30  # Check connection every 30 seconds
 document_index = {}
 document_embeddings = {}
 
-# Function to check if Ollama API is available
+# Check if Ollama API is available
 def check_ollama_availability():
     try:
-        response = requests.get(f"{OLLAMA_API_URL}/api/tags", timeout=5)
+        response = requests.get(f"{OLLAMA_API_URL}/api/tags")
         if response.status_code == 200:
-            # Check if our model is available
-            data = response.json()
-            model_names = []
-            
-            # Handle different API response formats
-            if "models" in data:
-                model_names = [model["name"] for model in data["models"]]
-            elif "models" not in data and isinstance(data, list):
-                # Newer Ollama API returns a list directly
-                model_names = [model["name"] for model in data]
-            
-            logger.info(f"Available models on server: {', '.join(model_names)}")
-            
-            if MODEL_NAME in model_names:
-                logger.info(f"Found {MODEL_NAME} model on the server")
-                return True
-            else:
-                # Try with partial match (e.g., 'mistral' might be 'mistral:latest')
-                for model in model_names:
-                    if MODEL_NAME in model:
-                        logger.info(f"Found {model} which contains {MODEL_NAME}")
-                        return True
-                        
-                logger.warning(f"Model {MODEL_NAME} not found on server. Available models: {', '.join(model_names)}")
-                return False
+            models = response.json().get("models", [])
+            for model in models:
+                if model.get("name") == MODEL_NAME:
+                    return True
+            logger.warning(f"Model {MODEL_NAME} not found in Ollama")
+            return False
         else:
             logger.warning(f"Ollama API returned status code {response.status_code}")
             return False
     except Exception as e:
-        logger.error(f"Error checking Ollama availability: {str(e)}")
+        logger.error(f"Error connecting to Ollama API: {str(e)}")
         return False
 
-# Function to test the Ollama connection with a simple prompt
+# Test Ollama connection with a simple prompt
 def test_ollama_connection():
     try:
-        # First try with the exact model name
-        try:
-            response = requests.post(
-                f"{OLLAMA_API_URL}/api/generate",
-                json={"model": MODEL_NAME, "prompt": "Are you there?", "stream": False},
-                timeout=10
-            )
-            if response.status_code == 200:
-                response_text = response.json().get("response", "")
-                logger.info(f"Test response: {response_text[:50]}...")
-                return True, response_text
-        except Exception as model_error:
-            logger.warning(f"Error with exact model name: {str(model_error)}")
-            
-            # Try to get available models and use the first one that contains our model name
-            try:
-                models_response = requests.get(f"{OLLAMA_API_URL}/api/tags", timeout=5)
-                if models_response.status_code == 200:
-                    data = models_response.json()
-                    model_names = []
-                    
-                    # Handle different API response formats
-                    if "models" in data:
-                        model_names = [model["name"] for model in data["models"]]
-                    elif "models" not in data and isinstance(data, list):
-                        model_names = [model["name"] for model in data]
-                    
-                    # Find a model that contains our model name
-                    for model in model_names:
-                        if MODEL_NAME in model:
-                            logger.info(f"Trying with model: {model}")
-                            response = requests.post(
-                                f"{OLLAMA_API_URL}/api/generate",
-                                json={"model": model, "prompt": "Are you there?", "stream": False},
-                                timeout=10
-                            )
-                            if response.status_code == 200:
-                                response_text = response.json().get("response", "")
-                                logger.info(f"Test response with {model}: {response_text[:50]}...")
-                                return True, response_text
-            except Exception as list_error:
-                logger.error(f"Error getting model list: {str(list_error)}")
+        response = requests.post(
+            f"{OLLAMA_API_URL}/api/generate",
+            json={
+                "model": MODEL_NAME,
+                "prompt": "Hello, are you working?",
+                "stream": False
+            }
+        )
         
-        logger.warning(f"All attempts to connect to Ollama failed")
-        return False, None
+        if response.status_code == 200:
+            return True, response.json().get("response", "")
+        else:
+            logger.warning(f"Ollama generate API returned status code {response.status_code}")
+            return False, ""
     except Exception as e:
         logger.error(f"Error testing Ollama connection: {str(e)}")
-        return False, None
+        return False, ""
 
-# Initialize embedding model
+# Initialize the embedding model
 def initialize_embedding_model():
     try:
+        # Try to load the model
         model = SentenceTransformer('all-MiniLM-L6-v2')
-        logger.info("Successfully loaded SentenceTransformer model")
+        logger.info("Successfully loaded embedding model")
         return model
     except Exception as e:
         logger.error(f"Error loading embedding model: {str(e)}")
-        return None
+        
+        # Try to install the model
+        try:
+            logger.info("Attempting to install sentence-transformers...")
+            import subprocess
+            subprocess.check_call(["pip", "install", "sentence-transformers"])
+            
+            # Try loading again
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            logger.info("Successfully installed and loaded embedding model")
+            return model
+        except Exception as e2:
+            logger.error(f"Failed to install sentence-transformers: {str(e2)}")
+            return None
 
 # Load document index
 def load_document_index():
-    if not os.path.exists(DOCUMENTS_INDEX_FILE):
+    if os.path.exists(DOCUMENTS_INDEX_FILE):
+        try:
+            with open(DOCUMENTS_INDEX_FILE, 'r', encoding='utf-8') as f:
+                index = json.load(f)
+            logger.info(f"Loaded document index with {len(index)} documents")
+            return index
+        except Exception as e:
+            logger.error(f"Error loading document index: {str(e)}")
+            return {}
+    else:
         logger.warning(f"Document index file not found: {DOCUMENTS_INDEX_FILE}")
-        return {}
-    
-    try:
-        with open(DOCUMENTS_INDEX_FILE, 'r', encoding='utf-8') as f:
-            index = json.load(f)
-        logger.info(f"Loaded document index with {len(index)} documents")
-        return index
-    except Exception as e:
-        logger.error(f"Error loading document index: {str(e)}")
         return {}
 
 # Load document embeddings
 def load_document_embeddings():
-    if not os.path.exists(EMBEDDINGS_FILE):
+    if os.path.exists(EMBEDDINGS_FILE):
+        try:
+            with open(EMBEDDINGS_FILE, 'r', encoding='utf-8') as f:
+                embeddings = json.load(f)
+            
+            # Convert string keys to tuples if needed
+            if all(isinstance(k, str) for k in embeddings.keys()):
+                embeddings = {eval(k): np.array(v) for k, v in embeddings.items()}
+            
+            logger.info(f"Loaded embeddings for {len(embeddings)} documents")
+            return embeddings
+        except Exception as e:
+            logger.error(f"Error loading document embeddings: {str(e)}")
+            return {}
+    else:
         logger.warning(f"Embeddings file not found: {EMBEDDINGS_FILE}")
         return {}
-    
-    try:
-        with open(EMBEDDINGS_FILE, 'r', encoding='utf-8') as f:
-            embeddings = json.load(f)
-        
-        # Convert lists back to numpy arrays
-        embeddings_np = {doc_id: np.array(emb) for doc_id, emb in embeddings.items()}
-        logger.info(f"Loaded embeddings for {len(embeddings_np)} documents")
-        return embeddings_np
-    except Exception as e:
-        logger.error(f"Error loading embeddings: {str(e)}")
-        return {}
 
-# Find relevant documents using vector similarity
-def find_relevant_documents(query, top_n=3):
-    if not document_embeddings or EMBEDDING_MODEL is None:
-        logger.warning("Cannot find relevant documents: embeddings or model not loaded")
-        return []
+# Get embedding for a text
+def get_embedding(text):
+    if EMBEDDING_MODEL is None:
+        logger.error("Embedding model not initialized")
+        return None
     
     try:
-        # Encode the query
-        query_embedding = EMBEDDING_MODEL.encode(query)
-        
-        # Calculate similarity scores
-        similarities = {}
-        for doc_id, doc_embedding in document_embeddings.items():
-            similarity = cosine_similarity([query_embedding], [doc_embedding])[0][0]
-            similarities[doc_id] = similarity
-        
-        # Sort by similarity score
-        sorted_docs = sorted(similarities.items(), key=lambda x: x[1], reverse=True)
-        
-        # Get top N documents
-        top_docs = []
-        for doc_id, score in sorted_docs[:top_n]:
-            if doc_id in document_index:
-                doc_info = document_index[doc_id]
-                top_docs.append({
-                    "name": doc_info["name"],
-                    "path": doc_info["path"],
-                    "simplified_path": doc_info["simplified_path"],
-                    "local_path": doc_info.get("local_path", ""),
-                    "score": score
-                })
-        
-        logger.info(f"Found {len(top_docs)} relevant documents for query: {query}")
-        return top_docs
+        return EMBEDDING_MODEL.encode(text)
     except Exception as e:
-        logger.error(f"Error finding relevant documents: {str(e)}")
+        logger.error(f"Error generating embedding: {str(e)}")
+        return None
+
+# Find relevant documents based on query
+def find_relevant_documents(query, top_k=3):
+    query_embedding = get_embedding(query)
+    if query_embedding is None:
         return []
+    
+    # Calculate similarity with all documents
+    similarities = {}
+    for doc_id, doc_embedding in document_embeddings.items():
+        similarity = cosine_similarity([query_embedding], [doc_embedding])[0][0]
+        similarities[doc_id] = similarity
+    
+    # Sort by similarity
+    sorted_docs = sorted(similarities.items(), key=lambda x: x[1], reverse=True)
+    
+    # Get top k documents
+    relevant_docs = []
+    for i, (doc_id, similarity) in enumerate(sorted_docs[:top_k]):
+        if doc_id in document_index:
+            doc_info = document_index[doc_id].copy()
+            doc_info['similarity'] = float(similarity)
+            relevant_docs.append(doc_info)
+    
+    return relevant_docs
+
+# Generate response from Ollama
+def generate_response(prompt, system_prompt=None):
+    try:
+        # Prepare the request
+        request_data = {
+            "model": MODEL_NAME,
+            "prompt": prompt,
+            "stream": False
+        }
+        
+        # Add system prompt if provided
+        if system_prompt:
+            request_data["system"] = system_prompt
+        
+        # Send the request
+        response = requests.post(
+            f"{OLLAMA_API_URL}/api/generate",
+            json=request_data
+        )
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            return response.json().get("response", "")
+        else:
+            logger.error(f"Ollama API returned status code {response.status_code}")
+            return f"Error: Ollama API returned status code {response.status_code}"
+    except Exception as e:
+        logger.error(f"Error generating response: {str(e)}")
+        return f"Error generating response: {str(e)}"
+
+# Function to check connection status
+def check_connection_status():
+    global OLLAMA_AVAILABLE, OLLAMA_WORKING
+    try:
+        OLLAMA_AVAILABLE = check_ollama_availability()
+        if OLLAMA_AVAILABLE:
+            OLLAMA_WORKING, _ = test_ollama_connection()
+        else:
+            OLLAMA_WORKING = False
+        
+        logger.info(f"Connection status updated: Available={OLLAMA_AVAILABLE}, Working={OLLAMA_WORKING}")
+        
+        # Return status as JSON for the JavaScript to use
+        return {"connected": OLLAMA_WORKING}
+    except Exception as e:
+        logger.error(f"Error checking connection status: {str(e)}")
+        return {"connected": False}
 
 # Process user question
 def process_question(message, history, doc_paths_state):
@@ -235,52 +248,40 @@ def process_question(message, history, doc_paths_state):
         if not message or message.strip() == "":
             return history, doc_paths_state, ""
             
-        # Check if Ollama is available
-        if not OLLAMA_AVAILABLE or not OLLAMA_WORKING:
-            new_history = history.copy()
-            new_history.append([message, f"<div style='color: red;'>Cannot connect to the GPU machine. Please check the connection and try again.</div>"])
-            return new_history, doc_paths_state, ""
-        
         # Find relevant documents
         relevant_docs = find_relevant_documents(message)
-        doc_paths = doc_paths_state.copy() if doc_paths_state else []
         
-        # Handle case where no documents are processed yet
-        if not document_embeddings or len(document_embeddings) == 0:
-            new_history = history.copy()
-            new_history.append([message, "The document processor is still indexing documents. Please try again later when some documents have been processed."])
-            return new_history, doc_paths, ""
-        
-        # If no relevant documents found
-        if not relevant_docs:
-            new_history = history.copy()
-            new_history.append([message, "I couldn't find any relevant documents for your query. The document processor might still be indexing documents or your query might be about a topic not covered in the available documents."])
-            return new_history, doc_paths, ""
+        # Update document paths state
+        doc_paths = doc_paths_state.copy()
+        doc_paths.extend([doc['path'] for doc in relevant_docs])
         
         # Create context from relevant documents
-        context = "Based on the following documents:\n\n"
+        context = ""
         for i, doc in enumerate(relevant_docs):
-            doc_ref = f"Document: {doc['name']} (in {doc['simplified_path']})"
-            context += f"{i+1}. {doc_ref}\n"
-            doc_paths.append(doc['local_path'] if doc['local_path'] else doc['path'])
+            context += f"Document {i+1}: {doc['name']} (in {doc['simplified_path']})\n"
+            context += f"Content: {doc.get('content', 'No content available')}\n\n"
         
-        context += "\nPlease answer the following question: " + message
+        # Create prompt with context
+        prompt = f"""
+        The user is asking about the Alstom project. Here are some relevant documents:
         
-        # Generate response using Ollama
+        {context}
+        
+        User question: {message}
+        
+        Please provide a helpful response based on the information in these documents. If the documents don't contain relevant information, say so and provide general guidance.
+        """
+        
+        # Check if Ollama is available
+        if not OLLAMA_AVAILABLE or not OLLAMA_WORKING:
+            logger.error("Ollama API is not available or not working")
+            new_history = history.copy()
+            new_history.append([message, "Error: Cannot connect to the GPU machine running Ollama. Please check the connection and try again."])
+            return new_history, doc_paths, ""
+        
+        # Generate response
         try:
-            response = requests.post(
-                f"{OLLAMA_API_URL}/api/generate",
-                json={"model": MODEL_NAME, "prompt": context, "stream": False},
-                timeout=30
-            )
-            
-            if response.status_code != 200:
-                new_history = history.copy()
-                new_history.append([message, f"Error: Ollama API returned status code {response.status_code}"])
-                return new_history, doc_paths, ""
-            
-            # Extract the response text
-            response_text = response.json().get("response", "")
+            response_text = generate_response(prompt)
         except Exception as api_error:
             logger.error(f"Error calling Ollama API: {str(api_error)}")
             new_history = history.copy()
@@ -357,7 +358,7 @@ def process_question(message, history, doc_paths_state):
     except Exception as e:
         logger.error(f"Error processing question: {str(e)}")
         new_history = history.copy()
-        new_history.append([message, f"I'm sorry, there was an error processing your question: {str(e)}"])
+        new_history.append([message, f"Error processing your question: {str(e)}"])
         return new_history, doc_paths_state, ""
 
 # Create the Gradio interface
@@ -415,62 +416,50 @@ def create_interface():
                 gr.Markdown(
                     """
                     # Alstom Project Assistant
-                    
                     Ask questions about the Alstom project documents and get answers based on the project documentation.
                     """
                 )
                 
-                # Chat area with fixed height to avoid scrolling
-                with gr.Column(elem_classes=["chat-container"]):
-                    chatbot = gr.Chatbot(
+                # Chat interface
+                chatbot = gr.Chatbot(
+                    [],
+                    elem_id="chatbot",
+                    height=500,
+                    elem_classes=["chat-container"]
+                )
+                
+                # Document buttons container
+                doc_buttons = gr.HTML()
+                
+                # Input area
+                with gr.Row():
+                    msg = gr.Textbox(
+                        placeholder="Ask a question about the Alstom project...",
                         show_label=False,
-                        bubble_full_width=False,
-                        height=350,  # Reduced height to fit input box below
-                        value=[["", "Welcome to the Alstom Project Assistant! I can answer questions about the project documents. How can I help you today?"]]
+                        container=False
                     )
-                    
-                    # Document buttons area
-                    doc_buttons = gr.HTML("")
-                    
-                    # Input area below the chat for better user experience
-                    with gr.Row():
-                        msg = gr.Textbox(
-                            placeholder="Ask a question about the Alstom project...",
-                            show_label=False,
-                            scale=9,
-                        )
-                        submit = gr.Button("Send", scale=1)
+                    submit = gr.Button("Send")
+                
+                # Set up event handlers
+                submit_event = msg.submit(
+                    process_question, 
+                    [msg, chatbot, doc_paths], 
+                    [chatbot, doc_paths, doc_buttons],
+                    api_name="submit"
+                )
+                submit_click_event = submit.click(
+                    process_question, 
+                    [msg, chatbot, doc_paths], 
+                    [chatbot, doc_paths, doc_buttons],
+                    api_name="submit_click"
+                )
+                
+                # Clear the input box after submission
+                submit_event.then(lambda: "", None, msg)
+                submit_click_event.then(lambda: "", None, msg)
         
-        # Set up event handlers
-        submit.click(
-            process_question,
-            [msg, chatbot, doc_paths],
-            [chatbot, doc_paths, doc_buttons],
-            queue=False
-        ).then(
-            lambda: "",
-            None,
-            [msg],
-            queue=False
-        )
-        
-        msg.submit(
-            process_question,
-            [msg, chatbot, doc_paths],
-            [chatbot, doc_paths, doc_buttons],
-            queue=False
-        ).then(
-            lambda: "",
-            None,
-            [msg],
-            queue=False
-        )
-        
-        # No need for periodic updates - will simplify to avoid errors
-    
-    return demo
+        return demo
 
-# Main function
 def main():
     global OLLAMA_AVAILABLE, OLLAMA_WORKING, EMBEDDING_MODEL, document_index, document_embeddings
     
@@ -504,60 +493,39 @@ def main():
     logger.info("Loading document embeddings...")
     document_embeddings = load_document_embeddings()
     
-    # Function to check connection status - will be called by the Gradio app
-    def check_connection_status():
-    global OLLAMA_AVAILABLE, OLLAMA_WORKING
-    try:
-        OLLAMA_AVAILABLE = check_ollama_availability()
-        if OLLAMA_AVAILABLE:
-            OLLAMA_WORKING, _ = test_ollama_connection()
-        else:
-            OLLAMA_WORKING = False
-        
-        logger.info(f"Connection status updated: Available={OLLAMA_AVAILABLE}, Working={OLLAMA_WORKING}")
-        
-        # Return status as JSON for the JavaScript to use
-        return {"connected": OLLAMA_WORKING}
-    except Exception as e:
-        logger.error(f"Error checking connection status: {str(e)}")
-        return {"connected": False}
-
-# Create and launch the interface
-demo = create_interface()
-
-# Add a route for checking connection status
-@demo.queue()
-def connection_status_route(request):
-    if request.method == "GET" and request.path == "/connection-status":
-        status = check_connection_status()
-        return gr.utils.make_json_response(status)
-
-# Add JavaScript to periodically update connection status
-demo.load(js="""
-function updateConnectionStatus() {
-    fetch('/connection-status')
-        .then(response => response.json())
-        .then(data => {
-            const statusElement = document.getElementById('gpu-status');
-            if (statusElement) {
-                if (data.connected) {
-                    statusElement.className = 'status-connected';
-                    statusElement.innerHTML = '✓ Connected to NVIDIA 4090 GPU';
-                } else {
-                    statusElement.className = 'status-disconnected';
-                    statusElement.innerHTML = '✗ Cannot connect to GPU machine';
+    # Create the interface
+    demo = create_interface()
+    
+    # Add JavaScript to periodically update connection status
+    js_code = """
+    function updateConnectionStatus() {
+        fetch('/connection-status')
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById('gpu-status');
+                if (statusElement) {
+                    if (data.connected) {
+                        statusElement.className = 'status-connected';
+                        statusElement.innerHTML = '✓ Connected to NVIDIA 4090 GPU';
+                    } else {
+                        statusElement.className = 'status-disconnected';
+                        statusElement.innerHTML = '✗ Cannot connect to GPU machine';
+                    }
                 }
-            }
-        })
-        .catch(error => console.error('Error checking connection:', error));
-}
-
-// Update status every 30 seconds
-setInterval(updateConnectionStatus, 30000);
-""")
-
-# server_name="0.0.0.0" makes it accessible from other computers on the network
-demo.launch(server_name="0.0.0.0")
+            })
+            .catch(error => console.error('Error checking connection:', error));
+    }
+    
+    // Update status every 30 seconds
+    setInterval(updateConnectionStatus, 30000);
+    """
+    
+    # Launch the interface
+    demo.launch(
+        server_name="0.0.0.0",
+        share=False,
+        debug=True
+    )
 
 if __name__ == "__main__":
     main()
