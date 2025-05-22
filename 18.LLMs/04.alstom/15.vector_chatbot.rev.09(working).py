@@ -600,7 +600,9 @@ def main():
         .left-panel { border-right: 1px solid #e0e0e0; }
         .status-connected { color: green; font-weight: bold; }
         .status-disconnected { color: red; font-weight: bold; }
-        .chat-container { margin-bottom: 60px; }
+        .chat-container { margin-bottom: 20px; }
+        /* Custom styles for input area */
+        .input-row { margin-top: 10px; }
         .logo-container { text-align: center; margin-bottom: 15px; }
         .logo-container img { max-width: 150px; margin-bottom: 10px; }
     """) as demo:
@@ -669,17 +671,22 @@ def main():
                     type="messages"
                 )
                 
-                # Document buttons container
-                doc_buttons = gr.HTML()
-                
-                # Input area
+                # Input area - moved up before document buttons for better UX
                 with gr.Row():
                     msg = gr.Textbox(
                         placeholder="Ask a question about the Alstom project...",
                         show_label=False,
-                        container=False
+                        container=False,
+                        scale=4  # Takes 80% of the width
                     )
-                    submit = gr.Button("Send")
+                    submit = gr.Button(
+                        "Send",
+                        scale=1,  # Takes 20% of the width
+                        size="sm"  # Smaller button
+                    )
+                
+                # Document buttons container
+                doc_buttons = gr.HTML()
                 
                 # Set up event handlers
                 submit_event = msg.submit(
