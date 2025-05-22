@@ -199,13 +199,20 @@ print(f"Loaded information for {len(documents)} documents")
 print("Initializing embedding model...")
 EMBEDDING_MODEL = initialize_embedding_model()
 
+# Define the vector database storage path
+VECTOR_DB_DIR = "C:\\Users\\Omar Essam2\\OneDrive - Rowad Modern Engineering\\x004 Data Science\\03.rme.db\\05.llm\\alstom"
+
 # Function to create document embeddings
 def create_document_embeddings():
     if EMBEDDING_MODEL is None:
         print("Cannot create embeddings: model not loaded")
         return {}
     
-    embeddings_path = os.path.join(os.path.dirname(__file__), "data", "document_embeddings.json")
+    # Create the vector database directory if it doesn't exist
+    os.makedirs(VECTOR_DB_DIR, exist_ok=True)
+    
+    # Store embeddings in the specified location
+    embeddings_path = os.path.join(VECTOR_DB_DIR, "document_embeddings.json")
     
     # Check if embeddings already exist
     if os.path.exists(embeddings_path):
@@ -334,8 +341,7 @@ def generate_answer(question, context):
 # Create sample PDF files for testing
 def create_sample_pdfs():
     # Create a documents directory if it doesn't exist
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
-    docs_dir = os.path.join(data_dir, "documents")
+    docs_dir = os.path.join(VECTOR_DB_DIR, "documents")
     os.makedirs(docs_dir, exist_ok=True)
     
     # Create sample PDF files if they don't exist
@@ -387,8 +393,8 @@ def extract_file_paths(doc_ref):
             # If no path info, just extract the filename
             filename = doc_ref.replace('Document:', '').strip()
         
-        # Use our sample documents directory
-        docs_dir = os.path.join(os.path.dirname(__file__), "data", "documents")
+        # Use our sample documents directory in the vector DB location
+        docs_dir = os.path.join(VECTOR_DB_DIR, "documents")
         
         # Check for exact match
         filepath = os.path.join(docs_dir, filename)
@@ -519,6 +525,20 @@ def process_question(message, history, doc_paths_state):
     except Exception as e:
         print(f"Error processing question: {str(e)}")
         return f"I'm sorry, there was an error processing your question: {str(e)}", []
+
+# Add a .gitignore file to exclude vector database from git
+def create_gitignore():
+    gitignore_path = os.path.join(VECTOR_DB_DIR, ".gitignore")
+    if not os.path.exists(gitignore_path):
+        with open(gitignore_path, 'w') as f:
+            f.write("# Ignore vector database files\n")
+            f.write("document_embeddings.json\n")
+            f.write("# Ignore document files\n")
+            f.write("documents/\n")
+        print(f"Created .gitignore file at {gitignore_path}")
+
+# Create .gitignore file
+create_gitignore()
 
 # Create the Gradio interface
 with gr.Blocks(css="""
