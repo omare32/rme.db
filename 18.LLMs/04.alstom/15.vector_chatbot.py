@@ -436,7 +436,8 @@ def main():
     
     # Create and launch the interface
     demo = create_interface()
-    demo.launch(share=False)
+    # server_name="0.0.0.0" makes it accessible from other computers on the network
+    demo.launch(server_name="0.0.0.0")
 
 if __name__ == "__main__":
     main()
