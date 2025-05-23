@@ -24,6 +24,11 @@ def start_ollama_server():
     set_ollama_env()
     
     try:
+        # Kill any existing Ollama processes
+        print("Checking for existing Ollama processes...")
+        subprocess.run(['taskkill', '/F', '/IM', 'ollama.exe'], capture_output=True)
+        time.sleep(3)  # Wait longer to ensure process is fully terminated
+        
         # Start Ollama server
         print("\nStarting Ollama server...")
         process = subprocess.Popen(
@@ -33,7 +38,7 @@ def start_ollama_server():
         )
         
         # Wait for server to start
-        time.sleep(2)
+        time.sleep(5)  # Wait longer for full initialization
         
         print("\nOllama server started successfully!")
         print("API URL: http://0.0.0.0:11434")
