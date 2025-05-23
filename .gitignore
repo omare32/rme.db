@@ -448,3 +448,4 @@ a0.support/clean_repo.py
 18.LLMs/01.mistral/02.build_chroma_db.py
 18.LLMs/01.mistral/07.local.web.qa.py
 18.LLMs/04.alstom/ngrok.token.txt
+09.other.projects/01.youtube/08.upload.mine/token.pickle
