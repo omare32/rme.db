@@ -1,5 +1,6 @@
 import os
-import openai
+from openai import OpenAI
+import httpx
 import mysql.connector
 from mysql.connector import Error
 from datetime import datetime, timedelta
@@ -27,8 +28,19 @@ def test_query():
     print("Schema loaded successfully")
     
     # Set up OpenAI
-    openai.api_key = os.getenv('OPENAI_API_KEY')
-    if not openai.api_key:
+    print("\nTrying to load API key from .env...")
+    api_key = os.getenv('OPENAI_API_KEY')
+    print(f"API key loaded: {'Yes' if api_key else 'No'}")
+    if api_key:
+        # Print first and last 4 chars of key
+        print(f"Key starts with: {api_key[:4]}...{api_key[-4:]}")
+    # Try without proxy first
+    client = OpenAI(
+        api_key=api_key,
+        timeout=10.0,  # 10 second timeout
+        max_retries=1
+    )
+    if not api_key:
         print("Error: OPENAI_API_KEY not found in .env file")
         return
     
@@ -43,21 +55,53 @@ def test_query():
 
 Write a MySQL query to find the total amount of all POs in the last 3 days.
 Important notes:
-1. POH_CREATION_DATE is stored as text in 'DD-MON-YY' format (e.g., '25-MAY-23')
-2. Today is {today.strftime("%d-%b-%y").upper()}, so include POs from {date_example} onwards
-3. Use STR_TO_DATE to convert POH_CREATION_DATE for comparison
+1. POH_CREATION_DATE is stored in 'YYYY-MM-DD' format (e.g., '2023-05-25')
+2. Today is {today.strftime('%Y-%m-%d')}, so include POs from {three_days_ago.strftime('%Y-%m-%d')} onwards
+3. POH_CREATION_DATE can be compared directly with dates since it's in standard format
 4. Sum the LINE_AMOUNT column for the total
 5. Return ONLY the SQL query, nothing else"""
 
+    print("\nGenerating query...")
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "You are a SQL query generator. Output only the SQL query, no explanations."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0
-        )
+        print("Calling OpenAI API...")
+        try:
+            print("Making API request...")
+            try:
+                print("Creating request...")
+                request = client.chat.completions.create(
+                    model="gpt-4",
+                    messages=[
+                        {"role": "system", "content": "You are a SQL query generator. Output only the SQL query, no explanations."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0,
+                    stream=True  # Let's try streaming to see if we get better error info
+                )
+                print("Request created, starting stream...")
+                
+                # Process the stream
+                response_text = ""
+                try:
+                    for chunk in request:
+                        if chunk and chunk.choices and chunk.choices[0].delta.content:
+                            response_text += chunk.choices[0].delta.content
+                    print("Stream completed successfully")
+                except Exception as stream_error:
+                    print(f"Stream error: {str(stream_error)}")
+                    raise
+                    
+                print("Got response from OpenAI")
+                response = response_text
+            except Exception as inner_error:
+                print(f"Inner API Error: {str(inner_error)}")
+                import traceback
+                traceback.print_exc()
+                raise
+        except Exception as e:
+            print(f"OpenAI API Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return
         
         query = response.choices[0].message.content.strip()
         print("\nGenerated Query:")
