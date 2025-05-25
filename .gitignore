@@ -452,3 +452,4 @@ a0.support/clean_repo.py
 18.LLMs/02.po.extract/12.po.followup.query.ai.py
 18.LLMs/02.po.extract/test_query.py
 18.LLMs/02.po.extract/test_query_new.py
+18.LLMs/02.po.extract/test_query_v2.py
