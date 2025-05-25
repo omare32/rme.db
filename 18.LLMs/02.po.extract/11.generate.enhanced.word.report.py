@@ -11,9 +11,13 @@ from pathlib import Path
 
 def count_pdf_files(directory):
     """Count total number of PDF files in directory and its subdirectories"""
+    print(f"Counting PDF files in {directory}...")
     pdf_count = 0
     for path in Path(directory).rglob('*.pdf'):
         pdf_count += 1
+        if pdf_count % 1000 == 0:  # Print progress every 1000 files
+            print(f"Counted {pdf_count} files so far...")
+    print(f"Found total of {pdf_count} PDF files")
     return pdf_count
 
 # Database configuration
@@ -44,9 +48,8 @@ def get_enhanced_stats():
     cursor = connection.cursor()
     
     try:
-        # Count total PDF files in source directory
-        source_dir = r'\\fileserver2\Head Office Server\Procurement (PR)\02 Projects Document'
-        stats['total_files'] = count_pdf_files(source_dir)
+        # Use total files from extraction log
+        stats['total_files'] = 16275  # Total files from extraction process
         
         # Get processed files count from database
         cursor.execute("SELECT COUNT(*) FROM `po.pdfs`")
