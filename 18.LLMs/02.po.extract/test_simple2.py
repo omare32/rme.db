@@ -1,8 +1,7 @@
 import os
-from openai import OpenAI
-import httpx
 import mysql.connector
 from mysql.connector import Error
+from openai import OpenAI
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
@@ -39,24 +38,18 @@ def test_query():
     print("Schema loaded successfully")
     
     # Initialize OpenAI client
-    load_dotenv()
-    client = OpenAI(
-        api_key=os.getenv('OPENAI_API_KEY'),
-        timeout=30.0  # 30 second timeout
-    )
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
     # Calculate dates
     today = datetime.now()
     three_days_ago = today - timedelta(days=3)
-    date_example = three_days_ago.strftime("%d-%b-%y").upper()
     
-    # Generate query
+    # Create prompt
     prompt = f"""Given this database schema:
 {schema}
 
-Write a MySQL query to find the total amount of all POs in the last 3 days.
-Important notes:
-1. POH_CREATION_DATE is stored in 'YYYY-MM-DD' format (e.g., '2025-05-24')
+Generate a MySQL query that:
+1. Shows all POs from the last 3 days
 2. Today is {today.strftime('%Y-%m-%d')}, so include POs from {three_days_ago.strftime('%Y-%m-%d')} onwards
 3. POH_CREATION_DATE can be compared directly with dates since it's in standard format
 4. Some date fields can be NULL, but POH_CREATION_DATE is always populated
@@ -76,14 +69,14 @@ Important notes:
         )
         
         query = response.choices[0].message.content.strip()
-        print("\nGenerated Query:")
+        print("\nGenerated query:")
         print(query)
         
         print("\nExecuting query...")
         cursor.execute(query)
-        results = cursor.fetchall()
+        rows = cursor.fetchall()
         print("\nResults:")
-        for row in results:
+        for row in rows:
             print(row)
             
     except Exception as e:

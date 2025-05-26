@@ -1,8 +1,7 @@
 import os
-from openai import OpenAI
-import httpx
 import mysql.connector
 from mysql.connector import Error
+from openai import OpenAI
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
@@ -24,44 +23,32 @@ def test_query():
     
     cursor = connection.cursor()
     
-    # Get schema
-    cursor.execute("""
-        SELECT COLUMN_NAME, DATA_TYPE
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = 'RME_PO_Follow_Up_Report'
-        ORDER BY ORDINAL_POSITION
-    """)
+    # Get schema (much simpler now)
+    schema = """Table: po_followup_for_gpt
+Columns:
+- po_number (VARCHAR): Purchase Order number
+- creation_date (DATE): When the PO was created
+- line_amount (DECIMAL): Amount for this line item
+- vendor_name (VARCHAR): Name of the vendor"""
     
-    columns = cursor.fetchall()
-    schema = "Table: RME_PO_Follow_Up_Report\nColumns:\n"
-    for col in columns:
-        schema += f"- {col[0]} ({col[1]})\n"
-    print("Schema loaded successfully")
+    print("Using simplified schema")
     
     # Initialize OpenAI client
-    load_dotenv()
-    client = OpenAI(
-        api_key=os.getenv('OPENAI_API_KEY'),
-        timeout=30.0  # 30 second timeout
-    )
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
     # Calculate dates
     today = datetime.now()
     three_days_ago = today - timedelta(days=3)
-    date_example = three_days_ago.strftime("%d-%b-%y").upper()
     
-    # Generate query
-    prompt = f"""Given this database schema:
+    # Create prompt (much simpler now)
+    prompt = f"""Using this schema:
 {schema}
 
-Write a MySQL query to find the total amount of all POs in the last 3 days.
-Important notes:
-1. POH_CREATION_DATE is stored in 'YYYY-MM-DD' format (e.g., '2025-05-24')
-2. Today is {today.strftime('%Y-%m-%d')}, so include POs from {three_days_ago.strftime('%Y-%m-%d')} onwards
-3. POH_CREATION_DATE can be compared directly with dates since it's in standard format
-4. Some date fields can be NULL, but POH_CREATION_DATE is always populated
-5. Sum the LINE_AMOUNT column for the total
-6. Return ONLY the SQL query, nothing else"""
+Write a MySQL query that:
+1. Shows POs created in the last 3 days (from {three_days_ago.strftime('%Y-%m-%d')} to {today.strftime('%Y-%m-%d')})
+2. Groups by vendor_name
+3. Shows total amount per vendor
+4. Orders by total amount descending"""
 
     print("\nGenerating query...")
     try:
@@ -72,18 +59,18 @@ Important notes:
                 {"role": "user", "content": prompt}
             ],
             temperature=0.1,
-            max_tokens=500
+            max_tokens=200  # Much smaller now
         )
         
         query = response.choices[0].message.content.strip()
-        print("\nGenerated Query:")
+        print("\nGenerated query:")
         print(query)
         
         print("\nExecuting query...")
         cursor.execute(query)
-        results = cursor.fetchall()
+        rows = cursor.fetchall()
         print("\nResults:")
-        for row in results:
+        for row in rows:
             print(row)
             
     except Exception as e:

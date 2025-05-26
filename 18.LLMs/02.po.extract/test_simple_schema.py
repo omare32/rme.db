@@ -1,9 +1,7 @@
 import os
-from openai import OpenAI
-import httpx
 import mysql.connector
 from mysql.connector import Error
-from datetime import datetime, timedelta
+from openai import OpenAI
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -24,11 +22,12 @@ def test_query():
     
     cursor = connection.cursor()
     
-    # Get schema
+    # Get just 3 important columns for testing
     cursor.execute("""
         SELECT COLUMN_NAME, DATA_TYPE
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_NAME = 'RME_PO_Follow_Up_Report'
+        AND COLUMN_NAME IN ('POH_CREATION_DATE', 'LINE_AMOUNT', 'PO_NUMBER')
         ORDER BY ORDINAL_POSITION
     """)
     
@@ -39,29 +38,12 @@ def test_query():
     print("Schema loaded successfully")
     
     # Initialize OpenAI client
-    load_dotenv()
-    client = OpenAI(
-        api_key=os.getenv('OPENAI_API_KEY'),
-        timeout=30.0  # 30 second timeout
-    )
+    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     
-    # Calculate dates
-    today = datetime.now()
-    three_days_ago = today - timedelta(days=3)
-    date_example = three_days_ago.strftime("%d-%b-%y").upper()
-    
-    # Generate query
-    prompt = f"""Given this database schema:
+    # Simple prompt with just schema
+    prompt = f"""Given this schema:
 {schema}
-
-Write a MySQL query to find the total amount of all POs in the last 3 days.
-Important notes:
-1. POH_CREATION_DATE is stored in 'YYYY-MM-DD' format (e.g., '2025-05-24')
-2. Today is {today.strftime('%Y-%m-%d')}, so include POs from {three_days_ago.strftime('%Y-%m-%d')} onwards
-3. POH_CREATION_DATE can be compared directly with dates since it's in standard format
-4. Some date fields can be NULL, but POH_CREATION_DATE is always populated
-5. Sum the LINE_AMOUNT column for the total
-6. Return ONLY the SQL query, nothing else"""
+Write a query to show PO_NUMBER and LINE_AMOUNT for today's POs."""
 
     print("\nGenerating query...")
     try:
@@ -72,24 +54,15 @@ Important notes:
                 {"role": "user", "content": prompt}
             ],
             temperature=0.1,
-            max_tokens=500
+            max_tokens=100  # Keep it small
         )
         
         query = response.choices[0].message.content.strip()
-        print("\nGenerated Query:")
+        print("\nGenerated query:")
         print(query)
-        
-        print("\nExecuting query...")
-        cursor.execute(query)
-        results = cursor.fetchall()
-        print("\nResults:")
-        for row in results:
-            print(row)
             
     except Exception as e:
         print(f"Error: {str(e)}")
-        import traceback
-        traceback.print_exc()
     finally:
         cursor.close()
         connection.close()
