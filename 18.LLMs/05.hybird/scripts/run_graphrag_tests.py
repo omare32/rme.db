@@ -35,16 +35,12 @@ def run_semantic_search(graphrag, query, output_file):
         f.write(f"Found {len(results)} purchase orders:\n")
         
         for i, result in enumerate(results, 1):
-            # Extract the metadata from the result
-            metadata = result.get('metadata', {})
             po_info = (
-                f"{i}. PO: {metadata.get('po_number', 'Unknown')}\n"
-                f"   Project: {metadata.get('project', {}).get('name', 'Unknown')}\n"
-                f"   Supplier: {metadata.get('supplier', {}).get('name', 'Unknown')}\n"
-                f"   Date: {metadata.get('date', 'Unknown')}\n"
-                f"   Total Value: {metadata.get('total_value', 'Unknown')}\n"
-                f"   Payment Terms: {metadata.get('payment_terms', 'Unknown')}\n"
-                f"   Delivery Terms: {metadata.get('delivery_terms', 'Unknown')}\n"
+                f"{i}. PO: {result.get('po_number', 'Unknown')}\n"
+                f"   Project: {result.get('project_name', 'Unknown')}\n"
+                f"   Supplier: {result.get('supplier_name', 'Unknown')}\n"
+                f"   Date: {result.get('date', 'Unknown')}\n"
+                f"   Total Value: {result.get('total_value', 'Unknown')}\n"
                 f"   Similarity Score: {result.get('score', 0):.4f}\n"
             )
             print(po_info)
