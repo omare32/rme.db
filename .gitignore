@@ -1,4 +1,4 @@
-﻿# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -136,3 +136,31 @@ a0.support/clean_repo.py
 
 # Gradio certificate
 .gradio/certificate.pem
+
+# Additional sensitive files found
+**/last_message_*.txt
+**/email_replies.txt
+**/extracted_email_bodies.txt
+**/my_emails.txt
+**/*.bat
+**/*.log
+**/run_*.bat
+**/run_*.sh
+**/*.token.*
+
+# Ignore the remove-sensitive-files script as it might contain paths to sensitive files
+remove-sensitive-files.ps1
+
+# Ignore temporary and test files
+**/06.full.folder.with.git/**
+**/test_*.py
+**/*_old.md
+files-to-remove.txt
+
+# Ignore remaining untracked files
+09.other.projects/03.ats/08.after.more.columns/.gitignore
+09.other.projects/03.ats/09.after-please/
+16.cash.message/
+17.email/01.summarize/
+17.email/02.sum.and.reply/
+17.email/03.reem/
