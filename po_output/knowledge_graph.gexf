@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-05-27">
+    <creator>NetworkX 3.4.2</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="1" title="predicate" type="string" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="type" type="string" />
+    </attributes>
+    <nodes>
+      <node id="Creeks URBN-K- 0192" label="Creeks URBN-K- 0192">
+        <attvalues>
+          <attvalue for="0" value="project" />
+        </attvalues>
+      </node>
+      <node id="1808" label="1808" />
+      <node id="TPD - LPO - 1808 - C - 001 - 2020" label="TPD - LPO - 1808 - C - 001 - 2020">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="1000 USD" label="1000 USD" />
+      <node id="1808-Item-1" label="1808-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 792" label="Unspecified Item 792" />
+      <node id="1 Unit" label="1 Unit" />
+      <node id="unds" label="unds" />
+      <node id="Modern Engineering" label="Modern Engineering">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="unds-Item-1" label="unds-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 136" label="Unspecified Item 136" />
+      <node id="Unspecified Item 801" label="Unspecified Item 801" />
+      <node id="xy" label="xy" />
+      <node id="TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Modem Enmgineeriryg" label="TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Modem Enmgineeriryg">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="4.0 USD" label="4.0 USD" />
+      <node id="xy-Item-1" label="xy-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="Rowad Maderm Emnginearing" label="Rowad Maderm Emnginearing" />
+      <node id="2.0 USD" label="2.0 USD" />
+      <node id="5.0 ry" label="5.0 ry" />
+      <node id="xy-Item-2" label="xy-Item-2">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="Ee&#10;eel&#10;&#10;&#10;&#10;TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Maderm Emnginearing" label="Ee&#10;eel&#10;&#10;&#10;&#10;TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Maderm Emnginearing" />
+      <node id="int" label="int" />
+      <node id="TPD-LPO-1808-C-005-2021" label="TPD-LPO-1808-C-005-2021">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="3.0 USD" label="3.0 USD" />
+      <node id="int-Item-1" label="int-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="CYS-3010-KH-" label="CYS-3010-KH-" />
+      <node id="534.0 with" label="534.0 with" />
+      <node id="Unspecified Item 627" label="Unspecified Item 627" />
+      <node id="Item Unit Ger Unit Price Total Price" label="Item Unit Ger Unit Price Total Price">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="7.0 USD" label="7.0 USD" />
+      <node id="nilemix." label="nilemix." />
+      <node id="60.0 Na" label="60.0 Na" />
+      <node id="1808-C" label="1808-C" />
+      <node id="TPD-LPO-1808-C-009-2021&#10;&#10;Rowas Modern Engineenng" label="TPD-LPO-1808-C-009-2021&#10;&#10;Rowas Modern Engineenng">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="55200.0 USD" label="55200.0 USD" />
+      <node id="1808-C-Item-1" label="1808-C-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="Procurement Department" label="Procurement Department" />
+      <node id="1.0 USD" label="1.0 USD" />
+      <node id="ini&#10;Serial Item Unit Total Qty sae" label="ini&#10;Serial Item Unit Total Qty sae">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 767" label="Unspecified Item 767" />
+      <node id="lished" label="lished" />
+      <node id="TPD-LPO-1808-C-011-2021" label="TPD-LPO-1808-C-011-2021">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="lished-Item-1" label="lished-Item-1">
+        <attvalues>
+          <attvalue for="0" value="item" />
+        </attvalues>
+      </node>
+      <node id="00" label="00" />
+      <node id="3.0 nt" label="3.0 nt" />
+      <node id="TPD-LPO-1808-C-012-2021&#10;&#10;Rowad Modern Engineening" label="TPD-LPO-1808-C-012-2021&#10;&#10;Rowad Modern Engineening">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 687" label="Unspecified Item 687" />
+      <node id="TPD-LPO-1808-C-013-202 1" label="TPD-LPO-1808-C-013-202 1">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="5.0 USD" label="5.0 USD" />
+      <node id="wt nl&#10;Xe" label="wt nl&#10;Xe" />
+      <node id="5.0 ROWAL" label="5.0 ROWAL" />
+      <node id="Unit&#10;Price" label="Unit&#10;Price">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="42m&#10;&#10;Pump" label="42m&#10;&#10;Pump" />
+      <node id="50.0 USD" label="50.0 USD" />
+      <node id="55.0 m" label="55.0 m" />
+      <node id="TPD-LPO-1808-C-015-2021&#10;&#10;Rowad Modern Engineering" label="TPD-LPO-1808-C-015-2021&#10;&#10;Rowad Modern Engineering">
+        <attvalues>
+          <attvalue for="0" value="supplier" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 811" label="Unspecified Item 811" />
+      <node id="Sultana Malak Palace" label="Sultana Malak Palace">
+        <attvalues>
+          <attvalue for="0" value="project" />
+        </attvalues>
+      </node>
+      <node id="Unspecified Item 416" label="Unspecified Item 416" />
+      <node id="Unspecified Item 536" label="Unspecified Item 536" />
+      <node id="Unspecified Item 679" label="Unspecified Item 679" />
+      <node id="Unspecified Item 540" label="Unspecified Item 540" />
+      <node id="Unspecified Item 162" label="Unspecified Item 162" />
+      <node id="Unspecified Item 887" label="Unspecified Item 887" />
+      <node id="Unspecified Item 774" label="Unspecified Item 774" />
+    </nodes>
+    <edges>
+      <edge source="Creeks URBN-K- 0192" target="1808" id="0">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Creeks URBN-K- 0192" target="unds" id="1">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Creeks URBN-K- 0192" target="xy" id="2">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Creeks URBN-K- 0192" target="int" id="3">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Creeks URBN-K- 0192" target="1808-C" id="4">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Creeks URBN-K- 0192" target="lished" id="5">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="1808" target="1000 USD" id="6">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="1808" target="1808-Item-1" id="7">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="TPD - LPO - 1808 - C - 001 - 2020" target="1808" id="8">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="1808-Item-1" target="Unspecified Item 792" id="9">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="1808-Item-1" target="1000 USD" id="10">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="1808-Item-1" target="1 Unit" id="11">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="1808-Item-1" target="Unspecified Item 416" id="12">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds" target="1000 USD" id="13">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds" target="unds-Item-1" id="14">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="unds" target="7.0 USD" id="15">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds" target="5.0 USD" id="16">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds" target="1.0 USD" id="17">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="Modern Engineering" target="unds" id="18">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 136" id="19">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="1000 USD" id="20">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="1 Unit" id="21">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 801" id="22">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 627" id="23">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="nilemix." id="24">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="7.0 USD" id="25">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="60.0 Na" id="26">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 767" id="27">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 687" id="28">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="wt nl&#10;Xe" id="29">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="5.0 USD" id="30">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="5.0 ROWAL" id="31">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="42m&#10;&#10;Pump" id="32">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="50.0 USD" id="33">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="55.0 m" id="34">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 811" id="35">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 536" id="36">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 679" id="37">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 540" id="38">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 162" id="39">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 887" id="40">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="unds-Item-1" target="Unspecified Item 774" id="41">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="xy" target="4.0 USD" id="42">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="xy" target="xy-Item-1" id="43">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="xy" target="xy-Item-2" id="44">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Modem Enmgineeriryg" target="xy" id="45">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-1" target="Rowad Maderm Emnginearing" id="46">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-1" target="2.0 USD" id="47">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-1" target="5.0 ry" id="48">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-2" target="Ee&#10;eel&#10;&#10;&#10;&#10;TPD-LPO-1808-C-004-2021&#10;&#10;Rowad Maderm Emnginearing" id="49">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-2" target="2.0 USD" id="50">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="xy-Item-2" target="5.0 ry" id="51">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="int" target="3.0 USD" id="52">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="int" target="int-Item-1" id="53">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-005-2021" target="int" id="54">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="int-Item-1" target="CYS-3010-KH-" id="55">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="int-Item-1" target="3.0 USD" id="56">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="int-Item-1" target="534.0 with" id="57">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="Item Unit Ger Unit Price Total Price" target="unds" id="58">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="1808-C" target="55200.0 USD" id="59">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="1808-C" target="1808-C-Item-1" id="60">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-009-2021&#10;&#10;Rowas Modern Engineenng" target="1808-C" id="61">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="1808-C-Item-1" target="Procurement Department" id="62">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="1808-C-Item-1" target="1.0 USD" id="63">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="ini&#10;Serial Item Unit Total Qty sae" target="unds" id="64">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="lished" target="3.0 USD" id="65">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="lished" target="lished-Item-1" id="66">
+        <attvalues>
+          <attvalue for="1" value="has_item" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-011-2021" target="lished" id="67">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="lished-Item-1" target="00" id="68">
+        <attvalues>
+          <attvalue for="1" value="has_name" />
+        </attvalues>
+      </edge>
+      <edge source="lished-Item-1" target="3.0 USD" id="69">
+        <attvalues>
+          <attvalue for="1" value="has_value" />
+        </attvalues>
+      </edge>
+      <edge source="lished-Item-1" target="3.0 nt" id="70">
+        <attvalues>
+          <attvalue for="1" value="has_quantity" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-012-2021&#10;&#10;Rowad Modern Engineening" target="unds" id="71">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-013-202 1" target="unds" id="72">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="Unit&#10;Price" target="unds" id="73">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="TPD-LPO-1808-C-015-2021&#10;&#10;Rowad Modern Engineering" target="unds" id="74">
+        <attvalues>
+          <attvalue for="1" value="issued_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="1808" id="75">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="unds" id="76">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="xy" id="77">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="int" id="78">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="1808-C" id="79">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+      <edge source="Sultana Malak Palace" target="lished" id="80">
+        <attvalues>
+          <attvalue for="1" value="has_po" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
