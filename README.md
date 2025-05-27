@@ -1,5 +1,5 @@
 # rme.db
- Python Codes For RME SQL Database, Analysis And Automation
+ All of my stuff, from simple database connections to complex machine learning models
 
 # 01.connections
 codes to connect to multiple sources (cloud: aws, azure, google and local: postgres, Microsoft sql, mysql and others
