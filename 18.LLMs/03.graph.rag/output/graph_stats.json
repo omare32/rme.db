@@ -1,0 +1,16 @@
+{
+  "total_nodes": 19,
+  "total_edges": 18,
+  "node_types": {
+    "project": 2,
+    "supplier": 3,
+    "unknown": 9,
+    "item": 5
+  },
+  "edge_types": {
+    "has_po": 4,
+    "issued_po": 4,
+    "has_item": 5,
+    "has_value": 5
+  }
+}

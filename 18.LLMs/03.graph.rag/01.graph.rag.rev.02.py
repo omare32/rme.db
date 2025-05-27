@@ -27,6 +27,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.llms.ollama import Ollama
 from langchain.chains import RetrievalQA
 from langchain_community.graphs import NetworkxEntityGraph
+import matplotlib.pyplot as plt
 
 @dataclass
 class KnowledgeTriple:
@@ -69,9 +70,10 @@ class OCRPDFLoader(BaseLoader):
         return documents
 
 class GraphRAG:
-    def __init__(self, model_name="mistral", pdf_directory=None):
+    def __init__(self, model_name="mistral", pdf_directory=None, skip_llm=False):
         self.model_name = model_name
         self.pdf_directory = pdf_directory or "D:\\OEssam\\01.pdfs"
+        self.skip_llm = skip_llm
         
         try:
             # Use a multilingual model for embeddings
@@ -80,19 +82,29 @@ class GraphRAG:
                 model_kwargs={'device': 'cpu'}
             )
             
-            # Initialize LLM with timeout
-            self.llm = Ollama(
-                model=model_name,
-                temperature=0.0,
-                stop=["\n\n"],
-                timeout=30.0  # 30 second timeout
-            )
+            # Initialize LLM with timeout (if not skipped)
+            if not skip_llm:
+                try:
+                    self.llm = Ollama(
+                        model=model_name,
+                        temperature=0.0,
+                        stop=["\n\n"],
+                        timeout=30.0  # 30 second timeout
+                    )
+                    print("Successfully initialized Ollama LLM")
+                except Exception as e:
+                    print(f"Warning: Could not initialize Ollama LLM: {str(e)}")
+                    print("Some functionality will be limited.")
+                    self.llm = None
+            else:
+                self.llm = None
+                print("Skipping LLM initialization as requested")
             
             self.graph = NetworkxEntityGraph()
             self.vector_store = None
             self.po_data = {}
             
-            print("Successfully initialized GraphRAG with models loaded")
+            print("Successfully initialized GraphRAG")
             
         except Exception as e:
             print(f"Error initializing models: {str(e)}")
@@ -801,7 +813,7 @@ class GraphRAG:
             print(f"\nError in document processing: {str(e)}")
             raise
 
-    def save_graph(self, output_dir):
+    def save_graph(self, output_dir, visualization_options=None):
         """Save the knowledge graph to disk"""
         try:
             # Create output directory if it doesn't exist
@@ -820,15 +832,24 @@ class GraphRAG:
                 "edge_types": {}
             }
             
-            # Count node types
+            # Count node types and prepare node colors for visualization
+            node_colors = []
+            node_sizes = []
+            node_types_dict = {}
+            
             for node in self.graph._graph.nodes():
                 node_type = "unknown"
                 if any(edge[2].get('predicate') == 'has_po' for edge in self.graph._graph.edges(node, data=True)):
                     node_type = "project"
+                    node_types_dict[node] = "project"
                 elif any(edge[2].get('predicate') == 'issued_po' for edge in self.graph._graph.edges(node, data=True)):
                     node_type = "supplier"
+                    node_types_dict[node] = "supplier"
                 elif any(edge[2].get('predicate') == 'has_value' for edge in self.graph._graph.edges(node, data=True)):
                     node_type = "item"
+                    node_types_dict[node] = "item"
+                else:
+                    node_types_dict[node] = "unknown"
                 
                 stats["node_types"][node_type] = stats["node_types"].get(node_type, 0) + 1
             
@@ -842,6 +863,99 @@ class GraphRAG:
             with open(stats_path, 'w') as f:
                 json.dump(stats, f, indent=2)
             print(f"Saved statistics to {stats_path}")
+
+            # Generate and save a visual representation of the graph
+            try:
+                # Default visualization options
+                default_options = {
+                    "figsize": (16, 12),
+                    "node_size": 100,
+                    "font_size": 8,
+                    "edge_width": 0.5,
+                    "alpha": 0.7,
+                    "iterations": 50,
+                    "k": 0.2,  # Spring layout parameter
+                    "color_scheme": {
+                        "project": "#ff7f0e",  # Orange
+                        "supplier": "#1f77b4",  # Blue
+                        "item": "#2ca02c",     # Green
+                        "unknown": "#d62728"   # Red
+                    }
+                }
+                
+                # Update with any user-provided options
+                if visualization_options:
+                    for key, value in visualization_options.items():
+                        if key in default_options:
+                            if isinstance(value, dict) and isinstance(default_options[key], dict):
+                                default_options[key].update(value)
+                            else:
+                                default_options[key] = value
+                
+                options = default_options
+                
+                # Prepare node colors and sizes based on node types
+                for node in self.graph._graph.nodes():
+                    node_type = node_types_dict.get(node, "unknown")
+                    node_colors.append(options["color_scheme"][node_type])
+                    
+                    # Make project and supplier nodes larger
+                    if node_type in ["project", "supplier"]:
+                        node_sizes.append(options["node_size"] * 1.5)
+                    else:
+                        node_sizes.append(options["node_size"])
+                
+                plt.figure(figsize=options["figsize"])
+                pos = nx.spring_layout(self.graph._graph, k=options["k"], iterations=options["iterations"])
+                
+                # Draw edges
+                nx.draw_networkx_edges(
+                    self.graph._graph, 
+                    pos, 
+                    width=options["edge_width"],
+                    alpha=options["alpha"]
+                )
+                
+                # Draw nodes
+                nx.draw_networkx_nodes(
+                    self.graph._graph, 
+                    pos, 
+                    node_size=node_sizes,
+                    node_color=node_colors,
+                    alpha=options["alpha"]
+                )
+                
+                # Draw labels
+                nx.draw_networkx_labels(
+                    self.graph._graph, 
+                    pos, 
+                    font_size=options["font_size"],
+                    font_weight='bold'
+                )
+                
+                # Add a legend
+                legend_elements = [
+                    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10, label=node_type.title())
+                    for node_type, color in options["color_scheme"].items()
+                    if node_type in node_types_dict.values()
+                ]
+                plt.legend(handles=legend_elements, loc='upper right')
+                
+                plt.title("Knowledge Graph Visualization")
+                plt.axis('off')  # Hide axes
+                
+                # Save as PNG
+                img_path = os.path.join(output_dir, "knowledge_graph.png")
+                plt.savefig(img_path, dpi=300, bbox_inches='tight')
+                
+                # Save as PDF for high-quality vector graphics
+                pdf_path = os.path.join(output_dir, "knowledge_graph.pdf")
+                plt.savefig(pdf_path, format='pdf', bbox_inches='tight')
+                
+                plt.close()  # Close the figure to free memory
+                print(f"Saved graph visualizations to {img_path} and {pdf_path}")
+            except Exception as e:
+                print(f"Error generating graph visualization: {str(e)}")
             
             return True
             
@@ -850,9 +964,47 @@ class GraphRAG:
             return False
 
 
+def visualize_only(graph_path, output_dir="output"):
+    """Load a saved graph and generate visualizations without running the full system"""
+    try:
+        print(f"Loading graph from {graph_path}...")
+        G = nx.read_gexf(graph_path)
+        
+        # Create a minimal GraphRAG instance just for visualization
+        rag = GraphRAG(skip_llm=True)
+        rag.graph._graph = G  # Replace the empty graph with the loaded one
+        
+        # Custom visualization options
+        viz_options = {
+            "figsize": (20, 16),  # Larger figure
+            "node_size": 150,    # Larger nodes
+            "font_size": 10,     # Larger font
+            "k": 0.3,           # More spread out
+            "iterations": 100    # More iterations for better layout
+        }
+        
+        print(f"\nGenerating visualizations...")
+        if rag.save_graph(output_dir, visualization_options=viz_options):
+            print("Successfully generated visualizations")
+        else:
+            print("Failed to generate visualizations")
+            
+    except Exception as e:
+        print(f"Error in visualization: {str(e)}")
+
 def main():
     """Main function to run the GraphRAG system"""
     try:
+        # Check for command line arguments
+        import sys
+        if len(sys.argv) > 1:
+            if sys.argv[1] == "--visualize-only" and len(sys.argv) > 2:
+                # Just visualize an existing graph
+                graph_path = sys.argv[2]
+                output_dir = sys.argv[3] if len(sys.argv) > 3 else "output"
+                visualize_only(graph_path, output_dir)
+                return
+        
         print("Initializing GraphRAG...")
         rag = GraphRAG(model_name="mistral", pdf_directory="D:\\OEssam\\01.pdfs")
         
