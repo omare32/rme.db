@@ -1,4 +1,5 @@
-# Source directories to copy from
+Set-ExecutionPolicy Bypass -Scope Process -Force
+.\find_and_copy_missing.ps1# Source directories to copy from
 $sourceDirs = @(
     "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db.backup",
     "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db.original"
