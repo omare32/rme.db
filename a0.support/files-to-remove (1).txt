@@ -1,0 +1,11 @@
+﻿17.email/01.summarize/02.rev.01ig/client.7z
+17.email/01.summarize/02.rev.01ig/client.txt
+17.email/03.reem/01.old.nada.new.api/01_fetch_emails.py
+17.email/03.reem/01.old.nada.new.api/04_create_drafts.py
+17.email/01.summarize/02.rev.01ig/01.extract.and.summarize.ipynb
+17.email/01.summarize/02.rev.01ig/01.extract.and.summarize.rev.03.ipynb
+17.email/02.sum.and.reply/01.5.cells.complete.yasser-omar.ipynb
+17.email/02.sum.and.reply/01.5.cells.complete.new.api.ipynb
+17.email/02.sum.and.reply/02.5.cells.complete.new.rme.api.ipynb
+17.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).rme.api.ipynb
+17.email/03.reem/01.old.nada.new.api/original.rme.api.ipynb
