@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+﻿# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -27,396 +27,74 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
-*.spec
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+# Images
+/images
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
+# Test and coverage
 .coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
+htmlcov/
+.pytest_cache/
 
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-docsrc/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# dotenv
+# Environment files
 .env
-.venv
+.env.*
+!.env.example
 
-# virtualenv
-venv/
-ENV/
-env.bak/
-env/
+# API keys and credentials
+**/client_secret*.json
+**/client_*.json
+**/token*.json
+**/token.pickle
+**/*.pem
+**/*.key
+**/*.pfx
+**/*.p12
+**/*.crt
+**/*.cer
+**/credentials.json
+**/secrets.*
+**/password*
+**/api_key*
+**/auth_token*
+**/*.env*
+**/.env*
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# Logs
+*.log
 
-# Rope project settings
-.ropeproject
+# IDE specific files
+.vscode/
+.idea/
+*.code-workspace
 
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# System files
+# System Files
 .DS_Store
 Thumbs.db
 
-# Visual Studio Code settings
-.vscode/
-
-# Airflow configuration
-airflow.cfg
-airflow_login.py
-dbinit.py
-initdb.py
-secrets.py
-
-# Airflow sqlite databases
-airflow.db
-
-# Airflow temporary artifacts
-airflow/git_version
-airflow/www/static/coverage/
-airflow/www/*.log
-logs/
-airflow-webserver.pid
-standalone_admin_password.txt
-warnings.txt
-warn-summary-*.txt
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage*.xml
-*,cover
-.hypothesis/
-.pytest_cache
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-# *.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
-/webserver_config.py
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-docs/rtd-deprecation/_build/
-docs/_doctrees/
-docs/_inventory_cache/
-docs/*/_api/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# nvm (Node Version Manager)
-.nvmrc
-
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# dotenv
-.env
-.autoenv*.zsh
-
-# virtualenv
-.venv*
-venv*
-ENV/
-
-# Spyder project settings
-.spyderproject
-
-# Rope project settings
-.ropeproject
-
-# PyCharm
-.idea/
-*.iml
-
-# Visual Studio Code
-.vscode/
-
-# vim
-*.swp
-
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-*.elc
-auto-save-list
-tramp
-.\#*
-
-# OSX
-.DS_Store
-
-# SQL Server backups
-*.bkp
-
-# Spark
-rat-results.txt
-
-# Git stuff
-# Kubernetes generated templated files
-*.generated
-*.tar.gz
-scripts/ci/kubernetes/kube/.generated/airflow.yaml
-scripts/ci/kubernetes/docker/requirements.txt
-
-# Node & Webpack Stuff
-*.entry.js
-node_modules
-npm-debug.log*
-derby.log
-metastore_db
-
-# Airflow log files when airflow is run locally
-airflow-*.err
-airflow-*.out
-airflow-*.log
-airflow-*.pid
-.airflow_db_initialised
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Needed for CI Dockerfile.ci build system
-.build
-/tmp
-/files
-
-/hive_scratch_dir/
-/.bash_aliases
-/.bash_history
-/.kube
-/.inputrc
-log.txt*
-
-# Provider-related ignores
-/airflow/providers/__init__.py
-
-# Docker context files
-/docker-context-files/*
-!/docker-context-files/.README.md
-# Local .terraform directories
-**/.terraform/*
-
-# .tfstate files
-*.tfstate
-*.tfstate.*
-
-# Terraform variables
-*.tfvars
-
-# Might be generated when you build wheels
-pip-wheel-metadata
-
-.pypirc
-
-/.docs-venv
-
-# Dev files
-/dev/packages.txt
-/dev/Dockerfile.pmc
-
-# Generated UI licenses
-3rd-party-licenses/LICENSES-ui.txt
-licenses/LICENSES-ui.txt
-
-# Packaged breeze on Windows
-/breeze.exe
-
-# Generated out dir
-
-/out
-
-# files generated by memray
-*.py.*.html
-*.py.*.bin
-
-# used to checkout target-branch in CI
-/target-airflow
-
-# This directory used for generate provider packages before https://github.com/apache/airflow/pull/35617
-/provider_packages/
-
-# This directory used for store autogenerated images
-/images
-
-# Dask Executor tests generate this directory
-/tests/executors/dask-worker-space/
-
-# airflow-build-dockerfile and correponding ignore file
-airflow-build-dockerfile*
-rme.db/rme.db.code-workspace
-
-# Sensitive files - Do not track
+# Project specific ignores
 16.email/01.summarize/02.rev.02/client.txt
 16.email/01.summarize/01.rev.01/sql-mail.py
 16.email/01.summarize/02.rev.02/01.extract.and.summarize.rev.04.ipynb
-09.other.projects/01.youtube/04.merge.and.upload/token.json
 16.email/01.summarize/01.rev.01/.env.txt
 16.email/01.summarize/01.rev.01/summarize_emails.py
 16.email/01.summarize/01.rev.01/email_replies.txt
 16.email/01.summarize/01.rev.01/Email-ETL.py
-token.json
 16.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).ipynb
 16.email/02.sum.and.reply/01.5.cells.complete.ipynb
 16.email/02.sum.and.reply/01.5.cells.complete.yasser-omar.ipynb
-09.other.projects/03.ats/06.fix.dep/02.process_pdfs_with_batch.py
-09.other.projects/03.ats/06.fix.dep/unmatched_records_report.txt
-09.other.projects/03.ats/06.full.folder.with.git/
+16.email/02.sum.and.reply/01.5.cells.complete.new.api.ipynb
+16.email/02.sum.and.reply/02.5.cells.complete.new.rme.api.ipynb
+16.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).rme.api.ipynb
 16.email/03.reem/01.old.nada.new.api/01_fetch_emails.py
 16.email/03.reem/01.old.nada.new.api/04_create_drafts.py
 16.email/03.reem/01.old.nada.new.api/original.rme.api.ipynb
+16.email/03.reem/01.old.nada.new.api/original.ipynb
 
-# API keys, credentials and sensitive information
-**/creds.txt
-**/*.key
-**/*.pem
-**/*.pfx
-**/*.p12
-**/credentials.json
-**/client_secret*.json
-**/*config.json
-**/*.env*
-**/.env*
-**/token*.json
-**/secrets.yaml
-**/secrets.yml
-**/secrets.json
-**/password*.txt
-**/api_key*.txt
-**/auth_token*.txt
-16.email/02.sum.and.reply/01.5.cells.complete.new.api.ipynb
+# ATS project files
+09.other.projects/03.ats/06.fix.dep/unmatched_records_report.txt
+09.other.projects/03.ats/06.fix.dep/02.process_pdfs_with_batch.py
 09.other.projects/03.ats/04.ats-old/app.py
 09.other.projects/03.ats/07.last.working/02.process_pdfs_with_batch.py
 09.other.projects/03.ats/07.last.working/02.process_pdfs.py
@@ -427,29 +105,34 @@ token.json
 09.other.projects/03.ats/07.last.working/fix.jobs.departments.py
 09.other.projects/03.ats/07.last.working/fix_non_standard_values.py
 09.other.projects/03.ats/08.after.more.columns/02b.process_ocr_with_gpt.py
-.gitignore
 09.other.projects/03.ats/08.after.more.columns/02.process_pdfs.py
 09.other.projects/03.ats/08.after.more.columns/02.process_pdfs_with_batch.py
-03.warehouse/01.mcp_erp/document_ap_checks_all.py
-03.warehouse/01.mcp_erp/document_ap_schema_overview.py
-03.warehouse/01.mcp_erp/document_top10_ap_ar_tables.py
-03.warehouse/01.mcp_erp/document_ar_schema_overview.py
-16.email/03.reem/01.old.nada.new.api/original.ipynb
-16.email/02.sum.and.reply/02.5.cells.complete.new.rme.api.ipynb
-16.email/02.sum.and.reply/Email-Auto-Responce-V1(Final).rme.api.ipynb
+
+# LLM and other project files
 18.LLMs/02.po.extract/09.pdf.webapp copy.py
 18.LLMs/02.po.extract/09.pdf.webapp.backup.with.api.py
 18.LLMs/02.po.extract/app.py
 18.LLMs/02.po.extract/09.pdf.webapp.py
+18.LLMs/02.po.extract/12.po.followup.query.ai.py
+18.LLMs/02.po.extract/test_query.py
+18.LLMs/02.po.extract/test_query_new.py
+18.LLMs/02.po.extract/test_query_v2.py
 a0.support/secrets.txt
 a0.support/clean_repo.py
 18.LLMs/01.mistral/03.web_qa.py
 18.LLMs/01.mistral/07.local.web.qa.py
 18.LLMs/01.mistral/02.build_chroma_db.py
-18.LLMs/01.mistral/07.local.web.qa.py
 18.LLMs/04.alstom/ngrok.token.txt
+
+# MCP ERP files
+03.warehouse/01.mcp_erp/document_ap_checks_all.py
+03.warehouse/01.mcp_erp/document_ap_schema_overview.py
+03.warehouse/01.mcp_erp/document_top10_ap_ar_tables.py
+03.warehouse/01.mcp_erp/document_ar_schema_overview.py
+
+# YouTube related
+09.other.projects/01.youtube/04.merge.and.upload/token.json
 09.other.projects/01.youtube/08.upload.mine/token.pickle
-18.LLMs/02.po.extract/12.po.followup.query.ai.py
-18.LLMs/02.po.extract/test_query.py
-18.LLMs/02.po.extract/test_query_new.py
-18.LLMs/02.po.extract/test_query_v2.py
+
+# Gradio certificate
+.gradio/certificate.pem
