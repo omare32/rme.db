@@ -1,0 +1,1131 @@
+{
+  "nodes": {
+    "Riyadh Metro Line 3": {
+      "type": "Project",
+      "code": "RML3-2022"
+    },
+    "Saudi Steel Industries": {
+      "type": "Supplier",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "RML3-2022-PO-1592": {
+      "type": "PurchaseOrder",
+      "date": "2024-12-03",
+      "total_value": 139283.67
+    },
+    "RML3-2022-PO-1592-item-1": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 15,
+      "unit": "m",
+      "value": 183.05
+    },
+    "RML3-2022-PO-1592-item-2": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 8,
+      "unit": "set",
+      "value": 2392.52
+    },
+    "RML3-2022-PO-1592-item-3": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 9,
+      "unit": "m\u00b3",
+      "value": 488.54
+    },
+    "RML3-2022-PO-1592-item-4": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 7,
+      "unit": "ton",
+      "value": 6011.51
+    },
+    "RML3-2022-PO-1592-item-5": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 15,
+      "unit": "ton",
+      "value": 4255.75
+    },
+    "RML3-2022-PO-1592-item-6": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 9,
+      "unit": "m\u00b3",
+      "value": 787.12
+    },
+    "Red Sea Development": {
+      "type": "Project",
+      "code": "RSD-2022"
+    },
+    "Rowad Technical Services": {
+      "type": "Supplier",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "RSD-2022-PO-9389": {
+      "type": "PurchaseOrder",
+      "date": "2024-08-23",
+      "total_value": 384283.89
+    },
+    "RSD-2022-PO-9389-item-1": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 15,
+      "unit": "m",
+      "value": 198.44
+    },
+    "RSD-2022-PO-9389-item-2": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 4,
+      "unit": "m\u00b2",
+      "value": 236.18
+    },
+    "RSD-2022-PO-9389-item-3": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 19,
+      "unit": "unit",
+      "value": 16447.75
+    },
+    "RSD-2022-PO-9389-item-4": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 5,
+      "unit": "m\u00b3",
+      "value": 1262.69
+    },
+    "RSD-2022-PO-9389-item-5": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 17,
+      "unit": "ton",
+      "value": 3620.11
+    },
+    "RML3-2022-PO-9225": {
+      "type": "PurchaseOrder",
+      "date": "2025-04-30",
+      "total_value": 128387.87
+    },
+    "RML3-2022-PO-9225-item-1": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 16,
+      "unit": "ton",
+      "value": 6131.48
+    },
+    "RML3-2022-PO-9225-item-2": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 17,
+      "unit": "m\u00b2",
+      "value": 371.02
+    },
+    "RML3-2022-PO-9225-item-3": {
+      "type": "Item",
+      "name": "Excavation Works",
+      "quantity": 13,
+      "unit": "m\u00b3",
+      "value": 337.51
+    },
+    "RML3-2022-PO-9225-item-4": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 3,
+      "unit": "ton",
+      "value": 3629.74
+    },
+    "RML3-2022-PO-9225-item-5": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 1,
+      "unit": "m\u00b2",
+      "value": 86.82
+    },
+    "RML3-2022-PO-9225-item-6": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 18,
+      "unit": "m\u00b3",
+      "value": 478.51
+    },
+    "NEOM Smart City Phase 1": {
+      "type": "Project",
+      "code": "NSC1-2023"
+    },
+    "Al-Faisal Trading Co.": {
+      "type": "Supplier",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "NSC1-2023-PO-6788": {
+      "type": "PurchaseOrder",
+      "date": "2024-08-10",
+      "total_value": 12617.98
+    },
+    "NSC1-2023-PO-6788-item-1": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 1,
+      "unit": "m\u00b2",
+      "value": 298.5
+    },
+    "NSC1-2023-PO-6788-item-2": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 2,
+      "unit": "ton",
+      "value": 4970.12
+    },
+    "NSC1-2023-PO-6788-item-3": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 18,
+      "unit": "m",
+      "value": 132.18
+    },
+    "RSD-2022-PO-1740": {
+      "type": "PurchaseOrder",
+      "date": "2024-12-03",
+      "total_value": 97646.96
+    },
+    "RSD-2022-PO-1740-item-1": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 13,
+      "unit": "m",
+      "value": 182.62
+    },
+    "RSD-2022-PO-1740-item-2": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 18,
+      "unit": "ton",
+      "value": 3996.25
+    },
+    "RSD-2022-PO-1740-item-3": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 10,
+      "unit": "set",
+      "value": 2334.04
+    },
+    "Modern Engineering": {
+      "type": "Supplier",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "RML3-2022-PO-5151": {
+      "type": "PurchaseOrder",
+      "date": "2024-07-23",
+      "total_value": 114045.15
+    },
+    "RML3-2022-PO-5151-item-1": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 10,
+      "unit": "m\u00b3",
+      "value": 562.74
+    },
+    "RML3-2022-PO-5151-item-2": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 15,
+      "unit": "ton",
+      "value": 4505.61
+    },
+    "RML3-2022-PO-5151-item-3": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 16,
+      "unit": "set",
+      "value": 2552.1
+    },
+    "RML3-2022-PO-5532": {
+      "type": "PurchaseOrder",
+      "date": "2025-03-30",
+      "total_value": 36445.65
+    },
+    "RML3-2022-PO-5532-item-1": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 7,
+      "unit": "m\u00b3",
+      "value": 1034.62
+    },
+    "RML3-2022-PO-5532-item-2": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 5,
+      "unit": "ton",
+      "value": 5212.94
+    },
+    "RML3-2022-PO-5532-item-3": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 19,
+      "unit": "m",
+      "value": 165.19
+    },
+    "RSD-2022-PO-9582": {
+      "type": "PurchaseOrder",
+      "date": "2024-06-10",
+      "total_value": 90621.9
+    },
+    "RSD-2022-PO-9582-item-1": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 18,
+      "unit": "ton",
+      "value": 4811.1
+    },
+    "RSD-2022-PO-9582-item-2": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 18,
+      "unit": "m\u00b2",
+      "value": 223.45
+    },
+    "Jeddah Airport Expansion": {
+      "type": "Project",
+      "code": "JAE-2024"
+    },
+    "JAE-2024-PO-8293": {
+      "type": "PurchaseOrder",
+      "date": "2024-08-30",
+      "total_value": 17898.75
+    },
+    "JAE-2024-PO-8293-item-1": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 5,
+      "unit": "ton",
+      "value": 3134.31
+    },
+    "JAE-2024-PO-8293-item-2": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 8,
+      "unit": "m\u00b2",
+      "value": 278.4
+    },
+    "RSD-2022-PO-1918": {
+      "type": "PurchaseOrder",
+      "date": "2025-04-21",
+      "total_value": 32514.49
+    },
+    "RSD-2022-PO-1918-item-1": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 4,
+      "unit": "m\u00b2",
+      "value": 197.38
+    },
+    "RSD-2022-PO-1918-item-2": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 3,
+      "unit": "unit",
+      "value": 10574.99
+    },
+    "Global Concrete Solutions": {
+      "type": "Supplier",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "JAE-2024-PO-2722": {
+      "type": "PurchaseOrder",
+      "date": "2025-05-05",
+      "total_value": 288218.0
+    },
+    "JAE-2024-PO-2722-item-1": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 3,
+      "unit": "set",
+      "value": 2135.4
+    },
+    "JAE-2024-PO-2722-item-2": {
+      "type": "Item",
+      "name": "Excavation Works",
+      "quantity": 3,
+      "unit": "m\u00b3",
+      "value": 763.6
+    },
+    "JAE-2024-PO-2722-item-3": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 15,
+      "unit": "unit",
+      "value": 14442.44
+    },
+    "JAE-2024-PO-2722-item-4": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 20,
+      "unit": "ton",
+      "value": 3144.22
+    },
+    "JAE-2024-PO-3763": {
+      "type": "PurchaseOrder",
+      "date": "2024-06-23",
+      "total_value": 46864.25
+    },
+    "JAE-2024-PO-3763-item-1": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 6,
+      "unit": "m\u00b3",
+      "value": 222.28
+    },
+    "JAE-2024-PO-3763-item-2": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 13,
+      "unit": "m\u00b3",
+      "value": 1093.14
+    },
+    "JAE-2024-PO-3763-item-3": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 5,
+      "unit": "unit",
+      "value": 5426.87
+    },
+    "JAE-2024-PO-3763-item-4": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 5,
+      "unit": "m",
+      "value": 100.26
+    },
+    "JAE-2024-PO-3763-item-5": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 14,
+      "unit": "m\u00b2",
+      "value": 263.15
+    },
+    "NSC1-2023-PO-9555": {
+      "type": "PurchaseOrder",
+      "date": "2024-09-08",
+      "total_value": 100467.57
+    },
+    "NSC1-2023-PO-9555-item-1": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 6,
+      "unit": "ton",
+      "value": 6228.03
+    },
+    "NSC1-2023-PO-9555-item-2": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 19,
+      "unit": "m\u00b3",
+      "value": 527.67
+    },
+    "NSC1-2023-PO-9555-item-3": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 16,
+      "unit": "m\u00b3",
+      "value": 842.14
+    },
+    "NSC1-2023-PO-9555-item-4": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 6,
+      "unit": "m\u00b2",
+      "value": 351.0
+    },
+    "NSC1-2023-PO-9555-item-5": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 10,
+      "unit": "ton",
+      "value": 3440.09
+    },
+    "NSC1-2023-PO-9555-item-6": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 12,
+      "unit": "m\u00b2",
+      "value": 257.71
+    },
+    "RML3-2022-PO-5750": {
+      "type": "PurchaseOrder",
+      "date": "2024-11-01",
+      "total_value": 403800.09
+    },
+    "RML3-2022-PO-5750-item-1": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 1,
+      "unit": "ton",
+      "value": 4167.89
+    },
+    "RML3-2022-PO-5750-item-2": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 18,
+      "unit": "ton",
+      "value": 3344.09
+    },
+    "RML3-2022-PO-5750-item-3": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 8,
+      "unit": "m\u00b2",
+      "value": 316.17
+    },
+    "RML3-2022-PO-5750-item-4": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 19,
+      "unit": "unit",
+      "value": 17168.29
+    },
+    "RML3-2022-PO-5750-item-5": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 3,
+      "unit": "set",
+      "value": 2902.89
+    },
+    "RML3-2022-PO-5750-item-6": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 16,
+      "unit": "m",
+      "value": 125.19
+    },
+    "JAE-2024-PO-5191": {
+      "type": "PurchaseOrder",
+      "date": "2025-02-13",
+      "total_value": 26960.11
+    },
+    "JAE-2024-PO-5191-item-1": {
+      "type": "Item",
+      "name": "Excavation Works",
+      "quantity": 13,
+      "unit": "m\u00b3",
+      "value": 698.85
+    },
+    "JAE-2024-PO-5191-item-2": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 14,
+      "unit": "m\u00b3",
+      "value": 1276.79
+    },
+    "NSC1-2023-PO-1972": {
+      "type": "PurchaseOrder",
+      "date": "2024-06-22",
+      "total_value": 6107.97
+    },
+    "NSC1-2023-PO-1972-item-1": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 8,
+      "unit": "m\u00b2",
+      "value": 204.61
+    },
+    "NSC1-2023-PO-1972-item-2": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 8,
+      "unit": "m",
+      "value": 158.42
+    },
+    "NSC1-2023-PO-1972-item-3": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 9,
+      "unit": "m\u00b3",
+      "value": 355.97
+    },
+    "RML3-2022-PO-9565": {
+      "type": "PurchaseOrder",
+      "date": "2024-12-22",
+      "total_value": 23398.88
+    },
+    "RML3-2022-PO-9565-item-1": {
+      "type": "Item",
+      "name": "Excavation Works",
+      "quantity": 19,
+      "unit": "m\u00b3",
+      "value": 771.92
+    },
+    "RML3-2022-PO-9565-item-2": {
+      "type": "Item",
+      "name": "Electrical Cables",
+      "quantity": 16,
+      "unit": "m",
+      "value": 88.75
+    },
+    "RML3-2022-PO-9565-item-3": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 10,
+      "unit": "m\u00b3",
+      "value": 482.99
+    },
+    "RML3-2022-PO-9565-item-4": {
+      "type": "Item",
+      "name": "Waterproofing Membrane",
+      "quantity": 10,
+      "unit": "m\u00b2",
+      "value": 248.25
+    },
+    "RML3-2022-PO-6375": {
+      "type": "PurchaseOrder",
+      "date": "2025-04-21",
+      "total_value": 202213.32
+    },
+    "RML3-2022-PO-6375-item-1": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 12,
+      "unit": "ton",
+      "value": 4434.28
+    },
+    "RML3-2022-PO-6375-item-2": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 14,
+      "unit": "m\u00b3",
+      "value": 423.66
+    },
+    "RML3-2022-PO-6375-item-3": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 11,
+      "unit": "ton",
+      "value": 6010.25
+    },
+    "RML3-2022-PO-6375-item-4": {
+      "type": "Item",
+      "name": "HVAC Equipment",
+      "quantity": 4,
+      "unit": "unit",
+      "value": 11424.51
+    },
+    "RML3-2022-PO-6375-item-5": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 13,
+      "unit": "set",
+      "value": 2404.61
+    },
+    "JAE-2024-PO-8617": {
+      "type": "PurchaseOrder",
+      "date": "2025-02-28",
+      "total_value": 86798.2
+    },
+    "JAE-2024-PO-8617-item-1": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 10,
+      "unit": "ton",
+      "value": 2833.86
+    },
+    "JAE-2024-PO-8617-item-2": {
+      "type": "Item",
+      "name": "Structural Steel Sections",
+      "quantity": 1,
+      "unit": "ton",
+      "value": 5325.83
+    },
+    "JAE-2024-PO-8617-item-3": {
+      "type": "Item",
+      "name": "Excavation Works",
+      "quantity": 18,
+      "unit": "m\u00b3",
+      "value": 785.13
+    },
+    "JAE-2024-PO-8617-item-4": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 19,
+      "unit": "m\u00b3",
+      "value": 522.41
+    },
+    "JAE-2024-PO-8617-item-5": {
+      "type": "Item",
+      "name": "Concrete (Grade 40)",
+      "quantity": 4,
+      "unit": "m\u00b3",
+      "value": 1405.53
+    },
+    "JAE-2024-PO-8617-item-6": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 12,
+      "unit": "set",
+      "value": 1954.46
+    },
+    "Al-ASEMA Bridge": {
+      "type": "Project",
+      "code": "ASB-2023"
+    },
+    "ASB-2023-PO-3469": {
+      "type": "PurchaseOrder",
+      "date": "2024-12-23",
+      "total_value": 81218.07
+    },
+    "ASB-2023-PO-3469-item-1": {
+      "type": "Item",
+      "name": "Plumbing Fixtures",
+      "quantity": 17,
+      "unit": "set",
+      "value": 2006.09
+    },
+    "ASB-2023-PO-3469-item-2": {
+      "type": "Item",
+      "name": "Backfilling Works",
+      "quantity": 2,
+      "unit": "m\u00b3",
+      "value": 578.96
+    },
+    "ASB-2023-PO-3469-item-3": {
+      "type": "Item",
+      "name": "Formwork",
+      "quantity": 6,
+      "unit": "m\u00b2",
+      "value": 388.06
+    },
+    "ASB-2023-PO-3469-item-4": {
+      "type": "Item",
+      "name": "Steel Reinforcement Bars",
+      "quantity": 13,
+      "unit": "ton",
+      "value": 3356.02
+    }
+  },
+  "edges": {
+    "Riyadh Metro Line 3": {
+      "RML3-2022-PO-1592": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-9225": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-5151": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-5532": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-5750": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-9565": {
+        "type": "HAS_PO"
+      },
+      "RML3-2022-PO-6375": {
+        "type": "HAS_PO"
+      }
+    },
+    "Saudi Steel Industries": {
+      "RML3-2022-PO-1592": {
+        "type": "ISSUED_PO"
+      },
+      "RSD-2022-PO-1740": {
+        "type": "ISSUED_PO"
+      },
+      "JAE-2024-PO-8293": {
+        "type": "ISSUED_PO"
+      },
+      "RSD-2022-PO-1918": {
+        "type": "ISSUED_PO"
+      }
+    },
+    "RML3-2022-PO-1592": {
+      "RML3-2022-PO-1592-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-1592-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-1592-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-1592-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-1592-item-5": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-1592-item-6": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "Red Sea Development": {
+      "RSD-2022-PO-9389": {
+        "type": "HAS_PO"
+      },
+      "RSD-2022-PO-1740": {
+        "type": "HAS_PO"
+      },
+      "RSD-2022-PO-9582": {
+        "type": "HAS_PO"
+      },
+      "RSD-2022-PO-1918": {
+        "type": "HAS_PO"
+      }
+    },
+    "Rowad Technical Services": {
+      "RSD-2022-PO-9389": {
+        "type": "ISSUED_PO"
+      },
+      "RML3-2022-PO-9225": {
+        "type": "ISSUED_PO"
+      },
+      "RSD-2022-PO-9582": {
+        "type": "ISSUED_PO"
+      },
+      "NSC1-2023-PO-1972": {
+        "type": "ISSUED_PO"
+      },
+      "RML3-2022-PO-6375": {
+        "type": "ISSUED_PO"
+      },
+      "JAE-2024-PO-8617": {
+        "type": "ISSUED_PO"
+      }
+    },
+    "RSD-2022-PO-9389": {
+      "RSD-2022-PO-9389-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-9389-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-9389-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-9389-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-9389-item-5": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RML3-2022-PO-9225": {
+      "RML3-2022-PO-9225-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9225-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9225-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9225-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9225-item-5": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9225-item-6": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "NEOM Smart City Phase 1": {
+      "NSC1-2023-PO-6788": {
+        "type": "HAS_PO"
+      },
+      "NSC1-2023-PO-9555": {
+        "type": "HAS_PO"
+      },
+      "NSC1-2023-PO-1972": {
+        "type": "HAS_PO"
+      }
+    },
+    "Al-Faisal Trading Co.": {
+      "NSC1-2023-PO-6788": {
+        "type": "ISSUED_PO"
+      },
+      "JAE-2024-PO-5191": {
+        "type": "ISSUED_PO"
+      }
+    },
+    "NSC1-2023-PO-6788": {
+      "NSC1-2023-PO-6788-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-6788-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-6788-item-3": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RSD-2022-PO-1740": {
+      "RSD-2022-PO-1740-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-1740-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-1740-item-3": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "Modern Engineering": {
+      "RML3-2022-PO-5151": {
+        "type": "ISSUED_PO"
+      },
+      "RML3-2022-PO-5532": {
+        "type": "ISSUED_PO"
+      },
+      "JAE-2024-PO-3763": {
+        "type": "ISSUED_PO"
+      },
+      "ASB-2023-PO-3469": {
+        "type": "ISSUED_PO"
+      }
+    },
+    "RML3-2022-PO-5151": {
+      "RML3-2022-PO-5151-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5151-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5151-item-3": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RML3-2022-PO-5532": {
+      "RML3-2022-PO-5532-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5532-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5532-item-3": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RSD-2022-PO-9582": {
+      "RSD-2022-PO-9582-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-9582-item-2": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "Jeddah Airport Expansion": {
+      "JAE-2024-PO-8293": {
+        "type": "HAS_PO"
+      },
+      "JAE-2024-PO-2722": {
+        "type": "HAS_PO"
+      },
+      "JAE-2024-PO-3763": {
+        "type": "HAS_PO"
+      },
+      "JAE-2024-PO-5191": {
+        "type": "HAS_PO"
+      },
+      "JAE-2024-PO-8617": {
+        "type": "HAS_PO"
+      }
+    },
+    "JAE-2024-PO-8293": {
+      "JAE-2024-PO-8293-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8293-item-2": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RSD-2022-PO-1918": {
+      "RSD-2022-PO-1918-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RSD-2022-PO-1918-item-2": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "Global Concrete Solutions": {
+      "JAE-2024-PO-2722": {
+        "type": "ISSUED_PO"
+      },
+      "NSC1-2023-PO-9555": {
+        "type": "ISSUED_PO"
+      },
+      "RML3-2022-PO-5750": {
+        "type": "ISSUED_PO"
+      },
+      "RML3-2022-PO-9565": {
+        "type": "ISSUED_PO"
+      }
+    },
+    "JAE-2024-PO-2722": {
+      "JAE-2024-PO-2722-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-2722-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-2722-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-2722-item-4": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "JAE-2024-PO-3763": {
+      "JAE-2024-PO-3763-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-3763-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-3763-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-3763-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-3763-item-5": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "NSC1-2023-PO-9555": {
+      "NSC1-2023-PO-9555-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-9555-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-9555-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-9555-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-9555-item-5": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-9555-item-6": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RML3-2022-PO-5750": {
+      "RML3-2022-PO-5750-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5750-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5750-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5750-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5750-item-5": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-5750-item-6": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "JAE-2024-PO-5191": {
+      "JAE-2024-PO-5191-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-5191-item-2": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "NSC1-2023-PO-1972": {
+      "NSC1-2023-PO-1972-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-1972-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "NSC1-2023-PO-1972-item-3": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RML3-2022-PO-9565": {
+      "RML3-2022-PO-9565-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9565-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9565-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-9565-item-4": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "RML3-2022-PO-6375": {
+      "RML3-2022-PO-6375-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-6375-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-6375-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-6375-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "RML3-2022-PO-6375-item-5": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "JAE-2024-PO-8617": {
+      "JAE-2024-PO-8617-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8617-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8617-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8617-item-4": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8617-item-5": {
+        "type": "HAS_ITEM"
+      },
+      "JAE-2024-PO-8617-item-6": {
+        "type": "HAS_ITEM"
+      }
+    },
+    "Al-ASEMA Bridge": {
+      "ASB-2023-PO-3469": {
+        "type": "HAS_PO"
+      }
+    },
+    "ASB-2023-PO-3469": {
+      "ASB-2023-PO-3469-item-1": {
+        "type": "HAS_ITEM"
+      },
+      "ASB-2023-PO-3469-item-2": {
+        "type": "HAS_ITEM"
+      },
+      "ASB-2023-PO-3469-item-3": {
+        "type": "HAS_ITEM"
+      },
+      "ASB-2023-PO-3469-item-4": {
+        "type": "HAS_ITEM"
+      }
+    }
+  }
+}

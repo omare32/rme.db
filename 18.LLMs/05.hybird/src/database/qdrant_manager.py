@@ -3,6 +3,8 @@ Qdrant Database Manager for GraphRAG Hybrid System
 """
 import sys
 import os
+import uuid
+import hashlib
 from loguru import logger
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
@@ -67,6 +69,20 @@ class QdrantManager:
         """Check if connected to Qdrant"""
         return self.connected
     
+    def string_to_uuid(self, string_id):
+        """
+        Convert a string ID to a UUID using a hash function
+        
+        Args:
+            string_id (str): String ID
+            
+        Returns:
+            str: UUID string
+        """
+        # Create a deterministic UUID from the string ID
+        hash_object = hashlib.md5(string_id.encode())
+        return str(uuid.UUID(hash_object.hexdigest()))
+    
     def add_document(self, doc_id, embedding, metadata):
         """
         Add a document to Qdrant
@@ -84,17 +100,25 @@ class QdrantManager:
             return False
         
         try:
+            # Convert string ID to UUID
+            if isinstance(doc_id, str) and not doc_id.isdigit():
+                uuid_id = self.string_to_uuid(doc_id)
+                # Store the original ID in metadata for reference
+                metadata["original_id"] = doc_id
+            else:
+                uuid_id = doc_id
+                
             self.client.upsert(
                 collection_name=self.collection_name,
                 points=[
                     models.PointStruct(
-                        id=doc_id,
+                        id=uuid_id,
                         vector=embedding,
                         payload=metadata
                     )
                 ]
             )
-            logger.info(f"Added document {doc_id} to Qdrant")
+            logger.info(f"Added document {doc_id} to Qdrant with ID {uuid_id}")
             return True
         except Exception as e:
             logger.error(f"Error adding document to Qdrant: {str(e)}")
@@ -168,7 +192,7 @@ class QdrantManager:
             
             return [
                 {
-                    "id": result.id,
+                    "id": result.payload.get("original_id", result.id),
                     "score": result.score,
                     "payload": result.payload
                 }
