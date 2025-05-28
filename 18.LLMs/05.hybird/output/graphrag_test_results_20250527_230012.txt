@@ -315,3 +315,173 @@ Found 5 purchase orders:
    Date: 2024-09-13
    Total Value: 107673.04
    Similarity Score: 0.3282
+
+
+=== Semantic Search: 'payment upon completion terms' ===
+Found 5 purchase orders:
+1. PO: NSC1-2023-PO-7635
+   Project: NEOM Smart City Phase 1
+   Supplier: Global Concrete Solutions
+   Date: 2024-07-19
+   Total Value: 29153.85
+   Similarity Score: 0.2975
+2. PO: RML3-2022-PO-6693
+   Project: Riyadh Metro Line 3
+   Supplier: Global Concrete Solutions
+   Date: 2024-11-16
+   Total Value: 10198.03
+   Similarity Score: 0.2923
+3. PO: RML3-2022-PO-7213
+   Project: Riyadh Metro Line 3
+   Supplier: Global Concrete Solutions
+   Date: 2024-09-18
+   Total Value: 4674.13
+   Similarity Score: 0.2884
+4. PO: NSC1-2023-PO-5661
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-07-11
+   Total Value: 40555.99
+   Similarity Score: 0.2861
+5. PO: NSC1-2023-PO-9234
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2025-01-26
+   Total Value: 6239.43
+   Similarity Score: 0.2835
+
+
+=== Semantic Search: 'orders from Saudi Steel Industries' ===
+Found 5 purchase orders:
+1. PO: RML3-2022-PO-5656
+   Project: Riyadh Metro Line 3
+   Supplier: Saudi Steel Industries
+   Date: 2025-05-02
+   Total Value: 118253.32
+   Similarity Score: 0.6485
+2. PO: RML3-2022-PO-6621
+   Project: Riyadh Metro Line 3
+   Supplier: Saudi Steel Industries
+   Date: 2025-01-29
+   Total Value: 57906.24
+   Similarity Score: 0.6463
+3. PO: RML3-2022-PO-7860
+   Project: Riyadh Metro Line 3
+   Supplier: Saudi Steel Industries
+   Date: 2025-01-28
+   Total Value: 46088.32
+   Similarity Score: 0.6383
+4. PO: RML3-2022-PO-5596
+   Project: Riyadh Metro Line 3
+   Supplier: Saudi Steel Industries
+   Date: 2024-10-01
+   Total Value: 27488.79
+   Similarity Score: 0.6221
+5. PO: RML3-2022-PO-1153
+   Project: Riyadh Metro Line 3
+   Supplier: Saudi Steel Industries
+   Date: 2024-08-11
+   Total Value: 15898.14
+   Similarity Score: 0.6145
+
+
+=== Semantic Search: 'high value orders from technical services suppliers' ===
+Found 5 purchase orders:
+1. PO: RSD-2022-PO-9582
+   Project: Red Sea Development
+   Supplier: Rowad Technical Services
+   Date: 2024-06-10
+   Total Value: 90621.9
+   Similarity Score: 0.4024
+2. PO: RML3-2022-PO-9156
+   Project: Riyadh Metro Line 3
+   Supplier: Rowad Technical Services
+   Date: 2024-09-04
+   Total Value: 21344.83
+   Similarity Score: 0.3926
+3. PO: RML3-2022-PO-4265
+   Project: Riyadh Metro Line 3
+   Supplier: Rowad Technical Services
+   Date: 2024-06-25
+   Total Value: 59984.52
+   Similarity Score: 0.3895
+4. PO: RSD-2022-PO-1740
+   Project: Red Sea Development
+   Supplier: Saudi Steel Industries
+   Date: 2024-12-03
+   Total Value: 97646.96
+   Similarity Score: 0.3887
+5. PO: RML3-2022-PO-4562
+   Project: Riyadh Metro Line 3
+   Supplier: Modern Engineering
+   Date: 2024-08-15
+   Total Value: 78834.35
+   Similarity Score: 0.3849
+
+
+=== Semantic Search: 'purchase orders with value over 100000' ===
+Found 5 purchase orders:
+1. PO: NSC1-2023-PO-3154
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-09-11
+   Total Value: 2806.0
+   Similarity Score: 0.3784
+2. PO: NSC1-2023-PO-6788
+   Project: NEOM Smart City Phase 1
+   Supplier: Al-Faisal Trading Co.
+   Date: 2024-08-10
+   Total Value: 12617.98
+   Similarity Score: 0.3595
+3. PO: RSD-2022-PO-9582
+   Project: Red Sea Development
+   Supplier: Rowad Technical Services
+   Date: 2024-06-10
+   Total Value: 90621.9
+   Similarity Score: 0.3577
+4. PO: NSC1-2023-PO-9234
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2025-01-26
+   Total Value: 6239.43
+   Similarity Score: 0.3493
+5. PO: NSC1-2023-PO-5661
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-07-11
+   Total Value: 40555.99
+   Similarity Score: 0.3472
+
+
+=== Semantic Search: 'low cost material orders under 20000' ===
+Found 5 purchase orders:
+1. PO: NSC1-2023-PO-5661
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-07-11
+   Total Value: 40555.99
+   Similarity Score: 0.4663
+2. PO: NSC1-2023-PO-9666
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-06-17
+   Total Value: 115303.37
+   Similarity Score: 0.4662
+3. PO: NSC1-2023-PO-6788
+   Project: NEOM Smart City Phase 1
+   Supplier: Al-Faisal Trading Co.
+   Date: 2024-08-10
+   Total Value: 12617.98
+   Similarity Score: 0.4625
+4. PO: NSC1-2023-PO-7051
+   Project: NEOM Smart City Phase 1
+   Supplier: Modern Engineering
+   Date: 2024-12-02
+   Total Value: 20179.44
+   Similarity Score: 0.4510
+5. PO: NSC1-2023-PO-2747
+   Project: NEOM Smart City Phase 1
+   Supplier: Rowad Technical Services
+   Date: 2025-02-19
+   Total Value: 11375.54
+   Similarity Score: 0.4484
