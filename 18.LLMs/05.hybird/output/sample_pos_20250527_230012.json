@@ -1,0 +1,1748 @@
+[
+  {
+    "po_number": "RSD-2022-PO-6624",
+    "project": {
+      "name": "Red Sea Development",
+      "code": "RSD-2022"
+    },
+    "date": "2025-05-14",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 13,
+        "unit": "m\u00b3",
+        "value": 788.0
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 20,
+        "unit": "unit",
+        "value": 6923.67
+      }
+    ],
+    "total_value": 148717.4,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "FOB Origin"
+  },
+  {
+    "po_number": "RSD-2022-PO-1397",
+    "project": {
+      "name": "Red Sea Development",
+      "code": "RSD-2022"
+    },
+    "date": "2025-04-09",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 16,
+        "unit": "m\u00b3",
+        "value": 567.91
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 5,
+        "unit": "m\u00b2",
+        "value": 106.34
+      }
+    ],
+    "total_value": 9618.26,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "JAE-2024-PO-2322",
+    "project": {
+      "name": "Jeddah Airport Expansion",
+      "code": "JAE-2024"
+    },
+    "date": "2024-09-25",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 3,
+        "unit": "ton",
+        "value": 4688.72
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 2,
+        "unit": "m",
+        "value": 102.14
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 9,
+        "unit": "ton",
+        "value": 3362.78
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 5,
+        "unit": "unit",
+        "value": 9927.74
+      }
+    ],
+    "total_value": 94174.16,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "RML3-2022-PO-4450",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-08-31",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 9,
+        "unit": "ton",
+        "value": 3587.06
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 3,
+        "unit": "m\u00b2",
+        "value": 229.8
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 2,
+        "unit": "unit",
+        "value": 12458.17
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 11,
+        "unit": "m\u00b3",
+        "value": 386.9
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 20,
+        "unit": "m\u00b3",
+        "value": 635.82
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 12,
+        "unit": "m",
+        "value": 59.59
+      }
+    ],
+    "total_value": 75576.66,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "NSC1-2023-PO-8665",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2024-10-19",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 4,
+        "unit": "ton",
+        "value": 3604.53
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 8,
+        "unit": "m\u00b3",
+        "value": 594.86
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 15,
+        "unit": "ton",
+        "value": 5887.83
+      },
+      {
+        "name": "Formwork",
+        "quantity": 13,
+        "unit": "m\u00b2",
+        "value": 161.1
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 15,
+        "unit": "m\u00b3",
+        "value": 578.94
+      }
+    ],
+    "total_value": 118272.85,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "RML3-2022-PO-6693",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-11-16",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 19,
+        "unit": "m\u00b3",
+        "value": 310.93
+      },
+      {
+        "name": "Formwork",
+        "quantity": 12,
+        "unit": "m\u00b2",
+        "value": 357.53
+      }
+    ],
+    "total_value": 10198.03,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "NSC1-2023-PO-2710",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2024-08-22",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 18,
+        "unit": "m\u00b3",
+        "value": 768.89
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 19,
+        "unit": "ton",
+        "value": 4925.13
+      }
+    ],
+    "total_value": 107417.49,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "FOB Origin"
+  },
+  {
+    "po_number": "RML3-2022-PO-7505",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-07-18",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Electrical Cables",
+        "quantity": 14,
+        "unit": "m",
+        "value": 195.46
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 9,
+        "unit": "ton",
+        "value": 4731.87
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 13,
+        "unit": "m\u00b3",
+        "value": 1150.08
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 19,
+        "unit": "m\u00b3",
+        "value": 718.01
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 16,
+        "unit": "m\u00b3",
+        "value": 488.41
+      }
+    ],
+    "total_value": 81731.06,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "FOB Origin"
+  },
+  {
+    "po_number": "RML3-2022-PO-6343",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-10-31",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Electrical Cables",
+        "quantity": 9,
+        "unit": "m",
+        "value": 181.09
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 2,
+        "unit": "m\u00b3",
+        "value": 1350.09
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 15,
+        "unit": "m\u00b2",
+        "value": 166.77
+      }
+    ],
+    "total_value": 6831.54,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "NSC1-2023-PO-8466",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2024-06-10",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 12,
+        "unit": "set",
+        "value": 1808.66
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 20,
+        "unit": "m\u00b3",
+        "value": 203.08
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 12,
+        "unit": "ton",
+        "value": 4243.62
+      },
+      {
+        "name": "Formwork",
+        "quantity": 4,
+        "unit": "m\u00b2",
+        "value": 100.36
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 13,
+        "unit": "m\u00b2",
+        "value": 126.58
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 9,
+        "unit": "unit",
+        "value": 7282.65
+      }
+    ],
+    "total_value": 144279.79,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "RML3-2022-PO-9395",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-05-30",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 8,
+        "unit": "ton",
+        "value": 6365.76
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 9,
+        "unit": "m\u00b3",
+        "value": 346.34
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 20,
+        "unit": "m\u00b2",
+        "value": 258.42
+      },
+      {
+        "name": "Formwork",
+        "quantity": 13,
+        "unit": "m\u00b2",
+        "value": 217.08
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 4,
+        "unit": "m",
+        "value": 86.78
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 8,
+        "unit": "m\u00b3",
+        "value": 1465.07
+      }
+    ],
+    "total_value": 74101.26,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "ASB-2023-PO-4310",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2024-07-29",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 13,
+        "unit": "ton",
+        "value": 4565.82
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 8,
+        "unit": "m\u00b3",
+        "value": 760.96
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 8,
+        "unit": "unit",
+        "value": 17478.39
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 20,
+        "unit": "ton",
+        "value": 5606.97
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 12,
+        "unit": "m\u00b3",
+        "value": 376.6
+      }
+    ],
+    "total_value": 321929.06,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "NSC1-2023-PO-3027",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2025-05-20",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Formwork",
+        "quantity": 18,
+        "unit": "m\u00b2",
+        "value": 288.07
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 18,
+        "unit": "ton",
+        "value": 3509.86
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 10,
+        "unit": "unit",
+        "value": 8883.96
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 14,
+        "unit": "m\u00b3",
+        "value": 517.65
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 3,
+        "unit": "m\u00b2",
+        "value": 170.45
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 2,
+        "unit": "set",
+        "value": 1654.92
+      }
+    ],
+    "total_value": 168270.63,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "NSC1-2023-PO-8554",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2024-08-02",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Backfilling Works",
+        "quantity": 11,
+        "unit": "m\u00b3",
+        "value": 270.19
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 17,
+        "unit": "ton",
+        "value": 3188.46
+      }
+    ],
+    "total_value": 57175.91,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "ASB-2023-PO-1692",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2024-06-06",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "Electrical Cables",
+        "quantity": 4,
+        "unit": "m",
+        "value": 181.27
+      },
+      {
+        "name": "Formwork",
+        "quantity": 2,
+        "unit": "m\u00b2",
+        "value": 339.18
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 2,
+        "unit": "ton",
+        "value": 2756.01
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 16,
+        "unit": "m\u00b3",
+        "value": 298.28
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 8,
+        "unit": "m\u00b2",
+        "value": 140.33
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 10,
+        "unit": "set",
+        "value": 1278.6
+      }
+    ],
+    "total_value": 25596.58,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "ASB-2023-PO-4595",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-01-11",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "Electrical Cables",
+        "quantity": 13,
+        "unit": "m",
+        "value": 175.13
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 13,
+        "unit": "unit",
+        "value": 10446.2
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 20,
+        "unit": "m\u00b3",
+        "value": 404.8
+      }
+    ],
+    "total_value": 146173.29,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "ASB-2023-PO-7795",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-04-01",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 2,
+        "unit": "ton",
+        "value": 3157.59
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 7,
+        "unit": "m\u00b2",
+        "value": 258.63
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 3,
+        "unit": "m\u00b3",
+        "value": 293.09
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 6,
+        "unit": "ton",
+        "value": 4065.22
+      }
+    ],
+    "total_value": 33396.18,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "NSC1-2023-PO-3191",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2025-02-02",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 15,
+        "unit": "m\u00b3",
+        "value": 701.87
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 5,
+        "unit": "m\u00b2",
+        "value": 247.35
+      },
+      {
+        "name": "Formwork",
+        "quantity": 20,
+        "unit": "m\u00b2",
+        "value": 274.33
+      }
+    ],
+    "total_value": 17251.4,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "ASB-2023-PO-7087",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2024-06-01",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "HVAC Equipment",
+        "quantity": 3,
+        "unit": "unit",
+        "value": 16364.5
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 13,
+        "unit": "ton",
+        "value": 5791.91
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 20,
+        "unit": "set",
+        "value": 1779.21
+      }
+    ],
+    "total_value": 159972.53,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "RML3-2022-PO-1491",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2025-02-04",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Formwork",
+        "quantity": 4,
+        "unit": "m\u00b2",
+        "value": 180.8
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 13,
+        "unit": "ton",
+        "value": 5896.84
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 6,
+        "unit": "m",
+        "value": 139.74
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 2,
+        "unit": "m\u00b2",
+        "value": 134.94
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 2,
+        "unit": "m\u00b3",
+        "value": 435.32
+      }
+    ],
+    "total_value": 79361.08,
+    "payment_terms": "Net 60 days",
+    "delivery_terms": "FOB Origin"
+  },
+  {
+    "po_number": "ASB-2023-PO-7245",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-03-16",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "HVAC Equipment",
+        "quantity": 16,
+        "unit": "unit",
+        "value": 13551.19
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 18,
+        "unit": "m\u00b3",
+        "value": 185.78
+      }
+    ],
+    "total_value": 220163.08,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "NSC1-2023-PO-1382",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2024-09-24",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 11,
+        "unit": "ton",
+        "value": 3219.48
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 5,
+        "unit": "m\u00b3",
+        "value": 779.99
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 6,
+        "unit": "set",
+        "value": 2232.11
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 1,
+        "unit": "unit",
+        "value": 12357.37
+      }
+    ],
+    "total_value": 65064.26,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "RML3-2022-PO-6645",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-10-23",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 14,
+        "unit": "m\u00b3",
+        "value": 846.5
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 6,
+        "unit": "m",
+        "value": 77.4
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 4,
+        "unit": "m\u00b3",
+        "value": 505.47
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 9,
+        "unit": "m\u00b2",
+        "value": 84.37
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 13,
+        "unit": "m\u00b3",
+        "value": 589.43
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 8,
+        "unit": "unit",
+        "value": 10779.93
+      }
+    ],
+    "total_value": 108998.64,
+    "payment_terms": "Net 30 days",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "ASB-2023-PO-1330",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2024-07-29",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 6,
+        "unit": "m\u00b3",
+        "value": 1037.73
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 19,
+        "unit": "m",
+        "value": 149.9
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 19,
+        "unit": "ton",
+        "value": 4660.44
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 16,
+        "unit": "set",
+        "value": 1051.5
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 6,
+        "unit": "m\u00b3",
+        "value": 328.24
+      }
+    ],
+    "total_value": 116416.28,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "RML3-2022-PO-1940",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2025-02-01",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 17,
+        "unit": "ton",
+        "value": 6991.42
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 12,
+        "unit": "m\u00b3",
+        "value": 475.43
+      }
+    ],
+    "total_value": 124559.3,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "RSD-2022-PO-6141",
+    "project": {
+      "name": "Red Sea Development",
+      "code": "RSD-2022"
+    },
+    "date": "2024-09-11",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 8,
+        "unit": "m\u00b3",
+        "value": 760.34
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 13,
+        "unit": "m\u00b2",
+        "value": 290.6
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 18,
+        "unit": "m\u00b3",
+        "value": 579.23
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 14,
+        "unit": "set",
+        "value": 1526.69
+      }
+    ],
+    "total_value": 41660.32,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "FOB Origin"
+  },
+  {
+    "po_number": "NSC1-2023-PO-5110",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2025-02-08",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 9,
+        "unit": "ton",
+        "value": 4600.13
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 12,
+        "unit": "set",
+        "value": 1369.71
+      },
+      {
+        "name": "Formwork",
+        "quantity": 20,
+        "unit": "m\u00b2",
+        "value": 305.87
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 13,
+        "unit": "unit",
+        "value": 16640.44
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 9,
+        "unit": "m\u00b3",
+        "value": 204.46
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 9,
+        "unit": "m\u00b2",
+        "value": 277.21
+      }
+    ],
+    "total_value": 284615.84,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "NSC1-2023-PO-9571",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2025-03-31",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 4,
+        "unit": "m\u00b3",
+        "value": 602.81
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 1,
+        "unit": "ton",
+        "value": 5740.41
+      },
+      {
+        "name": "Formwork",
+        "quantity": 1,
+        "unit": "m\u00b2",
+        "value": 368.45
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 12,
+        "unit": "m",
+        "value": 184.52
+      }
+    ],
+    "total_value": 10734.34,
+    "payment_terms": "Net 30 days",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "ASB-2023-PO-6578",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-04-21",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 3,
+        "unit": "set",
+        "value": 1808.46
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 8,
+        "unit": "m\u00b2",
+        "value": 173.48
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 12,
+        "unit": "ton",
+        "value": 3859.48
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 12,
+        "unit": "ton",
+        "value": 3485.71
+      }
+    ],
+    "total_value": 94955.5,
+    "payment_terms": "Net 30 days",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "NSC1-2023-PO-2747",
+    "project": {
+      "name": "NEOM Smart City Phase 1",
+      "code": "NSC1-2023"
+    },
+    "date": "2025-02-19",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Backfilling Works",
+        "quantity": 11,
+        "unit": "m\u00b3",
+        "value": 316.89
+      },
+      {
+        "name": "Formwork",
+        "quantity": 15,
+        "unit": "m\u00b2",
+        "value": 208.0
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 1,
+        "unit": "ton",
+        "value": 4769.75
+      }
+    ],
+    "total_value": 11375.54,
+    "payment_terms": "Net 30 days",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "JAE-2024-PO-6359",
+    "project": {
+      "name": "Jeddah Airport Expansion",
+      "code": "JAE-2024"
+    },
+    "date": "2025-03-11",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Formwork",
+        "quantity": 2,
+        "unit": "m\u00b2",
+        "value": 236.78
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 3,
+        "unit": "ton",
+        "value": 3576.86
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 2,
+        "unit": "m\u00b3",
+        "value": 524.7
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 1,
+        "unit": "set",
+        "value": 1553.86
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 11,
+        "unit": "unit",
+        "value": 15455.25
+      }
+    ],
+    "total_value": 183815.15,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "RML3-2022-PO-9738",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2024-11-29",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 6,
+        "unit": "m\u00b3",
+        "value": 1160.36
+      },
+      {
+        "name": "Formwork",
+        "quantity": 14,
+        "unit": "m\u00b2",
+        "value": 367.15
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 12,
+        "unit": "m\u00b3",
+        "value": 227.42
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 15,
+        "unit": "ton",
+        "value": 6695.25
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 14,
+        "unit": "set",
+        "value": 1434.59
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 16,
+        "unit": "unit",
+        "value": 18666.59
+      }
+    ],
+    "total_value": 434009.75,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "ASB-2023-PO-7578",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-05-09",
+    "supplier": {
+      "name": "Modern Engineering",
+      "id": "SUP-001",
+      "category": "Construction"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 17,
+        "unit": "m\u00b3",
+        "value": 421.26
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 13,
+        "unit": "ton",
+        "value": 3272.07
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 5,
+        "unit": "set",
+        "value": 2117.4
+      },
+      {
+        "name": "Formwork",
+        "quantity": 3,
+        "unit": "m\u00b2",
+        "value": 102.2
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 5,
+        "unit": "unit",
+        "value": 11073.88
+      }
+    ],
+    "total_value": 115961.33,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "ASB-2023-PO-4089",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-04-19",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 19,
+        "unit": "m\u00b3",
+        "value": 531.7
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 5,
+        "unit": "ton",
+        "value": 5852.27
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 15,
+        "unit": "set",
+        "value": 2657.26
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 3,
+        "unit": "m",
+        "value": 73.29
+      }
+    ],
+    "total_value": 79442.42,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "Delivered at Site"
+  },
+  {
+    "po_number": "JAE-2024-PO-6890",
+    "project": {
+      "name": "Jeddah Airport Expansion",
+      "code": "JAE-2024"
+    },
+    "date": "2025-02-21",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 10,
+        "unit": "ton",
+        "value": 4153.15
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 11,
+        "unit": "m",
+        "value": 127.46
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 3,
+        "unit": "ton",
+        "value": 3615.19
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 15,
+        "unit": "set",
+        "value": 2169.75
+      },
+      {
+        "name": "HVAC Equipment",
+        "quantity": 8,
+        "unit": "unit",
+        "value": 19220.17
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 15,
+        "unit": "m\u00b3",
+        "value": 449.92
+      }
+    ],
+    "total_value": 246835.54,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "JAE-2024-PO-1606",
+    "project": {
+      "name": "Jeddah Airport Expansion",
+      "code": "JAE-2024"
+    },
+    "date": "2024-06-22",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Excavation Works",
+        "quantity": 9,
+        "unit": "m\u00b3",
+        "value": 710.87
+      },
+      {
+        "name": "Formwork",
+        "quantity": 11,
+        "unit": "m\u00b2",
+        "value": 226.39
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 13,
+        "unit": "ton",
+        "value": 3483.21
+      },
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 7,
+        "unit": "set",
+        "value": 2306.11
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 16,
+        "unit": "m\u00b3",
+        "value": 170.96
+      }
+    ],
+    "total_value": 73047.98,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "Ex Works"
+  },
+  {
+    "po_number": "ASB-2023-PO-8334",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2024-07-01",
+    "supplier": {
+      "name": "Global Concrete Solutions",
+      "id": "SUP-005",
+      "category": "Materials"
+    },
+    "items": [
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 8,
+        "unit": "set",
+        "value": 1881.05
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 10,
+        "unit": "ton",
+        "value": 3492.31
+      },
+      {
+        "name": "Formwork",
+        "quantity": 19,
+        "unit": "m\u00b2",
+        "value": 198.39
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 9,
+        "unit": "m\u00b3",
+        "value": 643.51
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 4,
+        "unit": "m\u00b3",
+        "value": 1055.74
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 9,
+        "unit": "m\u00b2",
+        "value": 93.69
+      }
+    ],
+    "total_value": 64598.67,
+    "payment_terms": "As per contract terms",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "RML3-2022-PO-5725",
+    "project": {
+      "name": "Riyadh Metro Line 3",
+      "code": "RML3-2022"
+    },
+    "date": "2025-04-18",
+    "supplier": {
+      "name": "Saudi Steel Industries",
+      "id": "SUP-004",
+      "category": "Manufacturing"
+    },
+    "items": [
+      {
+        "name": "HVAC Equipment",
+        "quantity": 5,
+        "unit": "unit",
+        "value": 8587.96
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 19,
+        "unit": "m\u00b3",
+        "value": 196.86
+      },
+      {
+        "name": "Steel Reinforcement Bars",
+        "quantity": 7,
+        "unit": "ton",
+        "value": 4353.0
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 6,
+        "unit": "m",
+        "value": 137.22
+      },
+      {
+        "name": "Formwork",
+        "quantity": 2,
+        "unit": "m\u00b2",
+        "value": 282.75
+      }
+    ],
+    "total_value": 78539.96,
+    "payment_terms": "30% advance, 70% upon completion",
+    "delivery_terms": "As per project schedule"
+  },
+  {
+    "po_number": "ASB-2023-PO-7080",
+    "project": {
+      "name": "Al-ASEMA Bridge",
+      "code": "ASB-2023"
+    },
+    "date": "2025-03-11",
+    "supplier": {
+      "name": "Al-Faisal Trading Co.",
+      "id": "SUP-003",
+      "category": "Trading"
+    },
+    "items": [
+      {
+        "name": "Plumbing Fixtures",
+        "quantity": 5,
+        "unit": "set",
+        "value": 1639.04
+      },
+      {
+        "name": "Backfilling Works",
+        "quantity": 5,
+        "unit": "m\u00b3",
+        "value": 476.86
+      },
+      {
+        "name": "Electrical Cables",
+        "quantity": 2,
+        "unit": "m",
+        "value": 134.31
+      },
+      {
+        "name": "Excavation Works",
+        "quantity": 4,
+        "unit": "m\u00b3",
+        "value": 309.96
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 20,
+        "unit": "ton",
+        "value": 6820.08
+      }
+    ],
+    "total_value": 148489.56,
+    "payment_terms": "Net 30 days",
+    "delivery_terms": "CIF Destination"
+  },
+  {
+    "po_number": "JAE-2024-PO-2824",
+    "project": {
+      "name": "Jeddah Airport Expansion",
+      "code": "JAE-2024"
+    },
+    "date": "2024-11-13",
+    "supplier": {
+      "name": "Rowad Technical Services",
+      "id": "SUP-002",
+      "category": "Technical"
+    },
+    "items": [
+      {
+        "name": "Electrical Cables",
+        "quantity": 18,
+        "unit": "m",
+        "value": 58.28
+      },
+      {
+        "name": "Concrete (Grade 40)",
+        "quantity": 7,
+        "unit": "m\u00b3",
+        "value": 1499.05
+      },
+      {
+        "name": "Structural Steel Sections",
+        "quantity": 4,
+        "unit": "ton",
+        "value": 5400.25
+      },
+      {
+        "name": "Waterproofing Membrane",
+        "quantity": 19,
+        "unit": "m\u00b2",
+        "value": 129.5
+      }
+    ],
+    "total_value": 35603.89,
+    "payment_terms": "50% advance, 50% upon delivery",
+    "delivery_terms": "CIF Destination"
+  }
+]
