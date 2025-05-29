@@ -1,20 +1,26 @@
 """
 MySQL Connection Test Script
 
-This script tests the MySQL connection using the configuration from config.py
+This script tests the MySQL connection using environment variables
 and counts the number of records in the po.pdfs table.
 """
-import sys
 import os
-
-# Add the parent directory to the path to make the config module importable
-script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, script_dir)
-
-# Import configuration
-from config import MYSQL_CONFIG
 import mysql.connector
 from mysql.connector import Error
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# MySQL Configuration
+MYSQL_CONFIG = {
+    'host': os.getenv('MYSQL_HOST', '10.10.11.242'),
+    'port': int(os.getenv('MYSQL_PORT', '3306')),
+    'user': os.getenv('MYSQL_USER', 'omar2'),
+    'password': os.getenv('MYSQL_PASSWORD', 'Omar_54321'),
+    'database': os.getenv('MYSQL_DATABASE', 'RME_TEST'),
+    'raise_on_warnings': True
+}
 
 def test_mysql_connection():
     """Test MySQL connection and count records in po.pdfs"""
@@ -28,8 +34,8 @@ def test_mysql_connection():
             # Count records in po.pdfs
             cursor.execute("SELECT COUNT(*) FROM `po.pdfs`")
             count = cursor.fetchone()[0]
-            print(f"✅ Successfully connected to MySQL database: {MYSQL_CONFIG['database']}")
-            print(f"📊 Total records in po.pdfs table: {count}")
+            print(f"[SUCCESS] Connected to MySQL database: {MYSQL_CONFIG['database']}")
+            print(f"[INFO] Total records in po.pdfs table: {count}")
             
             # Get table structure for verification
             cursor.execute("DESCRIBE `po.pdfs`")
@@ -43,19 +49,19 @@ def test_mysql_connection():
             return True
             
     except Error as e:
-        print(f"❌ Error connecting to MySQL: {e}")
+        print(f"[ERROR] Connecting to MySQL: {e}")
         return False
     
     return False
 
 if __name__ == "__main__":
-    print("🔍 Testing MySQL connection and checking po.pdfs table...")
-    print(f"🔗 Connection details: mysql://{MYSQL_CONFIG['user']}@{MYSQL_CONFIG['host']}/{MYSQL_CONFIG['database']}")
+    print("Testing MySQL connection and checking po.pdfs table...")
+    print(f"Connection details: mysql://{MYSQL_CONFIG['user']}@{MYSQL_CONFIG['host']}/{MYSQL_CONFIG['database']}")
     
     success = test_mysql_connection()
     
     if not success:
-        print("\n❌ Connection failed. Please check:")
+        print("\n[ERROR] Connection failed. Please check:")
         print("1. MySQL server is running")
         print("2. Host, username, and password are correct")
         print("3. User has proper permissions")
