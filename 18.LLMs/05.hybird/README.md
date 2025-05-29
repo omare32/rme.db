@@ -26,6 +26,26 @@ The system consists of the following components:
    - Integrates all components and provides high-level functionality
    - Supports visualization-only mode for working with existing graph data
 
+## Project Structure
+
+```
+hybird/
+├── src/                   # Production code
+│   ├── core/             # Core analysis logic
+│   ├── db_connectors/    # Database connections
+│   └── reporting/        # Report generation
+├── tests/                # Test suites
+├── scripts/              # Operational scripts
+├── configs/              # Configuration files
+├── requirements.txt      # Dependencies
+└── README.md             # This file
+```
+
+### Key Components
+- **db_connectors**: Contains MySQL, Neo4j and Qdrant connection logic
+- **reporting**: HTML report generators
+- **scripts/data_import**: Sample data importers
+
 ## Setup
 
 ### Prerequisites
@@ -105,4 +125,3 @@ The system can run in different modes:
 │   └── search_pos.py        # Search purchase orders
 └── data/                    # Data directory
     └── output/              # Output files (graphs, visualizations)
-```
