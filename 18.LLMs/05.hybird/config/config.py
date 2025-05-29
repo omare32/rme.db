@@ -7,11 +7,11 @@ It's recommended to use environment variables for sensitive information in produ
 
 # MySQL Configuration
 MYSQL_CONFIG = {
-    'host': 'localhost',
+    'host': '10.10.11.242',
     'port': 3306,
-    'user': 'your_mysql_username',
-    'password': 'your_mysql_password',
-    'database': 'your_database_name',
+    'user': 'omar2',
+    'password': 'Omar_54321',
+    'database': 'RME_TEST',
     'raise_on_warnings': True
 }
 
