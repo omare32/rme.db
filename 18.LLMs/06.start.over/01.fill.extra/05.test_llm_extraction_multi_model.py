@@ -55,6 +55,7 @@ from pytesseract import image_to_string, pytesseract
 pytesseract.tesseract_cmd = r'C:\Users\Omar Essam2\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
+import numpy as np
 
 # --- EasyOCR Extraction ---
 import easyocr
