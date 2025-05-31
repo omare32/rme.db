@@ -56,6 +56,10 @@ pytesseract.tesseract_cmd = r'C:\Users\Omar Essam2\AppData\Local\Programs\Tesser
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
+# --- EasyOCR Extraction ---
+import easyocr
+EASY_OCR_READER = easyocr.Reader(['ar', 'en'], gpu=False)
+
 def layoutlm_ocr(pdf_path):
     poppler_path = r'C:\Program Files\poppler\Library\bin'
     try:
@@ -67,6 +71,21 @@ def layoutlm_ocr(pdf_path):
     for i, img in enumerate(images):
         text = image_to_string(img, lang='ara+eng')
         all_text.append(text)
+    return '\n'.join(all_text)
+
+def easyocr_extract(pdf_path):
+    poppler_path = r'C:\Program Files\poppler\Library\bin'
+    try:
+        images = convert_from_path(pdf_path, poppler_path=poppler_path)
+    except Exception as e:
+        print(f"[ERROR] Could not convert PDF to images: {e}")
+        return ''
+    all_text = []
+    for i, img in enumerate(images):
+        # Convert PIL image to numpy array for EasyOCR
+        result = EASY_OCR_READER.readtext(np.array(img))
+        page_text = '\n'.join([x[1] for x in result])
+        all_text.append(page_text)
     return '\n'.join(all_text)
 
 def get_random_rows(conn, n=5):
@@ -178,7 +197,8 @@ def main():
         pdf_filename = row['pdf_filename']
         extraction_methods = [
             ("Original OCR", row['extracted_text']),
-            ("LayoutLM OCR", layoutlm_ocr(pdf_path) if os.path.exists(pdf_path) else "")
+            ("LayoutLM OCR", layoutlm_ocr(pdf_path) if os.path.exists(pdf_path) else ""),
+            ("EasyOCR", easyocr_extract(pdf_path) if os.path.exists(pdf_path) else "")
         ]
         cover_pdfs = []
         answers = {}
