@@ -55,7 +55,8 @@ OUTPUT_DIR = r'D:\OEssam\Test'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 pytesseract.tesseract_cmd = r'C:\Users\Omar Essam2\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
-EASY_OCR_READER = easyocr.Reader(['ar', 'en'], gpu=False)
+print("Initializing EasyOCR with GPU support...")
+EASY_OCR_READER = easyocr.Reader(['ar', 'en'], gpu=True)
 
 def preprocess_image(pil_img):
     img = np.array(pil_img)
@@ -112,21 +113,30 @@ def shape_arabic_text(text):
     except Exception:
         return text
 
+# Helper to draw Arabic or Unicode text (reshapes, applies bidi, sets font)
+def draw_unicode_text(canvas_obj, text, x, y, font=ARABIC_FONT_NAME, font_size=14):
+    try:
+        reshaped = arabic_reshaper.reshape(text)
+        bidi_text = get_display(reshaped)
+        canvas_obj.setFont(font, font_size)
+        canvas_obj.drawString(x, y, bidi_text)
+    except Exception:
+        canvas_obj.setFont(font, font_size)
+        canvas_obj.drawString(x, y, text)
+
 def create_cover_pdf(title, answer, output_path):
     c = canvas.Canvas(output_path, pagesize=A4)
     width, height = A4
-    c.setFont(ARABIC_FONT_NAME, 16)
-    shaped_title = shape_arabic_text(title)
-    c.drawString(50, height - 50, shaped_title)
-    c.setFont(ARABIC_FONT_NAME, 12)
+    # Draw the title (Unicode/Arabic safe)
+    draw_unicode_text(c, title, 50, height - 50, font=ARABIC_FONT_NAME, font_size=16)
     y = height - 90
-    wrap_width = 90
-    for line in answer.splitlines():
-        shaped_line = shape_arabic_text(line)
-        wrapped = textwrap.wrap(shaped_line, width=wrap_width)
-        for subline in wrapped:
-            c.drawString(50, y, subline)
-            y -= 20
+    # Draw each line of answer/text (Unicode/Arabic safe)
+    for line in textwrap.wrap(answer, 100):
+        draw_unicode_text(c, line, 50, y, font=ARABIC_FONT_NAME, font_size=14)
+        y -= 20
+        if y < 50:
+            c.showPage()
+            y = height - 50
             if y < 50:
                 c.showPage()
                 y = height - 50
