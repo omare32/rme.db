@@ -36,11 +36,12 @@ def get_random_pdf_paths(n=3):
     return random.sample(all_paths, min(n, len(all_paths)))
 
 # === Step 1: Convert PDF to images ===
-def pdf_to_images(pdf_path):
-    images = convert_from_path(pdf_path, dpi=300, poppler_path=POPPLER_Path)
+def pdf_to_images(pdf_path, output_dir, max_pages=3):
+    images = convert_from_path(pdf_path, dpi=300, poppler_path=POPPLER_Path, first_page=1, last_page=max_pages)
     image_paths = []
     for i, img in enumerate(images):
-        path = f"page_{i+1}.png"
+        out_name = f"{os.path.splitext(os.path.basename(pdf_path))[0]}_page{i+1}.png"
+        path = os.path.join(output_dir, out_name)
         img.save(path, "PNG")
         image_paths.append(path)
     return image_paths
@@ -105,11 +106,10 @@ def query_llama4(image_b64, raw_text):
 
 # === Main Pipeline ===
 def main():
-    # Prepare output Word document
+    output_dir = r'D:\OEssam\Test\llama4'
+    os.makedirs(output_dir, exist_ok=True)
     doc = Document()
     doc.add_heading('LLaMA4 Multimodal OCR Results', 0)
-
-    # Get 3 random PDF paths from MySQL
     pdf_paths = get_random_pdf_paths(3)
     if not pdf_paths:
         print("No PDF paths found in database!")
@@ -121,7 +121,7 @@ def main():
             print(f"[ERROR] PDF not found: {PDF_PATH}")
             doc.add_paragraph("[ERROR] PDF not found!")
             continue
-        image_files = pdf_to_images(PDF_PATH)
+        image_files = pdf_to_images(PDF_PATH, output_dir, max_pages=3)
         for idx, image_file in enumerate(image_files):
             doc.add_heading(f'Page {idx+1}', level=2)
             print(f"\n--- Processing Page {idx+1} ---")
@@ -138,9 +138,9 @@ def main():
             doc.add_paragraph('LLaMA4 Response:')
             doc.add_paragraph(response)
             doc.add_paragraph('-' * 40)
-    # Save the results docx
-    doc.save('llama4_ocr_multimodal_results.docx')
-    print("\nAll results saved to llama4_ocr_multimodal_results.docx")
+    result_docx = os.path.join(output_dir, 'llama4_ocr_multimodal_results.docx')
+    doc.save(result_docx)
+    print(f"\nAll results saved to {result_docx}")
 
 if __name__ == "__main__":
     main()
