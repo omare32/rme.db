@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 import ssl
-ssl._create_default_https_context = ssl._unverified_context
+ssl._create_default_https_context = ssl._create_unverified_context
 import tkinter as tk
 from tkinter import filedialog
 from google_auth_oauthlib.flow import InstalledAppFlow
