@@ -34,10 +34,11 @@ def get_random_pdf_paths(n=3):
         return []
     return random.sample(all_paths, min(n, len(all_paths)))
 
-def pdf_first_page(pdf_path):
+def pdf_first_page(pdf_path, output_dir):
     images = convert_from_path(pdf_path, dpi=300, poppler_path=POPPLER_Path, first_page=1, last_page=1)
     if images:
-        path = f"{os.path.splitext(os.path.basename(pdf_path))[0]}_page1.png"
+        out_name = f"{os.path.splitext(os.path.basename(pdf_path))[0]}_page1.png"
+        path = os.path.join(output_dir, out_name)
         images[0].save(path, "PNG")
         return path
     return None
@@ -92,6 +93,8 @@ def query_llama4(image_b64, raw_text):
     return stdout
 
 def main():
+    output_dir = r'D:\OEssam\Test\llama4'
+    os.makedirs(output_dir, exist_ok=True)
     doc = Document()
     doc.add_heading('LLaMA4 Multimodal OCR Results (First Page Only)', 0)
     pdf_paths = get_random_pdf_paths(3)
@@ -105,7 +108,7 @@ def main():
             print(f"[ERROR] PDF not found: {PDF_PATH}")
             doc.add_paragraph("[ERROR] PDF not found!")
             continue
-        image_file = pdf_first_page(PDF_PATH)
+        image_file = pdf_first_page(PDF_PATH, output_dir)
         if not image_file:
             print(f"[ERROR] Could not convert first page: {PDF_PATH}")
             doc.add_paragraph("[ERROR] Could not convert first page!")
@@ -124,8 +127,9 @@ def main():
         doc.add_paragraph('LLaMA4 Response:')
         doc.add_paragraph(response)
         doc.add_paragraph('-' * 40)
-    doc.save('llama4_ocr_multimodal_results_firstpage.docx')
-    print("\nAll results saved to llama4_ocr_multimodal_results_firstpage.docx")
+    result_docx = os.path.join(output_dir, 'llama4_ocr_multimodal_results_firstpage.docx')
+    doc.save(result_docx)
+    print(f"\nAll results saved to {result_docx}")
 
 if __name__ == "__main__":
     main()
