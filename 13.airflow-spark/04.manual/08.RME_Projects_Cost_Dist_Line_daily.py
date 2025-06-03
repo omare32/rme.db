@@ -222,6 +222,20 @@ def insert_to_mysql(df):
     if df.empty:
         print("❌ No data to insert.")
         return
+    # Enforce column order and print for debug
+    expected_cols = [
+        'EXPENDITURE_ITEM_ID', 'TRANSACTION_SOURCE', 'PROJECT_ID', 'PROJECT_NUM', 'PROJECT_NAME', 'PROJECT_TYPE',
+        'TASK_ID', 'TASK_NUM', 'TASK_NAME', 'BU_ID', 'TOP_TASK_ID', 'BL_ID', 'PROJECT', 'FLOOR', 'AREA', 'SECTOR',
+        'AREAS', 'EXPENDITURE_ITEM_DATE', 'EXPENDITURE_TYPE', 'EXPENDITURE_ORG_NAME', 'AMOUNT',
+        'DR_CODE_COMBINATION_ID', 'CR_CODE_COMBINATION_ID', 'TRANSFERRED_DATE', 'TRANSFER_STATUS_CODE',
+        'ACCT_EVENT_ID', 'BATCH_NAME', 'TRANSFER_REJECTION_REASON', 'INVOICE_NUM', 'SUPPLIER_SITE',
+        'DOCUMENT_HEADER_ID', 'SYSTEM_REFERENCE2', 'EXPENDITURE_COMMENT', 'VENDOR_NUMBER', 'VENDOR_NAME',
+        'GL_DATE', 'IPC_NO', 'CONCAT_SEG_CR', 'CONCAT_SEG_DR', 'PO_NUMBER', 'ITEM_CODE', 'OWNER', 'X1', 'X2',
+        'QUANTITY', 'UOM', 'LINE_NUM', 'LINE_DESC'
+    ]
+    # Only keep columns that are in both expected and DataFrame, in order
+    df = df[[col for col in expected_cols if col in df.columns]]
+    print("About to insert columns:", list(df.columns))
     try:
         conn = mysql.connect(host=db_host, user=db_user, password=db_password, database=db_name)
         cursor = conn.cursor()

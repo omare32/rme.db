@@ -19,7 +19,11 @@ TABLE = 'po.pdfs'
 
 POPPLER_Path = r"C:\\Program Files\\poppler\\Library\\bin"
 pytesseract.pytesseract.tesseract_cmd = r"C:\\Users\\Omar Essam2\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
-LLM_MODEL = "llama4:latest"
+LLM_MODELS = [
+    ("llama4:latest", "Llama-4"),
+    ("llava:latest", "Llava"),
+    ("qwen2.5:32b", "Qwen2.5-32B")
+]
 PROMPT_TEMPLATE = """You are an OCR agent. Below is the raw text extracted using Tesseract OCR. Use it along with the image to accurately extract relevant Purchase Order (PO), total amount, date and most importantly terms and conditions (Arabic and English if present).\n\nRaw OCR Text:\n{text}\n"""
 
 def get_random_pdf_paths(n=3):
@@ -76,31 +80,39 @@ def image_to_base64(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode("utf-8")
 
-def query_llama4(image_b64, raw_text):
+import time
+
+def query_model(image_b64, raw_text, model_tag):
     prompt = PROMPT_TEMPLATE.format(text=raw_text)
     full_prompt = f"<|image|>{image_b64}\n{prompt}"
+    start_time = time.time()
     process = subprocess.Popen(
-        ["ollama", "run", LLM_MODEL],
+        ["ollama", "run", model_tag],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     stdout, stderr = process.communicate(full_prompt.encode("utf-8"))
+    duration = time.time() - start_time
     stdout = stdout.decode("utf-8", errors="ignore")
     stderr = stderr.decode("utf-8", errors="ignore")
     if stderr:
-        print("Error:", stderr)
-    return stdout
+        print(f"Error ({model_tag}):", stderr)
+    return stdout, duration
 
 def main():
     output_dir = r'D:\OEssam\Test\llama4'
     os.makedirs(output_dir, exist_ok=True)
     doc = Document()
-    doc.add_heading('LLaMA4 Multimodal OCR Results (First Page Only)', 0)
+    doc.add_heading('Multimodal OCR Results (First Page, 3 Models)', 0)
+
     pdf_paths = get_random_pdf_paths(3)
     if not pdf_paths:
         print("No PDF paths found in database!")
         return
+    # For duration summary
+    durations = []
+    results = []
     for pdf_idx, PDF_PATH in enumerate(pdf_paths, 1):
         doc.add_heading(f'PDF {pdf_idx}: {PDF_PATH}', level=1)
         print(f"\n=== Processing PDF {pdf_idx}: {PDF_PATH} ===")
@@ -119,14 +131,47 @@ def main():
         raw_ocr = run_tesseract(processed_image)
         print("Raw OCR Preview:", raw_ocr[:300], "...")
         img_b64 = image_to_base64(processed_image)
-        response = query_llama4(img_b64, raw_ocr)
-        print("LLaMA4 Response:\n", response)
-        print("-" * 60)
-        doc.add_paragraph('Raw OCR Preview:')
-        doc.add_paragraph(raw_ocr)
-        doc.add_paragraph('LLaMA4 Response:')
-        doc.add_paragraph(response)
-        doc.add_paragraph('-' * 40)
+        for model_tag, model_name in LLM_MODELS:
+            print(f"Running {model_name} ({model_tag})...")
+            response, duration = query_model(img_b64, raw_ocr, model_tag)
+            print(f"{model_name} Response:\n", response)
+            print(f"Duration: {duration:.2f} seconds\n")
+            durations.append({
+                'pdf_idx': pdf_idx,
+                'pdf_path': PDF_PATH,
+                'model': model_name,
+                'duration': duration
+            })
+            results.append({
+                'pdf_idx': pdf_idx,
+                'pdf_path': PDF_PATH,
+                'model': model_name,
+                'raw_ocr': raw_ocr,
+                'response': response
+            })
+            doc.add_heading(f'{model_name} Result', level=3)
+            doc.add_paragraph(f'Duration: {duration:.2f} seconds')
+            doc.add_paragraph('Raw OCR Preview:')
+            doc.add_paragraph(raw_ocr)
+            doc.add_paragraph(f'{model_name} Response:')
+            doc.add_paragraph(response)
+            doc.add_paragraph('-' * 40)
+    # Add summary table at top
+    doc.add_page_break()
+    doc._body._element.insert(1, doc._body._element[-1])  # Move last page (summary) to top
+    doc.paragraphs.insert(1, doc.add_heading('Duration Summary (seconds)', level=1))
+    table = doc.add_table(rows=1, cols=4)
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'PDF #'
+    hdr_cells[1].text = 'PDF Path'
+    hdr_cells[2].text = 'Model'
+    hdr_cells[3].text = 'Duration (s)'
+    for d in durations:
+        row_cells = table.add_row().cells
+        row_cells[0].text = str(d['pdf_idx'])
+        row_cells[1].text = os.path.basename(d['pdf_path'])
+        row_cells[2].text = d['model']
+        row_cells[3].text = f"{d['duration']:.2f}"
     result_docx = os.path.join(output_dir, 'llama4_ocr_multimodal_results_firstpage.docx')
     doc.save(result_docx)
     print(f"\nAll results saved to {result_docx}")
