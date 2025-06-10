@@ -8,6 +8,10 @@ db_user = "omar2"
 db_password = "Omar_54321"
 db_name = "RME_TEST"
 
+def clean_columns(df):
+    # Remove columns named nan (as string) or NaN (as float)
+    return df.loc[:, [(col is not None) and (str(col).lower() != 'nan') for col in df.columns]]
+
 def main():
     try:
         print("🔄 Connecting to MySQL database...")
@@ -25,14 +29,15 @@ def main():
         po_followup_df = pd.read_sql("SELECT * FROM po_followup_for_chatbot", mysql_connection)
         po_terms_df = pd.read_sql("SELECT PO_NUMBER, LONG_TEXT FROM po_terms", mysql_connection)
 
-        # Remove columns with nan as name
-        po_followup_df = po_followup_df.loc[:, ~po_followup_df.columns.isna()]
-        po_terms_df = po_terms_df.loc[:, ~po_terms_df.columns.isna()]
+        # Clean columns
+        po_followup_df = clean_columns(po_followup_df)
+        po_terms_df = clean_columns(po_terms_df)
 
         # Merge on po_number (left join to keep all po_followup rows)
         merged_df = pd.merge(po_followup_df, po_terms_df, how='left', left_on='po_number', right_on='PO_NUMBER')
-        merged_df.drop(columns=['PO_NUMBER'], inplace=True)
-        merged_df = merged_df.loc[:, ~merged_df.columns.isna()]
+        if 'PO_NUMBER' in merged_df.columns:
+            merged_df.drop(columns=['PO_NUMBER'], inplace=True)
+        merged_df = clean_columns(merged_df)
 
         # Create new table
         table_name = "po_followup_with_terms"
@@ -41,7 +46,7 @@ def main():
         # Build CREATE TABLE statement dynamically
         create_cols = []
         for col, dtype in zip(po_followup_df.columns, po_followup_df.dtypes):
-            if pd.isna(col):
+            if (col is None) or (str(col).lower() == 'nan'):
                 continue
             if dtype == 'int64':
                 coltype = 'INT'
@@ -63,7 +68,8 @@ def main():
         mysql_connection.commit()
 
         # Insert data in batches
-        insert_cols = [col for col in list(po_followup_df.columns) + ['LONG_TEXT'] if pd.notna(col)]
+        insert_cols = [col for col in list(po_followup_df.columns) + ['LONG_TEXT'] if (col is not None) and (str(col).lower() != 'nan')]
+        print("Insert columns:", insert_cols)
         placeholders = ', '.join(['%s'] * len(insert_cols))
         insert_query = f"INSERT INTO {table_name} ({', '.join(insert_cols)}) VALUES ({placeholders})"
         data_tuples = [tuple(row[col] for col in insert_cols) for _, row in merged_df.iterrows()]
