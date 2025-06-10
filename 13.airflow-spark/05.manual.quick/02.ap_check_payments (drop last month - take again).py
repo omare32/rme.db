@@ -36,11 +36,21 @@ def get_latest_month_in_mysql():
         mysql_cursor = mysql_connection.cursor()
         mysql_cursor.execute(f"SELECT MAX(CHECK_DATE) FROM {mysql_table}")
         result = mysql_cursor.fetchone()[0]
+        print(f"[DEBUG] MAX(CHECK_DATE) result: {result} (type: {type(result)})")
         mysql_cursor.close()
         mysql_connection.close()
         if result is not None:
-            return result.replace(day=1)
+            # Parse string to datetime if needed
+            import pandas as pd
+            if isinstance(result, str):
+                result_dt = pd.to_datetime(result)
+            else:
+                result_dt = result
+            start_date = datetime(result_dt.year, result_dt.month, 1)
+            print(f"[DEBUG] Returning start_date: {start_date}")
+            return start_date
         else:
+            print(f"[DEBUG] No data found, returning default start: {datetime(START_YEAR, START_MONTH, 1)}")
             return datetime(START_YEAR, START_MONTH, 1)
     except Exception as e:
         print(f"❌ MySQL error (get_latest_month): {e}")
@@ -130,6 +140,7 @@ def fetch_month_from_oracle(year, month):
 def main():
     # Find latest month in MySQL, or start from Jan 2016
     latest_date = get_latest_month_in_mysql()
+    print(f"[INFO] Detected start date for extraction: {latest_date} (year={latest_date.year}, month={latest_date.month})")
     year = latest_date.year
     month = latest_date.month
     now = datetime.now()
