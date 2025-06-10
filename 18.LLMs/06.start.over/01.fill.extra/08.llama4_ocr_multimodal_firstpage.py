@@ -21,8 +21,10 @@ POPPLER_Path = r"C:\\Program Files\\poppler\\Library\\bin"
 pytesseract.pytesseract.tesseract_cmd = r"C:\\Users\\Omar Essam2\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
 LLM_MODELS = [
     ("llama4:latest", "Llama-4"),
-    ("llava:latest", "Llava"),
-    ("qwen2.5:32b", "Qwen2.5-32B")
+    ("qwen2.5:32b", "Qwen2.5-32B"),
+    ("gemma3:latest", "Gemma3"),
+    ("qwen2.5vl:latest", "Qwen2.5VL"),
+    ("phi3:latest", "Phi3")
 ]
 PROMPT_TEMPLATE = """You are an OCR agent. Below is the raw text extracted using Tesseract OCR. Use it along with the image to accurately extract relevant Purchase Order (PO), total amount, date and most importantly terms and conditions (Arabic and English if present).\n\nRaw OCR Text:\n{text}\n"""
 
