@@ -173,3 +173,8 @@ a0.support/17.git/auth/from chat.txt
 09.other.projects/01.youtube/00.creds/rme.json
 09.other.projects/01.youtube/00.creds/dlc.json
 09.other.projects/01.youtube/00.creds/emc.json
+03.telegram/api.txt
+03.telegram/.env
+09.other.projects/03.telegram/api.txt
+09.other.projects/03.telegram/gui_session.session-journal
+09.other.projects/03.telegram/gui_session.session
