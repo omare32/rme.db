@@ -9,7 +9,6 @@ import numpy as np
 from scipy.ndimage import interpolation
 from docx import Document
 import time
-import io
 
 # === CONFIGURATION ===
 POPPLER_Path = r"C:\\Program Files\\poppler\\Library\\bin"
@@ -18,8 +17,8 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\\Users\\Omar Essam2\\AppData\\Local
 LLM_MODEL_TAG = "gemma3:latest"
 LLM_MODEL_NAME = "Gemma3"
 
-PDF_SOURCE_FOLDER = r'H:\\Projects Control (PC)\\10 Backup\\06 Yasser\\Damietta Buildings Project'
-OUTPUT_DIR = r'D:\\OEssam\\Test\\gemma3'
+PDF_SOURCE_FOLDER = r'H:\Projects Control (PC)\10 Backup\06 Yasser\Damietta Buildings Project'
+OUTPUT_DIR = r'D:\OEssam\Test\gemma3'
 IMAGE_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'images')
 PROCESSED_FILES_LOG = os.path.join(OUTPUT_DIR, 'processed_pdfs.txt')
 
@@ -44,8 +43,7 @@ def get_next_pdf_to_process():
         return None
     
     processed_pdfs = get_processed_pdfs()
-    # This print is now less relevant as it's called once before the loop
-    # print(f"[DEBUG] Found {len(processed_pdfs)} previously processed PDFs in log file.") 
+    print(f"[DEBUG] Found {len(processed_pdfs)} previously processed PDFs in log file.")
 
     all_pdfs_in_folder = []
     try:
@@ -55,19 +53,18 @@ def get_next_pdf_to_process():
                     all_pdfs_in_folder.append(os.path.join(dirpath, filename))
         
         all_pdfs_in_folder.sort()
-        # This print is now less relevant as it's called once before the loop
-        # print(f"[DEBUG] Found a total of {len(all_pdfs_in_folder)} PDF files recursively.")
+        print(f"[DEBUG] Found a total of {len(all_pdfs_in_folder)} PDF files recursively.")
 
     except Exception as e:
         print(f"[DEBUG] Error while walking through source folder {PDF_SOURCE_FOLDER}: {e}")
-        return None # Should ideally return a list or handle error differently if used in a loop
+        return None
 
     for pdf_path in all_pdfs_in_folder:
         if pdf_path not in processed_pdfs:
-            # print(f"[DEBUG] Found new PDF to process: {pdf_path}") # Moved to main loop
+            print(f"[DEBUG] Found new PDF to process: {pdf_path}")
             return pdf_path
 
-    # print("[DEBUG] No new PDFs to process. All found PDFs are already in the processed log.") # Moved to main loop
+    print("[DEBUG] No new PDFs to process. All found PDFs are already in the processed log.")
     return None
 
 def pdf_to_images(pdf_path, image_save_dir):
@@ -83,44 +80,44 @@ def pdf_to_images(pdf_path, image_save_dir):
     return image_paths
 
 def preprocess_image(image_path):
-    # Read the image using OpenCV
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    
-    # Apply preprocessing steps
     image = cv2.equalizeHist(image)
-    image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, 11)
-    image = cv2.medianBlur(image, 3)
     
-    # Deskew the image
-    coords = np.column_stack(np.where(image > 0))
-    angle = cv2.minAreaRect(coords)[-1]
-    if angle < -45:
-        angle = -(90 + angle)
-    else:
-        angle = -angle
-    (h, w) = image.shape[:2]
-    center = (w // 2, h // 2)
-    M = cv2.getRotationMatrix2D(center, angle, 1.0)
-    image = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-    
-    # Convert the processed OpenCV image (numpy array) back to a PIL Image object
-    # OpenCV uses BGR color order, but since it's grayscale, it doesn't matter.
-    # Image.fromarray can handle grayscale numpy arrays directly.
-    processed_pil_image = Image.fromarray(image)
-    
-    return processed_pil_image
+    # Deskewing
+    def find_score(arr, angle):
+        data = interpolation.rotate(arr, angle, reshape=False, order=0)
+        hist = np.sum(data, axis=1)
+        score = np.sum((hist[1:] - hist[:-1]) ** 2)
+        return score
 
-def run_tesseract(pil_image):
+    delta = 1
+    limit = 5
+    angles = np.arange(-limit, limit+delta, delta)
+    scores = []
+    for angle in angles:
+        score = find_score(image, angle)
+        scores.append(score)
+    
+    best_angle = angles[scores.index(max(scores))]
+    if abs(best_angle) > 0.5:  # Only rotate if skew is significant
+        image = interpolation.rotate(image, best_angle, reshape=False, order=0)
+        image = image.astype(np.uint8)
+    
+    # Save processed image
+    processed_path = image_path.replace('.png', '_processed.png')
+    cv2.imwrite(processed_path, image)
+    return processed_path
+
+def run_tesseract(image_path):
     try:
-        return pytesseract.image_to_string(pil_image, lang='ara+eng')
+        return pytesseract.image_to_string(image_path, lang='ara+eng')
     except Exception as e:
         print(f"Tesseract error: {e}")
         return ""
 
-def image_to_base64(pil_image):
-    buffered = io.BytesIO()
-    pil_image.save(buffered, format="PNG")
-    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+def image_to_base64(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
 
 def query_gemma3(full_prompt, image_b64=None):
     if image_b64:
@@ -129,13 +126,9 @@ def query_gemma3(full_prompt, image_b64=None):
     # Use the full path to the Ollama executable
     OLLAMA_PATH = r"C:\Users\Omar Essam2\AppData\Local\Programs\Ollama\ollama.exe"
     
-    # Create the full command as a string
-    command = f'"{OLLAMA_PATH}" run {LLM_MODEL_TAG}'
-    
     start_time = time.time()
     process = subprocess.Popen(
-        command,
-        shell=True,  # Use shell=True to avoid popup issues
+        [OLLAMA_PATH, "run", LLM_MODEL_TAG],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -169,17 +162,11 @@ def process_single_pdf(PDF_PATH):
         print(f"\n--- Processing Page {page_num} of {len(image_files)} ({os.path.basename(image_file_path)}) ---")
         
         try:
-            # Preprocess the image in memory, this now returns a PIL Image object
-            processed_pil_image = preprocess_image(image_file_path)
-            
-            # Run Tesseract on the in-memory PIL image
-            raw_ocr = run_tesseract(processed_pil_image)
+            processed_image_path = preprocess_image(image_file_path)
+            raw_ocr = run_tesseract(processed_image_path)
             print(f"Raw OCR Preview (Page {page_num}):", raw_ocr[:200] + "..." if len(raw_ocr) > 200 else raw_ocr)
+            img_b64 = image_to_base64(processed_image_path)
             
-            # Convert the in-memory PIL image to base64
-            img_b64 = image_to_base64(processed_pil_image)
-            
-            # Query the model
             page_prompt = PROMPT_TEMPLATE_PAGE.format(text=raw_ocr)
             gemma_page_response, duration = query_gemma3(page_prompt, img_b64)
             all_page_gemma_responses.append(gemma_page_response)
@@ -187,7 +174,6 @@ def process_single_pdf(PDF_PATH):
             print(f"{LLM_MODEL_NAME} Response (Page {page_num}):\n", gemma_page_response[:300] + "..." if len(gemma_page_response) > 300 else gemma_page_response)
             print(f"Duration for page {page_num}: {duration:.2f} seconds")
 
-            # Add results to the Word document
             doc.add_paragraph(f'Duration: {duration:.2f} seconds')
             doc.add_paragraph('Raw OCR Preview:')
             doc.add_paragraph(raw_ocr)
@@ -214,38 +200,43 @@ def process_single_pdf(PDF_PATH):
         doc.add_heading('Final Comprehensive Summary', level=1)
         doc.add_paragraph("No page-level extractions were successful for this PDF to generate a summary.")
 
+    # Save the Word document for this specific PDF
     output_word_filename = f"gemma3_summary_{pdf_filename_base}.docx"
     result_docx_path = os.path.join(OUTPUT_DIR, output_word_filename)
     try:
         doc.save(result_docx_path)
         print(f"\nResults for {os.path.basename(PDF_PATH)} saved to {result_docx_path}")
-        mark_pdf_as_processed(PDF_PATH)
+        mark_pdf_as_processed(PDF_PATH) # Mark as processed only if save is successful
+        return True
     except Exception as e:
         print(f"[ERROR] Failed to save Word document {result_docx_path}: {e}")
+        return False
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    os.makedirs(IMAGE_OUTPUT_DIR, exist_ok=True)
+    os.makedirs(IMAGE_OUTPUT_DIR, exist_ok=True) # Create images subfolder
+    # Ensure processed_pdfs.txt exists
     if not os.path.exists(PROCESSED_FILES_LOG):
         with open(PROCESSED_FILES_LOG, 'w', encoding='utf-8') as f:
-            pass
+            pass # Create empty file
 
-    processed_count = 0
+    # Process PDFs in a loop until there are no more unprocessed PDFs
     while True:
         PDF_PATH = get_next_pdf_to_process()
-        if PDF_PATH is None:
-            if processed_count == 0:
-                print("No new PDFs found to process in the source folder or its subfolders.")
-            else:
-                print(f"All available PDFs processed. Total processed in this run: {processed_count}")
-            break
         
-        print(f"[DEBUG] Starting processing for: {PDF_PATH}")
-        process_single_pdf(PDF_PATH)
-        processed_count += 1
-        print(f"--- Finished processing {os.path.basename(PDF_PATH)}. Processed so far in this run: {processed_count} ---")
-
-    print("Batch processing complete.")
+        if PDF_PATH is None:
+            print("All PDFs in the source folder have been processed or folder is inaccessible/empty.")
+            break
+            
+        success = process_single_pdf(PDF_PATH)
+        
+        if success:
+            print(f"Successfully processed {PDF_PATH}")
+        else:
+            print(f"Failed to process {PDF_PATH} completely")
+            
+        print("\n" + "="*50)
+        print("Moving to next PDF...\n")
 
 if __name__ == "__main__":
     main()
