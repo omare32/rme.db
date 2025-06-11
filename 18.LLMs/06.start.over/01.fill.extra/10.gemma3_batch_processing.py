@@ -9,6 +9,7 @@ import numpy as np
 from scipy.ndimage import interpolation
 from docx import Document
 import time
+import io
 
 # === CONFIGURATION ===
 POPPLER_Path = r"C:\\Program Files\\poppler\\Library\\bin"
@@ -17,8 +18,8 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\\Users\\Omar Essam2\\AppData\\Local
 LLM_MODEL_TAG = "gemma3:latest"
 LLM_MODEL_NAME = "Gemma3"
 
-PDF_SOURCE_FOLDER = r'H:\Projects Control (PC)\10 Backup\06 Yasser\Damietta Buildings Project'
-OUTPUT_DIR = r'D:\OEssam\Test\gemma3'
+PDF_SOURCE_FOLDER = r'H:\\Projects Control (PC)\\10 Backup\\06 Yasser\\Damietta Buildings Project'
+OUTPUT_DIR = r'D:\\OEssam\\Test\\gemma3'
 IMAGE_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'images')
 PROCESSED_FILES_LOG = os.path.join(OUTPUT_DIR, 'processed_pdfs.txt')
 
@@ -43,7 +44,8 @@ def get_next_pdf_to_process():
         return None
     
     processed_pdfs = get_processed_pdfs()
-    print(f"[DEBUG] Found {len(processed_pdfs)} previously processed PDFs in log file.")
+    # This print is now less relevant as it's called once before the loop
+    # print(f"[DEBUG] Found {len(processed_pdfs)} previously processed PDFs in log file.") 
 
     all_pdfs_in_folder = []
     try:
@@ -53,18 +55,19 @@ def get_next_pdf_to_process():
                     all_pdfs_in_folder.append(os.path.join(dirpath, filename))
         
         all_pdfs_in_folder.sort()
-        print(f"[DEBUG] Found a total of {len(all_pdfs_in_folder)} PDF files recursively.")
+        # This print is now less relevant as it's called once before the loop
+        # print(f"[DEBUG] Found a total of {len(all_pdfs_in_folder)} PDF files recursively.")
 
     except Exception as e:
         print(f"[DEBUG] Error while walking through source folder {PDF_SOURCE_FOLDER}: {e}")
-        return None
+        return None # Should ideally return a list or handle error differently if used in a loop
 
     for pdf_path in all_pdfs_in_folder:
         if pdf_path not in processed_pdfs:
-            print(f"[DEBUG] Found new PDF to process: {pdf_path}")
+            # print(f"[DEBUG] Found new PDF to process: {pdf_path}") # Moved to main loop
             return pdf_path
 
-    print("[DEBUG] No new PDFs to process. All found PDFs are already in the processed log.")
+    # print("[DEBUG] No new PDFs to process. All found PDFs are already in the processed log.") # Moved to main loop
     return None
 
 def pdf_to_images(pdf_path, image_save_dir):
@@ -80,10 +83,15 @@ def pdf_to_images(pdf_path, image_save_dir):
     return image_paths
 
 def preprocess_image(image_path):
+    # Read the image using OpenCV
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    
+    # Apply preprocessing steps
     image = cv2.equalizeHist(image)
     image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, 11)
     image = cv2.medianBlur(image, 3)
+    
+    # Deskew the image
     coords = np.column_stack(np.where(image > 0))
     angle = cv2.minAreaRect(coords)[-1]
     if angle < -45:
@@ -94,24 +102,29 @@ def preprocess_image(image_path):
     center = (w // 2, h // 2)
     M = cv2.getRotationMatrix2D(center, angle, 1.0)
     image = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-    processed_path = os.path.join(os.path.dirname(image_path), f"{os.path.splitext(os.path.basename(image_path))[0]}_processed.png")
-    cv2.imwrite(processed_path, image)
-    return processed_path
+    
+    # Convert the processed OpenCV image (numpy array) back to a PIL Image object
+    # OpenCV uses BGR color order, but since it's grayscale, it doesn't matter.
+    # Image.fromarray can handle grayscale numpy arrays directly.
+    processed_pil_image = Image.fromarray(image)
+    
+    return processed_pil_image
 
-def run_tesseract(image_path):
+def run_tesseract(pil_image):
     try:
-        return pytesseract.image_to_string(Image.open(image_path), lang='ara+eng')
+        return pytesseract.image_to_string(pil_image, lang='ara+eng')
     except Exception as e:
         print(f"Tesseract error: {e}")
         return ""
 
-def image_to_base64(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode("utf-8")
+def image_to_base64(pil_image):
+    buffered = io.BytesIO()
+    pil_image.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
 def query_gemma3(full_prompt, image_b64=None):
     if image_b64:
-        full_prompt = f"<|image|>{image_b64}\n{full_prompt}"
+        full_prompt = f"<|image|>{image_b64}\\n{full_prompt}"
     
     start_time = time.time()
     process = subprocess.Popen(
@@ -129,35 +142,18 @@ def query_gemma3(full_prompt, image_b64=None):
         print(f"Error ({LLM_MODEL_TAG}):", stderr)
     return stdout, duration
 
-def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    os.makedirs(IMAGE_OUTPUT_DIR, exist_ok=True) # Create images subfolder
-    # Ensure processed_pdfs.txt exists
-    if not os.path.exists(PROCESSED_FILES_LOG):
-        with open(PROCESSED_FILES_LOG, 'w', encoding='utf-8') as f:
-            pass # Create empty file
-
-    PDF_PATH = get_next_pdf_to_process()
-
-    if PDF_PATH is None:
-        print("All PDFs in the source folder have been processed or folder is inaccessible/empty.")
-        return
-
+def process_single_pdf(PDF_PATH):
     doc = Document()
     pdf_filename_base = os.path.splitext(os.path.basename(PDF_PATH))[0]
     doc.add_heading(f'{LLM_MODEL_NAME} Full PDF Processing: {pdf_filename_base}', 0)
     doc.add_paragraph(f'Source PDF: {PDF_PATH}')
     print(f"\n=== Processing PDF: {PDF_PATH} ===")
 
-    # Note: os.path.exists might be problematic for UNC paths if not accessible.
-    # The get_next_pdf_to_process already implies the file exists if it's returned from os.listdir.
-    # However, a check before pdf_to_images is still good practice for robustness.
-    if not os.path.exists(PDF_PATH): # Redundant if get_next_pdf_to_process works, but safe
-        print(f"[ERROR] PDF not found or inaccessible: {PDF_PATH}")
-        # No doc to save here as it's per-PDF now
+    if not os.path.exists(PDF_PATH):
+        print(f"[ERROR] PDF not found or inaccessible during processing: {PDF_PATH}")
         return
 
-    image_files = pdf_to_images(PDF_PATH, IMAGE_OUTPUT_DIR) # Save images to the 'images' subfolder
+    image_files = pdf_to_images(PDF_PATH, IMAGE_OUTPUT_DIR)
     all_page_gemma_responses = []
 
     for idx, image_file_path in enumerate(image_files):
@@ -166,12 +162,17 @@ def main():
         print(f"\n--- Processing Page {page_num} of {len(image_files)} ({os.path.basename(image_file_path)}) ---")
         
         try:
-            # Preprocess image (saves _processed.png in the same dir as image_file_path, i.e., OUTPUT_DIR)
-            processed_image_path = preprocess_image(image_file_path) 
-            raw_ocr = run_tesseract(processed_image_path)
-            print(f"Raw OCR Preview (Page {page_num}):", raw_ocr[:200] + "..." if len(raw_ocr) > 200 else raw_ocr)
-            img_b64 = image_to_base64(processed_image_path)
+            # Preprocess the image in memory, this now returns a PIL Image object
+            processed_pil_image = preprocess_image(image_file_path)
             
+            # Run Tesseract on the in-memory PIL image
+            raw_ocr = run_tesseract(processed_pil_image)
+            print(f"Raw OCR Preview (Page {page_num}):", raw_ocr[:200] + "..." if len(raw_ocr) > 200 else raw_ocr)
+            
+            # Convert the in-memory PIL image to base64
+            img_b64 = image_to_base64(processed_pil_image)
+            
+            # Query the model
             page_prompt = PROMPT_TEMPLATE_PAGE.format(text=raw_ocr)
             gemma_page_response, duration = query_gemma3(page_prompt, img_b64)
             all_page_gemma_responses.append(gemma_page_response)
@@ -179,6 +180,7 @@ def main():
             print(f"{LLM_MODEL_NAME} Response (Page {page_num}):\n", gemma_page_response[:300] + "..." if len(gemma_page_response) > 300 else gemma_page_response)
             print(f"Duration for page {page_num}: {duration:.2f} seconds")
 
+            # Add results to the Word document
             doc.add_paragraph(f'Duration: {duration:.2f} seconds')
             doc.add_paragraph('Raw OCR Preview:')
             doc.add_paragraph(raw_ocr)
@@ -205,15 +207,38 @@ def main():
         doc.add_heading('Final Comprehensive Summary', level=1)
         doc.add_paragraph("No page-level extractions were successful for this PDF to generate a summary.")
 
-    # Save the Word document for this specific PDF
     output_word_filename = f"gemma3_summary_{pdf_filename_base}.docx"
     result_docx_path = os.path.join(OUTPUT_DIR, output_word_filename)
     try:
         doc.save(result_docx_path)
         print(f"\nResults for {os.path.basename(PDF_PATH)} saved to {result_docx_path}")
-        mark_pdf_as_processed(PDF_PATH) # Mark as processed only if save is successful
+        mark_pdf_as_processed(PDF_PATH)
     except Exception as e:
         print(f"[ERROR] Failed to save Word document {result_docx_path}: {e}")
+
+def main():
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(IMAGE_OUTPUT_DIR, exist_ok=True)
+    if not os.path.exists(PROCESSED_FILES_LOG):
+        with open(PROCESSED_FILES_LOG, 'w', encoding='utf-8') as f:
+            pass
+
+    processed_count = 0
+    while True:
+        PDF_PATH = get_next_pdf_to_process()
+        if PDF_PATH is None:
+            if processed_count == 0:
+                print("No new PDFs found to process in the source folder or its subfolders.")
+            else:
+                print(f"All available PDFs processed. Total processed in this run: {processed_count}")
+            break
+        
+        print(f"[DEBUG] Starting processing for: {PDF_PATH}")
+        process_single_pdf(PDF_PATH)
+        processed_count += 1
+        print(f"--- Finished processing {os.path.basename(PDF_PATH)}. Processed so far in this run: {processed_count} ---")
+
+    print("Batch processing complete.")
 
 if __name__ == "__main__":
     main()
