@@ -38,53 +38,37 @@ def download_media_terminal(client, group, group_name):
                 last_id = data.get('last_id', 0)
         except Exception:
             pass
-    processed = 0
-    downloaded = 0
-    skipped = 0
-    print('Fetching and downloading messages...')
-    # Get the latest message ID to use as a dynamic upper bound
-    latest_msg = next(client.iter_messages(group, limit=1), None)
-    latest_id = latest_msg.id if latest_msg else 0
-    for message in client.iter_messages(group, min_id=last_id, reverse=True):
-        processed += 1
+    all_media = []
+    print('Fetching messages...')
+    for message in client.iter_messages(group, reverse=True):
         if message.id in downloaded_ids:
-            continue
-        if message.id > latest_id:
-            # Don't process messages added after we started
             continue
         if message.media:
             # Photo
             if isinstance(message.media, MessageMediaPhoto):
-                filename = client.download_media(message, group_folder)
+                all_media.append(message)
             # Video (Document with video attribute)
             elif isinstance(message.media, MessageMediaDocument):
                 attrs = message.media.document.attributes
                 is_video = any(isinstance(a, DocumentAttributeVideo) for a in attrs)
                 is_audio = any(isinstance(a, DocumentAttributeAudio) for a in attrs)
                 if is_video and not is_audio:
-                    filename = client.download_media(message, group_folder)
-                else:
-                    filename = None
-            else:
-                filename = None
-            # Check if file was downloaded and is not 0 bytes
-            if filename and os.path.exists(filename) and os.path.getsize(filename) > 0:
-                downloaded_ids.add(message.id)
-                downloaded += 1
-                last_id = max(last_id, message.id)
-                with open(progress_json, 'w', encoding='utf-8') as f:
-                    json.dump({'downloaded_ids': list(downloaded_ids), 'last_id': last_id}, f)
-                print(f"Downloaded {downloaded} files, Skipped {skipped} files, Processed {processed} of {latest_id} messages (ID: {message.id})")
-            else:
-                # Remove 0-byte file if it exists
-                if filename and os.path.exists(filename) and os.path.getsize(filename) == 0:
-                    os.remove(filename)
-                skipped += 1
-                print(f"Skipped (error/expired) {skipped} files, Downloaded {downloaded} files, Processed {processed} of {latest_id} messages (ID: {message.id})")
-        else:
-            skipped += 1
-            print(f"Skipped (no media) {skipped} files, Downloaded {downloaded} files, Processed {processed} of {latest_id} messages (ID: {message.id})")
-    print(f'Finished! Downloaded {downloaded} media files to {group_folder}, Skipped {skipped} files.')
+                    all_media.append(message)
+    total = len(all_media)
+    print(f'Found {total} media files. Starting download...')
+    count = 0
+    for message in all_media:
+        count += 1
+        print(f'Downloading {count} of {total} (ID: {message.id})...')
+        try:
+            client.download_media(message, group_folder)
+            downloaded_ids.add(message.id)
+            last_id = max(last_id, message.id)
+            with open(progress_json, 'w', encoding='utf-8') as f:
+                json.dump({'downloaded_ids': list(downloaded_ids), 'last_id': last_id}, f)
+        except Exception as e:
+            print(f'Error downloading ID {message.id}: {e}')
+    print(f'Finished! Downloaded {count} media files to {group_folder}')
 
 class TelegramDownloaderApp:
     def __init__(self, root):
