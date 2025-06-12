@@ -13,6 +13,9 @@ def sync_dir(src, dst):
         for file in files:
             src_file = os.path.join(root, file)
             dst_file = os.path.join(dst_root, file)
+            # Skip partial files
+            if '-partial' in file:
+                continue
             if not os.path.exists(dst_file):
                 print(f'Copying {src_file} -> {dst_file}')
                 try:
