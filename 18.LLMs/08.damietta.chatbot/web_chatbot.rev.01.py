@@ -9,7 +9,7 @@ import gradio as gr
 
 # === CONFIG ===
 WORD_DOCS_DIR = r'D:\OEssam\Test\gemma3-3rd-time'
-DEFAULT_MODEL = 'gemma3:latest'  # Default model set to gemma3
+DEFAULT_MODEL = 'phi3:latest'  # You can change to 'llama3:latest' or any other Ollama model
 EMBED_MODEL = 'all-MiniLM-L6-v2'
 TOP_K = 3
 
@@ -89,12 +89,12 @@ demo = gr.Interface(
     fn=gradio_chat_interface,
     inputs=[
         gr.Textbox(lines=2, label="Ask about Damietta Buildings Project"),
-        gr.Dropdown(choices=["phi3:latest", "llama3:latest", "gemma3:latest"], value="gemma3:latest", label="Model (Ollama)")
+        gr.Dropdown(choices=["phi3:latest", "llama3:latest", "gemma3:latest"], value="phi3:latest", label="Model (Ollama)")
     ],
     outputs=gr.Textbox(label="Answer"),
     title="Damietta Buildings Project Chatbot",
     description="Ask questions about the Damietta Buildings Project contracts. Uses retrieval-augmented generation (RAG) over extracted summaries.",
-    examples=[[q, "gemma3:latest"] for q in sample_questions],
+    examples=[[q, "phi3:latest"] for q in sample_questions],
     allow_flagging="never"
 )
 

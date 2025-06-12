@@ -21,7 +21,7 @@ DB_CONFIG = {
     'database': 'RME_TEST'
 }
 
-# Use a faster model for both prompts
+# Use Gemma3 model for both prompts
 OLLAMA_HOST = "http://localhost:11434"
 OLLAMA_MODEL = "gemma3:latest"
 
@@ -36,7 +36,7 @@ def connect_to_database():
         return None
 
 def generate_sql_query(question: str) -> str:
-    """Use Ollama Mistral-Instruct to convert natural language question to SQL query"""
+    """Use Ollama Gemma3 to convert natural language question to SQL query"""
     try:
         # Create a prompt for the LLM
         system_message = """You are a SQL query generator. Generate MySQL queries based on natural language questions.\n\nThe table name is 'po_followup_with_terms' and it has these columns:\n- po_number: the purchase order number (VARCHAR)\n- creation_date: when the purchase was made (DATE)\n- line_amount: how much we paid (DECIMAL)\n- vendor_name: who we bought from (VARCHAR)\n- project_name: which project this purchase was for (VARCHAR)\n- terms: the payment and delivery agreements for the purchase order (TEXT)\n\nYou can answer questions about purchase order terms, such as:\n- What are the terms of PO number X?\n- What are the terms for supplier Y?\n- Show me the terms for all POs in project Z.\n\nOnly use these columns in your query. Keep the query simple and focused on answering the question. Return ONLY the SQL query, with no explanations or markdown."""
@@ -59,7 +59,7 @@ def generate_sql_query(question: str) -> str:
         return f"Error generating query: {str(e)}"
 
 def generate_natural_language_answer(question: str, sql_query: str, columns: list, results: list) -> str:
-    """Ask Mistral-Instruct to describe the SQL result in English."""
+    """Ask Gemma3 to describe the SQL result in English."""
     if not results or columns == ["Error"]:
         result_str = "No results."
     else:
@@ -130,10 +130,10 @@ def process_question(question: str) -> Tuple[str, str, List[str], List[List]]:
     return answer, query, columns, results
 
 def create_interface():
-    with gr.Blocks(title="RME PO Query Assistant rev.11 (Ollama Mistral-Instruct)") as interface:
+    with gr.Blocks(title="RME PO Query Assistant rev.11 (Ollama Gemma3)") as interface:
         gr.Markdown("""
-        # PO Follow-Up Query AI (rev.11, Ollama Mistral-Instruct)
-        This AI assistant can help you query the Purchase Order database using natural language.\n\n**Note:** This system uses a table with essential PO information, including payment/delivery terms.\n\n**Powered by Ollama Mistral-Instruct running on your local GPU server!**
+        # PO Follow-Up Query AI (rev.11, Ollama Gemma3)
+        This AI assistant can help you query the Purchase Order database using natural language.\n\n**Note:** This system uses a table with essential PO information, including payment/delivery terms.\n\n**Powered by Ollama Gemma3 running on your local GPU server!**
         """)
         with gr.Row():
             with gr.Column(scale=85):
