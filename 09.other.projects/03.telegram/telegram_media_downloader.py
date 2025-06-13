@@ -7,7 +7,7 @@ from telethon.tl.types import Channel, Chat, MessageMediaPhoto, MessageMediaDocu
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 from dotenv import load_dotenv
 import tkinter as tk
-from tkinter import ttk, messagebox, simpledialog
+from tkinter import ttk, messagebox, simpledialog, font
 
 # Set base directory to the script's location
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -158,29 +158,49 @@ class TelegramDownloaderApp:
     def __init__(self, root):
         self.root = root
         self.root.title('Telegram Media Downloader')
-        self.root.geometry('600x300')
+        self.root.geometry('800x500')
 
         self.phone_var = tk.StringVar()
-        self.group_var = tk.StringVar()
         self.groups = []
+        self.group_status = []
+        self.selected_index = None
 
         self.create_widgets()
         self.try_auto_login()
 
     def create_widgets(self):
-        self.phone_label = tk.Label(self.root, text='Enter your phone number (with country code):')
+        big_font = font.Font(size=14)
+        label_font = font.Font(size=16, weight='bold')
+
+        self.phone_label = tk.Label(self.root, text='Enter your phone number (with country code):', font=label_font)
         self.phone_label.pack(pady=10)
-        self.phone_entry = tk.Entry(self.root, textvariable=self.phone_var)
+        self.phone_entry = tk.Entry(self.root, textvariable=self.phone_var, font=big_font, width=30)
         self.phone_entry.pack(pady=5)
-        self.login_btn = tk.Button(self.root, text='Login & List Groups', command=self.login_and_list_groups)
+        self.login_btn = tk.Button(self.root, text='Login & List Groups', font=big_font, command=self.login_and_list_groups)
         self.login_btn.pack(pady=10)
 
-        self.group_combo = ttk.Combobox(self.root, textvariable=self.group_var, state='readonly', width=60)
-        self.group_combo.pack(pady=10)
-        self.group_combo['values'] = []
+        frame = tk.Frame(self.root)
+        frame.pack(pady=10, fill='both', expand=True)
 
-        self.select_btn = tk.Button(self.root, text='Select Group and Start Download', state='disabled', command=self.select_group_and_close)
-        self.select_btn.pack(pady=20)
+        self.group_listbox = tk.Listbox(frame, font=big_font, width=60, height=15, selectmode=tk.SINGLE)
+        self.group_listbox.pack(side='left', fill='both', expand=True)
+        self.group_listbox.bind('<<ListboxSelect>>', self.on_group_select)
+
+        self.scrollbar = tk.Scrollbar(frame, orient='vertical', command=self.group_listbox.yview)
+        self.scrollbar.pack(side='right', fill='y')
+        self.group_listbox.config(yscrollcommand=self.scrollbar.set)
+
+        self.download_btn = tk.Button(self.root, text='Download Selected Group', font=big_font, state='disabled', command=self.select_group_and_close)
+        self.download_btn.pack(pady=20)
+
+    def on_group_select(self, event):
+        selection = self.group_listbox.curselection()
+        if selection:
+            self.selected_index = selection[0]
+            self.download_btn.config(state='normal')
+        else:
+            self.selected_index = None
+            self.download_btn.config(state='disabled')
 
     def try_auto_login(self):
         if os.path.exists(SESSION_FILE + '.session'):
@@ -229,11 +249,24 @@ class TelegramDownloaderApp:
         try:
             dialogs = client.get_dialogs()
             self.groups = [d for d in dialogs if isinstance(d.entity, (Channel, Chat))]
-            group_names = [f"{g.name} (ID: {g.id})" for g in self.groups]
-            self.group_combo['values'] = group_names
+            self.group_status = []
+            group_names = []
+            for g in self.groups:
+                group_name = f"{g.name} (ID: {g.id})"
+                safe_group_name = ''.join(c for c in g.name if c.isalnum() or c in (' ', '_', '-')).rstrip()
+                group_folder = os.path.join(DOWNLOAD_BASE, safe_group_name)
+                if os.path.exists(group_folder) and os.path.isdir(group_folder):
+                    status = "(downloaded)"
+                else:
+                    status = "(not downloaded)"
+                group_names.append(f"{group_name} {status}")
+                self.group_status.append(status)
+            self.group_listbox.delete(0, tk.END)
+            for name in group_names:
+                self.group_listbox.insert(tk.END, name)
             if group_names:
-                self.group_combo.current(0)
-                self.select_btn.config(state='normal')
+                self.group_listbox.selection_set(0)
+                self.download_btn.config(state='normal')
             else:
                 messagebox.showinfo('Info', 'No groups or channels found.')
         except Exception as e:
@@ -241,8 +274,8 @@ class TelegramDownloaderApp:
 
     def select_group_and_close(self):
         global selected_group, selected_group_name
-        idx = self.group_combo.current()
-        if idx < 0 or idx >= len(self.groups):
+        idx = self.selected_index
+        if idx is None or idx < 0 or idx >= len(self.groups):
             messagebox.showerror('Error', 'Please select a group/channel.')
             return
         selected_group = self.groups[idx].entity
