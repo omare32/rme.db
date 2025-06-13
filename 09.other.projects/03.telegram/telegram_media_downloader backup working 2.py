@@ -65,7 +65,6 @@ def download_media_terminal(client, group, group_name):
                 last_id = data.get('last_id', 0)
         except Exception as e:
             print(f"Error loading progress file: {e}")
-    print(f"Loaded {len(downloaded_ids)} downloaded IDs, last_id: {last_id}")  # Debug print
     
     processed = 0
     downloaded = 0
@@ -78,15 +77,14 @@ def download_media_terminal(client, group, group_name):
         latest_msg = next(client.iter_messages(group, limit=1), None)
         latest_id = latest_msg.id if latest_msg else 0
         
-        # Use min_id=0 to check all messages, but always skip IDs in downloaded_ids
-        for message in client.iter_messages(group, min_id=0, reverse=True):
+        for message in client.iter_messages(group, min_id=last_id, reverse=True):
             try:
+                processed += 1
                 if message.id in downloaded_ids:
                     continue
-                processed += 1
                 if message.id > latest_id:
                     continue
-                
+                    
                 if message.media:
                     filename = None
                     # Handle photos
