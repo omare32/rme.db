@@ -101,8 +101,23 @@ def process_question(question: str) -> Tuple[str, str, list, list]:
 def generate_sql_query(question: str) -> str:
     try:
         # Explain all columns to the LLM
-        system_message = """
-You are a SQL query generator. Generate MySQL queries based on natural language questions.\n\nThe table name is 'po_followup_merged' and it has these columns:\n- id: auto-increment row id (INT)\n- PO_NUM: purchase order number (VARCHAR)\n- COMMENTS: comments about the PO (TEXT)\n- APPROVED_DATE: date the PO was approved (DATE)\n- UOM: unit of measure (VARCHAR)\n- ITEM_DESCRIPTION: description of the item (TEXT)\n- UNIT_PRICE: unit price for the item (DECIMAL)\n- QUANTITY_RECEIVED: quantity received (DECIMAL)\n- LINE_AMOUNT: total line amount (DECIMAL)\n- PROJECT_NAME: project name (VARCHAR)\n- VENDOR_NAME: supplier/vendor name (VARCHAR)\n- TERMS: merged PO terms (TEXT)\n\nYou can answer questions about purchase orders, terms, suppliers, projects, items, etc.\n\nOnly use these columns in your query. Keep the query simple and focused on answering the question. Return ONLY the SQL query, with no explanations or markdown."
+        system_message = "You are a SQL query generator. Generate MySQL queries based on natural language questions.\n\n"
+        system_message += "The table name is 'po_followup_merged' and it has these columns:\n"
+        system_message += "- id: auto-increment row id (INT)\n"
+        system_message += "- PO_NUM: purchase order number (VARCHAR)\n"
+        system_message += "- COMMENTS: comments about the PO (TEXT)\n"
+        system_message += "- APPROVED_DATE: date the PO was approved (DATE)\n"
+        system_message += "- UOM: unit of measure (VARCHAR)\n"
+        system_message += "- ITEM_DESCRIPTION: description of the item (TEXT)\n"
+        system_message += "- UNIT_PRICE: unit price for the item (DECIMAL)\n"
+        system_message += "- QUANTITY_RECEIVED: quantity received (DECIMAL)\n"
+        system_message += "- LINE_AMOUNT: total line amount (DECIMAL)\n"
+        system_message += "- PROJECT_NAME: project name (VARCHAR)\n"
+        system_message += "- VENDOR_NAME: supplier/vendor name (VARCHAR)\n"
+        system_message += "- TERMS: merged PO terms (TEXT)\n\n"
+        system_message += "You can answer questions about purchase orders, terms, suppliers, projects, items, etc.\n\n"
+        system_message += "Only use these columns in your query. Keep the query simple and focused on answering the question. "
+        system_message += "Return ONLY the SQL query, with no explanations or markdown."
         messages = [
             {"role": "system", "content": system_message},
             {"role": "user", "content": f"Generate a MySQL query to answer this question: {question}"}
@@ -129,7 +144,12 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
         sep = " | ".join(["---"] * len(columns))
         rows = [" | ".join(str(cell) for cell in row) for row in results]
         result_str = f"{header}\n{sep}\n" + "\n".join(rows)
-    prompt = f"""Given the user's question and the SQL query result below, write a clear, concise answer in English. If the result is empty, say so.\n\nUser question: {question}\n\nSQL query: {sql_query}\n\nQuery result:\n{result_str}\n\nAnswer:"""
+    # Build the prompt using standard string concatenation to avoid any f-string issues
+    prompt = "Given the user's question and the SQL query result below, write a clear, concise answer in English. If the result is empty, say so.\n\n"
+    prompt += f"User question: {question}\n\n"
+    prompt += f"SQL query: {sql_query}\n\n"
+    prompt += f"Query result:\n{result_str}\n\n"
+    prompt += "Answer:\n"
 
     payload = {
         "model": OLLAMA_MODEL,
@@ -194,10 +214,11 @@ def execute_query(query: str) -> Tuple[list, list]:
 
 def create_interface():
     with gr.Blocks(title="RME PO Query Assistant rev.13 (Merged Table)") as interface:
-        gr.Markdown("""
-        # PO Follow-Up Query AI (rev.13, Merged Table)
-        This AI assistant queries the new merged PO table with all columns and merged terms.\n\n**Powered by Ollama Gemma3 running on your local GPU server.**
-        """)
+        gr.Markdown(
+            "# PO Follow-Up Query AI (rev.13, Merged Table)\n"
+            "This AI assistant queries the new merged PO table with all columns and merged terms.\n\n"
+            "**Powered by Ollama Gemma3 running on your local GPU server.**"
+        )
         with gr.Row():
             with gr.Column(scale=85):
                 question_input = gr.Textbox(
@@ -216,9 +237,10 @@ def create_interface():
         with gr.Row():
             supplier_btn = gr.Button("Show Unique Suppliers", elem_id="supplier-btn")
             project_btn = gr.Button("Show Unique Projects", elem_id="project-btn")
+
         def on_submit(question):
             if not question.strip():
-                return "Please enter a question", "", gr.Dataframe(value=[[]], headers=["Error"])
+                return "Please enter a question", "", gr.Dataframe(value=[["Please enter a question"]], headers=["Error"])
             try:
                 answer, query, columns, results = process_question(question)
                 if query.startswith("Error") or columns[0] == "Error":
@@ -227,6 +249,7 @@ def create_interface():
                 return answer, query, gr.Dataframe(value=results, headers=columns)
             except Exception as e:
                 return f"Unexpected error: {str(e)}", "", gr.Dataframe(value=[[str(e)]], headers=["Error"])
+
         submit_btn.click(
             fn=on_submit,
             inputs=[question_input],
@@ -242,7 +265,7 @@ def create_interface():
         gr.Examples(
             examples=[
                 ["Show me all items for project Rabigh 2 (Mourjan)"],
-                ["What are the terms for supplier الشركة المصرية"],
+                ["What are the terms for supplier \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0645\u0635\u0631\u064a\u0629"],
                 ["List all POs for project MOC HQ at Diriyah-K0005"],
                 ["Show all purchase orders with their terms"],
             ],
