@@ -81,24 +81,73 @@ Project Name:"""
             return name
     return "Unknown"
 
-def query_project_store(project_name, query, k=3):
-    """Performs a similarity search on a specific project's vector store."""
+def query_project_store(project_name, query, k_initial=7):
+    """Performs an initial similarity search on a specific project's vector store."""
     if project_name not in vector_stores:
-        return [], []
+        return [] # Return empty list if project not found
     
     store = vector_stores[project_name]
     query_embedding = embedder.encode([query], convert_to_numpy=True)
-    distances, indices = store['index'].search(np.array(query_embedding, dtype='float32'), k)
+    distances, indices = store['index'].search(np.array(query_embedding, dtype='float32'), k_initial)
     
-    results = []
-    context_docs = []
+    initial_candidates = []
     if indices.size > 0:
         for i in indices[0]:
-            if i != -1:
-                doc = store['metadata'][i]
-                results.append(doc)
-                context_docs.append(f"PDF: {doc['pdf_filename']}\nFinal Summary: {doc['final_summary']}\nPage Summaries: {doc['page_summaries']}")
-    return results, context_docs
+            if i != -1 and i < len(store['metadata']):
+                initial_candidates.append(store['metadata'][i])
+    return initial_candidates
+
+def rerank_documents(query, documents, top_k=3):
+    """Re-ranks a list of documents against a query using an LLM."""
+    if not documents:
+        return []
+
+    doc_representations = []
+    for i, doc in enumerate(documents):
+        summary_snippet = doc.get('final_summary', '')[:200] # First 200 chars
+        doc_representations.append(f"Document {i+1} (PDF: {doc.get('pdf_filename', 'Unknown')}):\nSummary Snippet: {summary_snippet}...")
+    
+    docs_text = "\n\n".join(doc_representations)
+
+    # This is the prompt we want to refine in the NEXT step
+    prompt = f"""Given the user's query and the following list of documents, identify which of these documents are relevant to answer the query. 
+Respond with a comma-separated list of document numbers (e.g., '1, 3, 5') for all relevant documents. If none are relevant, respond with an empty string or 'None'.
+
+User Query: "{query}"
+
+Documents:
+{docs_text}
+
+Relevant Document Numbers:"""
+    print(f"\n--- RERANKER PROMPT ---\n{prompt}\n-----------------------\n") # For debugging
+    
+    response = run_ollama(PROJECT_DETECTION_MODEL, prompt) # Using the faster model for re-ranking
+    print(f"Reranker LLM Raw Response: '{response}'") # For debugging
+
+    try:
+        if not response or response.lower() == 'none':
+            return []
+        
+        numbers_found = re.findall(r'\d+', response)
+        selected_indices = [int(num) - 1 for num in numbers_found]
+        
+        final_reranked_docs = []
+        seen_indices = set()
+        for doc_idx in selected_indices:
+            if 0 <= doc_idx < len(documents) and doc_idx not in seen_indices:
+                final_reranked_docs.append(documents[doc_idx])
+                seen_indices.add(doc_idx)
+            if len(final_reranked_docs) >= top_k:
+                break
+        return final_reranked_docs
+    except Exception as e:
+        print(f"Error parsing reranker response: {e}. Response was: '{response}'. Falling back to original top_k.")
+        return documents[:top_k]
+
+
+# === GRADIO INTERFACE ===
+
+
 
 # === GRADIO INTERFACE ===
 
@@ -115,17 +164,33 @@ def chat_interface(user_query):
         return "Could not determine the project from your question. Please be more specific (e.g., 'In the R5 project, ...').", "Unknown", "No context used."
     print(f"  Project detected: {detected_project}")
 
-    # 2. Retrieve relevant documents
-    print("Retrieving documents...")
-    retrieved_docs, context_list = query_project_store(detected_project, user_query, k=3)
-    if not retrieved_docs:
-        return f"I couldn't find any relevant documents in the {detected_project} project for your query.", detected_project, "No context used."
+    # 2. Retrieve initial candidate documents
+    print("Retrieving initial documents...")
+    initial_candidates = query_project_store(detected_project, user_query, k_initial=7) # k_initial was k=3
+    if not initial_candidates:
+        return f"I couldn't find any initial documents in the {detected_project} project for your query.", detected_project, "No context used."
+    print(f"  Retrieved {len(initial_candidates)} initial candidates.")
+    if initial_candidates:
+        print("  Initial candidate filenames:")
+        for cand_doc in initial_candidates:
+            print(f"    - {cand_doc.get('pdf_filename', 'Unknown PDF Filename')}")
+
+    # 3. Re-rank documents
+    print("Re-ranking documents...")
+    reranked_docs = rerank_documents(user_query, initial_candidates, top_k=3)
+    if not reranked_docs:
+        return f"Could not find sufficiently relevant documents in {detected_project} after re-ranking.", detected_project, "No context used after re-ranking."
+    print(f"  Re-ranked to {len(reranked_docs)} documents.")
+
+    # 4. Prepare context from re-ranked documents
+    context_list = []
+    for doc in reranked_docs:
+        context_list.append(f"PDF: {doc['pdf_filename']}\nFinal Summary: {doc['final_summary']}\nPage Summaries: {doc['page_summaries']}")
     
     context_for_llm = "\n\n---\n\n".join(context_list)
-    context_for_ui = "\n\n".join([f"- {doc['pdf_filename']}" for doc in retrieved_docs])
-    print(f"  Retrieved {len(retrieved_docs)} documents.")
+    context_for_ui = "\n\n".join([f"- {doc['pdf_filename']}" for doc in reranked_docs])
 
-    # 3. Generate the answer
+    # 5. Generate the answer
     print("Generating answer...")
     final_prompt = f"""You are a helpful assistant. Answer the user's question based *only* on the context provided below. If the answer is not in the context, say so. Be concise and clear.
 
@@ -139,7 +204,7 @@ Answer:"""
     final_answer = run_ollama(ANSWER_GENERATION_MODEL, final_prompt)
     print("  Answer generated.")
     
-    return final_answer, detected_project, f"Used {len(retrieved_docs)} documents:\n{context_for_ui}"
+    return final_answer, detected_project, f"Used {len(reranked_docs)} documents:\n{context_for_ui}"
 
 
 if __name__ == "__main__":
