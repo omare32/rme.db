@@ -130,6 +130,7 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
         rows = [" | ".join(str(cell) for cell in row) for row in results]
         result_str = f"{header}\n{sep}\n" + "\n".join(rows)
     prompt = f"""Given the user's question and the SQL query result below, write a clear, concise answer in English. If the result is empty, say so.\n\nUser question: {question}\n\nSQL query: {sql_query}\n\nQuery result:\n{result_str}\n\nAnswer:"""
+
     payload = {
         "model": OLLAMA_MODEL,
         "messages": [
