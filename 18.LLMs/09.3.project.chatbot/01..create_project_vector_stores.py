@@ -46,10 +46,7 @@ def create_and_save_project_vector_store(project_name, project_data, embedder, o
         print(f"  No data to process for {project_name}.")
         return
 
-    texts_to_embed = [
-        f"Document Name: {doc['pdf_filename']}\n\nFinal Summary:\n{doc['final_summary']}"
-        for doc in project_data
-    ]
+    texts_to_embed = [doc['final_summary'] for doc in project_data]
     
     print(f"  Generating embeddings for {len(texts_to_embed)} final summaries...")
     embeddings = embedder.encode(texts_to_embed, convert_to_numpy=True, show_progress_bar=True)
