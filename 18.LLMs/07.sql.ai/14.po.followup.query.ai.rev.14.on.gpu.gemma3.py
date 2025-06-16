@@ -43,51 +43,74 @@ def initialize_unique_lists():
     UNIQUE_PROJECTS = fetch_unique_list("PROJECT_NAME")
     UNIQUE_SUPPLIERS = fetch_unique_list("VENDOR_NAME")
 
-# Enhanced entity extraction and fuzzy matching
+# Enhanced entity extraction and matching
 def extract_entity_from_question(question: str, entity_type: str, entity_list: list) -> Tuple[Optional[str], float]:
     """
     Extract entity from question and return both the entity and the match confidence score
     """
-    system_message = f"""You are an assistant that helps extract the most likely {entity_type} name from a user's question.
+    # First try direct simple matching from question to entity list
+    question_lower = question.lower()
     
-Here is a list of all valid {entity_type} names:
-{chr(10).join(entity_list[:100])}  # Limiting to first 100 to avoid context length issues
-
-If the question refers to a {entity_type}, output the exact substring from the question that refers to the {entity_type}. 
-If not, output NONE."""
-
-    payload = {
-        "model": OLLAMA_MODEL,
-        "messages": [
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": question}
-        ],
-        "stream": False
-    }
+    # Direct matching - more reliable for exact phrases in the question
+    for entity in entity_list:
+        if entity.lower() in question_lower:
+            # Direct match found
+            return entity, 1.0
     
-    try:
-        resp = requests.post(f"{OLLAMA_HOST}/v1/chat/completions", json=payload)
-        resp.raise_for_status()
-        response_data = resp.json()
-        extracted_text = response_data['choices'][0]['message']['content'].strip()
+    # Try keyword matching - look for key parts of project/supplier names
+    question_words = set(question_lower.replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('?', ' ').split())
+    best_match = None
+    highest_score = 0
+    
+    for entity in entity_list:
+        entity_lower = entity.lower()
+        entity_words = set(entity_lower.split())
         
-        if extracted_text.upper() == "NONE":
-            return None, 0.0
+        # Check if any significant word from the entity appears in the question
+        for word in entity_words:
+            if len(word) > 3 and word in question_words:  # Only consider significant words
+                # Calculate overlap score
+                common_words = len(question_words & entity_words)
+                total_words = len(entity_words)
+                score = common_words / total_words
+                
+                if score > highest_score:
+                    highest_score = score
+                    best_match = entity
+    
+    if best_match and highest_score > 0.3:  # Minimum threshold
+        return best_match, highest_score
+    
+    # As a last resort, use difflib for fuzzy matching
+    # Extract potential entity fragments (2-3 word combinations) from the question
+    words = question_lower.split()
+    potential_fragments = []
+    for i in range(len(words)):
+        if i < len(words) - 1:
+            potential_fragments.append(f"{words[i]} {words[i+1]}")
+        if i < len(words) - 2:
+            potential_fragments.append(f"{words[i]} {words[i+1]} {words[i+2]}")
+    
+    best_score = 0
+    best_entity = None
+    
+    for fragment in potential_fragments:
+        matches = difflib.get_close_matches(fragment, [e.lower() for e in entity_list], n=1, cutoff=0.6)
+        if matches:
+            score = difflib.SequenceMatcher(None, fragment, matches[0]).ratio()
+            if score > best_score:
+                best_score = score
+                # Find the original entity with case preserved
+                for e in entity_list:
+                    if e.lower() == matches[0]:
+                        best_entity = e
+                        break
+    
+    if best_entity and best_score > 0.6:
+        return best_entity, best_score
         
-        # Improved fuzzy matching with higher confidence
-        matches = difflib.get_close_matches(extracted_text, entity_list, n=3, cutoff=0.4)
-        
-        if not matches:
-            return None, 0.0
-            
-        best_match = matches[0]
-        # Calculate match score (rough approximation)
-        match_score = difflib.SequenceMatcher(None, extracted_text.lower(), best_match.lower()).ratio()
-        
-        return best_match, match_score
-    except Exception as e:
-        print(f"Error extracting {entity_type}: {e}")
-        return None, 0.0
+    # No match found
+    return None, 0.0
 
 def process_question(question: str) -> Tuple[str, str, list, list, dict]:
     """
@@ -116,34 +139,28 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
     # If an entity was found, rewrite the question with the exact name
     rewritten_question = question
     
-    # Prioritize the entity with higher confidence if both are found
-    if project_guess and supplier_guess:
-        if project_confidence > supplier_confidence:
-            entity = project_guess
-        else:
-            entity = supplier_guess
-    elif project_guess:
-        entity = project_guess
-    elif supplier_guess:
-        entity = supplier_guess
-    else:
-        entity = None
-        
-    if entity:
-        words = entity.split()
-        # Try to replace partial match in the question
-        found = False
-        for w in words:
-            if w.lower() in question.lower() and len(w) > 2:  # Only replace meaningful words
-                rewritten_question = question.replace(w, entity)
-                found = True
-                break
-                
-        if not found:
-            rewritten_question = f"{question} ({entity})"
+    # Prepare an augmented question with explicit entity information
+    augmented_question = question
     
-    # Generate SQL query with the rewritten question
-    query = generate_sql_query(rewritten_question)
+    if project_guess:
+        # Replace the project name in the question with the exact database name
+        for word in project_guess.split():
+            if len(word) > 3 and word.lower() in question.lower():  # Only try to replace meaningful words
+                rewritten_question = question  # Keep original for now
+                
+        # Explicitly add the project name to the augmented question
+        augmented_question = f"{question} (for project: {project_guess})"
+    
+    if supplier_guess:
+        # Explicitly add the supplier name 
+        if project_guess:
+            augmented_question += f" (for supplier: {supplier_guess})"
+        else:
+            augmented_question = f"{question} (for supplier: {supplier_guess})"
+    
+    # Use the augmented question for SQL generation to ensure entities are properly used
+    query = generate_sql_query(augmented_question)
+    
     if query.startswith("Error"):
         return "", query, ["Error"], [["Failed to generate SQL query"]], detected_entities
         
@@ -174,7 +191,7 @@ def generate_sql_query(question: str) -> str:
         system_message += "- TERMS: merged PO terms (TEXT)\n\n"
         system_message += "You can answer questions about purchase orders, terms, suppliers, projects, items, etc.\n\n"
         system_message += "Only use these columns in your query. Keep the query simple and focused on answering the question. "
-        system_message += "Return ONLY the SQL query, with no explanations or markdown."
+        system_message += "Return ONLY the raw SQL query, with NO code formatting, NO markdown backticks, NO ```sql tags, and NO explanations."
         
         messages = [
             {"role": "system", "content": system_message},
@@ -189,7 +206,14 @@ def generate_sql_query(question: str) -> str:
         resp = requests.post(f"{OLLAMA_HOST}/v1/chat/completions", json=payload)
         resp.raise_for_status()
         response = resp.json()
-        return response['choices'][0]['message']['content'].strip()
+        sql_query = response['choices'][0]['message']['content'].strip()
+        
+        # Clean the SQL query - Remove any markdown code fences or backticks
+        sql_query = sql_query.replace('```sql', '').replace('```', '').strip()
+        if sql_query.startswith('`') and sql_query.endswith('`'):
+            sql_query = sql_query[1:-1].strip()
+            
+        return sql_query
     except Exception as e:
         return f"Error generating SQL query: {str(e)}"
 
