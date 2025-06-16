@@ -44,6 +44,63 @@ def initialize_unique_lists():
     UNIQUE_SUPPLIERS = fetch_unique_list("VENDOR_NAME")
 
 # Enhanced entity extraction and matching
+
+def detect_entities_with_llm(question: str) -> dict:
+    """
+    Use the LLM to detect project and supplier names mentioned in the question.
+    Returns a dictionary with detected entities.
+    """
+    try:
+        system_message = "You are an entity detection system. Your task is to identify project names and supplier names mentioned in questions about purchase orders."
+        system_message += "\n\nAnalyze the question and extract ONLY project names or supplier names if they exist."
+        system_message += "\n\nReturn your answer in JSON format with the following structure:"
+        system_message += "\n{\"project\": \"project name or null if none mentioned\", \"supplier\": \"supplier name or null if none mentioned\"}"
+        system_message += "\n\nIf a project or supplier is not mentioned, use null (not empty string)."
+        system_message += "\n\nExample 1: 'Show me all POs for Ring Road project'"
+        system_message += "\nResponse: {\"project\": \"Ring Road\", \"supplier\": null}"
+        system_message += "\n\nExample 2: 'What are the terms for supplier Siemens?'"
+        system_message += "\nResponse: {\"project\": null, \"supplier\": \"Siemens\"}"
+
+        messages = [
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": question}
+        ]
+        
+        payload = {
+            "model": OLLAMA_MODEL,
+            "messages": messages,
+            "stream": False
+        }
+        
+        resp = requests.post(f"{OLLAMA_HOST}/v1/chat/completions", json=payload)
+        resp.raise_for_status()
+        response = resp.json()
+        llm_response = response['choices'][0]['message']['content'].strip()
+        
+        # Extract JSON from the response
+        import json
+        import re
+        
+        # Look for JSON pattern in the response
+        json_match = re.search(r'\{[^{}]*\}', llm_response)
+        if json_match:
+            json_str = json_match.group(0)
+            try:
+                entities = json.loads(json_str)
+                result = {
+                    "project": entities.get("project") if entities.get("project") != "null" else None,
+                    "supplier": entities.get("supplier") if entities.get("supplier") != "null" else None
+                }
+                return result
+            except json.JSONDecodeError:
+                print(f"Failed to parse JSON from LLM response: {json_str}")
+        
+        # Fallback: return empty results
+        return {"project": None, "supplier": None}
+        
+    except Exception as e:
+        print(f"Error in LLM entity detection: {str(e)}")
+        return {"project": None, "supplier": None}
 def extract_entity_from_question(question: str, entity_type: str, entity_list: list) -> Tuple[Optional[str], float]:
     """
     Extract entity from question and return both the entity and the match confidence score
@@ -124,17 +181,53 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
         "supplier_confidence": 0.0
     }
     
-    # Try to extract project from the question
-    project_guess, project_confidence = extract_entity_from_question(question, "project", UNIQUE_PROJECTS)
-    if project_guess:
-        detected_entities["project"] = project_guess
-        detected_entities["project_confidence"] = project_confidence
+    # First, use the LLM to detect potential project and supplier names
+    llm_entities = detect_entities_with_llm(question)
     
-    # Try to extract supplier from the question
-    supplier_guess, supplier_confidence = extract_entity_from_question(question, "supplier", UNIQUE_SUPPLIERS)
-    if supplier_guess:
-        detected_entities["supplier"] = supplier_guess
-        detected_entities["supplier_confidence"] = supplier_confidence
+    # Check if LLM detected a project (explicit values vs missing keys)
+    if "project" in llm_entities:
+        project_candidate = llm_entities["project"]
+        # If project was detected (not None), try to match it with our database
+        if project_candidate:
+            # Try to find the best match in our database for the LLM-detected project
+            if project_candidate in UNIQUE_PROJECTS:
+                # Direct match
+                detected_entities["project"] = project_candidate
+                detected_entities["project_confidence"] = 1.0
+            else:
+                # Find closest match using difflib
+                matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=1, cutoff=0.6)
+                if matches:
+                    detected_entities["project"] = matches[0]
+                    detected_entities["project_confidence"] = difflib.SequenceMatcher(None, project_candidate, matches[0]).ratio()
+    else:
+        # Only fallback to traditional extraction if LLM failed completely
+        # (didn't return a valid response with project field)
+        project_guess, project_confidence = extract_entity_from_question(question, "project", UNIQUE_PROJECTS)
+        if project_guess:
+            detected_entities["project"] = project_guess
+            detected_entities["project_confidence"] = project_confidence
+    
+    # Check if LLM detected a supplier (explicit values vs missing keys)
+    if "supplier" in llm_entities:
+        supplier_candidate = llm_entities["supplier"]
+        # If supplier was detected (not None), try to match it with our database
+        if supplier_candidate:
+            if supplier_candidate in UNIQUE_SUPPLIERS:
+                detected_entities["supplier"] = supplier_candidate
+                detected_entities["supplier_confidence"] = 1.0
+            else:
+                matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=1, cutoff=0.6)
+                if matches:
+                    detected_entities["supplier"] = matches[0]
+                    detected_entities["supplier_confidence"] = difflib.SequenceMatcher(None, supplier_candidate, matches[0]).ratio()
+    else:
+        # Only fallback to traditional extraction if LLM failed completely
+        # (didn't return a valid response with supplier field)
+        supplier_guess, supplier_confidence = extract_entity_from_question(question, "supplier", UNIQUE_SUPPLIERS)
+        if supplier_guess:
+            detected_entities["supplier"] = supplier_guess
+            detected_entities["supplier_confidence"] = supplier_confidence
     
     # If an entity was found, rewrite the question with the exact name
     rewritten_question = question
@@ -142,21 +235,19 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
     # Prepare an augmented question with explicit entity information
     augmented_question = question
     
-    if project_guess:
-        # Replace the project name in the question with the exact database name
-        for word in project_guess.split():
-            if len(word) > 3 and word.lower() in question.lower():  # Only try to replace meaningful words
-                rewritten_question = question  # Keep original for now
-                
-        # Explicitly add the project name to the augmented question
-        augmented_question = f"{question} (for project: {project_guess})"
+    project_match = detected_entities["project"]
+    supplier_match = detected_entities["supplier"]
     
-    if supplier_guess:
+    if project_match:
+        # Explicitly add the project name to the augmented question
+        augmented_question = f"{question} (for project: {project_match})"
+    
+    if supplier_match:
         # Explicitly add the supplier name 
-        if project_guess:
-            augmented_question += f" (for supplier: {supplier_guess})"
+        if project_match:
+            augmented_question += f" (for supplier: {supplier_match})"
         else:
-            augmented_question = f"{question} (for supplier: {supplier_guess})"
+            augmented_question = f"{question} (for supplier: {supplier_match})"
     
     # Use the augmented question for SQL generation to ensure entities are properly used
     query = generate_sql_query(augmented_question)
