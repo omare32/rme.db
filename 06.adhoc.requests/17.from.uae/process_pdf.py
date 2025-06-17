@@ -2,6 +2,12 @@ import pdfplumber
 import pandas as pd
 import re
 import os
+import sys
+
+# Redirect stdout and stderr to a log file to capture all output
+log_file = open('process_pdf.log', 'w')
+sys.stdout = log_file
+sys.stderr = log_file
 
 # Define input and output file paths
 input_pdf = r"d:\OneDrive2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\06.adhoc.requests\17.from.uae\ADWEA_APPROVED_CONTRACTORS_LIST.pdf"
@@ -9,80 +15,100 @@ output_excel = r"d:\OneDrive2\OneDrive - Rowad Modern Engineering\x004 Data Scie
 
 # Function to extract Work Group and Criteria from page text
 def extract_headers(page_text):
-    work_group_match = re.search(r'Work Group:\s*(.*?)(?:\n|Criteria)', page_text)
-    criteria_match = re.search(r'Criteria :\s*(.*?)(?:\n|Company ID)', page_text)
+    # More robust regex
+    work_group_match = re.search(r'Work Group:\s*(.*?)(?:\n|Criteria)', page_text, re.DOTALL)
+    criteria_match = re.search(r'Criteria\s*:\s*(.*?)(?:\n|Company ID)', page_text, re.DOTALL)
     
-    work_group = work_group_match.group(1).strip() if work_group_match else ""
-    criteria = criteria_match.group(1).strip() if criteria_match else ""
+    work_group = work_group_match.group(1).strip().replace('\n', ' ') if work_group_match else "Not Found"
+    criteria = criteria_match.group(1).strip().replace('\n', ' ') if criteria_match else "Not Found"
     
     return work_group, criteria
 
 # Initialize list to store all dataframes
 all_tables = []
 
-print("Processing PDF file...")
+print(f"Starting PDF processing for: {input_pdf}")
 
-# Open the PDF file
-with pdfplumber.open(input_pdf) as pdf:
-    # Loop through each page
-    for page_num, page in enumerate(pdf.pages):
-        print(f"Processing page {page_num + 1} of {len(pdf.pages)}...")
-        
-        # Extract text for header information
-        text = page.extract_text()
-        
-        # Extract Work Group and Criteria
-        work_group, criteria = extract_headers(text)
-        
-        # Extract tables from the page
-        tables = page.extract_tables()
-        
-        for table in tables:
-            if not table or len(table) < 2:  # Skip empty tables or tables with just headers
-                continue
-            
-            header_row_idx = None
-            for i, row in enumerate(table):
-                # Use a more robust check for the header
-                if any(col and 'Company ID' in str(col) for col in row):
-                    header_row_idx = i
-                    break
-            
-            if header_row_idx is None:
-                continue
-            
-            headers = table[header_row_idx]
-            # Clean up headers
-            headers = [str(h).replace('\n', ' ').strip() if h else f'Unnamed: {i}' for i, h in enumerate(headers)]
-            data_rows = table[header_row_idx + 1:]
-            
-            data_rows = [row for row in data_rows if any(cell and str(cell).strip() for cell in row)]
-            
-            if data_rows:
-                df = pd.DataFrame(data_rows, columns=headers)
+# Check if PDF exists
+if not os.path.exists(input_pdf):
+    print(f"Error: Input PDF not found at {input_pdf}")
+else:
+    try:
+        with pdfplumber.open(input_pdf) as pdf:
+            print(f"PDF has {len(pdf.pages)} pages.")
+            for page_num, page in enumerate(pdf.pages):
+                print(f"\n--- Processing page {page_num + 1} ---")
                 
-                df['Work Group'] = work_group
-                df['Criteria'] = criteria
+                text = page.extract_text()
+                if not text:
+                    print("No text found on this page.")
+                    continue
                 
-                all_tables.append(df)
+                work_group, criteria = extract_headers(text)
+                print(f"Extracted Work Group: '{work_group}'")
+                print(f"Extracted Criteria: '{criteria}'")
+                
+                # Use a specific table extraction strategy
+                tables = page.extract_tables({
+                    "vertical_strategy": "lines",
+                    "horizontal_strategy": "lines",
+                })
+                print(f"Found {len(tables)} tables on page {page_num + 1}.")
+                
+                for i, table in enumerate(tables):
+                    print(f"  Processing table {i+1} on page {page_num + 1}")
+                    if not table or len(table) < 2:
+                        print("    Skipping table: empty or less than 2 rows.")
+                        continue
+                    
+                    header_row_idx = -1
+                    for j, row in enumerate(table):
+                        row_str = " ".join(filter(None, [str(c) for c in row]))
+                        if 'Company ID' in row_str and 'Company Name' in row_str:
+                            header_row_idx = j
+                            print(f"    Header row found at index {j}: {row}")
+                            break
+                    
+                    if header_row_idx == -1:
+                        print("    Skipping table: Header not found.")
+                        continue
+
+                    headers = [str(h).replace('\n', ' ').strip() if h else f'Unnamed_{k}' for k, h in enumerate(table[header_row_idx])]
+                    data_rows = table[header_row_idx + 1:]
+                    
+                    if data_rows:
+                        df = pd.DataFrame(data_rows, columns=headers)
+                        df['Work Group'] = work_group
+                        df['Criteria'] = criteria
+                        all_tables.append(df)
+                        print(f"    Successfully processed table, added {len(df)} rows.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if all_tables:
-    combined_df = pd.concat(all_tables, ignore_index=True)
-    
-    # Reorder columns to have Work Group and Criteria first
-    cols = combined_df.columns.tolist()
-    if 'Work Group' in cols and 'Criteria' in cols:
-        cols.insert(0, cols.pop(cols.index('Criteria')))
-        cols.insert(0, cols.pop(cols.index('Work Group')))
+    print("\n--- Combining all tables ---")
+    try:
+        combined_df = pd.concat(all_tables, ignore_index=True)
+        
+        # Reorder columns
+        cols = combined_df.columns.tolist()
+        if 'Criteria' in cols:
+            cols.insert(0, cols.pop(cols.index('Criteria')))
+        if 'Work Group' in cols:
+            cols.insert(0, cols.pop(cols.index('Work Group')))
         combined_df = combined_df[cols]
 
-    # Clean up dataframe
-    combined_df = combined_df.dropna(axis=1, how='all')
-    combined_df = combined_df.dropna(how='all')
-    
-    print(f"Saving data to Excel file: {output_excel}")
-    combined_df.to_excel(output_excel, index=False)
-    print(f"Successfully extracted {len(combined_df)} contractor records.")
-    print(f"Excel file saved at: {os.path.abspath(output_excel)}")
+        combined_df = combined_df.dropna(axis=1, how='all').dropna(how='all')
+        
+        print(f"Saving data to Excel file: {output_excel}")
+        combined_df.to_excel(output_excel, index=False)
+        print(f"Successfully created Excel file with {len(combined_df)} records.")
+        print(f"File saved at: {os.path.abspath(output_excel)}")
+    except Exception as e:
+        print(f"An error occurred during Excel export: {e}")
 else:
-    print("No valid contractor tables found in the PDF.")
+    print("\n--- No valid contractor tables were found in the PDF. ---")
+
+# Close the log file
+log_file.close()
