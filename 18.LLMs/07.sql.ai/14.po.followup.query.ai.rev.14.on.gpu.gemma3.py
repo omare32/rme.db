@@ -173,12 +173,14 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
     """
     Process the question and return answer, query, columns, results, and detected entities
     """
-    # Extract detected entities
+    # Extract detected entities with alternative matches
     detected_entities = {
         "project": None,
         "project_confidence": 0.0,
+        "project_alternatives": [],  # Will store up to 2 alternative matches
         "supplier": None,
-        "supplier_confidence": 0.0
+        "supplier_confidence": 0.0,
+        "supplier_alternatives": []   # Will store up to 2 alternative matches
     }
     
     # First, use the LLM to detect potential project and supplier names
@@ -194,12 +196,21 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
                 # Direct match
                 detected_entities["project"] = project_candidate
                 detected_entities["project_confidence"] = 1.0
+                
+                # Get alternatives for even direct matches (similar named projects)
+                other_matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=3, cutoff=0.5)
+                alternatives = [m for m in other_matches if m != project_candidate][:2]  # Take up to 2 alternatives
+                detected_entities["project_alternatives"] = alternatives
             else:
-                # Find closest match using difflib
-                matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=1, cutoff=0.6)
+                # Find closest match using difflib (get top 3 matches)
+                matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=3, cutoff=0.5)
                 if matches:
+                    # Primary match
                     detected_entities["project"] = matches[0]
                     detected_entities["project_confidence"] = difflib.SequenceMatcher(None, project_candidate, matches[0]).ratio()
+                    
+                    # Store alternatives (2nd and 3rd matches if they exist)
+                    detected_entities["project_alternatives"] = matches[1:3] if len(matches) > 1 else []
     else:
         # Only fallback to traditional extraction if LLM failed completely
         # (didn't return a valid response with project field)
@@ -214,13 +225,24 @@ def process_question(question: str) -> Tuple[str, str, list, list, dict]:
         # If supplier was detected (not None), try to match it with our database
         if supplier_candidate:
             if supplier_candidate in UNIQUE_SUPPLIERS:
+                # Direct match
                 detected_entities["supplier"] = supplier_candidate
                 detected_entities["supplier_confidence"] = 1.0
+                
+                # Get alternatives for even direct matches (similar named suppliers)
+                other_matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
+                alternatives = [m for m in other_matches if m != supplier_candidate][:2]  # Take up to 2 alternatives
+                detected_entities["supplier_alternatives"] = alternatives
             else:
-                matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=1, cutoff=0.6)
+                # Find closest match using difflib (get top 3 matches)
+                matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
                 if matches:
+                    # Primary match
                     detected_entities["supplier"] = matches[0]
                     detected_entities["supplier_confidence"] = difflib.SequenceMatcher(None, supplier_candidate, matches[0]).ratio()
+                    
+                    # Store alternatives (2nd and 3rd matches if they exist)
+                    detected_entities["supplier_alternatives"] = matches[1:3] if len(matches) > 1 else []
     else:
         # Only fallback to traditional extraction if LLM failed completely
         # (didn't return a valid response with supplier field)
@@ -419,13 +441,27 @@ def create_interface():
                 # Format detected entities for display
                 entities_markdown = "### Detected Entities\n"
                 
+                # Display project and alternatives if available
                 if entities["project"]:
                     entities_markdown += f"**Project:** {entities['project']} *(confidence: {entities['project_confidence']:.2f})*\n"
+                    
+                    # Show alternative project matches if any exist
+                    if entities.get("project_alternatives") and len(entities["project_alternatives"]) > 0:
+                        entities_markdown += "**Alternative projects:** "
+                        entities_markdown += ", ".join([f"`{alt}`" for alt in entities["project_alternatives"]])
+                        entities_markdown += "\n"
                 else:
                     entities_markdown += "**Project:** None\n"
                     
+                # Display supplier and alternatives if available
                 if entities["supplier"]:
                     entities_markdown += f"**Supplier:** {entities['supplier']} *(confidence: {entities['supplier_confidence']:.2f})*\n"
+                    
+                    # Show alternative supplier matches if any exist
+                    if entities.get("supplier_alternatives") and len(entities["supplier_alternatives"]) > 0:
+                        entities_markdown += "**Alternative suppliers:** "
+                        entities_markdown += ", ".join([f"`{alt}`" for alt in entities["supplier_alternatives"]])
+                        entities_markdown += "\n"
                 else:
                     entities_markdown += "**Supplier:** None\n"
                 
