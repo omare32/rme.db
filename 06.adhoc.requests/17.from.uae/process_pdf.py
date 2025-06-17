@@ -77,7 +77,6 @@ else:
                     
                     if data_rows:
                         df = pd.DataFrame(data_rows, columns=headers)
-                        print(f"    Assigning to DataFrame - Page {page_num + 1}, Table {i+1} - Work Group: '{work_group}', Criteria: '{criteria}'")
                         df['Work Group'] = work_group
                         df['Criteria'] = criteria
                         all_tables.append(df)
