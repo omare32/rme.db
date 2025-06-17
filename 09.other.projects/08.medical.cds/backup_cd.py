@@ -9,6 +9,8 @@ import PyPDF2        # For .pdf files
 
 CD_DRIVE = "E:\\"
 BACKUP_BASE_DIR = "F:\\My Drive\\Backups\\medical-cds"
+# Directory for all text summaries and future AI-generated summaries
+SUMMARY_BASE_DIR = os.path.join(BACKUP_BASE_DIR, "summaries")
 
 def get_drive_label(drive_path):
     """Gets the volume label of a drive."""
@@ -23,6 +25,35 @@ def get_drive_label(drive_path):
     except Exception as e:
         print(f"Error getting drive label for {drive_path}: {e}")
         return None
+
+# ---------------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------------
+
+def sanitize_label(label: str) -> str:
+    """Return a filesystem-safe version of the CD label used in folder names."""
+    return "".join(c for c in label if c.isalnum() or c in (' ', '_')).rstrip()
+
+
+def find_existing_backup_path(cd_label: str):
+    """If a backup folder for this CD label already exists under BACKUP_BASE_DIR,
+    return its absolute path, else None. We match by the trailing portion
+    "_<sanitized_label>" of the folder name.
+    """
+    if not cd_label:
+        return None
+    sanitized_label = sanitize_label(cd_label)
+    try:
+        matches = [d for d in os.listdir(BACKUP_BASE_DIR)
+                   if d.endswith(f"_{sanitized_label}") and os.path.isdir(os.path.join(BACKUP_BASE_DIR, d))]
+        if matches:
+            # If multiple, choose the latest by timestamp (folder name prefix)
+            matches.sort(reverse=True)
+            return os.path.join(BACKUP_BASE_DIR, matches[0])
+    except FileNotFoundError:
+        pass
+    return None
+
 
 def create_backup_folder_name(cd_label):
     """Creates a unique folder name for the backup."""
@@ -154,6 +185,26 @@ def backup_cd():
     cd_label = get_drive_label(CD_DRIVE.rstrip('\\'))
     print(f"CD Label: {cd_label if cd_label else 'No label found'}")
 
+    # ------------------------------------------------------------------
+    # Check for existing backup of this CD to avoid duplicates
+    # ------------------------------------------------------------------
+    existing_backup_path = find_existing_backup_path(cd_label) if cd_label else None
+    if existing_backup_path:
+        print(f"Detected an existing backup for label '{cd_label}'. Skipping copy and using folder:\n  {existing_backup_path}")
+        # We still attempt text extraction (in case it was not done yet) and then exit.
+        text_summary_path = extract_text_from_documents(existing_backup_path)
+        if text_summary_path:
+            print("Text extraction finished. Summary doc created.")
+        else:
+            print("No documents found or summary already existed.")
+        return
+
+    # ------------------------------------------------------------------
+    # No existing backup; proceed with normal copy procedure
+    # ------------------------------------------------------------------
+    cd_label = get_drive_label(CD_DRIVE.rstrip('\\'))
+    print(f"CD Label: {cd_label if cd_label else 'No label found'}")
+
     backup_folder_name = create_backup_folder_name(cd_label)
     destination_path_base = os.path.join(BACKUP_BASE_DIR, backup_folder_name)
 
@@ -263,8 +314,8 @@ def backup_cd():
         try:
             text_summary_path = extract_text_from_documents(destination_path_base)
         except ImportError:
-            print("\nSkipping text extraction: 'textract' library not found. Please install it (e.g., pip install textract).")
-            errors_during_copy.append("Text extraction skipped: textract library not installed.")
+            print("\nSkipping text extraction: required libraries not available. Ensure MS Word, python-docx, and PyPDF2 are installed.")
+            errors_during_copy.append("Text extraction skipped: missing dependencies.")
         except Exception as e_textract:
             print(f"\nError during text extraction process: {e_textract}")
             errors_during_copy.append(f"Text extraction failed: {e_textract}")
@@ -284,9 +335,117 @@ def backup_cd():
         #     shutil.rmtree(destination_path_base)
 
 def extract_text_from_documents(backup_folder_path):
-    """Scans for DOC, DOCX, PDF files in the backup folder, extracts text, and saves to a summary file."""
+    """Extracts text from DOC, DOCX, and PDF files found in a CD backup folder and
+    saves the combined content into a Word (.docx) file located under
+    `SUMMARY_BASE_DIR`. The summary filename is based on the backup folder name.
+
+    Returns the full path to the created summary document, or None if no
+    documents were found / processed.
+    """
     supported_extensions = ('.doc', '.docx', '.pdf')
-    extracted_texts = []
+    extracted_entries = []  # list of tuples (relative_path, text)
+    processed_files_count = 0
+
+    # Ensure summary directory exists
+    os.makedirs(SUMMARY_BASE_DIR, exist_ok=True)
+
+    backup_folder_name = os.path.basename(backup_folder_path.rstrip(os.sep))
+    summary_file_name = f"{backup_folder_name}_text_summary.docx"
+    summary_file_path = os.path.join(SUMMARY_BASE_DIR, summary_file_name)
+
+    print(f"\nScanning for documents to summarize in: {backup_folder_path}")
+
+    # Initialize Word COM object if .doc files might be present
+    word_app = None
+    try:
+        has_doc_files = any(f.lower().endswith('.doc') for r, d, fs in os.walk(backup_folder_path) for f in fs)
+        if has_doc_files:
+            print("  Initializing MS Word for .doc file processing (this may take a moment)...")
+            word_app = win32com.client.Dispatch("Word.Application")
+            word_app.Visible = False
+    except Exception as e:
+        print(f"    Warning: Could not initialize MS Word COM object. .doc file extraction will be skipped. Error: {e}")
+        word_app = None
+
+    # Walk the backup folder and extract text file-by-file
+    for root, _, files in os.walk(backup_folder_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            relative_file_path = os.path.relpath(file_path, backup_folder_path)
+            lower_name = file.lower()
+            text = ""
+
+            if lower_name.endswith('.doc'):
+                if word_app:
+                    print(f"  Processing .doc: {relative_file_path}")
+                    try:
+                        doc = word_app.Documents.Open(file_path, ReadOnly=True)
+                        text = doc.Content.Text
+                        doc.Close(False)
+                        processed_files_count += 1
+                    except Exception as e:
+                        print(f"    Error extracting text from .doc {relative_file_path}: {e}")
+                        text = f"[Error extracting text via Word: {e}]"
+                else:
+                    text = "[Skipped .doc file – MS Word COM not available]"
+
+            elif lower_name.endswith('.docx'):
+                print(f"  Processing .docx: {relative_file_path}")
+                try:
+                    d = docx.Document(file_path)
+                    text = '\n'.join(p.text for p in d.paragraphs)
+                    processed_files_count += 1
+                except Exception as e:
+                    print(f"    Error extracting text from .docx {relative_file_path}: {e}")
+                    text = f"[Error extracting text: {e}]"
+
+            elif lower_name.endswith('.pdf'):
+                print(f"  Processing .pdf: {relative_file_path}")
+                try:
+                    with open(file_path, 'rb') as f:
+                        reader = PyPDF2.PdfReader(f)
+                        page_text = []
+                        for page in reader.pages:
+                            page_text.append(page.extract_text())
+                    text = '\n'.join(filter(None, page_text))
+                    processed_files_count += 1
+                except Exception as e:
+                    print(f"    Error extracting text from .pdf {relative_file_path}: {e}")
+                    text = f"[Error extracting text: {e}]"
+
+            if text:
+                extracted_entries.append((relative_file_path, text))
+
+    # Close Word COM if opened
+    if word_app:
+        try:
+            word_app.Quit(False)
+        except Exception:
+            pass
+
+    if not extracted_entries:
+        print("No documents found or no text extracted for summary.")
+        return None
+
+    # Write to Word document using python-docx
+    try:
+        from docx import Document  # local import to avoid confusion with var name
+        doc_summary = Document()
+        doc_summary.add_heading("Extracted Text from Documents", level=1)
+
+        for rel_path, entry_text in extracted_entries:
+            doc_summary.add_heading(f"Content from: {rel_path}", level=2)
+            for line in entry_text.split('\n'):
+                doc_summary.add_paragraph(line)
+            doc_summary.add_page_break()
+
+        doc_summary.save(summary_file_path)
+        print(f"\nWord summary created: {summary_file_path} (from {processed_files_count} document(s))")
+        return summary_file_path
+    except Exception as e:
+        print(f"Error writing Word summary file: {e}")
+        return None
+
     summary_file_name = "text_summary.md"
     summary_file_path = os.path.join(backup_folder_path, summary_file_name)
     processed_files_count = 0
