@@ -203,8 +203,6 @@ def backup_cd():
     # ------------------------------------------------------------------
     # No existing backup; proceed with normal copy procedure
     # ------------------------------------------------------------------
-    cd_label = get_drive_label(CD_DRIVE.rstrip('\\'))
-    print(f"CD Label: {cd_label if cd_label else 'No label found'}")
 
     backup_folder_name = create_backup_folder_name(cd_label)
     destination_path_base = os.path.join(BACKUP_BASE_DIR, backup_folder_name)
