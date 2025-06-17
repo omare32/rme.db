@@ -12,6 +12,8 @@ CD_DRIVE = "E:\\"
 BACKUP_BASE_DIR = "F:\\My Drive\\Backups\\medical-cds"
 # Directory for all text summaries and future AI-generated summaries
 SUMMARY_BASE_DIR = os.path.join(BACKUP_BASE_DIR, "summaries")
+# Directory to store extracted DICOM images
+IMAGES_BASE_DIR = os.path.join(BACKUP_BASE_DIR, "images")
 
 def get_drive_label(drive_path):
     """Gets the volume label of a drive."""
@@ -198,6 +200,17 @@ def backup_cd():
             print("Text extraction finished. Summary doc created.")
         else:
             print("No documents found or summary already existed.")
+
+        # ---------------- DICOM image extraction -----------------
+        images_folder = extract_images_from_dicom(existing_backup_path)
+        if images_folder:
+            print(f"Images extracted to {images_folder}")
+        else:
+            print("No DICOM images found to extract.")
+        return
+            print("Text extraction finished. Summary doc created.")
+        else:
+            print("No documents found or summary already existed.")
         return
 
     # ------------------------------------------------------------------
@@ -312,6 +325,7 @@ def backup_cd():
         text_summary_path = None
         try:
             text_summary_path = extract_text_from_documents(destination_path_base)
+        images_folder = extract_images_from_dicom(destination_path_base)
         except ImportError:
             print("\nSkipping text extraction: required libraries not available. Ensure MS Word, python-docx, and PyPDF2 are installed.")
             errors_during_copy.append("Text extraction skipped: missing dependencies.")
@@ -332,6 +346,42 @@ def backup_cd():
         # if os.path.exists(destination_path_base):
         #     print(f"Cleaning up partially created folder: {destination_path_base}")
         #     shutil.rmtree(destination_path_base)
+
+def extract_images_from_dicom(backup_folder_path):
+    """Extract images from DICOM files under a backup folder.
+    Saves PNG files into IMAGES_BASE_DIR/<backup_folder_name>/
+    Returns the images folder path or None if none extracted.
+    """
+    os.makedirs(IMAGES_BASE_DIR, exist_ok=True)
+    backup_folder_name = os.path.basename(backup_folder_path.rstrip(os.sep))
+    output_dir = os.path.join(IMAGES_BASE_DIR, backup_folder_name)
+    os.makedirs(output_dir, exist_ok=True)
+
+    count = 0
+    for root, _, files in os.walk(backup_folder_path):
+        for fname in files:
+            if not fname.lower().endswith(('.dcm', '')):
+                # attempt to open any file; pydicom will raise if not dicom
+                pass  # we'll still try
+            file_path = os.path.join(root, fname)
+            try:
+                ds = pydicom.dcmread(file_path, force=True, stop_before_pixels=False)
+                if hasattr(ds, 'pixel_array'):
+                    arr = ds.pixel_array
+                    # Rescale to 8-bit if necessary
+                    if arr.dtype != np.uint8:
+                        arr = arr.astype(np.float32)
+                        arr = 255 * (arr - arr.min()) / (arr.max() - arr.min() + 1e-5)
+                        arr = arr.astype(np.uint8)
+                    img = Image.fromarray(arr)
+                    out_name = f"{count:04d}.png"
+                    img.save(os.path.join(output_dir, out_name))
+                    count += 1
+            except Exception:
+                continue
+
+    return output_dir if count else None
+
 
 def extract_text_from_documents(backup_folder_path):
     """Extracts text from DOC, DOCX, and PDF files found in a CD backup folder and
