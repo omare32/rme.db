@@ -5,9 +5,8 @@ import os
 import sys
 
 # Redirect stdout and stderr to a log file to capture all output
-log_file = open('process_pdf.log', 'w')
-sys.stdout = log_file
-sys.stderr = log_file
+sys.stdout = open('process_output.txt', 'w')
+sys.stderr = sys.stdout
 
 # Define input and output file paths
 input_pdf = r"d:\OneDrive2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\06.adhoc.requests\17.from.uae\ADWEA_APPROVED_CONTRACTORS_LIST.pdf"
@@ -110,5 +109,4 @@ if all_tables:
 else:
     print("\n--- No valid contractor tables were found in the PDF. ---")
 
-# Close the log file
-log_file.close()
+
