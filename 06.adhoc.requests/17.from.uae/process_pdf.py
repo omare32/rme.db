@@ -13,13 +13,13 @@ input_pdf = r"d:\OneDrive2\OneDrive - Rowad Modern Engineering\x004 Data Science
 output_excel = r"d:\OneDrive2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\06.adhoc.requests\17.from.uae\ADWEA_APPROVED_CONTRACTORS_LIST.xlsx"
 
 # Function to extract Work Group and Criteria from page text
-def extract_headers(page_text):
+def extract_headers(page_text, current_page_number):
     # More robust regex
     work_group_match = re.search(r'Work Group:\s*(.*?)(?:\n|Criteria)', page_text, re.DOTALL)
     criteria_match = re.search(r'Criteria\s*:\s*(.*?)(?:\n|Company ID)', page_text, re.DOTALL)
     
-    work_group = work_group_match.group(1).strip().replace('\n', ' ') if work_group_match else "Not Found"
-    criteria = criteria_match.group(1).strip().replace('\n', ' ') if criteria_match else "Not Found"
+    work_group = work_group_match.group(1).strip().replace('\n', ' ') if work_group_match else f"WG_Not_Found_On_Page_{current_page_number}"
+    criteria = criteria_match.group(1).strip().replace('\n', ' ') if criteria_match else f"Criteria_Not_Found_On_Page_{current_page_number}"
     
     return work_group, criteria
 
@@ -43,7 +43,7 @@ else:
                     print("No text found on this page.")
                     continue
                 
-                work_group, criteria = extract_headers(text)
+                work_group, criteria = extract_headers(text, page_num + 1)
                 print(f"Extracted Work Group: '{work_group}'")
                 print(f"Extracted Criteria: '{criteria}'")
                 
@@ -77,6 +77,7 @@ else:
                     
                     if data_rows:
                         df = pd.DataFrame(data_rows, columns=headers)
+                        print(f"    Assigning to DataFrame - Page {page_num + 1}, Table {i+1} - Work Group: '{work_group}', Criteria: '{criteria}'")
                         df['Work Group'] = work_group
                         df['Criteria'] = criteria
                         all_tables.append(df)
