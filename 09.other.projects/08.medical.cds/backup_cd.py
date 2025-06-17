@@ -6,6 +6,7 @@ import hashlib
 import win32com.client # For .doc files via Word
 import docx          # For .docx files
 import PyPDF2        # For .pdf files
+import subprocess
 
 CD_DRIVE = "E:\\"
 BACKUP_BASE_DIR = "F:\\My Drive\\Backups\\medical-cds"
@@ -387,7 +388,18 @@ def extract_text_from_documents(backup_folder_path):
                         print(f"    Error extracting text from .doc {relative_file_path}: {e}")
                         text = f"[Error extracting text via Word: {e}]"
                 else:
-                    text = "[Skipped .doc file – MS Word COM not available]"
+                    print(f"    Attempting antiword fallback for .doc: {relative_file_path}")
+                    try:
+                        result = subprocess.run(["antiword", file_path], capture_output=True, text=True, timeout=30)
+                        if result.returncode == 0:
+                            text = result.stdout
+                            processed_files_count += 1
+                        else:
+                            text = f"[antiword failed: {result.stderr.strip() or 'unknown error'}]"
+                    except FileNotFoundError:
+                        text = "[antiword executable not found in PATH]"
+                    except Exception as e2:
+                        text = f"[antiword error: {e2}]"
 
             elif lower_name.endswith('.docx'):
                 print(f"  Processing .docx: {relative_file_path}")
