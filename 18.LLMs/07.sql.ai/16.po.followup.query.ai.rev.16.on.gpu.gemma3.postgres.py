@@ -1,6 +1,6 @@
 import gradio as gr
-import mysql.connector
-from mysql.connector import Error
+import psycopg2
+from psycopg2 import Error
 import os
 import json
 import re
@@ -13,17 +13,36 @@ from datetime import datetime
 # Load environment variables
 load_dotenv()
 
+# PostgreSQL database configuration
 DB_CONFIG = {
-    'host': '10.10.11.242',
-    'user': 'omar2',
-    'password': 'Omar_54321',
-    'database': 'RME_TEST'
+    'host': 'localhost',
+    'user': 'postgres',
+    'password': 'PMO@1234',
+    'database': 'postgres',
+    'schema': 'po_data'
 }
 
 OLLAMA_HOST = "http://localhost:11434"
 OLLAMA_MODEL = "gemma3:latest"
 
+# PostgreSQL uses lowercase column names by default
 NEW_TABLE = "po_followup_merged"
+
+# Column name mapping to handle case sensitivity in PostgreSQL
+# In PostgreSQL, we need to use quotes for case-sensitive column names
+COLUMN_MAP = {
+    "project_name": "\"PROJECT_NAME\"",
+    "vendor_name": "\"VENDOR_NAME\"",
+    "po_num": "\"PO_NUM\"",
+    "comments": "\"COMMENTS\"",
+    "approved_date": "\"APPROVED_DATE\"",
+    "uom": "\"UOM\"",
+    "item_description": "\"ITEM_DESCRIPTION\"",
+    "unit_price": "\"UNIT_PRICE\"",
+    "quantity_received": "\"QUANTITY_RECEIVED\"",
+    "line_amount": "\"LINE_AMOUNT\"",
+    "terms": "\"TERMS\""
+}
 
 # Conversation history management
 class ConversationManager:
@@ -33,10 +52,14 @@ class ConversationManager:
         self.last_query_result = None
         self.last_sql_query = None
         self.max_history = max_history
+        self.memory_was_cleared = False  # Flag to track if memory was explicitly cleared
     
     def add_interaction(self, question: str, answer: str, entities: Dict, sql_query: str = None, query_result: Dict = None):
         """Add a new interaction to the conversation history"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # When adding a new interaction, we're no longer in a cleared state
+        self.memory_was_cleared = False
         
         # Save important entities for context
         if entities.get("project"):
@@ -83,6 +106,7 @@ class ConversationManager:
         self.detected_entities = {}
         self.last_query_result = None
         self.last_sql_query = None
+        self.memory_was_cleared = True  # Set flag to indicate memory was explicitly cleared
 
 # Initialize conversation manager
 CONVERSATION = ConversationManager()
@@ -91,9 +115,18 @@ CONVERSATION = ConversationManager()
 def fetch_unique_list(column: str) -> list:
     connection = None
     try:
-        connection = mysql.connector.connect(**DB_CONFIG)
+        connection = connect_to_database()  # Using our PostgreSQL connection function
+        if not connection:
+            print(f"Error connecting to database when fetching unique {column}")
+            return []
+        
+        # Get properly quoted column name for PostgreSQL
+        pg_column = column
+        if column.lower() in COLUMN_MAP:
+            pg_column = COLUMN_MAP[column.lower()]
+            
         cursor = connection.cursor()
-        cursor.execute(f"SELECT DISTINCT {column} FROM {NEW_TABLE} WHERE {column} IS NOT NULL AND {column} != '' ORDER BY {column}")
+        cursor.execute(f"SELECT DISTINCT {pg_column} FROM {NEW_TABLE} WHERE {pg_column} IS NOT NULL AND {pg_column} != '' ORDER BY {pg_column}")
         results = [row[0] for row in cursor.fetchall() if row[0]]
         return results
     except Exception as e:
@@ -133,8 +166,8 @@ def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
         # Create message array with system instructions
         messages = [{"role": "system", "content": system_message}]
         
-        # Add conversation history context if available and requested
-        if use_history and CONVERSATION.conversation_history:
+        # Add conversation history context if available and requested and memory wasn't explicitly cleared
+        if use_history and CONVERSATION.conversation_history and not CONVERSATION.memory_was_cleared:
             context = CONVERSATION.get_context_for_llm()
             active_entities = CONVERSATION.get_active_entities()
             
@@ -147,6 +180,10 @@ def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
                     context_message += f"\nSupplier: {active_entities['supplier']}"
                     
             messages.append({"role": "system", "content": context_message})
+            
+        # Once we've used the conversation history once after reset, clear the flag
+        if CONVERSATION.memory_was_cleared:
+            CONVERSATION.memory_was_cleared = False
         
         # Add the current question
         messages.append({"role": "user", "content": question})
@@ -251,7 +288,7 @@ def extract_entity_from_question(question: str, entity_type: str, entity_list: l
     # No match found
     return None, 0.0
 
-def process_question(question: str, use_history: bool = True) -> Tuple[str, str, list, list, dict]:
+def process_question(question: str, use_history: bool = True) -> Tuple[str, str, List[str], List[List], Dict]:
     """Process the question and return answer, query, columns, results, and detected entities"""
     detected_entities = {
         "project": None,
@@ -326,11 +363,14 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
         active_entities = CONVERSATION.get_active_entities()
         
         # Only use the conversation entity if none was detected in the current question
-        if detected_entities["project"] is None and "project" in active_entities:
+        # AND the conversation history isn't empty (to prevent using entities after clear)
+        conversation_has_history = len(CONVERSATION.conversation_history) > 0
+        
+        if conversation_has_history and detected_entities["project"] is None and "project" in active_entities:
             detected_entities["project"] = active_entities["project"]
             detected_entities["project_confidence"] = 0.8  # Slightly lower confidence for inherited entities
             
-        if detected_entities["supplier"] is None and "supplier" in active_entities:
+        if conversation_has_history and detected_entities["supplier"] is None and "supplier" in active_entities:
             detected_entities["supplier"] = active_entities["supplier"]
             detected_entities["supplier_confidence"] = 0.8  # Slightly lower confidence for inherited entities
     
@@ -339,20 +379,21 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
     
     # Add filters for detected entities to the query if not already included
     if detected_entities["project"] or detected_entities["supplier"]:
-        has_where = "WHERE" in sql_query
+        has_where = "WHERE" in sql_query.upper()
         
-        if detected_entities["project"] and not ("PROJECT_NAME" in sql_query and detected_entities["project"] in sql_query):
+        if detected_entities["project"] and not ("PROJECT_NAME" in sql_query and detected_entities["project"].lower() in sql_query.lower()):
             if has_where:
-                sql_query = sql_query.replace("WHERE", f"WHERE PROJECT_NAME = '{detected_entities['project']}' AND ")
+                sql_query = sql_query.replace("WHERE", f"WHERE \"PROJECT_NAME\" = '{detected_entities['project']}' AND ", 1)
+                sql_query = sql_query.replace("where", f"where \"PROJECT_NAME\" = '{detected_entities['project']}' AND ", 1)
             else:
-                sql_query += f" WHERE PROJECT_NAME = '{detected_entities['project']}'" 
+                sql_query += f" WHERE \"PROJECT_NAME\" = '{detected_entities['project']}'" 
                 has_where = True
         
-        if detected_entities["supplier"] and not ("VENDOR_NAME" in sql_query and detected_entities["supplier"] in sql_query):
+        if detected_entities["supplier"] and not ("VENDOR_NAME" in sql_query and detected_entities["supplier"].lower() in sql_query.lower()):
             if has_where:
-                sql_query += f" AND VENDOR_NAME = '{detected_entities['supplier']}'" 
+                sql_query += f" AND \"VENDOR_NAME\" = '{detected_entities['supplier']}'" 
             else:
-                sql_query += f" WHERE VENDOR_NAME = '{detected_entities['supplier']}'" 
+                sql_query += f" WHERE \"VENDOR_NAME\" = '{detected_entities['supplier']}'" 
     
     # Execute query
     try:
@@ -389,20 +430,22 @@ def generate_sql_query(question: str, detected_entities: dict = None, use_histor
             detected_entities = {}
             
         # Explain all columns to the LLM
-        system_message = "You are a SQL query generator. Generate MySQL queries based on natural language questions.\n\n"
+        system_message = "You are a SQL query generator. Generate PostgreSQL queries based on natural language questions.\n\n"
+        system_message += "IMPORTANT: PostgreSQL is case-sensitive and column names are UPPERCASE in our database and must be quoted.\n"
+        system_message += "Always use double quotes around column names like this: \"COLUMN_NAME\"\n\n"
         system_message += "The table name is 'po_followup_merged' and it has these columns:\n"
         system_message += "- id: auto-increment row id (INT)\n"
-        system_message += "- PO_NUM: purchase order number (VARCHAR)\n"
-        system_message += "- COMMENTS: comments about the PO (TEXT)\n"
-        system_message += "- APPROVED_DATE: date the PO was approved (DATE)\n"
-        system_message += "- UOM: unit of measure (VARCHAR)\n"
-        system_message += "- ITEM_DESCRIPTION: description of the item (TEXT)\n"
-        system_message += "- UNIT_PRICE: unit price for the item (DECIMAL)\n"
-        system_message += "- QUANTITY_RECEIVED: quantity received (DECIMAL)\n"
-        system_message += "- LINE_AMOUNT: total line amount (DECIMAL)\n"
-        system_message += "- PROJECT_NAME: project name (VARCHAR)\n"
-        system_message += "- VENDOR_NAME: supplier/vendor name (VARCHAR)\n"
-        system_message += "- TERMS: merged PO terms (TEXT)\n\n"
+        system_message += "- \"PO_NUM\": purchase order number (VARCHAR)\n"
+        system_message += "- \"COMMENTS\": comments about the PO (TEXT)\n"
+        system_message += "- \"APPROVED_DATE\": date the PO was approved (DATE)\n"
+        system_message += "- \"UOM\": unit of measure (VARCHAR)\n"
+        system_message += "- \"ITEM_DESCRIPTION\": description of the item (TEXT)\n"
+        system_message += "- \"UNIT_PRICE\": unit price for the item (DECIMAL)\n"
+        system_message += "- \"QUANTITY_RECEIVED\": quantity received (DECIMAL)\n"
+        system_message += "- \"LINE_AMOUNT\": total line amount (DECIMAL)\n"
+        system_message += "- \"PROJECT_NAME\": project name (VARCHAR)\n"
+        system_message += "- \"VENDOR_NAME\": supplier/vendor name (VARCHAR)\n"
+        system_message += "- \"TERMS\": merged PO terms (TEXT)\n\n"
         system_message += "You can answer questions about purchase orders, terms, suppliers, projects, items, etc.\n\n"
         system_message += "Only use these columns in your query. Keep the query simple and focused on answering the question. "
         system_message += "Return ONLY the raw SQL query, with NO code formatting, NO markdown backticks, NO ```sql tags, and NO explanations."
@@ -434,14 +477,14 @@ def generate_sql_query(question: str, detected_entities: dict = None, use_histor
         if detected_entities:
             entity_info = "\nEntities in current question:\n"
             if detected_entities.get("project"):
-                entity_info += f"PROJECT_NAME: {detected_entities['project']}\n"
+                entity_info += f"project_name: {detected_entities['project']}\n"
             if detected_entities.get("supplier"):
-                entity_info += f"VENDOR_NAME: {detected_entities['supplier']}\n"
+                entity_info += f"vendor_name: {detected_entities['supplier']}\n"
             if entity_info != "\nEntities in current question:\n":
                 messages.append({"role": "system", "content": entity_info})
         
         # Add the current question
-        messages.append({"role": "user", "content": f"Generate a MySQL query to answer this question: {question}"})
+        messages.append({"role": "user", "content": f"Generate a PostgreSQL query to answer this question: {question}"})
         
         payload = {
             "model": OLLAMA_MODEL,
@@ -485,6 +528,18 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
     
     if use_history and CONVERSATION.conversation_history:
         prompt += "\n\nThis is part of an ongoing conversation. Previous context:\n"
+        # Add up to the last 2 conversation exchanges for context
+        for interaction in CONVERSATION.conversation_history[-2:]:
+            prompt += f"User: {interaction['question']}\n"
+            prompt += f"Assistant: {interaction['answer']}\n"
+        
+        # Remind the model to refer to previously mentioned entities if relevant
+        prompt += "\nIf this is a follow-up question, refer to entities mentioned in previous questions appropriately. "
+        prompt += "For example, if a project was mentioned before but not in this question, still reference it by name."
+    
+    # Create message array with system instructions
+    messages = [
+        {"role": "system", "content": prompt},
         {"role": "user", "content": "Generate a natural language answer based on the query results."}
     ]
     
@@ -503,43 +558,63 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
         return f"Error generating natural language answer: {str(e)}"
 
 def connect_to_database():
-    """Connect to MySQL database"""
+    """Connect to PostgreSQL database"""
     try:
-        connection = mysql.connector.connect(**DB_CONFIG)
-        if connection.is_connected():
-            return connection
+        connection = psycopg2.connect(
+            host=DB_CONFIG['host'],
+            user=DB_CONFIG['user'],
+            password=DB_CONFIG['password'],
+            database=DB_CONFIG['database']
+        )
+        # Set search_path to our schema
+        cursor = connection.cursor()
+        cursor.execute(f"SET search_path TO {DB_CONFIG['schema']}")
+        connection.commit()
+        cursor.close()
+        
+        return connection
     except Error as e:
-        print(f"Error connecting to MySQL database: {e}")
+        print(f"Error connecting to PostgreSQL database: {e}")
         return None
 
 def execute_query(query: str) -> Tuple[List[str], List[List]]:
     """Execute query and return columns and results"""
-    connection = connect_to_database()
-    if not connection:
-        return ["Error"], [["Database connection failed"]]
-        
-    cursor = connection.cursor()
+    connection = None
     try:
+        connection = connect_to_database()
+        if connection is None:
+            return ["Error"], [["Could not connect to database"]]
+            
+        cursor = connection.cursor()
         cursor.execute(query)
-        columns = [column[0] for column in cursor.description]
-        results = []
-        for row in cursor.fetchall():
-            results.append([str(cell) if cell is not None else "NULL" for cell in row])
-        return columns, results
-    except Exception as e:
-        return ["Error"], [[str(e)]]
-    finally:
+        
+        # For SELECT queries, fetch results and column names
+        if query.strip().upper().startswith("SELECT"):
+            columns = [desc[0] for desc in cursor.description]
+            results = [list(row) for row in cursor.fetchall()]
+        else:
+            # For non-SELECT queries, just show status
+            connection.commit()
+            columns = ["Status"]
+            results = [[f"Query executed successfully. Affected rows: {cursor.rowcount}"]] 
+        
+        # Close cursor and connection
         cursor.close()
         connection.close()
+        
+        return columns, results
+    except Exception as e:
+        if connection:
+            connection.close()
+        return ["Error"], [[str(e)]]
+    finally:
+        if connection:
+            connection.close()
 
 def create_interface():
-    with gr.Blocks(title="RME PO Query Assistant rev.15 (Merged Table with Memory)") as interface:
-        gr.Markdown(
-            "# PO Follow-Up Query AI (rev.15, Merged Table with Memory)\n"
-            "This AI assistant queries the merged PO table with all columns and terms.\n\n"
-            "**Powered by Ollama Gemma3 running on your local GPU server.**\n"
-            "**NEW: Supports conversation history and follow-up questions about previous entities.**"
-        )
+    with gr.Blocks(title="RME PO Query Assistant rev.16 (PostgreSQL with Memory)") as interface:
+        # Title only at the top - moved descriptive text to bottom
+        gr.Markdown("# PO Follow-Up Query AI (rev.16, PostgreSQL with Memory)")
         
         # Two column layout - Chat on left, Entities on right
         with gr.Row():
@@ -549,6 +624,7 @@ def create_interface():
                 
                 with gr.Row():
                     with gr.Column(scale=8):
+                        # Standard textbox for question input
                         question_input = gr.Textbox(
                             label="Your Question",
                             placeholder="Ask a question about purchase orders, terms, items, suppliers, projects, etc...",
@@ -571,10 +647,24 @@ def create_interface():
             query_output = gr.Code(label="Current SQL Query", language="sql")
             results = gr.Dataframe(label="Query Results")
             
+        # Informational text moved to bottom of the interface
+        gr.Markdown(
+            "### System Information\n"
+            "This AI assistant queries the merged PO table with all columns and terms.\n\n"
+            "- Using local PostgreSQL database with **861,403 PO records**\n"
+            "- Ask questions about suppliers, terms, projects, etc.\n"
+            "- Ask follow-up questions without repeating entities mentioned before\n"
+            "- Navigation entity memory is applied to all follow-up questions\n"
+        )
+            
         def clear_history():
             # Completely reset the conversation memory
-            CONVERSATION.reset()
+            global CONVERSATION
+            # Create a new instance to ensure complete reset
+            CONVERSATION = ConversationManager()
             print("Conversation memory has been completely cleared")
+            print(f"Conversation state after reset: {CONVERSATION.conversation_history}")
+            print(f"Entities after reset: {CONVERSATION.detected_entities}")
             
             # Return empty/reset values for all UI components
             return [], "### Detected Entities\nMemory has been reset. The chatbot will no longer remember previous questions and entities.", "", None
@@ -637,6 +727,7 @@ def create_interface():
             outputs=[chatbot, question_input, detected_entities, query_output, results]
         )
         
+        # Add Enter key submission functionality
         question_input.submit(
             fn=on_submit,
             inputs=[question_input, chatbot],
@@ -694,5 +785,6 @@ if __name__ == "__main__":
     initialize_unique_lists()
     interface = create_interface()
     app = gr.mount_gradio_app(app, interface, path="/")
-    webbrowser.open("http://localhost:7868")
-    uvicorn.run(app, host="0.0.0.0", port=7868)
+    # Use port 7869 for rev.16 to avoid conflict with rev.15 on port 7868
+    webbrowser.open("http://localhost:7869")
+    uvicorn.run(app, host="0.0.0.0", port=7869)
