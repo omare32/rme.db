@@ -485,18 +485,6 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
     
     if use_history and CONVERSATION.conversation_history:
         prompt += "\n\nThis is part of an ongoing conversation. Previous context:\n"
-        # Add up to the last 2 conversation exchanges for context
-        for interaction in CONVERSATION.conversation_history[-2:]:
-            prompt += f"User: {interaction['question']}\n"
-            prompt += f"Assistant: {interaction['answer']}\n"
-        
-        # Remind the model to refer to previously mentioned entities if relevant
-        prompt += "\nIf this is a follow-up question, refer to entities mentioned in previous questions appropriately. "
-        prompt += "For example, if a project was mentioned before but not in this question, still reference it by name."
-    
-    # Create message array with system instructions
-    messages = [
-        {"role": "system", "content": prompt},
         {"role": "user", "content": "Generate a natural language answer based on the query results."}
     ]
     
