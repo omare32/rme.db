@@ -568,7 +568,7 @@ def create_interface():
                         )
                     with gr.Column(scale=2):
                         submit_btn = gr.Button("Send", variant="primary")
-                        clear_history_btn = gr.Button("Clear Chat", variant="secondary")
+                        clear_history_btn = gr.Button("Clear Memory", variant="secondary")
             
             # Right column for entity detection
             with gr.Column(scale=3):
@@ -584,8 +584,12 @@ def create_interface():
             results = gr.Dataframe(label="Query Results")
             
         def clear_history():
+            # Completely reset the conversation memory
             CONVERSATION.reset()
-            return [], "### Detected Entities\nNo entities detected yet.", "", None
+            print("Conversation memory has been completely cleared")
+            
+            # Return empty/reset values for all UI components
+            return [], "### Detected Entities\nMemory has been reset. The chatbot will no longer remember previous questions and entities.", "", None
             
         def on_submit(question, chat_history):
             if not question.strip():
