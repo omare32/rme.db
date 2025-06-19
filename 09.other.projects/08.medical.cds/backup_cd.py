@@ -187,6 +187,8 @@ def backup_cd():
 
     print(f"Scanning CD in drive {CD_DRIVE}...")
     cd_label = get_drive_label(CD_DRIVE.rstrip('\\'))
+    # Determine scan date from original CD contents before any copy
+    pre_copy_scan_date = determine_scan_date(CD_DRIVE)
     print(f"CD Label: {cd_label if cd_label else 'No label found'}")
 
     # ------------------------------------------------------------------
@@ -204,6 +206,11 @@ def backup_cd():
 
         # ---------------- DICOM image extraction -----------------
         images_folder = extract_images_from_dicom(existing_backup_path)
+
+        # ---------------- Scan date metadata file -----------------
+        scan_date = pre_copy_scan_date or determine_scan_date(existing_backup_path, cd_label)
+        if scan_date:
+            create_scan_date_file(scan_date, backup_folder_name)
         if images_folder:
             print(f"Images extracted to {images_folder}")
         else:
@@ -323,6 +330,9 @@ def backup_cd():
         try:
             text_summary_path = extract_text_from_documents(destination_path_base)
             images_folder = extract_images_from_dicom(destination_path_base)
+            scan_date = pre_copy_scan_date or determine_scan_date(destination_path_base, cd_label)
+            if scan_date:
+                create_scan_date_file(scan_date, backup_folder_name)
 
         except ImportError:
             print("\nSkipping text extraction: required libraries not available. Ensure MS Word, python-docx, and PyPDF2 are installed.")
@@ -344,6 +354,86 @@ def backup_cd():
         # if os.path.exists(destination_path_base):
         #     print(f"Cleaning up partially created folder: {destination_path_base}")
         #     shutil.rmtree(destination_path_base)
+
+def determine_scan_date(backup_folder_path, cd_label=None, backup_folder_name=None):
+    """Determine scan date from all possible sources and return the earliest as YYYYMMDD."""
+    import datetime
+    possible_dates = set()
+    try:
+        import pydicom
+    except ImportError:
+        pydicom = None
+
+    # 1. DICOM metadata
+    if pydicom:
+        for root, _, files in os.walk(backup_folder_path):
+            for fname in files:
+                if fname.lower().endswith('.dcm'):
+                    fpath = os.path.join(root, fname)
+                    try:
+                        ds = pydicom.dcmread(fpath, stop_before_pixels=True)
+                        for tag in ("StudyDate", "SeriesDate", "AcquisitionDate", "ContentDate"):
+                            if tag in ds and ds.get(tag):
+                                val = str(ds.get(tag).value).strip()
+                                if val and len(val) == 8 and val.isdigit():
+                                    possible_dates.add(val)
+                    except Exception:
+                        continue
+    # 2. All file mtimes
+    for root, _, files in os.walk(backup_folder_path):
+        for fname in files:
+            fpath = os.path.join(root, fname)
+            try:
+                ts = os.path.getmtime(fpath)
+                dt = datetime.datetime.fromtimestamp(ts).strftime("%Y%m%d")
+                possible_dates.add(dt)
+            except Exception:
+                continue
+    # 3. Parse date from CD label
+    if cd_label:
+        import re
+        m = re.search(r'(\d{2})(\d{2})(\d{4})', cd_label)
+        if m:
+            possible_dates.add(f"{m.group(3)}{m.group(2)}{m.group(1)}")
+    # 4. Parse date from backup folder name (if matches pattern)
+    if backup_folder_name:
+        import re
+        m = re.search(r'(\d{8})', backup_folder_name)
+        if m:
+            possible_dates.add(m.group(1))
+    # Return the earliest valid date
+    if possible_dates:
+        return min(possible_dates)
+    return None
+
+
+def create_scan_date_file(scan_date, backup_folder_name):
+    """Create a single text file named 'Data YYYY.MM.DD.txt' in the summaries folder."""
+    import os
+    # Format YYYYMMDD -> YYYY.MM.DD
+    if len(scan_date) == 8 and scan_date.isdigit():
+        dotted = f"{scan_date[0:4]}.{scan_date[4:6]}.{scan_date[6:8]}"
+    else:
+        dotted = scan_date
+    fname = f"Data {dotted}.txt"
+    summaries_dir = os.path.join(BACKUP_BASE_DIR, 'summaries')
+    if not os.path.exists(summaries_dir):
+        try:
+            os.makedirs(summaries_dir)
+            print(f"[DEBUG] Created summaries directory: {summaries_dir}")
+        except Exception as e:
+            print(f"Could not create summaries directory: {e}")
+            return
+    date_file_path = os.path.join(summaries_dir, fname)
+    print(f"[DEBUG] Attempting to create scan date file at: {date_file_path}")
+    if not os.path.exists(date_file_path):
+        try:
+            with open(date_file_path, 'w') as f:
+                f.write(f"Scan date (from metadata, file timestamps, or CD label): {dotted}\n")
+            print(f"[DEBUG] Successfully wrote scan date file: {date_file_path}")
+        except Exception as e:
+            print(f"Could not write scan date file: {e}")
+
 
 def extract_images_from_dicom(backup_folder_path):
     """Extract images from DICOM files under a backup folder.
