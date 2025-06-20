@@ -71,7 +71,7 @@ DB_PARAMS = {
     'host': 'localhost',     # Your PostgreSQL server address
     'port': '5432',         # Default PostgreSQL port
     'user': 'postgres',     # Your PostgreSQL username
-    'password': 'admin',    # Your PostgreSQL password
+    'password': 'PMO@1234',    # Your PostgreSQL password
     'database': 'postgres', # Your PostgreSQL database name
     'schema': 'public'      # Schema where the table was created
 }
@@ -81,7 +81,14 @@ TABLE_NAME = "po_followup_from_erp"
 # Function to create database connection
 def get_db_connection():
     try:
-        conn_string = f"postgresql://{DB_PARAMS['user']}:{DB_PARAMS['password']}@{DB_PARAMS['host']}:{DB_PARAMS['port']}/{DB_PARAMS['database']}"
+        import urllib.parse
+        user = urllib.parse.quote_plus(DB_PARAMS['user'])
+        password = urllib.parse.quote_plus(DB_PARAMS['password'])
+        host = DB_PARAMS['host']
+        port = DB_PARAMS['port']
+        database = DB_PARAMS['database']
+        conn_string = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+        log_message(f"DEBUG: Actual connection string: {conn_string}")
         engine = create_engine(conn_string)
         return engine
     except Exception as e:
