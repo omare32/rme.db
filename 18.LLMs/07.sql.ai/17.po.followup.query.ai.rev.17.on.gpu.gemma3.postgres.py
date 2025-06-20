@@ -28,6 +28,7 @@ DB_CONFIG = {
 
 OLLAMA_HOST = "http://localhost:11434"
 OLLAMA_MODEL = "gemma3:latest"
+OLLAMA_EXTRACTION_MODEL = "mistral:instruct"
 
 # Use the new table for rev.17
 NEW_TABLE = "po_followup_rev17"
@@ -142,9 +143,8 @@ def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
             "If this is a follow-up question that refers to previously mentioned entities but doesn't explicitly name them, use the entities from the conversation history.\n"
             "Return your answer in JSON format with the following structure:"
             "{\"project\": \"project name or null if none mentioned\", \"supplier\": \"vendor name or null if none mentioned\"}"
-            "If a project or vendor is not mentioned in this question or previous context, use null (not empty string)."
         )
-        messages = [{"role": "system", "content": system_message}]
+        messages = [{"role": "system", "content": system_prompt}]
         if use_history and CONVERSATION.conversation_history and not CONVERSATION.memory_was_cleared:
             context = CONVERSATION.get_context_for_llm()
             active_entities = CONVERSATION.get_active_entities()
@@ -171,6 +171,7 @@ def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
         json_match = re.search(r'\{[^{}]*\}', llm_response)
         if json_match:
             json_str = json_match.group(0)
+            print(f"[LLM ENTITY DEBUG] Raw LLM output: {llm_response}")
             try:
                 entities = json.loads(json_str)
                 result = {
@@ -180,6 +181,7 @@ def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
                 return result
             except json.JSONDecodeError:
                 print(f"Failed to parse JSON from LLM response: {json_str}")
+        print(f"[LLM ENTITY DEBUG] No JSON match or decode error. Raw output: {llm_response}")
         return {"project": None, "supplier": None}
     except Exception as e:
         print(f"Error in LLM entity detection: {str(e)}")
@@ -226,9 +228,9 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
     }
     llm_entities = detect_entities_with_llm(question, use_history=use_history)
     if llm_entities is not None:
-        # PROJECT extraction
-        if "project" in llm_entities and llm_entities["project"] is not None:
-            project_candidate = llm_entities["project"]
+        # PROJECT extraction: Only match if LLM says project is present (not None)
+        project_candidate = llm_entities.get("project")
+        if project_candidate:
             if project_candidate in UNIQUE_PROJECTS:
                 detected_entities["project"] = project_candidate
                 detected_entities["project_confidence"] = 1.0
@@ -236,23 +238,17 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
                 alternatives = [m for m in other_matches if m != project_candidate][:2]
                 detected_entities["project_alternatives"] = alternatives
             else:
-                matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=3, cutoff=0.5)
-                if matches:
-                    detected_entities["project"] = matches[0]
-                    detected_entities["project_confidence"] = difflib.SequenceMatcher(None, project_candidate, matches[0]).ratio()
-                    detected_entities["project_alternatives"] = matches[1:3] if len(matches) > 1 else []
-        else:
-            # Fallback: try to extract from question using substring/fuzzy
-            project, conf = extract_entity_from_question(question, "project", UNIQUE_PROJECTS)
-            if project:
-                detected_entities["project"] = project
-                detected_entities["project_confidence"] = conf
-                other_matches = difflib.get_close_matches(project, UNIQUE_PROJECTS, n=3, cutoff=0.5)
-                alternatives = [m for m in other_matches if m != project][:2]
-                detected_entities["project_alternatives"] = alternatives
-        # SUPPLIER extraction
-        if "supplier" in llm_entities and llm_entities["supplier"] is not None:
-            supplier_candidate = llm_entities["supplier"]
+                # Fallback: try to extract from question using substring/fuzzy
+                project, conf = extract_entity_from_question(project_candidate, "project", UNIQUE_PROJECTS)
+                if project:
+                    detected_entities["project"] = project
+                    detected_entities["project_confidence"] = conf
+                    other_matches = difflib.get_close_matches(project, UNIQUE_PROJECTS, n=3, cutoff=0.5)
+                    alternatives = [m for m in other_matches if m != project][:2]
+                    detected_entities["project_alternatives"] = alternatives
+        # SUPPLIER extraction: Only match if LLM says supplier is present (not None)
+        supplier_candidate = llm_entities.get("supplier")
+        if supplier_candidate:
             if supplier_candidate in UNIQUE_SUPPLIERS:
                 detected_entities["supplier"] = supplier_candidate
                 detected_entities["supplier_confidence"] = 1.0
@@ -260,20 +256,14 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
                 alternatives = [m for m in other_matches if m != supplier_candidate][:2]
                 detected_entities["supplier_alternatives"] = alternatives
             else:
-                matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
-                if matches:
-                    detected_entities["supplier"] = matches[0]
-                    detected_entities["supplier_confidence"] = difflib.SequenceMatcher(None, supplier_candidate, matches[0]).ratio()
-                    detected_entities["supplier_alternatives"] = matches[1:3] if len(matches) > 1 else []
-        else:
-            # Fallback: try to extract from question using substring/fuzzy
-            supplier, conf = extract_entity_from_question(question, "supplier", UNIQUE_SUPPLIERS)
-            if supplier:
-                detected_entities["supplier"] = supplier
-                detected_entities["supplier_confidence"] = conf
-                other_matches = difflib.get_close_matches(supplier, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
-                alternatives = [m for m in other_matches if m != supplier][:2]
-                detected_entities["supplier_alternatives"] = alternatives
+                # Fallback: try to extract from question using substring/fuzzy
+                supplier, conf = extract_entity_from_question(supplier_candidate, "supplier", UNIQUE_SUPPLIERS)
+                if supplier:
+                    detected_entities["supplier"] = supplier
+                    detected_entities["supplier_confidence"] = conf
+                    other_matches = difflib.get_close_matches(supplier, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
+                    alternatives = [m for m in other_matches if m != supplier][:2]
+                    detected_entities["supplier_alternatives"] = alternatives
 
     if llm_entities is None:
         project, project_confidence = extract_entity_from_question(question, "project", UNIQUE_PROJECTS)
@@ -364,7 +354,7 @@ def generate_sql_query(question: str, detected_entities: dict = None, use_histor
                 messages.append({"role": "system", "content": entity_info})
         messages.append({"role": "user", "content": f"Generate a PostgreSQL query to answer this question: {question}"})
         payload = {
-            "model": OLLAMA_MODEL,
+            "model": "gemma3:latest",
             "messages": messages,
             "stream": False
         }
