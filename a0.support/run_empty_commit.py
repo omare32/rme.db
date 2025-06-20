@@ -2,7 +2,7 @@ import sys
 import os
 
 # Add the directory containing git_auto_commit.py to the Python path
-sys.path.append('a0.support/17.git')
+sys.path.append('17.git')
 
 # Import functions from git_auto_commit.py
 from git_auto_commit import run_command, git_status, git_commit, git_push
