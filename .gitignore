@@ -135,7 +135,11 @@ a0.support/clean_repo.py
 09.other.projects/01.youtube/08.upload.mine/token.pickle
 
 # Gradio certificate
+# Before
 .gradio/certificate.pem
+
+# After
+a0.support/.gradio/certificate.pem
 
 # Additional sensitive files found
 **/last_message_*.txt
