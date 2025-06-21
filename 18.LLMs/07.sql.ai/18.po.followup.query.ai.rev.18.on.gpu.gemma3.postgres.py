@@ -79,34 +79,35 @@ UNIQUE_SUPPLIERS = fetch_unique_list("vendor")
 def detect_entities_with_llm(question: str, use_history: bool = True) -> dict:
     try:
         # Improved prompt: explicit instructions, examples, and column explanation
-        system_prompt = (
-            "You are an entity detection system. Your task is to identify project names and supplier names mentioned in questions about purchase orders.\n"
-            "The table has these columns (with examples):\n"
-            "- project_name: The name of the project (e.g., 'Ring Road', 'NEOM Smart City')\n"
-            "- vendor: The supplier or vendor name (e.g., 'Siemens', 'المصرية للدرابزين')\n"
-            "- po_num: Purchase order number (e.g., 'PO12345')\n"
-            "- po_status: PO status (e.g., 'Open', 'Closed')\n"
-            "- approved_date: Date the PO was approved (e.g., '2024-05-01')\n"
-            "- po_comments: Comments about the PO\n"
-            "- description: Description of the item or PO\n"
-            "- uom: Unit of measure (e.g., 'kg', 'pcs')\n"
-            "- unit_price: Unit price for the item\n"
-            "- currency: Currency (e.g., 'SAR', 'USD')\n"
-            "- amount: Total amount\n"
-            "- term: PO terms\n"
-            "- qty_delivered: Quantity delivered\n"
-            "Analyze the question and extract ONLY project names or supplier names if they exist.\n"
-            "If this is a follow-up question that refers to previously mentioned entities but doesn't explicitly name them, use the entities from the conversation history.\n"
-            "Return your answer in JSON format with the following structure:\n"
-            "{\"project\": \"project name or null if none mentioned\", \"supplier\": \"supplier name or null if none mentioned\"}"\n"
-            "If a project or supplier is not mentioned in this question or previous context, use null (not empty string).\n"
-            "Example 1: 'Show me all POs for Ring Road project'\n"
-            "Response: {\"project\": \"Ring Road\", \"supplier\": null}"\n"
-            "Example 2: 'What are the terms for supplier Siemens?'\n"
-            "Response: {\"project\": null, \"supplier\": \"Siemens\"}"\n"
-            "Example 3: [After talking about Ring Road project] 'What items were purchased for it?'\n"
-            "Response: {\"project\": \"Ring Road\", \"supplier\": null}"\n"
-        )
+        system_prompt = '''
+You are an entity detection system. Your task is to identify project names and supplier names mentioned in questions about purchase orders.
+The table has these columns (with examples):
+- project_name: The name of the project (e.g., 'Ring Road', 'NEOM Smart City')
+- vendor: The supplier or vendor name (e.g., 'Siemens', 'المصرية للدرابزين')
+- po_num: Purchase order number (e.g., 'PO12345')
+- po_status: PO status (e.g., 'Open', 'Closed')
+- approved_date: Date the PO was approved (e.g., '2024-05-01')
+- po_comments: Comments about the PO
+- description: Description of the item or PO
+- uom: Unit of measure (e.g., 'kg', 'pcs')
+- unit_price: Unit price for the item
+- currency: Currency (e.g., 'SAR', 'USD')
+- amount: Total amount
+- term: PO terms
+- qty_delivered: Quantity delivered
+Analyze the question and extract ONLY project names or supplier names if they exist.
+If this is a follow-up question that refers to previously mentioned entities but doesn't explicitly name them, use the entities from the conversation history.
+Return your answer in JSON format with the following structure:
+{"project": "project name or null if none mentioned", "supplier": "supplier name or null if none mentioned"}
+If a project or supplier is not mentioned in this question or previous context, use null (not empty string).
+Example 1: 'Show me all POs for Ring Road project'
+Response: {"project": "Ring Road", "supplier": null}
+Example 2: 'What are the terms for supplier Siemens?'
+Response: {"project": null, "supplier": "Siemens"}
+Example 3: [After talking about Ring Road project] 'What items were purchased for it?'
+Response: {"project": "Ring Road", "supplier": null}
+'''
+
         messages = [{"role": "system", "content": system_prompt}]
         if use_history and CONVERSATION.history and not CONVERSATION.memory_was_cleared:
             context = f"Previous context: {CONVERSATION.history[-1]['user']} => {CONVERSATION.history[-1]['entities']}"
