@@ -1,4 +1,4 @@
-# rev.17: Based on rev.16, but uses po_followup_rev17 table and new column set
+ # rev.17: Based on rev.16, but uses po_followup_rev17 table and new column set
 
 # --- BEGIN COPY OF REV.16 WITH UPDATES FOR REV.17 ---
 
@@ -227,49 +227,66 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
         "supplier_alternatives": []
     }
     llm_entities = detect_entities_with_llm(question, use_history=use_history)
+    import re
     if llm_entities is not None:
-        # PROJECT extraction: Only match if LLM says project is present (not None)
+        # PROJECT extraction
         project_candidate = llm_entities.get("project")
         if project_candidate:
-            if project_candidate in UNIQUE_PROJECTS:
-                detected_entities["project"] = project_candidate
-                detected_entities["project_confidence"] = 1.0
-                other_matches = difflib.get_close_matches(project_candidate, UNIQUE_PROJECTS, n=3, cutoff=0.5)
-                alternatives = [m for m in other_matches if m != project_candidate][:2]
+            # Always match to canonical
+            project, conf = extract_entity_from_question(project_candidate, "project", UNIQUE_PROJECTS)
+            if not project:
+                # Heuristic: extract after 'project' or 'for' in question
+                match = re.search(r'project\s+([\w\s-]+)', question, re.IGNORECASE)
+                if match:
+                    heuristic_candidate = match.group(1).strip()
+                    project, conf = extract_entity_from_question(heuristic_candidate, "project", UNIQUE_PROJECTS)
+            if project:
+                detected_entities["project"] = project
+                detected_entities["project_confidence"] = conf
+                print(f"[ENTITY MATCH] Canonical project used: {project}")
+                other_matches = difflib.get_close_matches(project, UNIQUE_PROJECTS, n=3, cutoff=0.5)
+                alternatives = [m for m in other_matches if m != project][:2]
                 detected_entities["project_alternatives"] = alternatives
-            else:
-                # Fallback: try to extract from question using substring/fuzzy
-                project, conf = extract_entity_from_question(project_candidate, "project", UNIQUE_PROJECTS)
-                if project:
-                    detected_entities["project"] = project
-                    detected_entities["project_confidence"] = conf
-                    other_matches = difflib.get_close_matches(project, UNIQUE_PROJECTS, n=3, cutoff=0.5)
-                    alternatives = [m for m in other_matches if m != project][:2]
-                    detected_entities["project_alternatives"] = alternatives
-        # SUPPLIER extraction: Only match if LLM says supplier is present (not None)
+        # SUPPLIER extraction
         supplier_candidate = llm_entities.get("supplier")
         if supplier_candidate:
-            if supplier_candidate in UNIQUE_SUPPLIERS:
-                detected_entities["supplier"] = supplier_candidate
-                detected_entities["supplier_confidence"] = 1.0
-                other_matches = difflib.get_close_matches(supplier_candidate, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
-                alternatives = [m for m in other_matches if m != supplier_candidate][:2]
+            supplier, conf = extract_entity_from_question(supplier_candidate, "supplier", UNIQUE_SUPPLIERS)
+            if not supplier:
+                # Heuristic: extract after 'supplier' or 'vendor' in question
+                match = re.search(r'(supplier|vendor)\s+([\w\s-]+)', question, re.IGNORECASE)
+                if match:
+                    heuristic_candidate = match.group(2).strip()
+                    supplier, conf = extract_entity_from_question(heuristic_candidate, "supplier", UNIQUE_SUPPLIERS)
+            if supplier:
+                detected_entities["supplier"] = supplier
+                detected_entities["supplier_confidence"] = conf
+                print(f"[ENTITY MATCH] Canonical supplier used: {supplier}")
+                other_matches = difflib.get_close_matches(supplier, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
+                alternatives = [m for m in other_matches if m != supplier][:2]
                 detected_entities["supplier_alternatives"] = alternatives
-            else:
-                # Fallback: try to extract from question using substring/fuzzy
-                supplier, conf = extract_entity_from_question(supplier_candidate, "supplier", UNIQUE_SUPPLIERS)
-                if supplier:
-                    detected_entities["supplier"] = supplier
-                    detected_entities["supplier_confidence"] = conf
-                    other_matches = difflib.get_close_matches(supplier, UNIQUE_SUPPLIERS, n=3, cutoff=0.5)
-                    alternatives = [m for m in other_matches if m != supplier][:2]
-                    detected_entities["supplier_alternatives"] = alternatives
 
-    if llm_entities is None:
+    # If LLM returned nothing, try regex/heuristic fallback directly on the question
+    if not llm_entities or (not llm_entities.get("project") and not llm_entities.get("supplier")):
         project, project_confidence = extract_entity_from_question(question, "project", UNIQUE_PROJECTS)
+        if not project:
+            match = re.search(r'project\s+([\w\s-]+)', question, re.IGNORECASE)
+            if match:
+                heuristic_candidate = match.group(1).strip()
+                project, project_confidence = extract_entity_from_question(heuristic_candidate, "project", UNIQUE_PROJECTS)
+        if project:
+            detected_entities["project"] = project
+            detected_entities["project_confidence"] = project_confidence
+            print(f"[ENTITY MATCH] Canonical project used (fallback): {project}")
         supplier, supplier_confidence = extract_entity_from_question(question, "supplier", UNIQUE_SUPPLIERS)
-        detected_entities["project"] = project
-        detected_entities["project_confidence"] = project_confidence
+        if not supplier:
+            match = re.search(r'(supplier|vendor)\s+([\w\s-]+)', question, re.IGNORECASE)
+            if match:
+                heuristic_candidate = match.group(2).strip()
+                supplier, supplier_confidence = extract_entity_from_question(heuristic_candidate, "supplier", UNIQUE_SUPPLIERS)
+        if supplier:
+            detected_entities["supplier"] = supplier
+            detected_entities["supplier_confidence"] = supplier_confidence
+            print(f"[ENTITY MATCH] Canonical supplier used (fallback): {supplier}")
         detected_entities["supplier"] = supplier
         detected_entities["supplier_confidence"] = supplier_confidence
     if use_history and (detected_entities["project"] is None or detected_entities["supplier"] is None):
