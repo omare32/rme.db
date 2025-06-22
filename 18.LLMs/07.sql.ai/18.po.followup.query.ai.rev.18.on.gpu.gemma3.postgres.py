@@ -251,14 +251,99 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
         connection = psycopg2.connect(**{k: v for k, v in DB_CONFIG.items() if k != 'schema'})
         cursor = connection.cursor()
         cursor.execute(sql_query)
-        results = cursor.fetchall()
+        if cursor.description:  # Check if there are results
+            columns = [desc[0] for desc in cursor.description]
+            results = cursor.fetchall()
+            # Convert results to list of lists for easier handling
+            results = [list(row) for row in results]
+            # Add column names as first row
+            results.insert(0, columns)
     except Exception as e:
         print(f"SQL error: {e}")
+        return f"SQL Error: {str(e)}", [], [], [], detected_entities
     finally:
         if connection:
             connection.close()
     # --- Add to Conversation Memory ---
     CONVERSATION.add_turn(question, str(results), detected_entities)
-    return sql_query, str(results), [], results, detected_entities
+    return sql_query, results, [], results, detected_entities
 
-# --- Gradio UI or API can be added here as needed ---
+def format_results(results):
+    if not results or len(results) <= 1:  # Only headers or empty
+        return "**No results found.**"
+    
+    # First row is column headers
+    columns = results[0]
+    data_rows = results[1:]
+    
+    # Create markdown table
+    table = []
+    
+    # Add header
+    table.append("|" + "|".join(columns) + "|")
+    table.append("|" + "|".join(["---"] * len(columns)) + "|")
+    
+    # Add data rows
+    for row in data_rows:
+        # Convert all values to strings and escape pipes
+        row_str = [str(val).replace("|", "\\|").replace("\n", " ") if val is not None else "" for val in row]
+        table.append("|" + "|".join(row_str) + "|")
+    
+    return "\n".join(table)
+
+def respond(question, history=None):
+    try:
+        # Process the question
+        sql, results, _, _, entities = process_question(question)
+        
+        # Format the response with Markdown
+        response = """## Detected Entities
+```json
+{0}
+```
+
+## SQL Query
+```sql
+{1}
+```
+
+## Results
+{2}""".format(
+            json.dumps(entities, indent=2, ensure_ascii=False),
+            sql,
+            format_results(results) if results else "*No results found.*"
+        )
+        
+        return response
+    except Exception as e:
+        error_msg = f"**Error:** {str(e)}"
+        print(f"Error in respond: {str(e)}")
+        return error_msg
+
+# Create Gradio interface
+with gr.Blocks(title="PO Query Assistant") as demo:
+    gr.Markdown("# PO Query Assistant")
+    gr.Markdown("Ask questions about purchase orders in natural language.")
+    
+    with gr.Row():
+        question = gr.Textbox(label="Your question", placeholder="E.g., Show me POs for Ring Road")
+        submit_btn = gr.Button("Ask")
+    
+    output = gr.Markdown()
+    
+    # Handle submit button click
+    submit_btn.click(
+        fn=respond,
+        inputs=[question],
+        outputs=output
+    )
+    
+    # Handle pressing Enter in the textbox
+    question.submit(
+        fn=respond,
+        inputs=[question],
+        outputs=output
+    )
+
+if __name__ == "__main__":
+    demo.launch(share=False, server_name="0.0.0.0", server_port=7861)
