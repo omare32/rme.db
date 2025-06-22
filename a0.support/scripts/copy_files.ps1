@@ -12,7 +12,8 @@ $excludePatterns = @(
     "*\node_modules\*",
     "*\venv\*",
     "*\.venv\*",
-    "*\.gradio\*"
+    # Changed pattern
+    "*\a0.support\.gradio\*"
 )
 
 # Function to check if a file should be excluded
