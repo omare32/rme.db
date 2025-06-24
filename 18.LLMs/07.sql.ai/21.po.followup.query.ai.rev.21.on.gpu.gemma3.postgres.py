@@ -433,56 +433,114 @@ def create_sql_query_with_llm(question: str, detected_entities: Dict[str, Any], 
 
 def generate_natural_language_answer(question: str, sql_query: str, columns: list, results: list, use_history: bool) -> str:
     """Generates a natural language answer from an SQL query and its results, with robust error handling."""
-    if not results:
-        return "The query returned no results."
+    if not columns or not results:
+        return "No data found that matches your query."
 
-    context = f"The user asked: '{question}'.\n"
-    context += f"I ran the SQL query: '{sql_query}'\n"
-    context += f"The query returned the following columns: {', '.join(columns)}.\n"
-    context += f"And the following results:\n"
-    for row in results[:5]:
-        context += f"- {', '.join(map(str, row))}\n"
-    if len(results) > 5:
-        context += f"...and {len(results) - 5} more rows.\n"
+    # Check if there was an error in the query execution
+    if columns[0] == "Error":
+        return results[0][0]
 
-    system_message = "You are a helpful assistant. Based on the user's question and the results of an SQL query, provide a clear, concise, and natural language answer. Do not mention the SQL query in your answer. Just give the answer directly."
+    # Format the results for the prompt
+    formatted_results = "Results:\n"
     
-    messages = []
-    if use_history:
-        history = CONVERSATION.conversation_history
-        for interaction in history:
-            messages.append({'role': 'user', 'content': interaction['question']})
-            messages.append({'role': 'assistant', 'content': interaction['answer']})
+    # Add column headers
+    formatted_results += ", ".join(columns) + "\n"
+    
+    # Add result rows (limit to 10 rows to avoid overwhelming the LLM)
+    max_rows = min(10, len(results))
+    for i in range(max_rows):
+        formatted_results += ", ".join(str(cell) for cell in results[i]) + "\n"
+    
+    if len(results) > max_rows:
+        formatted_results += f"... and {len(results) - max_rows} more rows\n"
 
-    messages.append({'role': 'system', 'content': system_message})
-    messages.append({'role': 'user', 'content': context})
+    system_message = (
+        "You are an expert data analyst for purchase orders. "
+        "Generate a clear, concise answer to the user's question based on the SQL query and its results. "
+        "Focus on directly answering the question with the key insights from the data. "
+        "Keep your answer brief and to the point. "
+        "If the results are empty, explain that no matching data was found. "
+        "If there was an error, explain it in user-friendly terms."
+    )
 
-    try:
-        response = ollama.chat(
-            model=OLLAMA_MODEL,
-            messages=messages,
-            options={'temperature': 0.1}
-        )
-        
-        if not isinstance(response, dict) or 'message' not in response or 'content' not in response['message']:
-            error_message = f"Unexpected response format from Ollama: {response}"
+    user_prompt = (
+        f"Question: {question}\n\n"
+        f"SQL Query: {sql_query}\n\n"
+        f"{formatted_results}"
+    )
+
+    max_retries = 3
+    retry_delay = 1  # seconds
+    
+    for attempt in range(max_retries):
+        try:
+            # First check if Ollama is available
+            try:
+                # Simple health check
+                requests.get(f"{OLLAMA_HOST}/api/version", timeout=2)
+            except requests.exceptions.RequestException:
+                print(f"Ollama server not responding at {OLLAMA_HOST}. Attempt {attempt+1}/{max_retries}")
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                    continue
+                return "Error: Ollama server is not responding. Please ensure Ollama is running."
+            
+            # Now try to use the model
+            response = ollama.chat(
+                model=OLLAMA_MODEL,
+                messages=[
+                    {'role': 'system', 'content': system_message},
+                    {'role': 'user', 'content': user_prompt},
+                ],
+                options={'temperature': 0.0}
+            )
+            
+            if not isinstance(response, dict):
+                print(f"Unexpected response type from Ollama: {type(response)}")
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                    continue
+                return "Error: Received invalid response from LLM"
+                
+            if 'message' not in response:
+                print(f"'message' not found in Ollama response: {response}")
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                    continue
+                return "Error: Incomplete response from LLM (no message field)"
+                
+            if 'content' not in response['message']:
+                print(f"'content' not found in Ollama message: {response['message']}")
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                    continue
+                return "Error: Incomplete response from LLM (no content field)"
+            
+            answer = response['message']['content'].strip()
+            return answer
+            
+        except ollama.RequestError as e:
+            error_message = f"Ollama connection error during answer generation: {e.args}"
             print(error_message)
-            return error_message
-
-        answer = response['message']['content'].strip()
-        return answer
-    except ollama.RequestError as e:
-        error_message = f"Failed to connect to Ollama to generate the answer. Please ensure it is running."
-        print(f"{error_message} Details: {e.args}")
-        return error_message
-    except Exception as e:
-        error_message = f"An unexpected error occurred while generating the answer: {str(e)}"
-        print(error_message)
-        return error_message
+            if attempt < max_retries - 1:
+                print(f"Retrying... Attempt {attempt+1}/{max_retries}")
+                time.sleep(retry_delay)
+            else:
+                return "Error: Failed to connect to Ollama. Please ensure it is running."
+        except Exception as e:
+            error_message = f"An unexpected error occurred during answer generation: {str(e)}"
+            print(error_message)
+            if attempt < max_retries - 1:
+                print(f"Retrying... Attempt {attempt+1}/{max_retries}")
+                time.sleep(retry_delay)
+            else:
+                return f"Error: {str(e)}"
+    
+    return "Failed to generate an answer after multiple attempts. Please try again."
 
 def process_question(question: str, use_history: bool = True) -> Tuple[str, str, List[str], List[List], str]:
     """Process the question, generate and execute SQL, and return a natural language answer."""
-    # Use the hardcoded lists for entity detection
+    # Detect entities using the LLM
     detected_project = detect_entity_from_list_with_llm(question, "project", UNIQUE_PROJECTS)
     detected_supplier = detect_entity_from_list_with_llm(question, "supplier", UNIQUE_SUPPLIERS)
 
