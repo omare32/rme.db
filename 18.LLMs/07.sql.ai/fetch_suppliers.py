@@ -1,4 +1,8 @@
 import psycopg2
+import sys
+
+# Set console encoding to UTF-8
+sys.stdout.reconfigure(encoding='utf-8', errors='backslashreplace')
 
 # Connect to the database
 try:
@@ -20,8 +24,22 @@ try:
     # Print the results in a format that can be copied into the code
     print('UNIQUE_SUPPLIERS = [')
     for row in results:
-        print(f'    "{row[0]}",')
+        if row[0]:
+            try:
+                # Try to safely print the supplier name
+                safe_name = row[0].encode('ascii', 'backslashreplace').decode('ascii')
+                print(f'    "{safe_name}",')    
+            except Exception as e:
+                print(f'    # Could not encode: {str(e)}')
     print(']')
+    
+    # Also save to a file
+    with open('suppliers_list.txt', 'w', encoding='utf-8') as f:
+        f.write('UNIQUE_SUPPLIERS = [\n')
+        for row in results:
+            if row[0]:
+                f.write(f'    "{row[0]}",\n')
+        f.write(']\n')
     
     # Close the connection
     cursor.close()

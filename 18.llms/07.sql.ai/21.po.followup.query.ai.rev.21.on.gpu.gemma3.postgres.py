@@ -104,7 +104,8 @@ UNIQUE_PROJECTS = [
     "Red Sea Project"
 ]
 
-# Hardcoded list of unique suppliers
+# Hardcoded list of unique suppliers - this is a subset, the full list is very large (1000+ suppliers)
+# and many names are in Arabic which may cause encoding issues with the LLM
 UNIQUE_SUPPLIERS = [
     "الشركة المصرية",
     "Saudi Binladin Group",
@@ -115,8 +116,86 @@ UNIQUE_SUPPLIERS = [
     "Abdullah A. M. Al-Khodari Sons",
     "El Seif Engineering Contracting",
     "Saudi Oger",
-    "Nesma & Partners Contracting"
+    "Nesma & Partners Contracting",
+    # Adding some from the full list that are in English or transliterated
+    "Alfa Central Labs",
+    "Benban Aswan",
+    "CFC - Podium",
+    "Civic Center",
+    "Double Tree Hotel by Hilton",
+    "DPW Onshore Port & Terminal",
+    "EGAT Pelletizing Plant",
+    "Egyptian Exchange Building",
+    "Fish Market",
+    "IKEA Mall",
+    "Lekela 250 MW Wind Farm",
+    "Mall Misr",
+    "Maxim Mall",
+    "MDF Factory",
+    "New Giza Hospital",
+    "Olympic Multi Sports Hall",
+    "Port Said Port Silos",
+    "Pyramid Tunnel",
+    "Royal City Mall",
+    "Sodic Club House",
+    "Sodic East Town",
+    "Sokhna Port Expansion",
+    "Suez Steel Factory",
+    "Waldorf Astoria"
 ]
+
+# Function to load the full suppliers list from file if needed
+def load_full_suppliers_list(file_path='suppliers_list.txt', use_fallback=True):
+    """
+    Load the full list of suppliers from the saved file.
+    Only use this if you need the complete list of suppliers.
+    
+    Args:
+        file_path: Path to the suppliers list file
+        use_fallback: Whether to return the hardcoded list if file loading fails
+        
+    Returns:
+        List of supplier names
+    """
+    try:
+        import os
+        if os.path.exists(file_path):
+            print(f"Loading full suppliers list from {file_path}...")
+            try:
+                # First try with UTF-8 encoding
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+            except UnicodeDecodeError:
+                # If UTF-8 fails, try with Windows-1256 encoding (common for Arabic)
+                print("UTF-8 decoding failed, trying Windows-1256 encoding...")
+                with open(file_path, 'r', encoding='windows-1256') as f:
+                    content = f.read()
+            
+            # Extract the list from the content
+            start = content.find('[')
+            end = content.rfind(']')
+            if start != -1 and end != -1:
+                suppliers_str = content[start:end+1]
+                # Convert string representation to actual list
+                import ast
+                suppliers = ast.literal_eval(suppliers_str)
+                print(f"Successfully loaded {len(suppliers)} suppliers from file")
+                return suppliers
+            else:
+                print(f"Invalid format in {file_path}, could not find list markers []")
+        else:
+            print(f"Suppliers list file not found at {file_path}")
+        
+        if use_fallback:
+            print(f"Using hardcoded list of {len(UNIQUE_SUPPLIERS)} suppliers as fallback")
+            return UNIQUE_SUPPLIERS
+        return []
+    except Exception as e:
+        print(f"Error loading full suppliers list: {str(e)}")
+        if use_fallback:
+            print(f"Using hardcoded list of {len(UNIQUE_SUPPLIERS)} suppliers as fallback")
+            return UNIQUE_SUPPLIERS
+        return []
 
 # Conversation history management
 class ConversationManager:
@@ -221,14 +300,13 @@ def format_detected_entities(entities: dict) -> str:
 
 def detect_entity_from_list_with_llm(question: str, entity_type: str, entity_list: list) -> str | None:
     """Asks the LLM to find the best entity from a list based on the user's question."""
-    # Prepare the list for the prompt, ensuring it's not too long
+    # Prepare list for prompt - limit to 200 items to avoid context length issues
     if len(entity_list) > 200:
-        # If the list is too long, we might need a smarter way to narrow it down first
-        # For now, we'll truncate it for the prompt to avoid exceeding context limits
         display_list = entity_list[:200]
+        print(f"Warning: {entity_type} list truncated from {len(entity_list)} to 200 items for LLM prompt")
     else:
         display_list = entity_list
-        
+
     system_message = (
         f"You are an expert entity detection model. Your task is to identify one '{entity_type}' from the user's question. "
         f"The available {entity_type}s are: {', '.join(display_list)}. "
@@ -236,24 +314,14 @@ def detect_entity_from_list_with_llm(question: str, entity_type: str, entity_lis
         f"If no {entity_type} from the list is mentioned or relevant, respond with 'None'."
     )
     user_prompt = f"Question: {question}"
-
+    
+    # Add retry mechanism
     max_retries = 3
     retry_delay = 1  # seconds
     
     for attempt in range(max_retries):
         try:
-            # First check if Ollama is available
-            try:
-                # Simple health check
-                requests.get(f"{OLLAMA_HOST}/api/version", timeout=2)
-            except requests.exceptions.RequestException:
-                print(f"Ollama server not responding at {OLLAMA_HOST}. Attempt {attempt+1}/{max_retries}")
-                if attempt < max_retries - 1:
-                    time.sleep(retry_delay)
-                    continue
-                return None
-                
-            # Now try to use the model
+            print(f"Attempt {attempt+1}/{max_retries} to detect {entity_type} from list...")
             response = ollama.chat(
                 model=OLLAMA_MODEL,
                 messages=[
@@ -266,44 +334,127 @@ def detect_entity_from_list_with_llm(question: str, entity_type: str, entity_lis
             if not isinstance(response, dict):
                 print(f"Unexpected response type from Ollama: {type(response)}")
                 if attempt < max_retries - 1:
+                    print(f"Retrying in {retry_delay} seconds...")
                     time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
                     continue
                 return None
                 
             if 'message' not in response:
                 print(f"'message' not found in Ollama response: {response}")
                 if attempt < max_retries - 1:
+                    print(f"Retrying in {retry_delay} seconds...")
                     time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
                     continue
                 return None
                 
             if 'content' not in response['message']:
                 print(f"'content' not found in Ollama message: {response['message']}")
                 if attempt < max_retries - 1:
+                    print(f"Retrying in {retry_delay} seconds...")
                     time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
                     continue
                 return None
             
             llm_response = response['message']['content'].strip()
+            
+            # Check if the response is in the list (case-insensitive partial match)
             if llm_response.lower() == 'none' or not llm_response:
                 return None
                 
+            # Try to find an exact match first
+            for item in entity_list:
+                if item.lower() == llm_response.lower():
+                    print(f"Found exact match for {entity_type}: {item}")
+                    return item  # Return the exact match with correct casing
+            
+            # If no exact match, check for partial matches
+            for item in entity_list:
+                if llm_response.lower() in item.lower() or item.lower() in llm_response.lower():
+                    print(f"Found partial match for {entity_type}: {item} (from LLM response: {llm_response})")
+                    return item  # Return the first partial match
+            
+            # If we got here, the LLM returned something not in our list
+            print(f"LLM returned '{llm_response}' which is not in the {entity_type} list")
+            
+            # Try to find the closest match using string similarity
+            best_match = None
+            best_score = 0
+            llm_response_lower = llm_response.lower()
+            
+            for item in entity_list:
+                item_lower = item.lower()
+                # Simple similarity score: count of common characters divided by length of longer string
+                common_chars = sum(1 for c in llm_response_lower if c in item_lower)
+                similarity = common_chars / max(len(llm_response_lower), len(item_lower))
+                
+                if similarity > best_score and similarity > 0.5:  # Threshold of 50% similarity
+                    best_score = similarity
+                    best_match = item
+            
+            if best_match:
+                print(f"Found closest match for {entity_type}: {best_match} (similarity: {best_score:.2f})")
+                return best_match
+            
+            # If all else fails, return what the LLM gave us
             return llm_response
             
         except ollama.RequestError as e:
             print(f"Ollama connection error during entity detection for {entity_type}: {e.args}")
             if attempt < max_retries - 1:
-                print(f"Retrying... Attempt {attempt+1}/{max_retries}")
+                print(f"Retrying in {retry_delay} seconds...")
                 time.sleep(retry_delay)
+                retry_delay *= 2  # Exponential backoff
             else:
+                print(f"Failed to detect {entity_type} after {max_retries} attempts")
                 return None
         except Exception as e:
             print(f"An unexpected error occurred during entity detection for {entity_type}: {str(e)}")
             if attempt < max_retries - 1:
-                print(f"Retrying... Attempt {attempt+1}/{max_retries}")
+                print(f"Retrying in {retry_delay} seconds...")
                 time.sleep(retry_delay)
+                retry_delay *= 2  # Exponential backoff
             else:
+                print(f"Failed to detect {entity_type} after {max_retries} attempts")
                 return None
+    
+    return None
+
+def detect_entity_with_fallback(question: str, entity_type: str, use_full_list: bool = False) -> str | None:
+    """
+    Detect an entity with fallback to full list if needed.
+    
+    Args:
+        question: The user's question
+        entity_type: The type of entity to detect ('project' or 'supplier')
+        use_full_list: Whether to use the full list from file instead of hardcoded list
+        
+    Returns:
+        The detected entity or None if not found
+    """
+    if entity_type.lower() == 'project':
+        # For projects, we always use the hardcoded list as it's comprehensive
+        return detect_entity_from_list_with_llm(question, entity_type, UNIQUE_PROJECTS)
+    elif entity_type.lower() == 'supplier':
+        # For suppliers, we can use either the hardcoded list or the full list
+        if use_full_list:
+            # Try to load the full list from file
+            suppliers = load_full_suppliers_list()
+            if len(suppliers) > len(UNIQUE_SUPPLIERS):
+                print(f"Using full suppliers list with {len(suppliers)} items")
+                return detect_entity_from_list_with_llm(question, entity_type, suppliers)
+        
+        # Use hardcoded list as default or fallback
+        result = detect_entity_from_list_with_llm(question, entity_type, UNIQUE_SUPPLIERS)
+        
+        # If not found and we haven't tried the full list yet, try with the full list
+        if result is None and not use_full_list:
+            print("Entity not found in hardcoded list, trying with full suppliers list...")
+            return detect_entity_with_fallback(question, entity_type, use_full_list=True)
+        
+        return result
     
     return None
 
@@ -540,9 +691,15 @@ def generate_natural_language_answer(question: str, sql_query: str, columns: lis
 
 def process_question(question: str, use_history: bool = True) -> Tuple[str, str, List[str], List[List], str]:
     """Process the question, generate and execute SQL, and return a natural language answer."""
-    # Detect entities using the LLM
-    detected_project = detect_entity_from_list_with_llm(question, "project", UNIQUE_PROJECTS)
-    detected_supplier = detect_entity_from_list_with_llm(question, "supplier", UNIQUE_SUPPLIERS)
+    # Detect entities using the enhanced detection with fallback
+    print("Detecting project entity...")
+    detected_project = detect_entity_with_fallback(question, "project")
+    
+    print("Detecting supplier entity...")
+    detected_supplier = detect_entity_with_fallback(question, "supplier")
+    
+    print(f"Detected project: {detected_project}")
+    print(f"Detected supplier: {detected_supplier}")
 
     detected_entities = {"project": detected_project, "supplier": detected_supplier}
 
