@@ -59,7 +59,7 @@ def check_ollama_and_model():
             print(f"\nTo pull the required model, run: ollama pull {OLLAMA_MODEL}")
             return False
             
-        print(f"✓ Ollama server is running and model '{OLLAMA_MODEL}' is available.")
+        print(f"[OK] Ollama server is running and model '{OLLAMA_MODEL}' is available.")
         return True
         
     except requests.exceptions.ConnectionError:
@@ -791,6 +791,13 @@ app = FastAPI()
 def get_unique_list(column: str):
     return fetch_unique_list(column)
 
+# Create the FastAPI app
+app = FastAPI()
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return "<html><body><h1>Purchase Order Chatbot API</h1><p>API is running. Access the UI at <a href='/gradio'>/gradio</a></p></body></html>"
+
 @app.get("/suppliers", response_class=HTMLResponse)
 def suppliers():
     names = get_unique_list("VENDOR_NAME")
@@ -803,10 +810,47 @@ def projects():
     html = "<h2>Unique Project Names</h2><ul>" + "".join(f"<li>{n}</li>" for n in names) + "</ul>"
     return HTMLResponse(content=html)
 
+def is_port_in_use(port):
+    """Check if a port is in use"""
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
+
+def find_available_port(start_port, max_attempts=10):
+    """Find an available port starting from start_port"""
+    port = start_port
+    for _ in range(max_attempts):
+        if not is_port_in_use(port):
+            return port
+        port += 1
+    return start_port + max_attempts  # Return a port even if we couldn't verify it's free
+
+def main():
+    # Check if Ollama is running and the model is available
+    if not check_ollama_and_model():
+        print("\nExiting due to Ollama or model availability issues.")
+        print("Please ensure Ollama is running and the model is available before starting the application.")
+        sys.exit(1)
+    
+    # Find an available port
+    port = find_available_port(7873)
+    
+    print(f"\n[OK] Starting Purchase Order Chatbot with model: {OLLAMA_MODEL}")
+    print(f"[OK] Server will be available at http://localhost:{port}")
+    
+    # Create the Gradio interface
+    interface = create_interface()
+    
+    # Mount Gradio app to FastAPI
+    app_with_gradio = gr.mount_gradio_app(app, interface, path="/gradio")
+    
+    # Open browser automatically
+    webbrowser.open(f"http://localhost:{port}/gradio", new=2, autoraise=True)
+    
+    # Run the FastAPI app
+    uvicorn.run(app_with_gradio, host="0.0.0.0", port=port)
+
+# Run the app
 if __name__ == "__main__":
     initialize_unique_lists()
-    interface = create_interface()
-    app = gr.mount_gradio_app(app, interface, path="/")
-    # Use port 7873 for rev.21
-    webbrowser.open("http://localhost:7873", new=2, autoraise=True)
-    uvicorn.run(app, host="0.0.0.0", port=7873)
+    main()
