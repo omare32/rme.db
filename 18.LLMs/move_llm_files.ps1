@@ -9,7 +9,7 @@ $extensions = @(
     # Vector databases and embeddings
     "*.faiss", "*.pkl", "*.joblib", "*.npy", "*.npz", "*.parquet",
     # Data files
-    "*.jsonl", "*.jsonl.gz", "*.csv", "*.xlsx", "*.parquet", "*.arrow",
+    "*.jsonl", "*.jsonl.gz", "*.csv", "*.xlsx", "*.xlsb", "*.parquet", "*.arrow",
     # Archives
     "*.zip", "*.7z", "*.rar", "*.tar", "*.gz",
     # Virtual environments and caches
