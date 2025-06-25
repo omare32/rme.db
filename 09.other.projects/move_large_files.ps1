@@ -24,8 +24,8 @@ $extensions = @(
 $filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions -ErrorAction SilentlyContinue | 
     Where-Object { $_.Extension -ne '.ipynb' }
 
-# Add large text files (>1MB) to the files to move
-$largeTextFiles = Get-ChildItem -Path $sourceBase -Recurse -Include "*.txt" -ErrorAction SilentlyContinue | 
+# Add large text and log files (>1MB) to the files to move
+$largeTextFiles = Get-ChildItem -Path $sourceBase -Recurse -Include @("*.txt", "*.log") -ErrorAction SilentlyContinue | 
     Where-Object { $_.Length -gt 1MB }
 $filesToMove = @($filesToMove) + @($largeTextFiles)
 
