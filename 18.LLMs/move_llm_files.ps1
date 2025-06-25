@@ -9,13 +9,15 @@ $extensions = @(
     # Vector databases and embeddings
     "*.faiss", "*.pkl", "*.joblib", "*.npy", "*.npz", "*.parquet",
     # Data files
-    "*.jsonl", "*.jsonl.gz", "*.csv", "*.parquet", "*.arrow",
+    "*.jsonl", "*.jsonl.gz", "*.csv", "*.xlsx", "*.parquet", "*.arrow",
     # Archives
     "*.zip", "*.7z", "*.rar", "*.tar", "*.gz",
     # Virtual environments and caches
     "venv*", "env*", ".venv*", "__pycache__", ".pytest_cache", ".mypy_cache",
     # Logs and checkpoints
-    "*.log", "*.ckpt", "checkpoint*", "runs/*", "logs/*", "wandb/*", "mlruns/*"
+    "*.log", "*.ckpt", "checkpoint*", "runs/*", "logs/*", "wandb/*", "mlruns/*",
+    # Images
+    "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "*.tiff", "*.webp"
 )
 
 # Get all files matching the extensions recursively, excluding .git directories
