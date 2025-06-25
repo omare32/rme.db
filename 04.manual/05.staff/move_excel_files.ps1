@@ -2,8 +2,17 @@
 $sourceBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\04.manual\05.staff"
 $destBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db.data\04.manual\05.staff"
 
-# Get all Excel, PDF, archive, and executable files recursively
-$filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include *.xlsx, *.xls, *.pdf, *.7z, *.zip, *.rar, *.exe
+# Get all Excel, CSV, PDF, archive, executable, and image files recursively
+$extensions = @("*.xlsx", "*.xls", "*.xlsb", "*.csv", "*.pdf", "*.7z", "*.zip", "*.rar", "*.exe", 
+                "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff", "*.tif", "*.webp", "*.svg")
+$filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions
+
+# Add large text files (>1MB) to the files to move
+$largeTextFiles = Get-ChildItem -Path $sourceBase -Recurse -Include "*.txt" | Where-Object { $_.Length -gt 1MB }
+$filesToMove = @($filesToMove) + @($largeTextFiles)
+
+# Remove any duplicate files that might be included in both lists
+$filesToMove = $filesToMove | Sort-Object FullName -Unique
 
 foreach ($file in $filesToMove) {
     # Get the relative path from the source base

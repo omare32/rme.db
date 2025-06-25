@@ -2,8 +2,9 @@
 $sourceBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db\06.adhoc.requests"
 $destBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db.data\06.adhoc.requests"
 
-# File extensions to move (Excel, PDF, archive, and executable files)
-$extensions = @("*.xlsx", "*.xls", "*.xlsb", "*.pdf", "*.7z", "*.zip", "*.rar", "*.exe")
+# File extensions to move (Excel, CSV, PDF, archive, executable, and image files)
+$extensions = @("*.xlsx", "*.xls", "*.xlsb", "*.csv", "*.pdf", "*.7z", "*.zip", "*.rar", "*.exe", 
+                "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.tiff", "*.tif", "*.webp", "*.svg")
 
 # Get all files matching the extensions recursively
 $filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions
