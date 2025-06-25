@@ -425,36 +425,88 @@ def process_question(question: str, use_history: bool = True) -> Tuple[str, str,
         return error_message, f"Error: {str(e)}", ["Error"], [[error_message]], detected_entities
 
 def generate_sql_query(question: str, detected_entities: dict = None, use_history: bool = True) -> str:
+    """
+    Generate SQL query using Ollama based on the user's question and conversation context.
+    """
+    # Get conversation context if history is enabled
+    context = CONVERSATION.get_context_for_llm() if use_history else ""
+    
+    # Get active entities for context
+    active_entities = CONVERSATION.get_active_entities()
+    
+    # If detected_entities are provided, merge them with active_entities
+    if detected_entities:
+        if detected_entities.get("project"):
+            active_entities["project"] = detected_entities["project"]
+        if detected_entities.get("supplier"):
+            active_entities["supplier"] = detected_entities["supplier"]
+
+    # Construct the prompt for the LLM
+    prompt = f"""You are an expert PostgreSQL assistant. Your task is to generate a SQL query based on the user's question.
+The database table is named `{NEW_TABLE}`.
+
+Here are the relevant columns in the table:
+- "PROJECT_NAME": The name of the project.
+- "VENDOR_NAME": The name of the supplier.
+- "PO_NUM": The purchase order number.
+- "COMMENTS": Comments on the purchase order.
+- "APPROVED_DATE": The date the PO was approved.
+- "UOM": Unit of measure for the item.
+- "ITEM_DESCRIPTION": Description of the item.
+- "UNIT_PRICE": Price per unit of the item.
+- "QUANTITY_RECEIVED": Quantity of the item received.
+- "LINE_AMOUNT": Total amount for the line item.
+- "TERMS": Payment terms.
+
+You must use the exact column names provided, enclosed in double quotes.
+
+Current context:
+- Detected Project: {active_entities.get("project")}
+- Detected Supplier: {active_entities.get("supplier")}
+
+{context}
+
+User's question: "{question}"
+
+Based on the question and context, generate a concise and valid PostgreSQL query.
+- The query should start with `SELECT`.
+- Do not add any explanations or introductory text.
+- If the user asks for a total, use `SUM()`. For an average, use `AVG()`. For a count, use `COUNT()`.
+- If a project or supplier is detected, you MUST include a `WHERE` clause to filter by it.
+- For example: `WHERE "PROJECT_NAME" = '{active_entities.get("project")}'`
+- Always use single quotes for string values in the `WHERE` clause.
+- If the user asks a follow-up question like "what about for project X?", you should generate a new query for project X based on the last question's structure.
+- If the user asks for a "top N" or "bottom N" list, use `ORDER BY` and `LIMIT`.
+- The `WHERE` clause must always come before `ORDER BY` or `LIMIT`.
+
+Generate the SQL query now.
+"""
+    
+    # Call Ollama API
     try:
-        if detected_entities is None:
-            detected_entities = {}
-            
-        # Explain all columns to the LLM
-        system_message = "You are a SQL query generator. Generate PostgreSQL queries based on natural language questions.\n\n"
-        system_message += "IMPORTANT: PostgreSQL is case-sensitive and column names are UPPERCASE in our database and must be quoted.\n"
-        system_message += "Always use double quotes around column names like this: \"COLUMN_NAME\"\n\n"
-        system_message += f"The table name is '{NEW_TABLE}' and it has these columns:\n"
-        system_message += "- id: auto-increment row id (INT)\n"
-        system_message += "- \"PO_NUM\": purchase order number (VARCHAR)\n"
-        system_message += "- \"COMMENTS\": comments about the PO (TEXT)\n"
-        system_message += "- \"APPROVED_DATE\": date the PO was approved (DATE)\n"
-        system_message += "- \"UOM\": unit of measure (VARCHAR)\n"
-        system_message += "- \"ITEM_DESCRIPTION\": description of the item (TEXT)\n"
-        system_message += "- \"UNIT_PRICE\": unit price for the item (DECIMAL)\n"
-        system_message += "- \"QUANTITY_RECEIVED\": quantity received (DECIMAL)\n"
-        system_message += "- \"LINE_AMOUNT\": total line amount (DECIMAL)\n"
-        system_message += "- \"PROJECT_NAME\": project name (VARCHAR)\n"
-        system_message += "- \"VENDOR_NAME\": supplier/vendor name (VARCHAR)\n"
-        system_message += "- \"TERMS\": merged PO terms (TEXT)\n\n"
-        system_message += "You can answer questions about purchase orders, terms, suppliers, projects, items, etc.\n\n"
-        system_message += "Only use these columns in your query. Keep the query simple and focused on answering the question. "
-        system_message += "Return ONLY the raw SQL query, with NO code formatting, NO markdown backticks, NO ```sql tags, and NO explanations."
-        system_message += "\n\nImportant: If this is a follow-up question to a previous conversation, consider the context."
+        response = requests.post(
+            f"{OLLAMA_HOST}/api/generate",
+            json={
+                "model": OLLAMA_MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "temperature": 0.0,
+                    "top_p": 0.9,
+                    "num_predict": 150
+                }
+            }
+        )
+        response.raise_for_status()
         
-        # Create message array with system instructions
-        messages = [{"role": "system", "content": system_message}]
+        # Extract the generated query
+        result = response.json()
+        sql_query = result.get("response", "").strip()
         
-        # Add conversation history context if available and requested
+        # Clean up the query: remove backticks, newlines, and trailing semicolons
+        sql_query = re.sub(r"`|sql", "", sql_query).replace("\n", " ").strip()
+        if sql_query.endswith(';'):
+            sql_query = sql_query[:-1]
         
         # Fix common ordering issues with the WHERE clause
         sql_query = fix_sql_query_order(sql_query)
