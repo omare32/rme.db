@@ -14,8 +14,9 @@ $extensions = @(
     "*.db", "*.sqlite", "*.sqlite3", "*.data", "*.dat"
 )
 
-# Get all files matching the extensions recursively
-$filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions
+# Get all files matching the extensions recursively, excluding .ipynb files
+$filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions | 
+    Where-Object { $_.Extension -ne '.ipynb' }
 
 # Add large text files (>1MB) to the files to move
 $largeTextFiles = Get-ChildItem -Path $sourceBase -Recurse -Include "*.txt" | Where-Object { $_.Length -gt 1MB }
