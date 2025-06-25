@@ -3,10 +3,17 @@ $sourceBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Dat
 $destBase = "C:\Users\Omar Essam2\OneDrive - Rowad Modern Engineering\x004 Data Science\03.rme.db\00.repo\rme.db.data\06.adhoc.requests"
 
 # File extensions to move (Excel, PDF, archive, and executable files)
-$extensions = @("*.xlsx", "*.xls", "*.pdf", "*.7z", "*.zip", "*.rar", "*.exe")
+$extensions = @("*.xlsx", "*.xls", "*.xlsb", "*.pdf", "*.7z", "*.zip", "*.rar", "*.exe")
 
 # Get all files matching the extensions recursively
 $filesToMove = Get-ChildItem -Path $sourceBase -Recurse -Include $extensions
+
+# Add large text files (>1MB) to the files to move
+$largeTextFiles = Get-ChildItem -Path $sourceBase -Recurse -Include "*.txt" | Where-Object { $_.Length -gt 1MB }
+$filesToMove = @($filesToMove) + @($largeTextFiles)
+
+# Remove any duplicate files that might be included in both lists
+$filesToMove = $filesToMove | Sort-Object FullName -Unique
 
 if ($filesToMove.Count -eq 0) {
     Write-Host "No files to move in $sourceBase."
@@ -32,5 +39,6 @@ foreach ($file in $filesToMove) {
 }
 
 Write-Host "All large files have been moved successfully!"
+Write-Host "Moved $($filesToMove.Count) files in total"
 Write-Host "Source: $sourceBase"
 Write-Host "Destination: $destBase"
