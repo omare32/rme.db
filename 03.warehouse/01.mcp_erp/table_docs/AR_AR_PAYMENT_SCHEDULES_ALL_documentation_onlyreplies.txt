@@ -1,0 +1,286 @@
+Object Name: AR.AR_PAYMENT_SCHEDULES_ALL
+
+The AR.AR_PAYMENT_SCHEDULES_ALL table in the Oracle ERP system is designed to store information related to the payment schedules of customers. This table is crucial for managing and tracking customer payments, due dates, and outstanding amounts. It also contains information about the creation and last update of each record.
+
+Column Descriptions:
+
+1. PAYMENT_SCHEDULE_ID: This is the unique identifier for each payment schedule record.
+
+2. STAGED_DUNNING_LEVEL: This field represents the level of dunning (process of methodically communicating with customers to ensure the collection of accounts receivable) that has been staged for the customer. It appears to be null in the sample data.
+
+3. DUNNING_LEVEL_OVERRIDE_DATE: This field represents the date when the dunning level was overridden. It appears to be null in the sample data.
+
+4. LAST_UPDATE_DATE: This field records the date and time when the payment schedule record was last updated.
+
+5. LAST_UPDATED_BY: This field records the ID of the user who last updated the payment schedule record.
+
+6. CREATION_DATE: This field records the date and time when the payment schedule record was created.
+
+7. CREATED_BY: This field records the ID of the user who created the payment schedule record.
+
+8. LAST_UPDATE_LOGIN: This field records the login ID of the user who last updated the record. The value -1 may represent a system or automated update.
+
+9. DUE_DATE: This field represents the date when the payment is due.
+
+10. AMOUNT_DUE_ORIGINAL: This field represents the original amount due for payment.
+
+11. AMOUNT_DUE_REMAINING: This field represents the remaining amount due for payment.
+
+12. NUMBER_OF_DUE_DATES: This field represents the number of due dates for the payment.
+
+13. STATUS: This field represents the status of the payment. 'CL' could possibly represent 'Closed'.
+
+14. INVOICE_CURRENCY_CODE: This field represents the currency code of the invoice.
+
+15. CLASS: This field represents the class of the payment. 'INV' could represent 'Invoice', 'PMT' could represent 'Payment', and 'CM' could represent 'Credit Memo'.
+
+16. CUST_TRX_TYPE_ID: This field represents the transaction type ID for the customer. It appears to be null for payment records.
+
+17. CUSTOMER_ID: This field represents the unique identifier for the customer.
+
+18. CUSTOMER_SITE_USE_ID: This field represents the unique identifier for the customer site use.
+
+19. CUSTOMER_TRX_ID: This field represents the unique identifier for the customer transaction. It appears to be null for payment records.
+
+20. CASH_RECEIPT_ID: This field represents the unique identifier for the cash receipt. It appears to be null for invoice and credit memo records.
+
+Based on the sample data, it appears that the table records both payments and invoices. Payments have a negative AMOUNT_DUE_ORIGINAL and null CUSTOMER_TRX_ID, while invoices have a positive AMOUNT_DUE_ORIGINAL and a non-null CUSTOMER_TRX_ID. The STATUS field is 'CL' for all records in the sample data, which could possibly mean that these records are closed.
+
+**Object Name: AR.AR_PAYMENT_SCHEDULES_ALL**
+
+**Object Type: Table/View**
+
+**Business Purpose:**
+
+The AR.AR_PAYMENT_SCHEDULES_ALL object is a table in the Oracle ERP system that stores information related to payment schedules. It is used to track and manage the payment terms, amounts, dates, and other related details for each transaction. This table is crucial for managing accounts receivable, cash flow forecasting, and financial reporting.
+
+**Column Descriptions:**
+
+1. `ASSOCIATED_CASH_RECEIPT_ID`: This is the unique identifier for the associated cash receipt. It links the payment schedule to the corresponding cash receipt record.
+
+2. `TERM_ID`: This represents the unique identifier for the payment term associated with the transaction.
+
+3. `TERMS_SEQUENCE_NUMBER`: This is the sequence number for the payment terms. It is used to order the payment terms for a particular transaction.
+
+4. `GL_DATE_CLOSED`: This is the date when the transaction was closed in the General Ledger.
+
+5. `ACTUAL_DATE_CLOSED`: This is the actual date when the transaction was closed.
+
+6. `DISCOUNT_DATE`: This is the date when any discount applied to the transaction is due.
+
+7. `AMOUNT_LINE_ITEMS_ORIGINAL`: This is the original total amount of the line items in the transaction.
+
+8. `AMOUNT_LINE_ITEMS_REMAINING`: This is the remaining total amount of the line items in the transaction after payments and adjustments.
+
+9. `AMOUNT_APPLIED`: This is the total amount applied to the transaction.
+
+10. `AMOUNT_ADJUSTED`: This is the total amount adjusted in the transaction.
+
+11. `AMOUNT_IN_DISPUTE`: This is the total amount in dispute for the transaction.
+
+12. `AMOUNT_CREDITED`: This is the total amount credited in the transaction.
+
+13. `RECEIVABLES_CHARGES_CHARGED`: This is the total amount of receivable charges charged in the transaction.
+
+14. `RECEIVABLES_CHARGES_REMAINING`: This is the remaining total amount of receivable charges in the transaction after payments and adjustments.
+
+15. `FREIGHT_ORIGINAL`: This is the original total amount of freight charges in the transaction.
+
+16. `FREIGHT_REMAINING`: This is the remaining total amount of freight charges in the transaction after payments and adjustments.
+
+17. `TAX_ORIGINAL`: This is the original total amount of tax in the transaction.
+
+18. `TAX_REMAINING`: This is the remaining total amount of tax in the transaction after payments and adjustments.
+
+19. `DISCOUNT_ORIGINAL`: This is the original total amount of discount in the transaction.
+
+20. `DISCOUNT_REMAINING`: This is the remaining total amount of discount in the transaction after payments and adjustments.
+
+**Inferred Relationships and Business Logic:**
+
+The `ASSOCIATED_CASH_RECEIPT_ID` field likely links to a `CASH_RECEIPTS` table where detailed information about each cash receipt is stored. The `TERM_ID` field likely links to a `PAYMENT_TERMS` table where details about each payment term are stored.
+
+The remaining amount fields (`AMOUNT_LINE_ITEMS_REMAINING`, `RECEIVABLES_CHARGES_REMAINING`, `FREIGHT_REMAINING`, `TAX_REMAINING`, `DISCOUNT_REMAINING`) are likely calculated by subtracting the applied and adjusted amounts from the original amounts.
+
+The `AMOUNT_APPLIED` and `AMOUNT_ADJUSTED` fields may be related, as adjustments are often made to the applied amount. The `AMOUNT_IN_DISPUTE` and `AMOUNT_CREDITED` fields may also be related, as credits are often issued for disputed amounts.
+
+**Object Name:** AR.AR_PAYMENT_SCHEDULES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This table/view is part of the Accounts Receivable (AR) module in an Oracle ERP system. It appears to track the payment schedules and related transactions for customers. This includes information about discounts, cash applications, cash receipts, exchange rates, and adjustments. This data can be used for financial reporting, cash flow management, and customer account management.
+
+**Column Descriptions:**
+
+1. `DISCOUNT_TAKEN_EARNED`: This field likely represents the amount of discount that has been earned by the customer. The value is likely to be a numerical value representing the currency amount.
+
+2. `DISCOUNT_TAKEN_UNEARNED`: This field likely represents the amount of discount that has been offered but not yet earned by the customer. The value is likely to be a numerical value representing the currency amount.
+
+3. `IN_COLLECTION`: This field likely indicates whether the payment is currently in the collection process. The data type and possible values are not clear from the sample data.
+
+4. `CASH_APPLIED_ID_LAST`: This field likely represents the ID of the last cash application transaction for the payment schedule.
+
+5. `CASH_APPLIED_DATE_LAST`: This field likely represents the date of the last cash application transaction for the payment schedule.
+
+6. `CASH_APPLIED_AMOUNT_LAST`: This field likely represents the amount of the last cash application transaction for the payment schedule.
+
+7. `CASH_APPLIED_STATUS_LAST`: This field likely represents the status of the last cash application transaction for the payment schedule.
+
+8. `CASH_GL_DATE_LAST`: This field likely represents the date when the last cash application transaction was posted to the General Ledger (GL).
+
+9. `CASH_RECEIPT_ID_LAST`: This field likely represents the ID of the last cash receipt transaction for the payment schedule.
+
+10. `CASH_RECEIPT_DATE_LAST`: This field likely represents the date of the last cash receipt transaction for the payment schedule.
+
+11. `CASH_RECEIPT_AMOUNT_LAST`: This field likely represents the amount of the last cash receipt transaction for the payment schedule.
+
+12. `CASH_RECEIPT_STATUS_LAST`: This field likely represents the status of the last cash receipt transaction for the payment schedule.
+
+13. `EXCHANGE_RATE_TYPE`: This field likely represents the type of exchange rate used for the payment schedule, if applicable.
+
+14. `EXCHANGE_DATE`: This field likely represents the date when the exchange rate was applied.
+
+15. `EXCHANGE_RATE`: This field likely represents the exchange rate used for the payment schedule, if applicable.
+
+16. `ADJUSTMENT_ID_LAST`: This field likely represents the ID of the last adjustment transaction for the payment schedule.
+
+17. `ADJUSTMENT_DATE_LAST`: This field likely represents the date of the last adjustment transaction for the payment schedule.
+
+18. `ADJUSTMENT_GL_DATE_LAST`: This field likely represents the date when the last adjustment transaction was posted to the General Ledger (GL).
+
+19. `ADJUSTMENT_AMOUNT_LAST`: This field likely represents the amount of the last adjustment transaction for the payment schedule.
+
+20. `FOLLOW_UP_DATE_LAST`: This field likely represents the date of the last follow-up action related to the payment schedule.
+
+**Inferred Relationships and Business Logic:** The table/view appears to be designed to track the lifecycle of a payment schedule, from the initial cash application to any subsequent cash receipts and adjustments. Each row likely represents a single payment schedule, with the various '_LAST' fields being updated as new transactions occur. The presence of 'GL_DATE' fields suggests that these transactions are also being posted to a General Ledger, indicating a relationship with the accounting side of the business. The 'EXCHANGE_RATE' fields suggest that the system may handle multiple currencies, which would be relevant for businesses operating internationally.
+
+Object Name: AR.AR_PAYMENT_SCHEDULES_ALL
+
+The AR.AR_PAYMENT_SCHEDULES_ALL object is a table in the Oracle ERP system. This table appears to be used for tracking payment schedules, including details about transactions, promises made for payments, and adjustments. It seems to be part of the Accounts Receivable (AR) module, which is used to manage and track all receivables and customer-related transactions.
+
+Column Descriptions:
+
+1. FOLLOW_UP_CODE_LAST: This column is likely to store the last follow-up code related to the payment. It could be a code indicating the status or type of the last follow-up action taken for the payment.
+
+2. PROMISE_DATE_LAST: This column is expected to store the last date when the customer promised to make a payment.
+
+3. PROMISE_AMOUNT_LAST: This column is likely to store the last promised amount by the customer for the payment.
+
+4. COLLECTOR_LAST: This column is expected to store the name or ID of the last collector who interacted with the customer regarding the payment.
+
+5. CALL_DATE_LAST: This column is likely to store the date of the last call made to the customer regarding the payment.
+
+6. TRX_NUMBER: This column stores the transaction number. It is a unique identifier for each transaction.
+
+7. TRX_DATE: This column stores the date of the transaction.
+
+8. ATTRIBUTE_CATEGORY, ATTRIBUTE1 to ATTRIBUTE10: These columns are likely to store additional information about the payment schedule. The exact nature of this information is not clear from the column names or sample data.
+
+9. REVERSED_CASH_RECEIPT_ID: This column is likely to store the ID of any reversed cash receipt related to the payment schedule.
+
+10. AMOUNT_ADJUSTED_PENDING: This column is likely to store the amount that is pending adjustment in the payment schedule.
+
+Relationships and Business Logic:
+
+The table seems to be a part of the larger Accounts Receivable module and is likely to have relationships with other tables in the module, such as customer details, transaction details, and payment details. The exact relationships cannot be determined from the provided information.
+
+The business logic seems to revolve around tracking and managing payment schedules. The table tracks details about each transaction, including the last promised date and amount, the last collector who interacted with the customer, and any pending adjustments. This information can be used to follow up on pending payments and manage the company's receivables effectively.
+
+**Object Name:** AR.AR_PAYMENT_SCHEDULES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_PAYMENT_SCHEDULES_ALL object in the Oracle ERP system is used to store information related to the payment schedules in the Accounts Receivable (AR) module. This object is crucial for managing and tracking the payment schedules, including the remaining due amounts, program application details, receipt confirmation status, and related dates.
+
+**Column Descriptions:**
+
+1. **ATTRIBUTE11 to ATTRIBUTE15:** These columns are generic attribute fields that can be used to store additional information as per business requirements. In the provided sample data, these fields are not in use.
+
+2. **GL_DATE:** This column stores the General Ledger date associated with the payment schedule.
+
+3. **ACCTD_AMOUNT_DUE_REMAINING:** This column stores the remaining due amount to be paid in the accounted currency.
+
+4. **PROGRAM_APPLICATION_ID:** This column stores the unique identifier for the program application associated with the payment schedule.
+
+5. **PROGRAM_ID:** This column stores the unique identifier for the program associated with the payment schedule.
+
+6. **PROGRAM_UPDATE_DATE:** This column stores the date and time when the associated program was last updated.
+
+7. **RECEIPT_CONFIRMED_FLAG:** This column stores a flag to indicate whether the receipt has been confirmed or not.
+
+8. **REQUEST_ID:** This column stores the unique identifier for the request associated with the payment schedule.
+
+9. **SELECTED_FOR_RECEIPT_BATCH_ID:** This column stores the unique identifier for the receipt batch if the payment schedule has been selected for a receipt batch.
+
+10. **LAST_CHARGE_DATE:** This column stores the date of the last charge associated with the payment schedule.
+
+11. **SECOND_LAST_CHARGE_DATE:** This column stores the date of the second last charge associated with the payment schedule.
+
+12. **DISPUTE_DATE:** This column stores the date of any dispute associated with the payment schedule.
+
+13. **ORG_ID:** This column stores the unique identifier for the organization associated with the payment schedule.
+
+14. **GLOBAL_ATTRIBUTE1 to GLOBAL_ATTRIBUTE3:** These columns are global attribute fields that can be used to store additional global information as per business requirements. In the provided sample data, these fields are not in use.
+
+**Inferred Relationships or Business Logic:**
+
+The table appears to be a transactional table that records each payment schedule in the AR module. Each row represents a unique payment schedule, identified by a combination of PROGRAM_APPLICATION_ID, PROGRAM_ID, and REQUEST_ID. The ORG_ID could be linked to an organization table in the database, providing more details about the organization associated with each payment schedule.
+
+The fields LAST_CHARGE_DATE, SECOND_LAST_CHARGE_DATE, and DISPUTE_DATE suggest that the system tracks the history of charges and disputes for each payment schedule. The RECEIPT_CONFIRMED_FLAG field indicates whether a receipt for the payment has been confirmed, which is likely updated once the payment is received. The ACCTD_AMOUNT_DUE_REMAINING field suggests that the system tracks the remaining due amount for each payment schedule, which should be updated as payments are made.
+
+Object: AR.AR_PAYMENT_SCHEDULES_ALL
+
+The AR.AR_PAYMENT_SCHEDULES_ALL object in the Oracle ERP system is a table that is designed to store information related to payment schedules. This table is part of the Accounts Receivable (AR) module, which manages all aspects of a company's receivables, such as invoices, payments, and adjustments. 
+
+However, based on the provided sample data, it appears that this specific group of columns (group 6 of 7) is currently not being utilized, as all the fields contain 'None' values. 
+
+Columns:
+
+1. GLOBAL_ATTRIBUTE4 to GLOBAL_ATTRIBUTE20: These columns are designed to store global attributes. These are typically custom fields that can be used to store additional information that does not fit into the standard fields provided by the system. The specific purpose of these fields would depend on the business requirements of the organization using the system. In the provided sample data, these fields are all empty.
+
+2. GLOBAL_ATTRIBUTE_CATEGORY: This field is likely used to categorize the global attributes. The specific categories would depend on the business requirements of the organization. In the provided sample data, this field is empty.
+
+3. CONS_INV_ID: This field is likely used to store a unique identifier for consolidated invoices. A consolidated invoice combines multiple invoices into a single document. In the provided sample data, this field is empty.
+
+4. CONS_INV_ID_REV: This field is likely used to store a unique identifier for the reversal of consolidated invoices. This would be used when a consolidated invoice is cancelled or reversed for some reason. In the provided sample data, this field is empty.
+
+Relationships or Business Logic:
+
+Without more information, it is difficult to infer specific relationships or business logic. However, typically in an ERP system, tables are related to each other through common fields. In this case, the CONS_INV_ID and CONS_INV_ID_REV fields would likely be related to other tables in the AR module that store detailed information about consolidated invoices and their reversals. 
+
+The global attributes and their category might be used in various ways depending on the business logic implemented by the organization. For example, they might be used to store additional information about the payment schedules, such as custom statuses, flags, or other data points that are not captured by the standard fields in the system.
+
+**Object Name:** AR.AR_PAYMENT_SCHEDULES_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_PAYMENT_SCHEDULES_ALL object in the Oracle ERP system is designed to store information related to payment schedules. This includes details about the customer transactions, exchange rates, amounts due, claims, and payment approvals. The data in this table is crucial for managing and tracking customer payments, and for financial reporting and analysis.
+
+**Column Descriptions:**
+
+1. **EXCLUDE_FROM_DUNNING_FLAG:** This field is likely a flag to indicate whether a particular payment schedule should be excluded from the dunning process. Dunning is a process in accounts receivable where you methodically communicate with customers to ensure the collection of accounts receivable.
+
+2. **MRC_CUSTOMER_TRX_ID:** This field likely represents the unique identifier for a customer transaction. This could be used to link to the transaction details in another table.
+
+3. **MRC_EXCHANGE_RATE_TYPE:** This field likely represents the type of exchange rate used for the transaction. This could be important for transactions in different currencies.
+
+4. **MRC_EXCHANGE_DATE:** This field likely represents the date on which the exchange rate was applied.
+
+5. **MRC_EXCHANGE_RATE:** This field likely represents the exchange rate that was used for the transaction.
+
+6. **MRC_ACCTD_AMOUNT_DUE_REMAINING:** This field likely represents the remaining amount due for the transaction, taking into account the exchange rate.
+
+7. **BR_AMOUNT_ASSIGNED:** This field likely represents the amount assigned for the transaction in the base currency.
+
+8. **RESERVED_TYPE:** This field is likely reserved for future use or for specific business needs. The type of data it holds can vary based on those needs.
+
+9. **RESERVED_VALUE:** Similar to RESERVED_TYPE, this field is likely reserved for future use or for specific business needs. The value it holds can vary based on those needs.
+
+10. **ACTIVE_CLAIM_FLAG:** This field is likely a flag to indicate whether there is an active claim associated with the payment schedule.
+
+11. **EXCLUDE_FROM_CONS_BILL_FLAG:** This field is likely a flag to indicate whether the payment schedule should be excluded from consolidated billing.
+
+12. **PAYMENT_APPROVAL:** This field likely indicates whether the payment has been approved.
+
+**Relationships and Business Logic:** The data in this table is likely related to other tables in the AR (Accounts Receivable) schema, such as a table containing customer details or transaction details. The MRC_CUSTOMER_TRX_ID field is likely used to join this table with others. The various flag fields (EXCLUDE_FROM_DUNNING_FLAG, ACTIVE_CLAIM_FLAG, EXCLUDE_FROM_CONS_BILL_FLAG) likely drive business processes and reporting. For example, payment schedules marked with EXCLUDE_FROM_DUNNING_FLAG as 'true' would be excluded from the dunning process.
+

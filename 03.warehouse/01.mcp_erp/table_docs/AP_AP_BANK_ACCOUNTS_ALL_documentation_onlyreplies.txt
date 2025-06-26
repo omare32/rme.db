@@ -1,0 +1,208 @@
+Object Name: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL is a table in the Oracle ERP system that stores all the information related to the bank accounts used in the Accounts Payable (AP) module. This table is crucial for managing financial transactions, maintaining vendor payment details, and ensuring accurate financial reporting.
+
+Column Descriptions:
+
+1. BANK_ACCOUNT_ID: This is the unique identifier for each bank account in the system. It is likely an auto-incrementing integer.
+
+2. BANK_ACCOUNT_NAME: This field stores the name of the bank account, which may be used for easy identification of the account.
+
+3. LAST_UPDATE_DATE: This timestamp indicates the last time any information in this record was updated.
+
+4. LAST_UPDATED_BY: This field records the ID of the user who last updated this record.
+
+5. LAST_UPDATE_LOGIN: This field records the login session ID during which the last update was made.
+
+6. CREATION_DATE: This timestamp indicates when this bank account record was first created in the system.
+
+7. CREATED_BY: This field records the ID of the user who created this record.
+
+8. BANK_ACCOUNT_NUM: This field stores the actual bank account number.
+
+9. BANK_BRANCH_ID: This field stores the unique identifier for the bank branch where the account is held.
+
+10. SET_OF_BOOKS_ID: This field links the bank account to a specific set of financial books or ledgers in the system.
+
+11. CURRENCY_CODE: This field indicates the currency in which the bank account operates.
+
+12. DESCRIPTION: This field provides additional information or notes about the bank account.
+
+13. CONTACT_FIRST_NAME: This field stores the first name of the contact person for this bank account.
+
+14. CONTACT_MIDDLE_NAME: This field stores the middle name of the contact person for this bank account.
+
+15. CONTACT_LAST_NAME: This field stores the last name of the contact person for this bank account.
+
+16. CONTACT_PREFIX: This field stores the prefix (e.g., Mr., Mrs., Dr.) for the contact person.
+
+17. CONTACT_TITLE: This field stores the professional title of the contact person.
+
+18. CONTACT_AREA_CODE: This field stores the area code for the contact person's phone number.
+
+19. CONTACT_PHONE: This field stores the phone number of the contact person.
+
+20. MAX_CHECK_AMOUNT: This field indicates the maximum check amount that can be drawn from this bank account.
+
+The AP.AP_BANK_ACCOUNTS_ALL table is likely related to other tables in the system, such as a table for bank branches (linked via BANK_BRANCH_ID), a table for users (linked via CREATED_BY and LAST_UPDATED_BY), and a table for financial books or ledgers (linked via SET_OF_BOOKS_ID). The table may be used in various financial processes and reports within the AP module.
+
+Object: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL object in the Oracle ERP system is a table or view that contains detailed information about the bank accounts associated with the Accounts Payable (AP) module. This object is crucial for managing and tracking financial transactions, including payments, gains, and losses, across different bank accounts.
+
+Column Descriptions:
+
+1. 'MIN_CHECK_AMOUNT': This field represents the minimum amount that can be written on a check from the bank account.
+
+2. 'ONE_SIGNATURE_MAX_FLAG': This flag indicates whether only one signature is required for transactions above a certain amount.
+
+3. 'INACTIVE_DATE': This field records the date when the bank account was made inactive or closed.
+
+4. 'AVG_FLOAT_DAYS': This field represents the average number of days it takes for a check issued from this account to clear.
+
+5. 'ASSET_CODE_COMBINATION_ID': This field holds the identifier for the combination of codes that represent an asset in the financial system.
+
+6. 'GAIN_CODE_COMBINATION_ID': This field holds the identifier for the combination of codes that represent a financial gain in the system.
+
+7. 'LOSS_CODE_COMBINATION_ID': This field holds the identifier for the combination of codes that represent a financial loss in the system.
+
+8. 'BANK_ACCOUNT_TYPE': This field describes the type of the bank account, such as checking, savings, or business.
+
+9. 'VALIDATION_NUMBER': This field holds a number used for validation purposes, possibly for transactions or account changes.
+
+10. 'MAX_OUTLAY': This field represents the maximum amount that can be paid out from the bank account at one time.
+
+11. 'MULTI_CURRENCY_FLAG': This flag indicates whether the bank account can handle transactions in multiple currencies.
+
+12. 'ACCOUNT_TYPE': This field describes the nature of the account, such as whether it is a current account, savings account, or a credit account.
+
+13. 'ATTRIBUTE_CATEGORY': This field holds the category of additional attributes that may be associated with the bank account.
+
+14. 'ATTRIBUTE1' to 'ATTRIBUTE7': These fields hold additional information or characteristics about the bank account. The meaning of these attributes can vary and is usually defined by the organization using the system.
+
+Relationships and Business Logic:
+
+The 'ASSET_CODE_COMBINATION_ID', 'GAIN_CODE_COMBINATION_ID', and 'LOSS_CODE_COMBINATION_ID' fields likely link to other tables or views in the ERP system that contain detailed information about assets, gains, and losses. 
+
+The 'MULTI_CURRENCY_FLAG' field may interact with the financial transaction processing logic to determine whether a transaction in a non-default currency can be processed.
+
+The 'ATTRIBUTE_CATEGORY' and 'ATTRIBUTE1' to 'ATTRIBUTE7' fields suggest that the system supports customizable attributes for bank accounts, which can be used to store organization-specific information.
+
+Object Name: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL object is a table in the Oracle ERP system that stores detailed information about bank accounts related to the Accounts Payable (AP) module. This table is crucial for managing and tracking bank account details, attributes, and related program information in the AP module.
+
+Column Details:
+
+1. ATTRIBUTE8 to ATTRIBUTE15: These are generic attribute fields that can be used to store additional information about the bank account that is not captured by the other specific fields. The exact meaning of these fields can vary depending on the business context.
+
+2. POOLED_FLAG: This field indicates whether the bank account is part of a pool of accounts. A pooled account is typically used to consolidate funds from multiple sources.
+
+3. ZERO_AMOUNTS_ALLOWED: This field indicates whether transactions with a zero amount are allowed for this bank account.
+
+4. REQUEST_ID: This field stores the unique identifier of a request related to the bank account. This could be a request for a transaction, an update, or any other action.
+
+5. PROGRAM_APPLICATION_ID: This field stores the unique identifier of the application program related to the bank account.
+
+6. PROGRAM_ID: This field stores the unique identifier of the program related to the bank account.
+
+7. PROGRAM_UPDATE_DATE: This field records the date when the related program was last updated.
+
+8. RECEIPT_MULTI_CURRENCY_FLAG: This field indicates whether the bank account can handle receipts in multiple currencies.
+
+9. CHECK_DIGITS: This field stores the check digits of the bank account. Check digits are used as a form of error detection when entering and processing the bank account number.
+
+10. ORG_ID: This field stores the unique identifier of the organization that owns the bank account.
+
+11. CASH_CLEARING_CCID: This field stores the unique identifier of the cash clearing account related to the bank account.
+
+12. BANK_CHARGES_CCID: This field stores the unique identifier of the account used for recording bank charges related to the bank account.
+
+13. BANK_ERRORS_CCID: This field stores the unique identifier of the account used for recording bank errors related to the bank account.
+
+The relationships between this table and others in the system would depend on the specific business context and the overall database design. However, it can be inferred that this table would likely have relationships with other tables in the AP module, such as those storing transaction details, vendor details, and organization details.
+
+Object Name: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL object in the Oracle ERP system is a table that stores information related to the financial transactions and attributes of bank accounts in the Accounts Payable module. This table is crucial for managing and tracking various types of transactions and their respective statuses.
+
+Column Descriptions:
+
+1. EARNED_CCID: This column likely represents the Cost Center ID associated with earned transactions. It could be used to track and manage earned income.
+
+2. UNEARNED_CCID: This column likely represents the Cost Center ID associated with unearned transactions. It could be used to track and manage unearned income.
+
+3. ON_ACCOUNT_CCID: This column likely represents the Cost Center ID associated with on-account transactions. It could be used to track and manage transactions that are on account.
+
+4. UNAPPLIED_CCID: This column likely represents the Cost Center ID associated with unapplied transactions. It could be used to track and manage transactions that have not yet been applied or allocated.
+
+5. UNIDENTIFIED_CCID: This column likely represents the Cost Center ID associated with unidentified transactions. It could be used to track and manage transactions that have not yet been identified or classified.
+
+6. FACTOR_CCID: This column likely represents the Cost Center ID associated with factored transactions. It could be used to track and manage transactions that involve factoring.
+
+7. RECEIPT_CLEARING_CCID: This column likely represents the Cost Center ID associated with receipt clearing transactions. It could be used to track and manage transactions that involve the clearing of receipts.
+
+8. REMITTANCE_CCID: This column likely represents the Cost Center ID associated with remittance transactions. It could be used to track and manage transactions that involve remittances.
+
+9. SHORT_TERM_DEPOSIT_CCID: This column likely represents the Cost Center ID associated with short-term deposit transactions. It could be used to track and manage transactions that involve short-term deposits.
+
+10. GLOBAL_ATTRIBUTE_CATEGORY: This column likely represents the category of global attributes. It could be used to categorize global attributes.
+
+11. GLOBAL_ATTRIBUTE1 to GLOBAL_ATTRIBUTE10: These columns likely represent various global attributes. They could be used to store additional information or characteristics related to the bank accounts.
+
+Please note that the sample data provided is empty, and the above assumptions are made based on the column names. The actual definitions may vary based on the business context and the specific implementation of the Oracle ERP system. 
+
+This table does not appear to have explicit relationships with other tables based on the provided information. However, the Cost Center IDs (CCIDs) could potentially link to a Cost Center table, and the global attributes could potentially link to a table that defines these attributes. The actual relationships would depend on the overall database schema.
+
+Object Name: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL object is a table in the Oracle ERP system. This table is part of the Accounts Payable (AP) module and it is used to store all the information related to bank accounts used in the business. This includes details about the bank account itself, the account holder, and various attributes related to electronic funds transfer (EFT), payroll, future dated payments, and receivables transactions.
+
+Column Descriptions:
+
+1. GLOBAL_ATTRIBUTE11 to GLOBAL_ATTRIBUTE20: These are generic attribute fields that can be used to store additional information about the bank account as required by the business. The specific use of these fields can vary depending on the business needs.
+
+2. BANK_ACCOUNT_NAME_ALT: This field stores an alternative name for the bank account. This could be used for internal reference or to accommodate different naming conventions.
+
+3. ACCOUNT_HOLDER_NAME: This field stores the name of the account holder as it appears on the bank account.
+
+4. ACCOUNT_HOLDER_NAME_ALT: This field stores an alternative name for the account holder. This could be used to accommodate different naming conventions or to store additional information about the account holder.
+
+5. EFT_REQUESTER_ID: This field stores the identifier of the person or system that requested an electronic funds transfer (EFT).
+
+6. EFT_USER_NUMBER: This field stores a unique number associated with the user in the context of EFT transactions.
+
+7. PAYROLL_BANK_ACCOUNT_ID: This field stores the identifier of the bank account used for payroll transactions.
+
+8. FUTURE_DATED_PAYMENT_CCID: This field stores the Cost Center ID (CCID) associated with future dated payments. This could be used for tracking and reporting purposes.
+
+9. EDISC_RECEIVABLES_TRX_ID: This field stores the transaction ID for electronic receivables that have been discounted (EDISC).
+
+10. UNEDISC_RECEIVABLES_TRX_ID: This field stores the transaction ID for electronic receivables that have not been discounted (UNEDISC).
+
+11. BR_REMITTANCE_CCID: This field stores the Cost Center ID (CCID) associated with bank remittances.
+
+Please note that the sample data provided for this table is empty, so the exact usage and data format for these fields could not be inferred from the sample data. The descriptions provided are based on the field names and typical business usage of similar fields.
+
+Object Name: AP.AP_BANK_ACCOUNTS_ALL
+
+The AP.AP_BANK_ACCOUNTS_ALL object in the Oracle ERP system is a table that contains information related to bank accounts used in the Accounts Payable (AP) module. This table is crucial for managing and tracking all bank account details associated with the financial transactions in the system. It is the sixth group of fields in this table.
+
+Column Details:
+
+1. BR_FACTOR_CCID: This column likely represents the Cost Center ID (CCID) associated with a bank reconciliation factor. The CCID is a unique identifier used to track costs within an organization. The specific use of this field would depend on the business's accounting practices.
+
+2. BR_STD_RECEIVABLES_TRX_ID: This column likely represents the Transaction ID for standard receivables associated with bank reconciliation. This ID would be used to track individual transactions within the system.
+
+3. ALLOW_MULTI_ASSIGNMENTS_FLAG: This column is a flag (Yes/No or True/False indicator) that indicates whether multiple assignments are allowed for a particular bank account. If set to 'Yes' or 'True', more than one assignment can be linked to the bank account.
+
+4. AGENCY_LOCATION_CODE: This column likely represents a unique code assigned to the location of the agency or branch of the bank. This would be used to identify where the bank account is held.
+
+5. IBAN_NUMBER: This column represents the International Bank Account Number (IBAN) of the bank account. The IBAN is an internationally agreed system of identifying bank accounts across national borders to facilitate the communication and processing of cross border transactions.
+
+Relationships and Business Logic:
+
+The AP.AP_BANK_ACCOUNTS_ALL table would likely have relationships with other tables in the Oracle ERP system. For example, it might link to a transactions table via the BR_STD_RECEIVABLES_TRX_ID field, or to a cost center table via the BR_FACTOR_CCID field.
+
+The ALLOW_MULTI_ASSIGNMENTS_FLAG field might be used in business logic to control how transactions are assigned to bank accounts. For example, if multiple assignments are not allowed, a check could be implemented to prevent more than one transaction from being assigned to the same bank account.
+

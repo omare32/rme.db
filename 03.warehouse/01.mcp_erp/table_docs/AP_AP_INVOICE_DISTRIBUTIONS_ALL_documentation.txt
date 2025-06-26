@@ -1,0 +1,935 @@
+Documentation log for AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+
+--- Prompt for group 1 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 1 of 13):
+['ACCOUNTING_DATE', 'ACCRUAL_POSTED_FLAG', 'ASSETS_ADDITION_FLAG', 'ASSETS_TRACKING_FLAG', 'CASH_POSTED_FLAG', 'DISTRIBUTION_LINE_NUMBER', 'DIST_CODE_COMBINATION_ID', 'INVOICE_ID', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LINE_TYPE_LOOKUP_CODE', 'PERIOD_NAME', 'SET_OF_BOOKS_ID', 'ACCTS_PAY_CODE_COMBINATION_ID', 'AMOUNT', 'BASE_AMOUNT', 'BASE_INVOICE_PRICE_VARIANCE', 'BATCH_ID', 'CREATED_BY', 'CREATION_DATE']
+
+Sample data (10 random rows, long values truncated):
+ACCOUNTING_DATE ACCRUAL_POSTED_FLAG ASSETS_ADDITION_FLAG ASSETS_TRACKING_FLAG CASH_POSTED_FLAG  DISTRIBUTION_LINE_NUMBER  DIST_CODE_COMBINATION_ID  INVOICE_ID  LAST_UPDATED_BY    LAST_UPDATE_DATE LINE_TYPE_LOOKUP_CODE PERIOD_NAME  SET_OF_BOOKS_ID ACCTS_PAY_CODE_COMBINATION_ID      AMOUNT  BASE_AMOUNT BASE_INVOICE_PRICE_VARIANCE BATCH_ID  CREATED_BY       CREATION_DATE
+     2021-11-30                   Y                    U                    N                N                         1                    323684     1784453             2414 2021-12-08 13:49:54                  ITEM      NOV-21             2235                          None    777.7300          NaN                        None     None        2414 2021-12-05 08:28:40
+     2020-03-18                   Y                    N                    N                N                         2                    261234      474398             1672 2020-03-18 14:45:04            NONREC_TAX      MAR-20             2030                          None  11302.4184   11302.4184                        None     None        1672 2020-03-18 14:45:00
+     2020-06-21                   Y                    U                    N                N                        17                    267203      498429             1650 2020-06-21 21:01:40                   AWT      JUN-20             2030                          None    -39.0926     -39.0926                        None     None        1674 2020-06-21 10:06:12
+     2018-11-30                   Y                    N                    N                N                         6                    140380      346344             1672 2018-12-02 12:35:28            NONREC_TAX      NOV-18             2030                          None     46.2000      46.2000                        None     None        1672 2018-12-02 12:35:23
+     2023-10-31                   Y                    N                    N                N                         7                   1651456     3617687             1552 2023-12-13 09:09:41               REC_TAX      OCT-23             2474                          None      0.0000       0.0000                        None     None        1552 2023-12-13 09:09:34
+     2018-08-26                   Y                    U                    N                N                        10                     17135      320325             1674 2018-08-26 15:20:46                   AWT      AUG-18             2030                          None   -398.9330    -398.9330                        None     None        1674 2018-08-26 15:20:37
+     2017-04-10                   Y                    N                    N                N                         2                      9052      234213             2294 2017-08-27 14:42:10            NONREC_TAX      Apr-17             2026                          None      0.0000       0.0000                        None     None        1352 2017-04-24 12:31:46
+     2023-02-21                   Y                    U                    N                N                         2                     17126     3265073             2879 2023-02-23 16:25:08                   AWT      FEB-23             2030                          None     -0.5310      -0.5310                        None     None        2879 2023-02-23 16:24:59
+     2018-05-01                   Y                    U                    N                N                         2                    167507      303430             2449 2018-06-13 10:37:55                  ITEM      MAY-18             2026                          None -10500.0000          NaN                        None     None        1442 2018-06-12 17:01:26
+     2024-12-29                   Y                    N                    Y                N                         2                   1150724     3890035            18535 2024-12-29 15:36:23               ACCRUAL      DEC-24             2030                          None  -1350.0000   -1350.0000                        None     None       18535 2024-12-29 15:36:05
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name**: AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type**: Table/View
+
+**Business Purpose**: This object is used to store the distribution details of all invoices in the Accounts Payable (AP) module of the Oracle ERP system. It contains information about the accounting date, distribution line number, invoice ID, amount, and other related data. This information is crucial for tracking and managing invoice payments, accruals, and asset tracking.
+
+**Column Descriptions**:
+
+1. `ACCOUNTING_DATE`: The date when the accounting entry was made for the invoice. It is in the format YYYY-MM-DD.
+
+2. `ACCRUAL_POSTED_FLAG`: A flag indicating whether the accrual for the invoice has been posted (Y) or not (N).
+
+3. `ASSETS_ADDITION_FLAG`: A flag indicating whether the invoice includes an addition to assets (Y) or not (N). The 'U' value might indicate an unknown or undefined status.
+
+4. `ASSETS_TRACKING_FLAG`: A flag indicating whether asset tracking is enabled (Y) or not (N) for the invoice.
+
+5. `CASH_POSTED_FLAG`: A flag indicating whether the cash for the invoice has been posted (Y) or not (N).
+
+6. `DISTRIBUTION_LINE_NUMBER`: The line number of the distribution in the invoice.
+
+7. `DIST_CODE_COMBINATION_ID`: The unique identifier for the distribution code combination.
+
+8. `INVOICE_ID`: The unique identifier for the invoice.
+
+9. `LAST_UPDATED_BY`: The user ID of the person who last updated the record.
+
+10. `LAST_UPDATE_DATE`: The date and time when the record was last updated.
+
+11. `LINE_TYPE_LOOKUP_CODE`: The lookup code for the type of line item in the invoice. This could include codes like 'ITEM', 'NONREC_TAX', 'AWT', 'REC_TAX', 'ACCRUAL', etc.
+
+12. `PERIOD_NAME`: The name of the accounting period for the invoice.
+
+13. `SET_OF_BOOKS_ID`: The unique identifier for the set of books associated with the invoice.
+
+14. `ACCTS_PAY_CODE_COMBINATION_ID`: The unique identifier for the accounts payable code combination.
+
+15. `AMOUNT`: The total amount of the invoice.
+
+16. `BASE_AMOUNT`: The base amount of the invoice before any additions or deductions.
+
+17. `BASE_INVOICE_PRICE_VARIANCE`: The variance between the base amount and the invoice price.
+
+18. `BATCH_ID`: The unique identifier for the batch of invoices.
+
+19. `CREATED_BY`: The user ID of the person who created the record.
+
+20. `CREATION_DATE`: The date and time when the record was created.
+
+**Inferred Relationships and Business Logic**:
+
+- The `INVOICE_ID` can be used to link this table with other invoice-related tables in the AP module.
+- The `SET_OF_BOOKS_ID` can be used to link this table with the general ledger or other financial tables.
+- The `CREATED_BY` and `LAST_UPDATED_BY` fields can be used to track who is creating and modifying records in this table.
+- The `ACCRUAL_POSTED_FLAG`, `ASSETS_ADDITION_FLAG`, `ASSETS_TRACKING_FLAG`, and `CASH_POSTED_FLAG` fields are used to track the status of various aspects of the invoice.
+- The `AMOUNT`, `BASE_AMOUNT`, and `BASE_INVOICE_PRICE_VARIANCE` fields are used to calculate the total cost of the invoice.
+
+--- Prompt for group 2 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 2 of 13):
+['DESCRIPTION', 'EXCHANGE_RATE_VARIANCE', 'FINAL_MATCH_FLAG', 'INCOME_TAX_REGION', 'INVOICE_PRICE_VARIANCE', 'LAST_UPDATE_LOGIN', 'MATCH_STATUS_FLAG', 'POSTED_FLAG', 'PO_DISTRIBUTION_ID', 'PROGRAM_APPLICATION_ID', 'PROGRAM_ID', 'PROGRAM_UPDATE_DATE', 'QUANTITY_INVOICED', 'RATE_VAR_CODE_COMBINATION_ID', 'REQUEST_ID', 'REVERSAL_FLAG', 'TYPE_1099', 'UNIT_PRICE', 'AMOUNT_ENCUMBERED', 'BASE_AMOUNT_ENCUMBERED']
+
+Sample data (10 random rows, long values truncated):
+            DESCRIPTION EXCHANGE_RATE_VARIANCE FINAL_MATCH_FLAG INCOME_TAX_REGION INVOICE_PRICE_VARIANCE  LAST_UPDATE_LOGIN MATCH_STATUS_FLAG POSTED_FLAG  PO_DISTRIBUTION_ID  PROGRAM_APPLICATION_ID  PROGRAM_ID PROGRAM_UPDATE_DATE  QUANTITY_INVOICED RATE_VAR_CODE_COMBINATION_ID  REQUEST_ID REVERSAL_FLAG TYPE_1099  UNIT_PRICE AMOUNT_ENCUMBERED BASE_AMOUNT_ENCUMBERED
+Petrol for Vehicle 3...                   None             None              None                   None               2414                 A           Y                 NaN                   275.0    270559.0 2021-12-08 13:49:54                NaN                         None  10224932.0             Y      None         NaN              None                   None
+الحجاز الشوربجى ف/11...                   None             None              None                   None            4945917                 A           Y            577515.0                   200.0     33298.0 2020-03-19 12:34:01                NaN                         None   4352286.0          None      None         NaN              None                   None
+    جامعة السويدى 2 - 1                   None             None              None                   None               1650                 A           Y                 NaN                   275.0     39591.0 2020-06-21 21:01:40                NaN                         None   4704464.0             N      None         NaN              None                   None
+التمساح لايت ف/139 7...                   None             None              None                   None            2159836                 A           Y            358441.0                   200.0     33298.0 2018-12-02 17:28:01                NaN                         None   2128467.0             N      None         NaN              None                   None
+     تسويه ك 2 - متنوعة                   None             None              None                   None           19282652                 A           Y                 NaN                     NaN         NaN                 NaT                NaN                         None         NaN             N      None         NaN              None                   None
+       حديد السويس -م 5                   None             None              None                   None            1838494                 A           Y                 NaN                     NaN         NaN                 NaT                NaN                         None         NaN             N      None         NaN              None                   None
+ميزان ف 750- م الكيا...                   None             None              None                   None            1059601                 A           Y                 NaN                   200.0     33298.0 2017-11-20 09:38:26                NaN                         None   1458295.0          None      None         NaN              None                   None
+تسويه ك /48-49-50-51...                   None             None              None                   None           16517674                 A           Y                 NaN                     NaN         NaN                 NaT                NaN                         None         NaN             N      None         NaN              None                   None
+تسويه عهده أحمد سمير...                   None             None              None                   None               2449                 A           Y                 NaN                   275.0     39591.0 2018-06-13 10:37:55                NaN                         None   1784239.0             Y      None         NaN              None                   None
+            سبوت 18 وات                   None             None              None                   None           22417413                 A           Y           4642861.0                   200.0     33298.0 2024-12-30 11:48:39               -6.0                         None  29446319.0             Y      None       225.0              None                   None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object contains detailed information about the distribution of invoices in an Oracle ERP system. It is used to track and manage the distribution of invoices, including details such as the description of the invoice, the status of the invoice, the amount encumbered, and other related information. This data is essential for financial management, accounting, and auditing purposes.
+
+**Column Descriptions:**
+
+1. `DESCRIPTION`: This field contains a description of the invoice. It may include details about the goods or services purchased.
+
+2. `EXCHANGE_RATE_VARIANCE`: This field indicates the variance in the exchange rate, if any, at the time of the invoice.
+
+3. `FINAL_MATCH_FLAG`: This flag indicates whether the invoice has been finally matched with the corresponding purchase order or not.
+
+4. `INCOME_TAX_REGION`: This field indicates the region for income tax purposes.
+
+5. `INVOICE_PRICE_VARIANCE`: This field indicates the variance in the price of the invoice, if any.
+
+6. `LAST_UPDATE_LOGIN`: This field records the ID of the last user who updated the invoice.
+
+7. `MATCH_STATUS_FLAG`: This flag indicates the status of the match between the invoice and the corresponding purchase order.
+
+8. `POSTED_FLAG`: This flag indicates whether the invoice has been posted or not.
+
+9. `PO_DISTRIBUTION_ID`: This field records the ID of the purchase order distribution associated with the invoice.
+
+10. `PROGRAM_APPLICATION_ID`: This field records the ID of the application program associated with the invoice.
+
+11. `PROGRAM_ID`: This field records the ID of the program associated with the invoice.
+
+12. `PROGRAM_UPDATE_DATE`: This field records the date when the program associated with the invoice was last updated.
+
+13. `QUANTITY_INVOICED`: This field records the quantity of goods or services invoiced.
+
+14. `RATE_VAR_CODE_COMBINATION_ID`: This field records the ID of the code combination associated with the rate variance.
+
+15. `REQUEST_ID`: This field records the ID of the request associated with the invoice.
+
+16. `REVERSAL_FLAG`: This flag indicates whether the invoice has been reversed or not.
+
+17. `TYPE_1099`: This field indicates the type of 1099 form associated with the invoice, if applicable.
+
+18. `UNIT_PRICE`: This field records the unit price of the goods or services invoiced.
+
+19. `AMOUNT_ENCUMBERED`: This field records the amount encumbered by the invoice.
+
+20. `BASE_AMOUNT_ENCUMBERED`: This field records the base amount encumbered by the invoice.
+
+**Inferred Relationships and Business Logic:**
+
+- The `FINAL_MATCH_FLAG` and `MATCH_STATUS_FLAG` fields are related, as they both deal with the matching of invoices and purchase orders.
+- The `PROGRAM_APPLICATION_ID`, `PROGRAM_ID`, and `PROGRAM_UPDATE_DATE` fields are related, as they all deal with the program associated with the invoice.
+- The `AMOUNT_ENCUMBERED` and `BASE_AMOUNT_ENCUMBERED` fields are related, as they both deal with the amount encumbered by the invoice.
+- The `EXCHANGE_RATE_VARIANCE` and `INVOICE_PRICE_VARIANCE` fields could be used to calculate the actual cost of the invoice in the local currency.
+- The `REVERSAL_FLAG` field could be used to filter out reversed invoices from financial reports.
+- The `POSTED_FLAG` field could be used to filter out unposted invoices from financial reports.
+- The `QUANTITY_INVOICED` and `UNIT_PRICE` fields could be used to calculate the total cost of the invoice.
+
+--- Prompt for group 3 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 3 of 13):
+['ENCUMBERED_FLAG', 'EXCHANGE_DATE', 'EXCHANGE_RATE', 'EXCHANGE_RATE_TYPE', 'PRICE_ADJUSTMENT_FLAG', 'PRICE_VAR_CODE_COMBINATION_ID', 'QUANTITY_UNENCUMBERED', 'STAT_AMOUNT', 'AMOUNT_TO_POST', 'ATTRIBUTE1', 'ATTRIBUTE10', 'ATTRIBUTE11', 'ATTRIBUTE12', 'ATTRIBUTE13', 'ATTRIBUTE14', 'ATTRIBUTE15', 'ATTRIBUTE2', 'ATTRIBUTE3', 'ATTRIBUTE4', 'ATTRIBUTE5']
+
+Sample data (10 random rows, long values truncated):
+ENCUMBERED_FLAG EXCHANGE_DATE EXCHANGE_RATE EXCHANGE_RATE_TYPE PRICE_ADJUSTMENT_FLAG PRICE_VAR_CODE_COMBINATION_ID QUANTITY_UNENCUMBERED STAT_AMOUNT AMOUNT_TO_POST ATTRIBUTE1 ATTRIBUTE10 ATTRIBUTE11 ATTRIBUTE12 ATTRIBUTE13 ATTRIBUTE14 ATTRIBUTE15 ATTRIBUTE2 ATTRIBUTE3 ATTRIBUTE4 ATTRIBUTE5
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+              N          None          None               None                  None                          None                  None        None           None       None        None        None        None        None        None        None       None       None       None       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+## AP.AP_INVOICE_DISTRIBUTIONS_ALL Table Documentation
+
+The `AP.AP_INVOICE_DISTRIBUTIONS_ALL` table is a part of the Oracle ERP system, specifically within the Accounts Payable (AP) module. This table is used to store detailed information about invoice distributions, including encumbrance, exchange rates, price adjustments, and various attributes. 
+
+Below is a detailed explanation of each column in the table:
+
+1. `ENCUMBERED_FLAG`: This field indicates whether the invoice distribution is encumbered. Encumbrance is an accounting practice where funds are reserved for a specific purpose. The flag 'N' indicates that the distribution is not encumbered.
+
+2. `EXCHANGE_DATE`: This field represents the date on which the exchange rate was applied.
+
+3. `EXCHANGE_RATE`: This field stores the exchange rate that was used for the invoice distribution.
+
+4. `EXCHANGE_RATE_TYPE`: This field indicates the type of exchange rate that was used.
+
+5. `PRICE_ADJUSTMENT_FLAG`: This field indicates whether a price adjustment has been made.
+
+6. `PRICE_VAR_CODE_COMBINATION_ID`: This field stores the identifier for the code combination related to the price variance.
+
+7. `QUANTITY_UNENCUMBERED`: This field represents the quantity that is not encumbered.
+
+8. `STAT_AMOUNT`: This field stores the statistical amount for the invoice distribution.
+
+9. `AMOUNT_TO_POST`: This field represents the amount to be posted for the invoice distribution.
+
+10. `ATTRIBUTE1` to `ATTRIBUTE15`: These fields are generic columns that can be used to store additional information about the invoice distribution. The specific use of these fields can vary depending on the organization's needs.
+
+The sample data provided does not contain any values, so it's not possible to infer any relationships or business logic from it. However, in a typical scenario, the `PRICE_VAR_CODE_COMBINATION_ID` could be used to join this table with other tables that contain detailed information about the code combinations. Similarly, the `ATTRIBUTE` fields could be used to store information that links the invoice distribution to other business entities or processes.
+
+--- Prompt for group 4 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 4 of 13):
+['ATTRIBUTE6', 'ATTRIBUTE7', 'ATTRIBUTE8', 'ATTRIBUTE9', 'ATTRIBUTE_CATEGORY', 'BASE_AMOUNT_TO_POST', 'CASH_JE_BATCH_ID', 'EXPENDITURE_ITEM_DATE', 'EXPENDITURE_ORGANIZATION_ID', 'EXPENDITURE_TYPE', 'JE_BATCH_ID', 'PARENT_INVOICE_ID', 'PA_ADDITION_FLAG', 'PA_QUANTITY', 'POSTED_AMOUNT', 'POSTED_BASE_AMOUNT', 'PREPAY_AMOUNT_REMAINING', 'PROJECT_ACCOUNTING_CONTEXT', 'PROJECT_ID', 'TASK_ID']
+
+Sample data (10 random rows, long values truncated):
+ATTRIBUTE6 ATTRIBUTE7 ATTRIBUTE8 ATTRIBUTE9 ATTRIBUTE_CATEGORY BASE_AMOUNT_TO_POST CASH_JE_BATCH_ID EXPENDITURE_ITEM_DATE  EXPENDITURE_ORGANIZATION_ID     EXPENDITURE_TYPE JE_BATCH_ID PARENT_INVOICE_ID PA_ADDITION_FLAG  PA_QUANTITY POSTED_AMOUNT POSTED_BASE_AMOUNT PREPAY_AMOUNT_REMAINING PROJECT_ACCOUNTING_CONTEXT  PROJECT_ID  TASK_ID
+      None       None       None       None               None                None             None            2021-11-30                       1445.0       Fuel,Oil & Gas        None              None                Y          NaN          None               None                    None                       None    149083.0 265416.0
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E       1092.0          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None            2020-06-21                         83.0        Subcontractor        None              None                Y          NaN          None               None                    None                       None    105076.0 202602.0
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E        200.0          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E          NaN          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E          NaN          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E          NaN          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E          NaN          None               None                    None                       None         NaN      NaN
+      None       None       None       None               None                None             None            2018-05-01                         85.0 Business development        None              None                Y          NaN          None               None                    None                       None     35050.0  59547.0
+      None       None       None       None               None                None             None                   NaT                          NaN                 None        None              None                E         -6.0          None               None                    None                       None         NaN      NaN
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+# AP.AP_INVOICE_DISTRIBUTIONS_ALL Table Documentation
+
+The `AP.AP_INVOICE_DISTRIBUTIONS_ALL` table in the Oracle ERP system is a comprehensive table that contains information related to invoice distributions. This table is crucial for managing and tracking the financial details of invoices, including the base amount to post, posted amount, and remaining prepayment amount. It also includes information about the project and task associated with the invoice, as well as the expenditure type and organization.
+
+## Column Descriptions
+
+1. **ATTRIBUTE6, ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9, ATTRIBUTE_CATEGORY**: These columns are likely used to store additional or optional information about the invoice distribution. The exact nature of the data stored in these fields may vary depending on the specific business context.
+
+2. **BASE_AMOUNT_TO_POST**: This column represents the base amount of the invoice that is due to be posted.
+
+3. **CASH_JE_BATCH_ID**: This column likely represents the batch ID associated with the cash journal entry.
+
+4. **EXPENDITURE_ITEM_DATE**: This column represents the date of the expenditure item associated with the invoice.
+
+5. **EXPENDITURE_ORGANIZATION_ID**: This column represents the ID of the organization that incurred the expenditure.
+
+6. **EXPENDITURE_TYPE**: This column represents the type of expenditure, such as "Fuel,Oil & Gas", "Subcontractor", or "Business development".
+
+7. **JE_BATCH_ID**: This column likely represents the batch ID associated with the journal entry.
+
+8. **PARENT_INVOICE_ID**: This column likely represents the ID of the parent invoice, if the current invoice is a child or related invoice.
+
+9. **PA_ADDITION_FLAG**: This column likely represents a flag indicating whether the invoice is an addition to the project accounting (PA).
+
+10. **PA_QUANTITY**: This column represents the quantity associated with the project accounting.
+
+11. **POSTED_AMOUNT**: This column represents the amount of the invoice that has been posted.
+
+12. **POSTED_BASE_AMOUNT**: This column represents the base amount of the invoice that has been posted.
+
+13. **PREPAY_AMOUNT_REMAINING**: This column represents the remaining prepayment amount for the invoice.
+
+14. **PROJECT_ACCOUNTING_CONTEXT**: This column likely represents the context or details related to the project accounting.
+
+15. **PROJECT_ID**: This column represents the ID of the project associated with the invoice.
+
+16. **TASK_ID**: This column represents the ID of the task associated with the invoice.
+
+## Inferred Relationships and Business Logic
+
+The `PROJECT_ID` and `TASK_ID` columns suggest that each invoice distribution is associated with a specific project and task. The `EXPENDITURE_ORGANIZATION_ID` and `EXPENDITURE_TYPE` columns suggest that each invoice distribution is also associated with a specific expenditure, which is incurred by a particular organization and has a specific type. The `PARENT_INVOICE_ID` column suggests that there may be a hierarchical relationship between invoices. The various amount and posting columns suggest that the table plays a role in tracking the financial status of each invoice.
+
+--- Prompt for group 5 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 5 of 13):
+['USSGL_TRANSACTION_CODE', 'USSGL_TRX_CODE_CONTEXT', 'EARLIEST_SETTLEMENT_DATE', 'REQ_DISTRIBUTION_ID', 'QUANTITY_VARIANCE', 'BASE_QUANTITY_VARIANCE', 'PACKET_ID', 'AWT_FLAG', 'AWT_GROUP_ID', 'AWT_TAX_RATE_ID', 'AWT_GROSS_AMOUNT', 'AWT_INVOICE_ID', 'AWT_ORIGIN_GROUP_ID', 'REFERENCE_1', 'REFERENCE_2', 'ORG_ID', 'OTHER_INVOICE_ID', 'AWT_INVOICE_PAYMENT_ID', 'GLOBAL_ATTRIBUTE_CATEGORY', 'GLOBAL_ATTRIBUTE1']
+
+Sample data (10 random rows, long values truncated):
+USSGL_TRANSACTION_CODE USSGL_TRX_CODE_CONTEXT EARLIEST_SETTLEMENT_DATE REQ_DISTRIBUTION_ID QUANTITY_VARIANCE BASE_QUANTITY_VARIANCE PACKET_ID AWT_FLAG AWT_GROUP_ID AWT_TAX_RATE_ID AWT_GROSS_AMOUNT AWT_INVOICE_ID AWT_ORIGIN_GROUP_ID REFERENCE_1 REFERENCE_2  ORG_ID OTHER_INVOICE_ID AWT_INVOICE_PAYMENT_ID GLOBAL_ATTRIBUTE_CATEGORY GLOBAL_ATTRIBUTE1
+                  None                   None                     None                None              None                   None      None     None         None            None             None           None                None        None        None    1445             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        N         None            None             None           None                None        None        None      83             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        M         None            None             None           None                None        None        None      83             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        N         None            None             None           None                None        None        None      83             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        N         None            None             None           None                None        None        None    7222             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        M         None            None             None           None                None        None        None      83             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        N         None            None             None           None                None        None        None      85             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None        M         None            None             None           None                None        None        None      83             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None     None         None            None             None           None                None        None        None      85             None                   None                      None              None
+                  None                   None                     None                None              None                   None      None     None         None            None             None           None                None        None        None      83             None                   None                      None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object appears to be part of an Accounts Payable (AP) system in an Oracle ERP. It likely stores detailed information about invoice distributions, including various attributes related to tax, quantity variances, and references. This data can be used for financial reporting, auditing, and analysis.
+
+**Column Descriptions:**
+
+1. `USSGL_TRANSACTION_CODE`: This field likely represents a code related to a transaction in the United States Standard General Ledger (USSGL). The USSGL provides a uniform chart of accounts and technical guidance for standardizing federal agency accounting.
+
+2. `USSGL_TRX_CODE_CONTEXT`: This field likely provides additional context or details related to the USSGL transaction code.
+
+3. `EARLIEST_SETTLEMENT_DATE`: This field likely represents the earliest date on which the invoice can be settled or paid.
+
+4. `REQ_DISTRIBUTION_ID`: This field likely represents a unique identifier for a specific distribution request.
+
+5. `QUANTITY_VARIANCE`: This field likely represents the difference between the expected and actual quantity of items in the invoice.
+
+6. `BASE_QUANTITY_VARIANCE`: This field likely represents the difference between the expected and actual quantity of base units in the invoice.
+
+7. `PACKET_ID`: This field likely represents a unique identifier for a packet or group of related invoices.
+
+8. `AWT_FLAG`: This field likely indicates whether Automatic Withholding Tax (AWT) is applicable to the invoice.
+
+9. `AWT_GROUP_ID`: This field likely represents a unique identifier for a group of invoices subject to the same AWT.
+
+10. `AWT_TAX_RATE_ID`: This field likely represents a unique identifier for a specific AWT rate.
+
+11. `AWT_GROSS_AMOUNT`: This field likely represents the gross amount of the invoice before AWT is applied.
+
+12. `AWT_INVOICE_ID`: This field likely represents a unique identifier for an invoice subject to AWT.
+
+13. `AWT_ORIGIN_GROUP_ID`: This field likely represents a unique identifier for the original group of invoices from which the current invoice was derived.
+
+14. `REFERENCE_1` and `REFERENCE_2`: These fields likely provide additional reference information or notes related to the invoice.
+
+15. `ORG_ID`: This field likely represents a unique identifier for the organization associated with the invoice.
+
+16. `OTHER_INVOICE_ID`: This field likely represents a unique identifier for another related invoice.
+
+17. `AWT_INVOICE_PAYMENT_ID`: This field likely represents a unique identifier for a payment made against an invoice subject to AWT.
+
+18. `GLOBAL_ATTRIBUTE_CATEGORY` and `GLOBAL_ATTRIBUTE1`: These fields likely provide additional global attributes or characteristics related to the invoice.
+
+**Inferred Relationships or Business Logic:**
+
+- The `AWT_FLAG`, `AWT_GROUP_ID`, `AWT_TAX_RATE_ID`, `AWT_GROSS_AMOUNT`, `AWT_INVOICE_ID`, and `AWT_INVOICE_PAYMENT_ID` fields suggest that the system supports Automatic Withholding Tax (AWT) functionality.
+- The `USSGL_TRANSACTION_CODE` and `USSGL_TRX_CODE_CONTEXT` fields suggest that the system may integrate with the United States Standard General Ledger (USSGL) for financial reporting purposes.
+- The `QUANTITY_VARIANCE` and `BASE_QUANTITY_VARIANCE` fields suggest that the system tracks discrepancies between expected and actual quantities in the invoice, which could be used for auditing or discrepancy resolution processes.
+- The `ORG_ID` field suggests that the system supports multi-organization functionality, where each invoice is associated with a specific organization.
+- The `OTHER_INVOICE_ID` field suggests that invoices can be related to each other, possibly for tracking purposes or to handle situations like credit memos or invoice adjustments.
+
+--- Prompt for group 6 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 6 of 13):
+['GLOBAL_ATTRIBUTE2', 'GLOBAL_ATTRIBUTE3', 'GLOBAL_ATTRIBUTE4', 'GLOBAL_ATTRIBUTE5', 'GLOBAL_ATTRIBUTE6', 'GLOBAL_ATTRIBUTE7', 'GLOBAL_ATTRIBUTE8', 'GLOBAL_ATTRIBUTE9', 'GLOBAL_ATTRIBUTE10', 'GLOBAL_ATTRIBUTE11', 'GLOBAL_ATTRIBUTE12', 'GLOBAL_ATTRIBUTE13', 'GLOBAL_ATTRIBUTE14', 'GLOBAL_ATTRIBUTE15', 'GLOBAL_ATTRIBUTE16', 'GLOBAL_ATTRIBUTE17', 'GLOBAL_ATTRIBUTE18', 'GLOBAL_ATTRIBUTE19', 'GLOBAL_ATTRIBUTE20', 'LINE_GROUP_NUMBER']
+
+Sample data (10 random rows, long values truncated):
+GLOBAL_ATTRIBUTE2 GLOBAL_ATTRIBUTE3 GLOBAL_ATTRIBUTE4 GLOBAL_ATTRIBUTE5 GLOBAL_ATTRIBUTE6 GLOBAL_ATTRIBUTE7 GLOBAL_ATTRIBUTE8 GLOBAL_ATTRIBUTE9 GLOBAL_ATTRIBUTE10 GLOBAL_ATTRIBUTE11 GLOBAL_ATTRIBUTE12 GLOBAL_ATTRIBUTE13 GLOBAL_ATTRIBUTE14 GLOBAL_ATTRIBUTE15 GLOBAL_ATTRIBUTE16 GLOBAL_ATTRIBUTE17 GLOBAL_ATTRIBUTE18 GLOBAL_ATTRIBUTE19 GLOBAL_ATTRIBUTE20 LINE_GROUP_NUMBER
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+             None              None              None              None              None              None              None              None               None               None               None               None               None               None               None               None               None               None               None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+The AP.AP_INVOICE_DISTRIBUTIONS_ALL object in the Oracle ERP system is a table or view that is part of the Accounts Payable (AP) module. This object appears to be designed to store global attributes related to invoice distributions. However, based on the sample data provided, it is not clear what specific business purpose these global attributes serve as all the sample values are None.
+
+Column Descriptions:
+
+1. GLOBAL_ATTRIBUTE2 - GLOBAL_ATTRIBUTE20: These columns are designed to store global attributes related to invoice distributions. The specific meaning and use of these attributes would depend on the organization's business processes and the configuration of the Oracle ERP system. The data type and length of these columns are not provided, but they appear to be nullable as all sample values are None.
+
+2. LINE_GROUP_NUMBER: This column is likely designed to store a number that identifies a group of lines in an invoice distribution. The specific use of this column would depend on the organization's invoice processing procedures. The data type and length of this column are not provided, and all sample values are None.
+
+Relationships and Business Logic:
+
+Without more information, it is difficult to infer specific relationships or business logic. However, given the naming convention of the columns, it is likely that these global attributes are used to categorize or classify invoice distribution lines in some way. The LINE_GROUP_NUMBER could be used to group related lines together, perhaps for reporting or processing purposes.
+
+It is also possible that these global attributes are used to store additional information that is not captured by the standard invoice distribution fields in the Oracle AP module. This could include custom attributes specific to the organization's business processes.
+
+Please note that the actual use of these fields can vary greatly depending on the organization's specific business needs and the configuration of the Oracle ERP system. Therefore, it is recommended to consult with the AP module's system administrator or the organization's business process owner for a more accurate understanding of this object.
+
+--- Prompt for group 7 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 7 of 13):
+['RECEIPT_VERIFIED_FLAG', 'RECEIPT_REQUIRED_FLAG', 'RECEIPT_MISSING_FLAG', 'JUSTIFICATION', 'EXPENSE_GROUP', 'START_EXPENSE_DATE', 'END_EXPENSE_DATE', 'RECEIPT_CURRENCY_CODE', 'RECEIPT_CONVERSION_RATE', 'RECEIPT_CURRENCY_AMOUNT', 'DAILY_AMOUNT', 'WEB_PARAMETER_ID', 'ADJUSTMENT_REASON', 'AWARD_ID', 'MRC_ACCRUAL_POSTED_FLAG', 'MRC_CASH_POSTED_FLAG', 'MRC_DIST_CODE_COMBINATION_ID', 'MRC_AMOUNT', 'MRC_BASE_AMOUNT', 'MRC_BASE_INV_PRICE_VARIANCE']
+
+Sample data (10 random rows, long values truncated):
+RECEIPT_VERIFIED_FLAG RECEIPT_REQUIRED_FLAG RECEIPT_MISSING_FLAG JUSTIFICATION EXPENSE_GROUP START_EXPENSE_DATE END_EXPENSE_DATE RECEIPT_CURRENCY_CODE RECEIPT_CONVERSION_RATE RECEIPT_CURRENCY_AMOUNT DAILY_AMOUNT WEB_PARAMETER_ID ADJUSTMENT_REASON AWARD_ID MRC_ACCRUAL_POSTED_FLAG MRC_CASH_POSTED_FLAG MRC_DIST_CODE_COMBINATION_ID MRC_AMOUNT MRC_BASE_AMOUNT MRC_BASE_INV_PRICE_VARIANCE
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+                 None                  None                 None          None          None               None             None                  None                    None                    None         None             None              None     None                    None                 None                         None       None            None                        None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object: AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+The AP.AP_INVOICE_DISTRIBUTIONS_ALL is a table in an Oracle ERP system. This table is part of the Accounts Payable (AP) module and is used to store detailed information about invoice distributions. The data in this table is used for various financial and accounting processes such as expense tracking, receipt verification, and multi-reporting currency (MRC) calculations.
+
+Column Descriptions:
+
+1. RECEIPT_VERIFIED_FLAG: This is a flag that indicates whether the receipt associated with the invoice distribution has been verified. If the value is 'None', it means the receipt has not been verified.
+
+2. RECEIPT_REQUIRED_FLAG: This flag indicates whether a receipt is required for the invoice distribution. If the value is 'None', it means a receipt is not required.
+
+3. RECEIPT_MISSING_FLAG: This flag indicates whether the receipt associated with the invoice distribution is missing. If the value is 'None', it means the receipt is not missing.
+
+4. JUSTIFICATION: This field is used to store any justification or explanation related to the invoice distribution.
+
+5. EXPENSE_GROUP: This field is used to categorize the invoice distribution into a specific expense group.
+
+6. START_EXPENSE_DATE: This is the start date of the expense period associated with the invoice distribution.
+
+7. END_EXPENSE_DATE: This is the end date of the expense period associated with the invoice distribution.
+
+8. RECEIPT_CURRENCY_CODE: This field stores the currency code of the receipt associated with the invoice distribution.
+
+9. RECEIPT_CONVERSION_RATE: This field stores the conversion rate used for the receipt currency.
+
+10. RECEIPT_CURRENCY_AMOUNT: This field stores the amount in the receipt currency.
+
+11. DAILY_AMOUNT: This field stores the daily amount of the invoice distribution.
+
+12. WEB_PARAMETER_ID: This field is used to store the ID of the web parameter associated with the invoice distribution.
+
+13. ADJUSTMENT_REASON: This field is used to store the reason for any adjustments made to the invoice distribution.
+
+14. AWARD_ID: This field is used to store the ID of the award associated with the invoice distribution.
+
+15. MRC_ACCRUAL_POSTED_FLAG: This is a flag that indicates whether the multi-reporting currency (MRC) accrual has been posted. If the value is 'None', it means the MRC accrual has not been posted.
+
+16. MRC_CASH_POSTED_FLAG: This is a flag that indicates whether the MRC cash has been posted. If the value is 'None', it means the MRC cash has not been posted.
+
+17. MRC_DIST_CODE_COMBINATION_ID: This field is used to store the code combination ID for the MRC distribution.
+
+18. MRC_AMOUNT: This field stores the MRC amount for the invoice distribution.
+
+19. MRC_BASE_AMOUNT: This field stores the base MRC amount for the invoice distribution.
+
+20. MRC_BASE_INV_PRICE_VARIANCE: This field stores the base invoice price variance for the MRC.
+
+Please note that the sample data provided does not contain any actual values, hence no specific business logic or relationships can be inferred at this time.
+
+--- Prompt for group 8 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 8 of 13):
+['MRC_EXCHANGE_RATE_VARIANCE', 'MRC_POSTED_FLAG', 'MRC_PROGRAM_APPLICATION_ID', 'MRC_PROGRAM_ID', 'MRC_PROGRAM_UPDATE_DATE', 'MRC_RATE_VAR_CCID', 'MRC_REQUEST_ID', 'MRC_EXCHANGE_DATE', 'MRC_EXCHANGE_RATE', 'MRC_EXCHANGE_RATE_TYPE', 'MRC_AMOUNT_TO_POST', 'MRC_BASE_AMOUNT_TO_POST', 'MRC_CASH_JE_BATCH_ID', 'MRC_JE_BATCH_ID', 'MRC_POSTED_AMOUNT', 'MRC_POSTED_BASE_AMOUNT', 'MRC_RECEIPT_CONVERSION_RATE', 'CREDIT_CARD_TRX_ID', 'DIST_MATCH_TYPE', 'RCV_TRANSACTION_ID']
+
+Sample data (10 random rows, long values truncated):
+MRC_EXCHANGE_RATE_VARIANCE MRC_POSTED_FLAG MRC_PROGRAM_APPLICATION_ID MRC_PROGRAM_ID MRC_PROGRAM_UPDATE_DATE MRC_RATE_VAR_CCID MRC_REQUEST_ID MRC_EXCHANGE_DATE MRC_EXCHANGE_RATE MRC_EXCHANGE_RATE_TYPE MRC_AMOUNT_TO_POST MRC_BASE_AMOUNT_TO_POST MRC_CASH_JE_BATCH_ID MRC_JE_BATCH_ID MRC_POSTED_AMOUNT MRC_POSTED_BASE_AMOUNT MRC_RECEIPT_CONVERSION_RATE CREDIT_CARD_TRX_ID DIST_MATCH_TYPE  RCV_TRANSACTION_ID
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED            867582.0
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED            368792.0
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None     NOT_MATCHED                 NaN
+                      None            None                       None           None                    None              None           None              None              None                   None               None                    None                 None            None              None                   None                        None               None ITEM_TO_RECEIPT           8369276.0
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table/View
+
+**Description:** The AP.AP_INVOICE_DISTRIBUTIONS_ALL object is a table in the Oracle ERP system that contains information related to invoice distributions. It appears to be primarily focused on multi-reporting currency (MRC) data, credit card transactions, and receipt transactions. The data in this table is crucial for financial reporting, auditing, and analysis.
+
+**Column Descriptions:**
+
+1. **MRC_EXCHANGE_RATE_VARIANCE:** This field likely represents the variance in the exchange rate for multi-reporting currencies. It could be used to track fluctuations in exchange rates over time.
+
+2. **MRC_POSTED_FLAG:** This field likely indicates whether the MRC data has been posted or not. It could be a binary flag.
+
+3. **MRC_PROGRAM_APPLICATION_ID:** This field likely represents the application ID of the MRC program. It could be used to identify the specific application that the MRC program is associated with.
+
+4. **MRC_PROGRAM_ID:** This field likely represents the ID of the MRC program. It could be used to uniquely identify the MRC program.
+
+5. **MRC_PROGRAM_UPDATE_DATE:** This field likely represents the date when the MRC program was last updated.
+
+6. **MRC_RATE_VAR_CCID:** This field likely represents the cost center ID related to the MRC rate variance. It could be used for cost center-based reporting and analysis.
+
+7. **MRC_REQUEST_ID:** This field likely represents the ID of the MRC request. It could be used to track individual MRC requests.
+
+8. **MRC_EXCHANGE_DATE:** This field likely represents the date of the MRC exchange. It could be used to track when the exchange took place.
+
+9. **MRC_EXCHANGE_RATE:** This field likely represents the exchange rate of the MRC. It could be used to calculate the value of transactions in different currencies.
+
+10. **MRC_EXCHANGE_RATE_TYPE:** This field likely represents the type of MRC exchange rate. It could be used to categorize exchange rates.
+
+11. **MRC_AMOUNT_TO_POST:** This field likely represents the amount of the MRC to be posted. It could be used to track the amount of currency to be exchanged.
+
+12. **MRC_BASE_AMOUNT_TO_POST:** This field likely represents the base amount of the MRC to be posted. It could be used to calculate the exchange rate.
+
+13. **MRC_CASH_JE_BATCH_ID:** This field likely represents the batch ID of the MRC cash journal entry. It could be used to group related journal entries.
+
+14. **MRC_JE_BATCH_ID:** This field likely represents the batch ID of the MRC journal entry. It could be used to group related journal entries.
+
+15. **MRC_POSTED_AMOUNT:** This field likely represents the amount of the MRC that has been posted. It could be used to track the total amount of currency exchanged.
+
+16. **MRC_POSTED_BASE_AMOUNT:** This field likely represents the base amount of the MRC that has been posted. It could be used to calculate the exchange rate.
+
+17. **MRC_RECEIPT_CONVERSION_RATE:** This field likely represents the conversion rate of the MRC receipt. It could be used to calculate the value of receipts in different currencies.
+
+18. **CREDIT_CARD_TRX_ID:** This field likely represents the ID of the credit card transaction. It could be used to track individual credit card transactions.
+
+19. **DIST_MATCH_TYPE:** This field likely represents the type of distribution match. It could be used to categorize distribution matches.
+
+20. **RCV_TRANSACTION_ID:** This field likely represents the ID of the receipt transaction. It could be used to track individual receipt transactions.
+
+**Inferred Relationships and Business Logic:** The table seems to be primarily used for tracking and managing multi-reporting currency (MRC) data. It appears to be closely related to financial transactions, particularly those involving foreign exchange and credit card transactions. The presence of fields for program IDs and request IDs suggests that this table might be used in conjunction with other tables that store program and request data. The 'DIST_MATCH_TYPE' field suggests that there might be a matching process involved, possibly for reconciling invoices with payments or receipts.
+
+--- Prompt for group 9 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 9 of 13):
+['INVOICE_DISTRIBUTION_ID', 'PARENT_REVERSAL_ID', 'TAX_RECOVERABLE_FLAG', 'PA_CC_AR_INVOICE_ID', 'PA_CC_AR_INVOICE_LINE_NUM', 'PA_CC_PROCESSED_CODE', 'MERCHANT_DOCUMENT_NUMBER', 'MERCHANT_NAME', 'MERCHANT_REFERENCE', 'MERCHANT_TAX_REG_NUMBER', 'MERCHANT_TAXPAYER_ID', 'COUNTRY_OF_SUPPLY', 'MATCHED_UOM_LOOKUP_CODE', 'GMS_BURDENABLE_RAW_COST', 'ACCOUNTING_EVENT_ID', 'PREPAY_DISTRIBUTION_ID', 'UPGRADE_POSTED_AMT', 'UPGRADE_BASE_POSTED_AMT', 'INVENTORY_TRANSFER_STATUS', 'COMPANY_PREPAID_INVOICE_ID']
+
+Sample data (10 random rows, long values truncated):
+ INVOICE_DISTRIBUTION_ID  PARENT_REVERSAL_ID TAX_RECOVERABLE_FLAG PA_CC_AR_INVOICE_ID PA_CC_AR_INVOICE_LINE_NUM PA_CC_PROCESSED_CODE MERCHANT_DOCUMENT_NUMBER MERCHANT_NAME MERCHANT_REFERENCE MERCHANT_TAX_REG_NUMBER MERCHANT_TAXPAYER_ID COUNTRY_OF_SUPPLY MATCHED_UOM_LOOKUP_CODE GMS_BURDENABLE_RAW_COST  ACCOUNTING_EVENT_ID PREPAY_DISTRIBUTION_ID UPGRADE_POSTED_AMT UPGRADE_BASE_POSTED_AMT INVENTORY_TRANSFER_STATUS COMPANY_PREPAID_INVOICE_ID
+                 6573070                 NaN                 None                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              8883867                   None               None                    None                         N                       None
+                 3157830                 NaN                    N                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              3407627                   None               None                    None                         N                       None
+                 3407439                 NaN                 None                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              3702760                   None               None                    None                         N                       None
+                 1680872                 NaN                    N                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              1840711                   None               None                    None                         N                       None
+                11327154                 NaN                    Y                None                      None                 None                     None          None               None                    None                 None              None                    None                    None             15507700                   None               None                    None                         N                       None
+                 1417295                 NaN                 None                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              1611975                   None               None                    None                         N                       None
+                  416984                 NaN                    N                None                      None                 None                     None          None               None                    None                 None              None                    None                    None               622666                   None               None                    None                         N                       None
+                 9856452                 NaN                 None                None                      None                 None                     None          None               None                    None                 None              None                    None                    None             14079706                   None               None                    None                         N                       None
+                 1272764           1245917.0                 None                None                      None                 None                     None          None               None                    None                 None              None                    None                    None              1480628                   None               None                    None                         N                       None
+                13041329          13040204.0                 None                None                      None                 None                     None          None               None                    None                 None              None                    Each                    None             16961437                   None               None                    None                         N                       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table / View
+
+**Description:** The AP.AP_INVOICE_DISTRIBUTIONS_ALL object in the Oracle ERP system is a table that stores the detailed distribution of each invoice. It contains information about the invoice distribution, merchant details, accounting events, and inventory transfer status. This table is essential for tracking and managing invoice distributions, and it plays a crucial role in financial and accounting operations.
+
+**Column Descriptions:**
+
+1. `INVOICE_DISTRIBUTION_ID`: A unique identifier for each invoice distribution. This is the primary key of the table.
+
+2. `PARENT_REVERSAL_ID`: The ID of the parent reversal, if any. This field is used when an invoice distribution is reversed.
+
+3. `TAX_RECOVERABLE_FLAG`: A flag indicating whether the tax on the invoice is recoverable. The values can be 'Y' (Yes), 'N' (No), or 'None'.
+
+4. `PA_CC_AR_INVOICE_ID`: The ID of the Accounts Receivable (AR) invoice in the Project Accounting (PA) Cost Center (CC).
+
+5. `PA_CC_AR_INVOICE_LINE_NUM`: The line number of the AR invoice in the PA CC.
+
+6. `PA_CC_PROCESSED_CODE`: The processed code of the PA CC.
+
+7. `MERCHANT_DOCUMENT_NUMBER`: The document number provided by the merchant.
+
+8. `MERCHANT_NAME`: The name of the merchant.
+
+9. `MERCHANT_REFERENCE`: The reference provided by the merchant.
+
+10. `MERCHANT_TAX_REG_NUMBER`: The tax registration number of the merchant.
+
+11. `MERCHANT_TAXPAYER_ID`: The taxpayer ID of the merchant.
+
+12. `COUNTRY_OF_SUPPLY`: The country where the goods or services are supplied.
+
+13. `MATCHED_UOM_LOOKUP_CODE`: The lookup code for the unit of measure (UOM) that is matched.
+
+14. `GMS_BURDENABLE_RAW_COST`: The raw cost that is burdenable in the Grants Management System (GMS).
+
+15. `ACCOUNTING_EVENT_ID`: The ID of the accounting event associated with the invoice distribution.
+
+16. `PREPAY_DISTRIBUTION_ID`: The ID of the prepayment distribution, if any.
+
+17. `UPGRADE_POSTED_AMT`: The amount posted after an upgrade.
+
+18. `UPGRADE_BASE_POSTED_AMT`: The base amount posted after an upgrade.
+
+19. `INVENTORY_TRANSFER_STATUS`: The status of the inventory transfer. The value can be 'N' (No) or 'Y' (Yes).
+
+20. `COMPANY_PREPAID_INVOICE_ID`: The ID of the prepaid invoice of the company.
+
+**Inferred Relationships and Business Logic:**
+
+The `INVOICE_DISTRIBUTION_ID` is likely used as a foreign key in other tables to establish relationships with the invoice distribution. The `PARENT_REVERSAL_ID` is used to link to the original invoice distribution when a reversal occurs. The `ACCOUNTING_EVENT_ID` might be used to link to a table that stores detailed accounting events. The `PA_CC_AR_INVOICE_ID` and `PA_CC_AR_INVOICE_LINE_NUM` are likely used together to identify a specific line item in an AR invoice in the PA CC. The `PREPAY_DISTRIBUTION_ID` and `COMPANY_PREPAID_INVOICE_ID` are likely used to link to prepayment distributions and prepaid invoices, respectively.
+
+--- Prompt for group 10 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 10 of 13):
+['CC_REVERSAL_FLAG', 'AWT_WITHHELD_AMT', 'INVOICE_INCLUDES_PREPAY_FLAG', 'PRICE_CORRECT_INV_ID', 'PRICE_CORRECT_QTY', 'PA_CMT_XFACE_FLAG', 'CANCELLATION_FLAG', 'INVOICE_LINE_NUMBER', 'CORRECTED_INVOICE_DIST_ID', 'ROUNDING_AMT', 'CHARGE_APPLICABLE_TO_DIST_ID', 'CORRECTED_QUANTITY', 'RELATED_ID', 'ASSET_BOOK_TYPE_CODE', 'ASSET_CATEGORY_ID', 'DISTRIBUTION_CLASS', 'FINAL_PAYMENT_ROUNDING', 'FINAL_APPLICATION_ROUNDING', 'AMOUNT_AT_PREPAY_XRATE', 'CASH_BASIS_FINAL_APP_ROUNDING']
+
+Sample data (10 random rows, long values truncated):
+CC_REVERSAL_FLAG AWT_WITHHELD_AMT INVOICE_INCLUDES_PREPAY_FLAG PRICE_CORRECT_INV_ID PRICE_CORRECT_QTY PA_CMT_XFACE_FLAG CANCELLATION_FLAG  INVOICE_LINE_NUMBER CORRECTED_INVOICE_DIST_ID  ROUNDING_AMT  CHARGE_APPLICABLE_TO_DIST_ID CORRECTED_QUANTITY RELATED_ID ASSET_BOOK_TYPE_CODE ASSET_CATEGORY_ID DISTRIBUTION_CLASS FINAL_PAYMENT_ROUNDING FINAL_APPLICATION_ROUNDING AMOUNT_AT_PREPAY_XRATE CASH_BASIS_FINAL_APP_ROUNDING
+            None             None                         None                 None              None              None                 N                    4                      None           NaN                           NaN               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                    2                      None           0.0                     3157828.0               None       None       RME ASSET BOOK              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                   27                      None           0.0                           NaN               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                    7                      None           0.0                     1680863.0               None       None       RME ASSET BOOK              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                   19                      None           NaN                    11327134.0               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                   20                      None           0.0                           NaN               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                    2                      None           0.0                      416982.0               None       None        T D TRAD BOOK              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 N                   60                      None           0.0                           NaN               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 Y                    3                      None           NaN                           NaN               None       None                 None              None          PERMANENT                   None                       None                   None                          None
+            None             None                         None                 None              None              None                 Y                   37                      None           NaN                           NaN               None       None       RME ASSET BOOK              None          PERMANENT                   None                       None                   None                          None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table or View
+
+**Business Purpose:** This object stores detailed information about invoice distributions in the Oracle ERP system. It is used to track and manage various aspects of invoice distributions, including reversal flags, withheld amounts, prepayment flags, price corrections, cancellations, and more. This information is crucial for financial management, auditing, and reporting purposes.
+
+**Column Descriptions:**
+
+1. **CC_REVERSAL_FLAG:** This field indicates whether a cost center reversal has been performed. It is likely a binary flag where a specific value represents 'Yes' and another represents 'No'.
+
+2. **AWT_WITHHELD_AMT:** This field represents the amount withheld for Automatic Withholding Tax (AWT).
+
+3. **INVOICE_INCLUDES_PREPAY_FLAG:** This field indicates whether the invoice includes a prepayment. It is likely a binary flag.
+
+4. **PRICE_CORRECT_INV_ID:** This field likely represents the identifier of an invoice where a price correction has been made.
+
+5. **PRICE_CORRECT_QTY:** This field likely represents the quantity corrected in a price correction.
+
+6. **PA_CMT_XFACE_FLAG:** The purpose of this field is unclear from the provided data and name.
+
+7. **CANCELLATION_FLAG:** This field indicates whether the invoice distribution has been cancelled. It is likely a binary flag.
+
+8. **INVOICE_LINE_NUMBER:** This field represents the line number of the invoice.
+
+9. **CORRECTED_INVOICE_DIST_ID:** This field likely represents the identifier of the corrected invoice distribution.
+
+10. **ROUNDING_AMT:** This field represents the amount of rounding applied to the invoice distribution.
+
+11. **CHARGE_APPLICABLE_TO_DIST_ID:** This field likely represents the identifier of the distribution to which a charge is applicable.
+
+12. **CORRECTED_QUANTITY:** This field likely represents the corrected quantity in the invoice distribution.
+
+13. **RELATED_ID:** This field likely represents the identifier of a related record.
+
+14. **ASSET_BOOK_TYPE_CODE:** This field represents the code of the asset book type.
+
+15. **ASSET_CATEGORY_ID:** This field represents the identifier of the asset category.
+
+16. **DISTRIBUTION_CLASS:** This field represents the class of the distribution. In the sample data, all entries are 'PERMANENT'.
+
+17. **FINAL_PAYMENT_ROUNDING:** This field likely represents the final rounding applied to the payment.
+
+18. **FINAL_APPLICATION_ROUNDING:** This field likely represents the final rounding applied to the application.
+
+19. **AMOUNT_AT_PREPAY_XRATE:** This field likely represents the amount at the prepayment exchange rate.
+
+20. **CASH_BASIS_FINAL_APP_ROUNDING:** This field likely represents the final rounding applied to the cash basis application.
+
+**Inferred Relationships or Business Logic:** The table seems to be related to other tables or views in the AP schema, such as those containing invoice, asset book, and asset category information. The various ID fields suggest relationships with these other tables. The presence of flags and identifiers for corrections and cancellations suggest business logic around managing changes to invoice distributions.
+
+--- Prompt for group 11 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 11 of 13):
+['AMOUNT_AT_PREPAY_PAY_XRATE', 'INTENDED_USE', 'DETAIL_TAX_DIST_ID', 'REC_NREC_RATE', 'RECOVERY_RATE_ID', 'RECOVERY_RATE_NAME', 'RECOVERY_TYPE_CODE', 'RECOVERY_RATE_CODE', 'WITHHOLDING_TAX_CODE_ID', 'TAX_ALREADY_DISTRIBUTED_FLAG', 'SUMMARY_TAX_LINE_ID', 'TAXABLE_AMOUNT', 'TAXABLE_BASE_AMOUNT', 'EXTRA_PO_ERV', 'PREPAY_TAX_DIFF_AMOUNT', 'TAX_CODE_ID', 'VAT_CODE', 'AMOUNT_INCLUDES_TAX_FLAG', 'TAX_CALCULATED_FLAG', 'TAX_RECOVERY_RATE']
+
+Sample data (10 random rows, long values truncated):
+AMOUNT_AT_PREPAY_PAY_XRATE INTENDED_USE  DETAIL_TAX_DIST_ID  REC_NREC_RATE  RECOVERY_RATE_ID RECOVERY_RATE_NAME RECOVERY_TYPE_CODE RECOVERY_RATE_CODE WITHHOLDING_TAX_CODE_ID TAX_ALREADY_DISTRIBUTED_FLAG  SUMMARY_TAX_LINE_ID  TAXABLE_AMOUNT  TAXABLE_BASE_AMOUNT EXTRA_PO_ERV PREPAY_TAX_DIFF_AMOUNT  TAX_CODE_ID VAT_CODE AMOUNT_INCLUDES_TAX_FLAG TAX_CALCULATED_FLAG TAX_RECOVERY_RATE
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                            Y                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+                      None         None           9769174.0          100.0               NaN               None               None               None                    None                         None            1282242.0        80731.56             80731.56         None                   None      10724.0     None                     None                None              None
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                         None                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+                      None         None           5872550.0          100.0               NaN               None               None               None                    None                         None            1133812.0          330.00               330.00         None                   None      10724.0     None                     None                None              None
+                      None         None          25895772.0            0.0           13312.0       0%NR RME-KSA           STANDARD               None                    None                         None            4356124.0          598.26               598.26         None                   None      13311.0     None                     None                None              None
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                         None                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+                      None         None           2979680.0          100.0               NaN               None               None               None                    None                         None             997388.0           30.00                30.00         None                   None      10107.0     None                     None                None              None
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                         None                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                         None                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+                      None         None                 NaN            NaN               NaN               None               None               None                    None                         None                  NaN             NaN                  NaN         None                   None          NaN     None                     None                None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object is part of an Oracle ERP system and appears to be used for tracking and managing invoice distributions, specifically related to tax calculations and recoveries. It seems to be used to store information about the tax details of each invoice distribution, including tax codes, rates, amounts, and recovery details.
+
+**Column Descriptions:**
+
+1. `AMOUNT_AT_PREPAY_PAY_XRATE`: This field is likely to represent the amount at the prepayment exchange rate. However, the sample data does not provide any values to confirm this.
+
+2. `INTENDED_USE`: This field is intended to capture the use of the invoice distribution. The sample data does not provide any values to confirm this.
+
+3. `DETAIL_TAX_DIST_ID`: This field is likely to be the unique identifier for the detailed tax distribution.
+
+4. `REC_NREC_RATE`: This field appears to represent the recovery and non-recovery rate for the tax.
+
+5. `RECOVERY_RATE_ID`: This field is likely to be the unique identifier for the recovery rate.
+
+6. `RECOVERY_RATE_NAME`: This field appears to represent the name of the recovery rate.
+
+7. `RECOVERY_TYPE_CODE`: This field is likely to represent the type of recovery.
+
+8. `RECOVERY_RATE_CODE`: This field appears to represent the code of the recovery rate.
+
+9. `WITHHOLDING_TAX_CODE_ID`: This field is likely to represent the unique identifier for the withholding tax code.
+
+10. `TAX_ALREADY_DISTRIBUTED_FLAG`: This field appears to be a flag indicating whether the tax has already been distributed.
+
+11. `SUMMARY_TAX_LINE_ID`: This field is likely to be the unique identifier for the summary tax line.
+
+12. `TAXABLE_AMOUNT`: This field appears to represent the taxable amount of the invoice distribution.
+
+13. `TAXABLE_BASE_AMOUNT`: This field appears to represent the base amount that is taxable.
+
+14. `EXTRA_PO_ERV`: The purpose of this field is unclear from the column name and the sample data.
+
+15. `PREPAY_TAX_DIFF_AMOUNT`: This field is likely to represent the difference amount in the prepayment tax.
+
+16. `TAX_CODE_ID`: This field is likely to be the unique identifier for the tax code.
+
+17. `VAT_CODE`: This field appears to represent the VAT (Value Added Tax) code.
+
+18. `AMOUNT_INCLUDES_TAX_FLAG`: This field appears to be a flag indicating whether the amount includes tax.
+
+19. `TAX_CALCULATED_FLAG`: This field appears to be a flag indicating whether the tax has been calculated.
+
+20. `TAX_RECOVERY_RATE`: This field appears to represent the tax recovery rate.
+
+**Inferred Relationships or Business Logic:**
+
+The `DETAIL_TAX_DIST_ID`, `RECOVERY_RATE_ID`, `SUMMARY_TAX_LINE_ID`, `TAX_CODE_ID`, and `WITHHOLDING_TAX_CODE_ID` fields are likely foreign keys linking to other tables in the database. These relationships would allow for detailed tracking and analysis of tax distributions and recoveries across different invoices.
+
+The presence of fields like `TAX_ALREADY_DISTRIBUTED_FLAG`, `AMOUNT_INCLUDES_TAX_FLAG`, and `TAX_CALCULATED_FLAG` suggests that the table may be used to track the status of tax calculations and distributions for each invoice. 
+
+The `REC_NREC_RATE`, `TAXABLE_AMOUNT`, `TAXABLE_BASE_AMOUNT`, and `TAX_RECOVERY_RATE` fields suggest that the table may be used to calculate tax amounts and recovery rates for each invoice distribution.
+
+--- Prompt for group 12 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 12 of 13):
+['TAX_RECOVERY_OVERRIDE_FLAG', 'TAX_CODE_OVERRIDE_FLAG', 'TOTAL_DIST_AMOUNT', 'TOTAL_DIST_BASE_AMOUNT', 'PREPAY_TAX_PARENT_ID', 'CANCELLED_FLAG', 'OLD_DISTRIBUTION_ID', 'OLD_DIST_LINE_NUMBER', 'AMOUNT_VARIANCE', 'BASE_AMOUNT_VARIANCE', 'HISTORICAL_FLAG', 'RCV_CHARGE_ADDITION_FLAG', 'AWT_RELATED_ID', 'RELATED_RETAINAGE_DIST_ID', 'RETAINED_AMOUNT_REMAINING', 'BC_EVENT_ID', 'RETAINED_INVOICE_DIST_ID', 'FINAL_RELEASE_ROUNDING', 'FULLY_PAID_ACCTD_FLAG', 'ROOT_DISTRIBUTION_ID']
+
+Sample data (10 random rows, long values truncated):
+TAX_RECOVERY_OVERRIDE_FLAG TAX_CODE_OVERRIDE_FLAG  TOTAL_DIST_AMOUNT  TOTAL_DIST_BASE_AMOUNT PREPAY_TAX_PARENT_ID CANCELLED_FLAG OLD_DISTRIBUTION_ID OLD_DIST_LINE_NUMBER AMOUNT_VARIANCE BASE_AMOUNT_VARIANCE HISTORICAL_FLAG RCV_CHARGE_ADDITION_FLAG  AWT_RELATED_ID RELATED_RETAINAGE_DIST_ID RETAINED_AMOUNT_REMAINING BC_EVENT_ID RETAINED_INVOICE_DIST_ID FINAL_RELEASE_ROUNDING FULLY_PAID_ACCTD_FLAG ROOT_DISTRIBUTION_ID
+                      None                   None           777.7300                  0.0000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None         11302.4184              11302.4184                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None           -39.0926                -39.0926                 None           None                None                 None            None                 None            None                        N       3407184.0                      None                      None        None                     None                   None                  None                 None
+                      None                   None            46.2000                 46.2000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None             0.0000                  0.0000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None          -398.9330               -398.9330                 None           None                None                 None            None                 None            None                        N       1417184.0                      None                      None        None                     None                   None                  None                 None
+                      None                   None             0.0000                  0.0000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None            -0.5310                 -0.5310                 None           None                None                 None            None                 None            None                        N       9845258.0                      None                      None        None                     None                   None                  None                 None
+                      None                   None        -10500.0000                  0.0000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+                      None                   None         -1350.0000              -1350.0000                 None           None                None                 None            None                 None            None                        N             NaN                      None                      None        None                     None                   None                  None                 None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** This object stores detailed information about invoice distributions in an Oracle ERP system. It is used to track and manage various aspects of invoice distributions such as tax recovery, total distribution amount, amount variance, and more. This data is essential for financial reporting, auditing, and invoice management.
+
+**Column Descriptions:**
+
+1. `TAX_RECOVERY_OVERRIDE_FLAG`: This field indicates whether the tax recovery for the invoice distribution has been overridden. The value is usually 'Y' for Yes or 'N' for No. If the value is None, it means the flag has not been set.
+
+2. `TAX_CODE_OVERRIDE_FLAG`: This field indicates whether the tax code for the invoice distribution has been overridden. Similar to the previous field, the value is usually 'Y' for Yes or 'N' for No.
+
+3. `TOTAL_DIST_AMOUNT`: This field represents the total amount of the invoice distribution.
+
+4. `TOTAL_DIST_BASE_AMOUNT`: This field represents the base amount of the invoice distribution.
+
+5. `PREPAY_TAX_PARENT_ID`: This field is the identifier for the parent prepayment tax. 
+
+6. `CANCELLED_FLAG`: This field indicates whether the invoice distribution has been cancelled.
+
+7. `OLD_DISTRIBUTION_ID`: This field stores the identifier of the previous invoice distribution.
+
+8. `OLD_DIST_LINE_NUMBER`: This field stores the line number of the previous invoice distribution.
+
+9. `AMOUNT_VARIANCE`: This field represents the variance in the amount of the invoice distribution.
+
+10. `BASE_AMOUNT_VARIANCE`: This field represents the variance in the base amount of the invoice distribution.
+
+11. `HISTORICAL_FLAG`: This field indicates whether the invoice distribution is historical.
+
+12. `RCV_CHARGE_ADDITION_FLAG`: This field indicates whether a charge has been added to the receiving (RCV) invoice distribution.
+
+13. `AWT_RELATED_ID`: This field is the identifier for the related Automatic Withholding Tax (AWT).
+
+14. `RELATED_RETAINAGE_DIST_ID`: This field is the identifier for the related retainage distribution.
+
+15. `RETAINED_AMOUNT_REMAINING`: This field represents the remaining amount of the retained invoice distribution.
+
+16. `BC_EVENT_ID`: This field is the identifier for the business event.
+
+17. `RETAINED_INVOICE_DIST_ID`: This field is the identifier for the retained invoice distribution.
+
+18. `FINAL_RELEASE_ROUNDING`: This field represents the final release rounding for the invoice distribution.
+
+19. `FULLY_PAID_ACCTD_FLAG`: This field indicates whether the invoice distribution has been fully paid and accounted for.
+
+20. `ROOT_DISTRIBUTION_ID`: This field is the identifier for the root invoice distribution.
+
+**Inferred Relationships or Business Logic:**
+
+The `OLD_DISTRIBUTION_ID` and `OLD_DIST_LINE_NUMBER` fields suggest that there is a relationship between current and previous invoice distributions. The `PREPAY_TAX_PARENT_ID` and `AWT_RELATED_ID` fields suggest relationships with other tax-related entities. The `RELATED_RETAINAGE_DIST_ID` and `RETAINED_INVOICE_DIST_ID` fields suggest relationships with other retainage-related entities. The `BC_EVENT_ID` field suggests a relationship with business events. The `ROOT_DISTRIBUTION_ID` field suggests a hierarchical relationship among invoice distributions.
+
+--- Prompt for group 13 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICE_DISTRIBUTIONS_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 13 of 13):
+['XINV_PARENT_REVERSAL_ID', 'RECURRING_PAYMENT_ID', 'RELEASE_INV_DIST_DERIVED_FROM', 'PAY_AWT_GROUP_ID']
+
+Sample data (10 random rows, long values truncated):
+XINV_PARENT_REVERSAL_ID RECURRING_PAYMENT_ID RELEASE_INV_DIST_DERIVED_FROM PAY_AWT_GROUP_ID
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+                   None                 None                          None             None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_INVOICE_DISTRIBUTIONS_ALL
+
+The AP.AP_INVOICE_DISTRIBUTIONS_ALL is a table or view in the Oracle ERP system. This object is part of the Accounts Payable (AP) module and is used to store information related to invoice distributions. This specific group of columns seems to be related to specific types of invoice distributions such as reversals, recurring payments, and derived distributions.
+
+Column Details:
+
+1. XINV_PARENT_REVERSAL_ID: This field is likely to store the unique identifier of the parent invoice that has been reversed. In the context of accounts payable, a reversal refers to the cancellation of an invoice that has been previously posted. The sample data does not provide any specific values, suggesting that there may not have been any reversals in the selected data.
+
+2. RECURRING_PAYMENT_ID: This field is expected to hold the unique identifier for recurring payments. Recurring payments are regular payments that are made for ongoing services or goods. The absence of data in the sample suggests that the selected invoices may not be associated with recurring payments.
+
+3. RELEASE_INV_DIST_DERIVED_FROM: This field appears to store the identifier of the original invoice distribution from which the current distribution is derived. This could be used in situations where an invoice distribution is split or adjusted, and it's necessary to track back to the original distribution. The sample data does not contain any specific values, indicating that the selected invoices may not have derived distributions.
+
+4. PAY_AWT_GROUP_ID: This field likely stores the unique identifier for the Automatic Withholding Tax (AWT) group associated with the payment. AWT is a method of tax collection where certain amounts are automatically deducted from payments to suppliers. The absence of data in the sample suggests that the selected invoices may not be associated with any AWT groups.
+
+Relationships and Business Logic:
+
+The relationships between these fields and other tables or views in the system cannot be determined from the provided information. However, it can be inferred that these fields are likely related to other tables or views that store details about invoices, payments, and tax groups.
+
+The business logic behind these fields seems to be tracking and managing different aspects of invoice distributions, such as reversals, recurring payments, derived distributions, and tax withholdings. This can be crucial for accurate financial reporting and audit purposes.

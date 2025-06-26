@@ -1,0 +1,266 @@
+Object Name: AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table in the Oracle ERP system contains information about the applications of receivables in the Accounts Receivable (AR) module. The business purpose of this table is to track and manage the application of payments against outstanding receivables. This includes details about the application type, status, amount applied, and related transaction and receipt information.
+
+Column Descriptions:
+
+1. RECEIVABLE_APPLICATION_ID: This is the unique identifier for each receivable application. It is a primary key in the table.
+
+2. LAST_UPDATED_BY: This field records the ID of the user who last updated the record.
+
+3. LAST_UPDATE_DATE: This timestamp field records the date and time when the record was last updated.
+
+4. CREATED_BY: This field records the ID of the user who created the record.
+
+5. CREATION_DATE: This timestamp field records the date and time when the record was created.
+
+6. AMOUNT_APPLIED: This field records the amount that has been applied or paid towards the receivable.
+
+7. AMOUNT_APPLIED_FROM: This field seems to be unused in the sample data provided. It might be intended to record the source of the applied amount.
+
+8. TRANS_TO_RECEIPT_RATE: This field also seems to be unused in the sample data. It might be intended to record the exchange rate applied if the transaction and receipt are in different currencies.
+
+9. GL_DATE: This field records the date when the transaction was recorded in the General Ledger.
+
+10. CODE_COMBINATION_ID: This field records the ID of the code combination associated with the receivable application.
+
+11. SET_OF_BOOKS_ID: This field records the ID of the set of books where the receivable application is recorded.
+
+12. DISPLAY: This field indicates whether the receivable application is displayed (Y) or not (N).
+
+13. APPLY_DATE: This field records the date when the amount was applied to the receivable.
+
+14. APPLICATION_TYPE: This field records the type of application, such as CASH.
+
+15. STATUS: This field records the status of the application, such as APP (applied) or UNAPP (unapplied).
+
+16. PAYMENT_SCHEDULE_ID: This field records the ID of the payment schedule associated with the receivable application.
+
+17. LAST_UPDATE_LOGIN: This field records the login ID of the user who last updated the record.
+
+18. CASH_RECEIPT_ID: This field records the ID of the cash receipt associated with the receivable application.
+
+19. APPLIED_CUSTOMER_TRX_ID: This field records the ID of the customer transaction where the amount was applied.
+
+20. APPLIED_CUSTOMER_TRX_LINE_ID: This field seems to be unused in the sample data provided. It might be intended to record the ID of the specific line item in the customer transaction where the amount was applied.
+
+Based on the column names and sample data, it can be inferred that this table is primarily used to track the application of payments against receivables. The status and application type fields suggest that the table may be used to manage different types of applications and their statuses. The presence of fields for user and date information suggests that the table also tracks who created and updated each record and when these actions occurred.
+
+Object: AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL is a table in the Oracle ERP system that contains information related to the application of payments against receivables. This table is used to track and manage customer transactions, including the application of payments, discounts, and charges. It is an essential part of the accounts receivable process, helping to ensure accurate financial reporting and customer account management.
+
+Columns:
+
+1. APPLIED_PAYMENT_SCHEDULE_ID: This is a unique identifier for the payment schedule that has been applied. It is a numerical value and can be used to track specific payment schedules.
+
+2. CUSTOMER_TRX_ID: This is a unique identifier for the customer transaction. It appears to be null in the sample data, but typically it would be used to link to the specific transaction in the customer transactions table.
+
+3. LINE_APPLIED: This column represents the amount applied to the line item in the transaction. It is a numerical value.
+
+4. TAX_APPLIED: This column represents the amount of tax applied in the transaction. It is a numerical value.
+
+5. FREIGHT_APPLIED: This column represents the amount of freight charges applied in the transaction. It is a numerical value.
+
+6. RECEIVABLES_CHARGES_APPLIED: This column represents the amount of receivables charges applied in the transaction. It is a numerical value.
+
+7. EARNED_DISCOUNT_TAKEN: This column represents the amount of earned discount that has been taken in the transaction. It is a numerical value.
+
+8. UNEARNED_DISCOUNT_TAKEN: This column represents the amount of unearned discount that has been taken in the transaction. It is a numerical value.
+
+9. DAYS_LATE: This column represents the number of days late the payment was received. It is a numerical value.
+
+10. APPLICATION_RULE: This column represents the rule applied for the application of the payment. It is a numerical value.
+
+11. GL_POSTED_DATE: This column represents the date when the transaction was posted to the General Ledger. It is a date value.
+
+12. COMMENTS: This column is for any additional comments related to the transaction. It is a text field.
+
+13. ATTRIBUTE_CATEGORY: This column is a category for additional attributes related to the transaction. It is a text field.
+
+14. ATTRIBUTE1 to ATTRIBUTE7: These are additional attribute fields that can be used to store extra information related to the transaction. They are text fields.
+
+Based on the sample data, it appears that some fields may not always be populated, such as the CUSTOMER_TRX_ID and the ATTRIBUTE fields. The APPLICATION_RULE field appears to be a coded value, with specific numbers representing different rules. The ATTRIBUTE_CATEGORY field also appears to be coded, with specific numbers representing different categories.
+
+## AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table in the Oracle ERP system is a part of the Accounts Receivable module. It contains detailed information about the application of payments and adjustments to invoices, debit memos, chargebacks, deposits, and on-account credits.
+
+### Column Descriptions
+
+1. **ATTRIBUTE8 - ATTRIBUTE15**: These are generic columns that can be used to store additional information as needed by the business. The specific use of these columns can vary depending on the business requirements.
+
+2. **POSTABLE**: This column indicates whether the record can be posted or not. If the value is 'Y', it means the record is postable.
+
+3. **POSTING_CONTROL_ID**: This is a unique identifier for the posting control. It is used to control the posting process.
+
+4. **ACCTD_AMOUNT_APPLIED_FROM**: This column represents the accounted amount applied from a particular transaction. It is expressed in the functional currency.
+
+5. **ACCTD_AMOUNT_APPLIED_TO**: This column represents the accounted amount applied to a particular transaction. It is expressed in the functional currency.
+
+6. **ACCTD_EARNED_DISCOUNT_TAKEN**: This column represents the accounted amount of the earned discount taken. It is expressed in the functional currency.
+
+7. **CONFIRMED_FLAG**: This column indicates whether the record has been confirmed or not. The specific use of this column can vary depending on the business requirements.
+
+8. **PROGRAM_APPLICATION_ID**: This is a unique identifier for the program application. It is used to track the application of a program.
+
+9. **PROGRAM_ID**: This is a unique identifier for the program. It is used to track the program associated with the record.
+
+10. **PROGRAM_UPDATE_DATE**: This column represents the date when the program was last updated.
+
+11. **REQUEST_ID**: This is a unique identifier for the request. It is used to track the request associated with the record.
+
+12. **USSGL_TRANSACTION_CODE**: This column represents the United States Standard General Ledger (USSGL) transaction code associated with the record.
+
+13. **USSGL_TRANSACTION_CODE_CONTEXT**: This column provides additional context for the USSGL transaction code.
+
+### Relationships and Business Logic
+
+The relationships between this table and others in the system would depend on the specific business logic and system design. However, it can be inferred that this table would likely have relationships with other tables in the Accounts Receivable module, such as those related to customers, transactions, and accounting.
+
+The business logic would involve applying payments and adjustments to various transactions, tracking these applications, and posting the accounting entries as appropriate. The use of the ATTRIBUTE and CONFIRMED_FLAG columns would depend on the specific business requirements.
+
+**Object Name:** AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+**Object Type:** Table/View
+
+**Description:** The AR.AR_RECEIVABLE_APPLICATIONS_ALL object in the Oracle ERP system contains information related to the receivables and cash receipts in the organization. It is used to track and manage the financial transactions related to receivables, discounts, and tax codes. This object is crucial for financial reporting, auditing, and accounts receivable management.
+
+**Column Descriptions:**
+
+1. `EARNED_DISCOUNT_CCID`: This field stores the unique identifier for the earned discounts. The value is a numeric type and can be used to track and manage earned discounts.
+
+2. `UNEARNED_DISCOUNT_CCID`: This field holds the unique identifier for the unearned discounts. It is a numeric type and can be used to track and manage unearned discounts.
+
+3. `ACCTD_UNEARNED_DISCOUNT_TAKEN`: This numeric field represents the accounted unearned discount taken. It is used for financial calculations and reporting.
+
+4. `REVERSAL_GL_DATE`: This field stores the date of the reversal general ledger entry. It is a date type field and is used for tracking and auditing purposes.
+
+5. `CASH_RECEIPT_HISTORY_ID`: This field holds the unique identifier for the cash receipt history. It is a numeric type and is used for tracking cash receipts.
+
+6. `ORG_ID`: This numeric field represents the unique identifier for the organization. It is used to link the receivables to the specific organization.
+
+7. `TAX_CODE`: This field stores the tax code applicable to the receivable. It is used for tax calculations and reporting.
+
+8. `GLOBAL_ATTRIBUTE1` to `GLOBAL_ATTRIBUTE13`: These fields are reserved for future use or for storing additional data as per the organization's requirements. Currently, they do not hold any data.
+
+**Relationships and Business Logic:** The `EARNED_DISCOUNT_CCID` and `UNEARNED_DISCOUNT_CCID` fields can be linked to a discounts table to fetch detailed information about the discounts. The `ORG_ID` can be linked to an organizations table to fetch detailed information about the organization. The `CASH_RECEIPT_HISTORY_ID` can be linked to a cash receipts table to fetch the history of cash receipts. The `TAX_CODE` can be linked to a tax table to fetch detailed information about the tax. The business logic and calculations related to discounts, tax, and cash receipts can be inferred from these relationships.
+
+# AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+## Overview
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table is part of an Oracle ERP system, specifically within the Accounts Receivable (AR) module. This table appears to store detailed information about receivable transactions, including various attributes, identifiers, and discount details. 
+
+## Column Descriptions
+
+- `GLOBAL_ATTRIBUTE14` to `GLOBAL_ATTRIBUTE20`: These columns are likely used to store additional, customizable data related to the receivable transaction. The specific purpose of these fields may vary depending on the business's needs. In the provided sample data, these fields are not populated.
+
+- `GLOBAL_ATTRIBUTE_CATEGORY`: This column is likely used to categorize the global attributes. The specific categories would depend on the business's needs. In the provided sample data, this field is not populated.
+
+- `CONS_INV_ID` and `CONS_INV_ID_TO`: These columns likely store identifiers for consolidated invoices. The specific use of these fields may depend on the business's invoicing practices. In the provided sample data, these fields are not populated.
+
+- `RULE_SET_ID`: This column likely stores an identifier for a set of rules or policies related to the receivable transaction. The specific rules would depend on the business's policies.
+
+- `LINE_EDISCOUNTED`, `TAX_EDISCOUNTED`, `FREIGHT_EDISCOUNTED`, `CHARGES_EDISCOUNTED`: These columns likely store the amounts for line items, taxes, freight, and other charges after any eligible discounts have been applied.
+
+- `LINE_UEDISCOUNTED`, `TAX_UEDISCOUNTED`, `FREIGHT_UEDISCOUNTED`, `CHARGES_UEDISCOUNTED`: These columns likely store the undiscounted amounts for line items, taxes, freight, and other charges.
+
+- `RECEIVABLES_TRX_ID`: This column likely stores a unique identifier for the receivable transaction.
+
+## Relationships and Business Logic
+The `RECEIVABLES_TRX_ID` field is likely a foreign key linking to another table that contains additional details about the receivable transaction. The `RULE_SET_ID` field may also be a foreign key linking to a table that defines the rules or policies for the transaction.
+
+The `*_EDISCOUNTED` and `*_UEDISCOUNTED` fields suggest that the business applies discounts to various components of a transaction, including line items, taxes, freight, and other charges. The specific discount rules and calculations would likely be defined elsewhere in the system.
+
+Please note that the actual usage of these fields may vary depending on the business's specific implementation of the Oracle ERP system.
+
+# AR.AR_RECEIVABLE_APPLICATIONS_ALL Table Documentation
+
+The AR.AR_RECEIVABLE_APPLICATIONS_ALL table is part of the Oracle ERP system, specifically within the Accounts Receivable (AR) module. This table appears to be designed to track and manage the application of payments or credits to customer accounts, including details about the amounts applied, the status of the application, and the associated accounting entries. However, the sample data provided does not contain any actual values, which limits the ability to infer specific business logic or relationships.
+
+## Column Descriptions
+
+1. **ON_ACCOUNT_CUSTOMER**: This field likely represents the customer to whom the payment or credit is being applied. The data type and format are unknown based on the provided sample data.
+
+2. **MRC_AMOUNT_APPLIED**: This field likely represents the amount of payment or credit that is being applied to the customer's account.
+
+3. **MRC_AMOUNT_APPLIED_FROM**: This field likely represents the original source of the payment or credit that is being applied.
+
+4. **MRC_DISPLAY**: The purpose of this field is unclear based on the name and sample data.
+
+5. **MRC_STATUS**: This field likely represents the status of the payment or credit application.
+
+6. **MRC_PAYMENT_SCHEDULE_ID**: This field likely represents a unique identifier for a payment schedule associated with the payment or credit application.
+
+7. **MRC_CASH_RECEIPT_ID**: This field likely represents a unique identifier for a cash receipt associated with the payment or credit application.
+
+8. **MRC_GL_POSTED_DATE**: This field likely represents the date when the payment or credit application was posted to the General Ledger.
+
+9. **MRC_POSTING_CONTROL_ID**: This field likely represents a unique identifier for a posting control record associated with the payment or credit application.
+
+10. **MRC_ACCTD_AMOUNT_APPLIED_FROM**: This field likely represents the original source of the accounted amount that is being applied.
+
+11. **MRC_ACCTD_AMOUNT_APPLIED_TO**: This field likely represents the destination of the accounted amount that is being applied.
+
+12. **MRC_ACCTD_EARNED_DISC_TAKEN**: This field likely represents the accounted amount of any earned discounts that were taken.
+
+13. **MRC_ACCTD_UNEARNED_DISC_TAKEN**: This field likely represents the accounted amount of any unearned discounts that were taken.
+
+14. **EDISC_TAX_ACCT_RULE**: This field likely represents a rule for accounting for tax on earned discounts.
+
+15. **UNEDISC_TAX_ACCT_RULE**: This field likely represents a rule for accounting for tax on unearned discounts.
+
+16. **LINK_TO_TRX_HIST_ID**: This field likely represents a link to a transaction history record associated with the payment or credit application.
+
+17. **LINK_TO_CUSTOMER_TRX_ID**: This field likely represents a link to a customer transaction record associated with the payment or credit application.
+
+18. **APPLICATION_REF_TYPE**: This field likely represents the type of reference associated with the payment or credit application.
+
+19. **APPLICATION_REF_ID**: This field likely represents a unique identifier for a reference associated with the payment or credit application.
+
+20. **APPLICATION_REF_NUM**: This field likely represents a reference number associated with the payment or credit application.
+
+Please note that the actual usage and meaning of these fields may vary based on the specific business processes and accounting practices of the organization using the Oracle ERP system.
+
+**Object Name:** AR.AR_RECEIVABLE_APPLICATIONS_ALL
+
+**Object Type:** Table/View
+
+**Business Purpose:** The AR.AR_RECEIVABLE_APPLICATIONS_ALL object in the Oracle ERP system is designed to store information related to receivable applications. It is used to track and manage the details of customer transactions, payments, and other related activities. This object is crucial for managing accounts receivable, ensuring accurate financial reporting, and facilitating effective decision-making.
+
+**Column Descriptions:**
+
+1. `CHARGEBACK_CUSTOMER_TRX_ID`: This field is likely to store the unique identifier for a chargeback transaction related to a customer. A chargeback is a return of funds to a customer, typically resulting from a dispute.
+
+2. `SECONDARY_APPLICATION_REF_ID`: This field is likely to store the unique identifier for a secondary application reference. The specifics of what this reference pertains to would depend on the business context.
+
+3. `PAYMENT_SET_ID`: This field is likely to store the unique identifier for a set of payments.
+
+4. `APPLICATION_REF_REASON`: This field is likely to store the reason associated with the application reference.
+
+5. `CUSTOMER_REFERENCE`: This field is likely to store a reference value related to the customer. This could be a code, number, or string that uniquely identifies the customer in some way.
+
+6. `CUSTOMER_REASON`: This field is likely to store the reason provided by the customer for a particular action or event.
+
+7. `APPLIED_REC_APP_ID`: This field is likely to store the unique identifier for the applied receivable application.
+
+8. `SECONDARY_APPLICATION_REF_TYPE`: This field is likely to store the type of the secondary application reference.
+
+9. `SECONDARY_APPLICATION_REF_NUM`: This field is likely to store the number of the secondary application reference.
+
+10. `EVENT_ID`: This field is likely to store the unique identifier for a specific event.
+
+11. `UPGRADE_METHOD`: This field is likely to store the method used for an upgrade. In the sample data, it shows "R12", which might refer to an Oracle ERP version.
+
+12. `AX_ACCOUNTED_FLAG`: This field is likely to store a flag indicating whether the record has been accounted for in the AX (Accounting) system.
+
+13. `INCLUDE_IN_ACCUMULATION`: This field is likely to store a flag indicating whether the record should be included in any accumulation or aggregation operations.
+
+14. `ON_ACCT_CUST_ID`: This field is likely to store the unique identifier for the customer on account.
+
+15. `ON_ACCT_CUST_SITE_USE_ID`: This field is likely to store the unique identifier for the site use of the customer on account.
+
+16. `ON_ACCT_PO_NUM`: This field is likely to store the purchase order number associated with the customer on account.
+
+**Relationships and Business Logic:** The relationships and business logic would depend on the specific business context and how this table/view is used within the larger system. However, it's clear that this object is related to accounts receivable and customer transactions, and it likely interacts with other objects related to customers, payments, and accounting.
+

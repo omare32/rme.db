@@ -1,0 +1,28 @@
+Documentation log for AP.AP_INVOICES_ALL
+
+
+--- Prompt for group 1 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_INVOICES_ALL in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 1 of 10):
+['INVOICE_ID', 'LAST_UPDATE_DATE', 'LAST_UPDATED_BY', 'VENDOR_ID', 'INVOICE_NUM', 'SET_OF_BOOKS_ID', 'INVOICE_CURRENCY_CODE', 'PAYMENT_CURRENCY_CODE', 'PAYMENT_CROSS_RATE', 'INVOICE_AMOUNT', 'VENDOR_SITE_ID', 'AMOUNT_PAID', 'DISCOUNT_AMOUNT_TAKEN', 'INVOICE_DATE', 'SOURCE', 'INVOICE_TYPE_LOOKUP_CODE', 'DESCRIPTION', 'BATCH_ID', 'AMOUNT_APPLICABLE_TO_DISCOUNT', 'TAX_AMOUNT']
+
+Sample data (10 random rows, long values truncated):
+ INVOICE_ID    LAST_UPDATE_DATE  LAST_UPDATED_BY  VENDOR_ID             INVOICE_NUM  SET_OF_BOOKS_ID INVOICE_CURRENCY_CODE PAYMENT_CURRENCY_CODE  PAYMENT_CROSS_RATE  INVOICE_AMOUNT  VENDOR_SITE_ID  AMOUNT_PAID  DISCOUNT_AMOUNT_TAKEN INVOICE_DATE               SOURCE INVOICE_TYPE_LOOKUP_CODE             DESCRIPTION BATCH_ID  AMOUNT_APPLICABLE_TO_DISCOUNT TAX_AMOUNT
+    3464597 2023-06-20 22:12:10             1679       4384 part 1 from 100% 82 ...             2030                   EGP                   EGP                   1       661336.00            5395    661336.00                    0.0   2023-06-20 Manual Invoice Entry               PREPAYMENT part 1 from 100% 82 ...     None                      661336.00       None
+    3725904 2024-06-10 12:05:54             2983      52240 يوميات عماله ف2 ش5 م...             2030                   EGP                   EGP                   1         4045.00         1219846      4045.00                    0.0   2024-06-08 Manual Invoice Entry               PREPAYMENT يوميات عماله ف2 ش5 م...     None                        4045.00       None
+    3177317 2022-10-26 09:39:34             9361      52240                  ST-442             2334                   EGP                   EGP                   1          645.00          740319       645.00                    NaN   2022-10-24 Manual Invoice Entry                 STANDARD تسوية عهدة مشتريات /...     None                         645.00       None
+    1455518 2021-09-16 09:02:38             2725      52240 PRE-9-005-From 11/9 ...             2127                   EGP                   EGP                   1        33000.00          109910     33000.00                    0.0   2021-09-14 Manual Invoice Entry               PREPAYMENT عهدة نقدية الي محمود...     None                       33000.00       None
+     429359 2019-10-16 12:30:11             3537      52240                St-10-21             2127                   EGP                   EGP                   1         4150.00           98468      4150.00                    NaN   2019-10-05 Manual Invoice Entry                 STANDARD تسوية عهدة نقدية - م...     None                        4150.00       None
+     319599 2018-08-27 13:34:27             1672       4679 Kayan- 25% دفعه مقدم...             2030                   EGP                   EGP                   1            0.00            5687         0.00                    NaN   2018-08-15 Manual Invoice Entry               PREPAYMENT Kayan- 25% دفعه مقدم...     None                       80030.79       None
+     281419 2018-02-20 10:19:59             1442      73348            Soc 1-2 quna             2026                   EGP                   EGP                   1            0.00           79004         0.00                    0.0   2018-01-10 Manual Invoice Entry                 STANDARD تأمينات اجتماعيه م1 ...     None                     3994754.86       None
+     357551 2019-02-05 16:36:08             2725       8228                   ap-48             2127                   EGP                   EGP                   1        29093.14           95164     28220.35                    0.0   2018-12-31 Manual Invoice Entry                 STANDARD ipc 11 for sabry moh...     None                       29093.14       None
+     991437 2021-07-15 13:39:27             2294       3013                    3263             2026                   EGP                   EGP                   1        21279.99            3013     20720.00                    0.0   2021-06-30 Manual Invoice Entry                 STANDARD اعمال حراسه عن شهر ي...     None                       21279.99       None
+     434181 2019-11-24 15:28:10             2983     113259            SODIC EAST 5             2030                   EGP                   EGP                   1        79280.40          115065     58488.72                    0.0   2019-10-30 Manual Invoice Entry                 STANDARD            SODIC EAST 5     None                       79280.40       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+

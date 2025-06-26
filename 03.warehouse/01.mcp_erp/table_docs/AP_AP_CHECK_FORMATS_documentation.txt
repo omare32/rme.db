@@ -1,0 +1,232 @@
+Documentation log for AP.AP_CHECK_FORMATS
+
+
+--- Prompt for group 1 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_CHECK_FORMATS in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 1 of 4):
+['CHECK_FORMAT_ID', 'LAST_UPDATE_DATE', 'LAST_UPDATED_BY', 'NAME', 'TYPE', 'STUB_FIRST_FLAG', 'CHECK_LENGTH', 'STUB_LENGTH', 'INVOICES_PER_STUB', 'OVERFLOW_RULE', 'PRE_NUMBERED_FLAG', 'CHECK_NUM_ROW_LINE', 'DATE_ROW_LINE', 'AMOUNT_ROW_LINE', 'AMOUNT_WORDS_ROW_LINE', 'VENDOR_NUM_ROW_LINE', 'VENDOR_NAME_ROW_LINE', 'VENDOR_ADDRESS_ROW_LINE', 'STUB_CHECK_NUM_ROW_LINE', 'STUB_VENDOR_NAME_ROW_LINE']
+
+Sample data (10 random rows, long values truncated):
+ CHECK_FORMAT_ID    LAST_UPDATE_DATE  LAST_UPDATED_BY                    NAME TYPE STUB_FIRST_FLAG CHECK_LENGTH STUB_LENGTH  INVOICES_PER_STUB OVERFLOW_RULE PRE_NUMBERED_FLAG CHECK_NUM_ROW_LINE DATE_ROW_LINE AMOUNT_ROW_LINE AMOUNT_WORDS_ROW_LINE VENDOR_NUM_ROW_LINE VENDOR_NAME_ROW_LINE VENDOR_ADDRESS_ROW_LINE STUB_CHECK_NUM_ROW_LINE STUB_VENDOR_NAME_ROW_LINE
+               6 2004-10-28 13:05:30                1      Short Check Format None               Y         None        None               13.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+               3 2004-10-28 13:05:30                1         Check Recording None               Y         None        None               11.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9963 2004-10-28 13:05:31                1    Netherlands Domestic None               Y         None        None                1.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9996 2004-10-28 13:05:31                1       Check, advice/FWG None               Y         None        None               10.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9930 2004-10-28 13:05:30                1 German Check Print E... None               Y         None        None                NaN          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            5014 2004-10-28 13:05:30                1         SPS CCDP Format None               X         None        None                NaN          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9942 2004-10-28 13:05:30                1    Belgian Format 1-EUR None               Y         None        None               20.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+               9 2004-10-28 13:05:30                1      BACS 1/2 Inch Tape None               Y         None        None               20.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9989 2004-10-28 13:05:31                1       German Wire Print None               Y         None        None               20.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+            9959 2004-10-28 13:05:30                1    EDI Outbound Program None               Y         None        None               50.0          None              None               None          None            None                  None                None                 None                    None                    None                      None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+# AP.AP_CHECK_FORMATS Table Documentation
+
+The AP.AP_CHECK_FORMATS table in the Oracle ERP system is designed to store information related to the various check formats used by the organization. This includes details about the format, its dimensions, and other related specifications. This information is crucial for the Accounts Payable (AP) department to ensure that checks are printed correctly and are compliant with the organization's standards and requirements.
+
+## Column Descriptions
+
+1. **CHECK_FORMAT_ID**: This is the unique identifier for each check format. It is a primary key for this table.
+
+2. **LAST_UPDATE_DATE**: This field records the date and time when the last update was made to the record.
+
+3. **LAST_UPDATED_BY**: This field records the ID of the user who made the last update to the record.
+
+4. **NAME**: This field stores the name of the check format. For example, 'Short Check Format', 'Check Recording', 'Netherlands Domestic', etc.
+
+5. **TYPE**: This field is intended to store the type of the check format. However, based on the sample data, it appears to be unused.
+
+6. **STUB_FIRST_FLAG**: This field indicates whether the stub is printed first on the check. 'Y' indicates that the stub is printed first, while 'N' indicates otherwise.
+
+7. **CHECK_LENGTH**: This field is intended to store the length of the check. However, based on the sample data, it appears to be unused.
+
+8. **STUB_LENGTH**: This field is intended to store the length of the stub. However, based on the sample data, it appears to be unused.
+
+9. **INVOICES_PER_STUB**: This field indicates the number of invoices that can be listed per stub.
+
+10. **OVERFLOW_RULE**: This field is intended to store the rule to be applied when the number of invoices exceeds the limit of invoices per stub. However, based on the sample data, it appears to be unused.
+
+11. **PRE_NUMBERED_FLAG**: This field is intended to indicate whether the checks are pre-numbered. However, based on the sample data, it appears to be unused.
+
+12. **CHECK_NUM_ROW_LINE**, **DATE_ROW_LINE**, **AMOUNT_ROW_LINE**, **AMOUNT_WORDS_ROW_LINE**, **VENDOR_NUM_ROW_LINE**, **VENDOR_NAME_ROW_LINE**, **VENDOR_ADDRESS_ROW_LINE**, **STUB_CHECK_NUM_ROW_LINE**, **STUB_VENDOR_NAME_ROW_LINE**: These fields are intended to store the row and line number where specific information is printed on the check and stub. However, based on the sample data, these fields appear to be unused.
+
+## Relationships and Business Logic
+
+The AP.AP_CHECK_FORMATS table does not appear to have explicit relationships with other tables based on the provided data. However, in a typical ERP system, it could be linked to other tables that store check or payment information.
+
+The business logic behind this table is to maintain a standardized format for checks issued by the organization. By defining the check format, including the order of printing and the number of invoices per stub, the organization can ensure consistency and accuracy in its payments.
+
+--- Prompt for group 2 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_CHECK_FORMATS in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 2 of 4):
+['STUB_VENDOR_NUM_ROW_LINE', 'STUB_FIRST_INVOICE_ROW_LINE', 'PAYMENT_METHOD_LOOKUP_CODE', 'CURRENCY_CODE', 'CREATE_PAYMENTS_PROGRAM_ID', 'CONFIRM_PAYMENTS_PROGRAM_ID', 'SEPARATE_REMITTANCE_ADVICE', 'REMITTANCE_ADVICE_PROGRAM_ID', 'LAST_UPDATE_LOGIN', 'CREATION_DATE', 'CREATED_BY', 'EFT_TYPE', 'MULTI_CURRENCY_FLAG', 'ATTRIBUTE_CATEGORY', 'ATTRIBUTE1', 'ATTRIBUTE2', 'ATTRIBUTE3', 'ATTRIBUTE4', 'ATTRIBUTE5', 'ATTRIBUTE6']
+
+Sample data (10 random rows, long values truncated):
+STUB_VENDOR_NUM_ROW_LINE STUB_FIRST_INVOICE_ROW_LINE PAYMENT_METHOD_LOOKUP_CODE CURRENCY_CODE CREATE_PAYMENTS_PROGRAM_ID CONFIRM_PAYMENTS_PROGRAM_ID SEPARATE_REMITTANCE_ADVICE  REMITTANCE_ADVICE_PROGRAM_ID  LAST_UPDATE_LOGIN       CREATION_DATE  CREATED_BY EFT_TYPE MULTI_CURRENCY_FLAG ATTRIBUTE_CATEGORY ATTRIBUTE1 ATTRIBUTE2 ATTRIBUTE3 ATTRIBUTE4 ATTRIBUTE5 ATTRIBUTE6
+                    None                        None                      CHECK           USD                       None                        None                          N                           NaN                  0 2000-05-15 00:24:05           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                      CHECK           USD                       None                        None                          N                           NaN                  0 2000-05-15 00:24:05           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                        EFT           NLG                       None                        None                          Y                        9962.0                  0 2000-05-15 00:24:09           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                      CHECK           ATS                       None                        None                          N                           NaN                  0 2000-10-11 12:29:11           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                      CHECK          None                       None                        None                          N                           NaN                  1 2004-10-28 13:05:30           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                        EFT           USD                       None                        None                          N                           NaN                  1 2004-10-28 13:05:30           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                        EFT           EUR                       None                        None                          Y                       10007.0                  0 2002-10-26 00:44:07           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                        EFT           GBP                       None                        None                          N                           NaN                  0 2000-05-15 00:24:05           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                       WIRE           DEM                       None                        None                          Y                       10007.0                  0 2000-05-15 00:24:09           1     None                   N               None       None       None       None       None       None       None
+                    None                        None                        EFT          None                       None                        None                          N                           NaN                  0 2000-05-15 00:24:09           1     None                   Y               None       None       None       None       None       None       None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_CHECK_FORMATS
+
+The AP.AP_CHECK_FORMATS table in the Oracle ERP system is used to store information related to the format of checks and other payment methods used in the Accounts Payable (AP) module. This table is crucial for managing and tracking different payment methods, currencies, and related programs used for creating and confirming payments.
+
+Column Descriptions:
+
+1. STUB_VENDOR_NUM_ROW_LINE: This field is likely to store the row line number of the vendor number on the check stub. The sample data does not provide any values for this field.
+
+2. STUB_FIRST_INVOICE_ROW_LINE: This field is likely to store the row line number of the first invoice on the check stub. The sample data does not provide any values for this field.
+
+3. PAYMENT_METHOD_LOOKUP_CODE: This field stores the type of payment method used. Examples from the sample data include CHECK, EFT (Electronic Funds Transfer), and WIRE.
+
+4. CURRENCY_CODE: This field stores the code of the currency used for the payment. Examples from the sample data include USD, NLG, ATS, EUR, GBP, and DEM.
+
+5. CREATE_PAYMENTS_PROGRAM_ID: This field is likely to store the ID of the program used to create payments. The sample data does not provide any values for this field.
+
+6. CONFIRM_PAYMENTS_PROGRAM_ID: This field is likely to store the ID of the program used to confirm payments. The sample data does not provide any values for this field.
+
+7. SEPARATE_REMITTANCE_ADVICE: This field indicates whether a separate remittance advice is provided ('Y' for Yes, 'N' for No).
+
+8. REMITTANCE_ADVICE_PROGRAM_ID: This field stores the ID of the program used to generate remittance advice.
+
+9. LAST_UPDATE_LOGIN: This field stores the ID of the last login that updated the record.
+
+10. CREATION_DATE: This field stores the date and time when the record was created.
+
+11. CREATED_BY: This field stores the ID of the user who created the record.
+
+12. EFT_TYPE: This field is likely to store the type of Electronic Funds Transfer (EFT). The sample data does not provide any values for this field.
+
+13. MULTI_CURRENCY_FLAG: This field indicates whether multiple currencies are involved ('Y' for Yes, 'N' for No).
+
+14. ATTRIBUTE_CATEGORY: This field is likely to store the category of additional attributes. The sample data does not provide any values for this field.
+
+15. ATTRIBUTE1 to ATTRIBUTE6: These fields are likely to store additional attribute values related to the check format. The sample data does not provide any values for these fields.
+
+The relationships between this table and others in the system, as well as specific business logic, cannot be determined based on the provided information.
+
+--- Prompt for group 3 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_CHECK_FORMATS in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 3 of 4):
+['ATTRIBUTE7', 'ATTRIBUTE8', 'ATTRIBUTE9', 'ATTRIBUTE10', 'ATTRIBUTE11', 'ATTRIBUTE12', 'ATTRIBUTE13', 'ATTRIBUTE14', 'ATTRIBUTE15', 'ZERO_AMOUNTS_ONLY', 'BUILD_PAYMENTS_PROGRAM_ID', 'FORMAT_PAYMENTS_PROGRAM_ID', 'PRINT_CHECK_STUB', 'GROUP_BY_DUE_DATE', 'GLOBAL_ATTRIBUTE_CATEGORY', 'GLOBAL_ATTRIBUTE1', 'GLOBAL_ATTRIBUTE2', 'GLOBAL_ATTRIBUTE3', 'GLOBAL_ATTRIBUTE4', 'GLOBAL_ATTRIBUTE5']
+
+Sample data (10 random rows, long values truncated):
+ATTRIBUTE7 ATTRIBUTE8 ATTRIBUTE9 ATTRIBUTE10 ATTRIBUTE11 ATTRIBUTE12 ATTRIBUTE13 ATTRIBUTE14 ATTRIBUTE15 ZERO_AMOUNTS_ONLY  BUILD_PAYMENTS_PROGRAM_ID  FORMAT_PAYMENTS_PROGRAM_ID PRINT_CHECK_STUB GROUP_BY_DUE_DATE GLOBAL_ATTRIBUTE_CATEGORY GLOBAL_ATTRIBUTE1 GLOBAL_ATTRIBUTE2 GLOBAL_ATTRIBUTE3 GLOBAL_ATTRIBUTE4 GLOBAL_ATTRIBUTE5
+      None       None       None        None        None        None        None        None        None                 N                      10016                       10002                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                       10001                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9964                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9996                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9993                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        5014                N                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9966                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                       10004                N                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9989                Y                 N                      None              None              None              None              None              None
+      None       None       None        None        None        None        None        None        None                 N                      10016                        9952                N                 N                      None              None              None              None              None              None
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+**Object Name:** AP.AP_CHECK_FORMATS
+
+**Object Type:** Table/View
+
+**Description:** The AP.AP_CHECK_FORMATS object is a table in the Oracle ERP system that stores information related to the formatting and processing of checks in the Accounts Payable (AP) module. This table is crucial for managing the payment process, including the formatting of checks, the programs used to build and format payments, and the grouping of payments by due date.
+
+**Column Descriptions:**
+
+1. **ATTRIBUTE7 to ATTRIBUTE15:** These are generic attribute fields that can be used to store additional information as required by the business. The specific use of these fields may vary depending on the organization's needs.
+
+2. **ZERO_AMOUNTS_ONLY:** This field indicates whether the check format is used only for checks with a zero amount. 'N' means it is not used only for zero amounts, while 'Y' indicates it is.
+
+3. **BUILD_PAYMENTS_PROGRAM_ID:** This field stores the ID of the program used to build the payments. This is a key reference to the program that compiles the payment data.
+
+4. **FORMAT_PAYMENTS_PROGRAM_ID:** This field stores the ID of the program used to format the payments. This is a key reference to the program that formats the payment data for check printing.
+
+5. **PRINT_CHECK_STUB:** This field indicates whether a check stub is printed along with the check. 'Y' means a stub is printed, while 'N' means it is not.
+
+6. **GROUP_BY_DUE_DATE:** This field indicates whether payments are grouped by their due date. 'Y' means payments are grouped by due date, while 'N' means they are not.
+
+7. **GLOBAL_ATTRIBUTE_CATEGORY to GLOBAL_ATTRIBUTE5:** These are global attribute fields that can be used to store additional information as required by the business. The specific use of these fields may vary depending on the organization's needs.
+
+**Inferred Relationships and Business Logic:**
+
+- The BUILD_PAYMENTS_PROGRAM_ID and FORMAT_PAYMENTS_PROGRAM_ID fields suggest that this table is likely linked to another table or view that stores details about the various payment programs.
+- The ZERO_AMOUNTS_ONLY, PRINT_CHECK_STUB, and GROUP_BY_DUE_DATE fields are likely used to control the payment and check printing process.
+- The ATTRIBUTE and GLOBAL_ATTRIBUTE fields suggest that this table can be customized to store additional data as required by the business.
+
+--- Prompt for group 4 ---
+
+You are a database documentation assistant. Below is the structure and sample data from the table or view AP.AP_CHECK_FORMATS in an Oracle ERP system. Please provide a detailed English documentation for this object, including:
+- What the object contains and its business purpose (if this is the first group)
+- What each field/column means (based on name and sample data)
+- Any relationships or business logic you can infer
+
+Column names (group 4 of 4):
+['GLOBAL_ATTRIBUTE6', 'GLOBAL_ATTRIBUTE7', 'GLOBAL_ATTRIBUTE8', 'GLOBAL_ATTRIBUTE9', 'GLOBAL_ATTRIBUTE10', 'GLOBAL_ATTRIBUTE11', 'GLOBAL_ATTRIBUTE12', 'GLOBAL_ATTRIBUTE13', 'GLOBAL_ATTRIBUTE14', 'GLOBAL_ATTRIBUTE15', 'GLOBAL_ATTRIBUTE16', 'GLOBAL_ATTRIBUTE17', 'GLOBAL_ATTRIBUTE18', 'GLOBAL_ATTRIBUTE19', 'GLOBAL_ATTRIBUTE20', 'BANK_FILE_CHARACTER_SET', 'TRANSMISSIONS_FLAG', 'ZD_EDITION_NAME', 'ZD_SYNC']
+
+Sample data (10 random rows, long values truncated):
+GLOBAL_ATTRIBUTE6 GLOBAL_ATTRIBUTE7 GLOBAL_ATTRIBUTE8 GLOBAL_ATTRIBUTE9 GLOBAL_ATTRIBUTE10 GLOBAL_ATTRIBUTE11 GLOBAL_ATTRIBUTE12 GLOBAL_ATTRIBUTE13 GLOBAL_ATTRIBUTE14 GLOBAL_ATTRIBUTE15 GLOBAL_ATTRIBUTE16 GLOBAL_ATTRIBUTE17 GLOBAL_ATTRIBUTE18 GLOBAL_ATTRIBUTE19 GLOBAL_ATTRIBUTE20 BANK_FILE_CHARACTER_SET TRANSMISSIONS_FLAG ZD_EDITION_NAME ZD_SYNC
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+             None              None              None              None               None               None               None               None               None               None               None               None               None               None               None                    None               None        ORA$BASE  SYNCED
+
+Please write the documentation in clear, professional English, suitable for a technical/business audience.
+
+
+--- GPT-4 Reply ---
+Object Name: AP.AP_CHECK_FORMATS
+
+The AP.AP_CHECK_FORMATS is a table in the Oracle ERP system. This table is part of the Accounts Payable (AP) module and is likely used to store information related to the format of checks used in the system. However, based on the provided sample data, it appears that this table is currently not populated with any specific check format data.
+
+Column Descriptions:
+
+1. GLOBAL_ATTRIBUTE6 to GLOBAL_ATTRIBUTE20: These columns are likely designed to store additional attributes or information related to the check formats. The exact nature of the data to be stored in these columns would depend on the business requirements. In the provided sample data, these columns are not populated.
+
+2. BANK_FILE_CHARACTER_SET: This column is likely intended to store the character set used in the bank file. This could be important when dealing with international transactions where different character sets might be used. In the provided sample data, this column is not populated.
+
+3. TRANSMISSIONS_FLAG: This column is likely a flag to indicate whether the check format data needs to be transmitted to another system or process. In the provided sample data, this column is not populated.
+
+4. ZD_EDITION_NAME: This column likely stores the name of the edition for the check format. In the provided sample data, all rows have the value 'ORA$BASE', which might be a default value.
+
+5. ZD_SYNC: This column likely indicates whether the check format data is in sync with another system or process. In the provided sample data, all rows have the value 'SYNCED', indicating that the data is in sync.
+
+Relationships or Business Logic:
+
+Without additional context or data, it's difficult to infer specific relationships or business logic. However, given that this table is part of the AP module, it's likely related to other tables that store information about vendors, payments, and bank accounts. The check format data in this table might be used when generating checks for payments to vendors. The 'TRANSMISSIONS_FLAG' and 'ZD_SYNC' columns suggest that this table might be involved in data integrations or synchronizations with other systems or processes.
