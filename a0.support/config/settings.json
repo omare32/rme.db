@@ -1,0 +1,17 @@
+{
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDelete": false,
+    "datawrangler.experiments.fastCsvParsing": true,
+    "datawrangler.experiments.autoDetectCsvDelimiter": true,
+    "datawrangler.experiments.useJupyterProposedAPI": true,
+    "terminal.integrated.enableMultilinePasteWarning": false,
+    "git.ignoreRebaseWarning": true,
+    "remote.SSH.remotePlatform": {
+        "10.10.11.242": "Linux"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "git.path": "C:/Program Files/Git/cmd/git.exe"
+} 
